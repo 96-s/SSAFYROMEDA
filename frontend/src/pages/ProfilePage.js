@@ -1,9 +1,9 @@
 const ProfilePage = () => {
-    return (
-        <ProfilePageBlock>
-
-        </ProfilePageBlock>
-    );
+  return (
+    <div>
+      <h1>ProfilePage</h1>
+    </div>
+  );
 };
 
 export default ProfilePage;

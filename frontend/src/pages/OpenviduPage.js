@@ -1,9 +1,9 @@
 const OpenviduPage = () => {
-    return (
-        <OpenviduPageBlock>
-
-        </OpenviduPageBlock>
-    );
+  return (
+    <div>
+      <h1>OpenviduPage</h1>
+    </div>
+  );
 };
 
 export default OpenviduPage;

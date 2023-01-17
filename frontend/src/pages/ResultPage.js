@@ -1,9 +1,9 @@
 const ResultPage = () => {
-    return (
-        <ResultPageBlock>
-
-        </ResultPageBlock>
-    );
+  return (
+    <div>
+      <h1>ResultPage</h1>
+    </div>
+  );
 };
 
 export default ResultPage;

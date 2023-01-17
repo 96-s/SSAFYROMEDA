@@ -1,9 +1,9 @@
 const LobbyPage = () => {
-    return (
-        <LobbyPageBlock>
-
-        </LobbyPageBlock>
-    );
+  return (
+    <div>
+      <h1>LobbyPage</h1>
+    </div>
+  );
 };
 
 export default LobbyPage;
