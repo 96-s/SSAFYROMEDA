@@ -1,7 +1,6 @@
 const GamePage = () => {
     return (
         <GamePageBlock>
-
         </GamePageBlock>
     );
 };
