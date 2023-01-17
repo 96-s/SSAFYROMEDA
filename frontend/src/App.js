@@ -1,14 +1,10 @@
-import logo from './logo.svg';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -18,7 +14,17 @@ function App() {
           Learn React
         </a>
       </header>
+      <Routes>
+        <Route path='/' element={<MainPage/>}/>
+        <Route path='/lobby' element={<LobbyPage/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/game' element={<GamePage/>}/>
+        <Route path='/result' element={<ResultPage/>}/>
+        <Route path='/openvidu' element={<OpenviduPage/>}/>
+      </Routes>
     </div>
+
   );
 }
 
