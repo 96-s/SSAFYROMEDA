@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+@font-face {
+  font-family: "DungGeunMo";
+  src: url("../../fonts/DungGeunMo.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/* * {
+  font-family: "DungGeunMo";
+} */
+
+.MyButton_English {
+  font-family: "Press Start 2P", cursive;
+}
+
+.MyButton_Korean {
+  font-family: "DungGeunMo";
+}
+
+.MyButton_negative {
+  background-color: #fd565f;
+  color: white;
+}
