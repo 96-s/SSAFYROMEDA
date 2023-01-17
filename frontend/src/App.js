@@ -14,6 +14,15 @@ function App() {
           Learn React
         </a>
       </header>
+      <Routes>
+        <Route path='/' element={<MainPage/>}/>
+        <Route path='/lobby' element={<LobbyPage/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/game' element={<GamePage/>}/>
+        <Route path='/result' element={<ResultPage/>}/>
+        <Route path='/openvidu' element={<OpenviduPage/>}/>
+      </Routes>
     </div>
 
   );
