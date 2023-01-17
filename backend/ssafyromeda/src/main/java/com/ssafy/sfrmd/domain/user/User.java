@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.entity;
+package com.ssafy.sfrmd.domain.user;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
