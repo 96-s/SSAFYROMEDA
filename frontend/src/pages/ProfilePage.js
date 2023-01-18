@@ -21,6 +21,7 @@ const ProfilePage = () => {
             <MyInfo/>
             <MyButton
                 type={"Korean"}
+                className={"is-primary"}
                 text={"수정"}
                 onClick={() => {}}
               />
