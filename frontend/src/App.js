@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
-import GamePage from "./pages/GamePage";
-import MainPage from "./pages/MainPage";
-import LobbyPage from "./pages/LobbyPage";
-import LoginPage from "./pages/LoginPage";
-import OpenviduPage from "./pages/OpenviduPage";
-import ProfilePage from "./pages/ProfilePage";
-import ResultPage from "./pages/ResultPage";
+import GamePage from "pages/GamePage";
+import MainPage from "pages/MainPage";
+import LobbyPage from "pages/LobbyPage";
+import LoginPage from "pages/LoginPage";
+import OpenviduPage from "pages/OpenviduPage";
+import ProfilePage from "pages/ProfilePage";
+import ResultPage from "pages/ResultPage";
 
 function App() {
   return (

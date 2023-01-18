@@ -1,0 +1,19 @@
+.Profile {
+    display: flex;
+    background-image: url('../resources/images/profile_bg.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding: 50px;
+}
+
+.MyHistory {
+    display: flex;
+    /* height: 50vh; */
+    width: 50vw;
+}
+
+.MyInfo {
+    display: flex;
+    /* height: 50vh; */
+    width: 50vw;
+}
