@@ -48,7 +48,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/S08P12D205/backend/ssafyromeda",
+    "last_opened_file_path": "C:/공통PJT/ssafyromeda/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,6 +86,7 @@
       <workItem from="1673835831364" duration="65000" />
       <workItem from="1673835905399" duration="2625000" />
       <workItem from="1673844416611" duration="10000" />
+      <workItem from="1674018577537" duration="25000" />
     </task>
     <servers />
   </component>
