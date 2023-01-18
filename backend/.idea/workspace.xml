@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e22eaf71-6014-4b5a-abac-64d222f75412" name="Changes" comment="" />
+    <list default="true" id="e22eaf71-6014-4b5a-abac-64d222f75412" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +50,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/S08P12D205/backend/ssafyromeda",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/S08P12D205/backend/ssafyromeda",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -58,6 +60,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Desktop\S08P12D205\backend\ssafyromeda\src\main\java\com\ssafy\sfrmd\config" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend.main" />
@@ -86,6 +93,7 @@
       <workItem from="1673835831364" duration="65000" />
       <workItem from="1673835905399" duration="2625000" />
       <workItem from="1673844416611" duration="10000" />
+      <workItem from="1674003869633" duration="247000" />
     </task>
     <servers />
   </component>

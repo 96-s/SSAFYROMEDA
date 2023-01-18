@@ -48,6 +48,11 @@ springboot:
   jwt:
     secret: "asamfeoyrsd"
 
+# openvidu
+openvidu:
+    url: https://localhost:4443/
+    secret: MY_SECRET
+
 
 
 
