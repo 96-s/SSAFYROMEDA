@@ -13,14 +13,15 @@ const ProfilePage = () => {
       <h1>ProfilePage</h1>
       <div className="all">
         <Header/>
-        <div className="profile">
+        <div className="Profile">
           <div className="MyHistory">
             <MyHistory/>
           </div>
-          <div className="myinfo">
+          <div className="MyInfo">
             <MyInfo/>
             <MyButton
                 type={"Korean"}
+                className={"is-primary"}
                 text={"수정"}
                 onClick={() => {}}
               />
