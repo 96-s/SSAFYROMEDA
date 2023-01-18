@@ -1,6 +1,7 @@
 package com.ssafy.sfrmd.api.controller;
 
 import com.ssafy.sfrmd.api.service.VideoService;
+import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.OpenVidu;
 import io.openvidu.java.client.OpenViduHttpException;
 import io.openvidu.java.client.OpenViduJavaClientException;
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,21 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class VideoController {
     private final VideoService videoService;
-
-//    @PostConstruct
-//    public void init() {
-//        videoService.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
-//    }
-//
-//    /**
-//     * @param params The Session properties
-//     * @return The Session ID
-//     */
-//    @PostMapping("/api/sessions")
-//    public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
-//        throws OpenViduJavaClientException, OpenViduHttpException {
-//        SessionProperties properties = SessionProperties.fromJson(params).build();
-//        Session session = openvidu.createSession(properties);
-//        return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
-//    }
+    /**
+     * @param sessionId The Session in which to create the Connection
+     * @param params    The Connection properties
+     * @return The Token associated to the Connection
+     */
+    @PostMapping("/api/sessions/{sessionId}/connections")
+    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
+        @RequestBody(required = false) Map<String, Object> params)
+        throws OpenViduJavaClientException, OpenViduHttpException {
+        Session session = videoService.getVideoSession();
+        if (session == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Connection connection = videoService.getVideoConnection();
+        return new ResponseEntity<>(videoService.getVideoToken(), HttpStatus.OK);
+    }
 }
