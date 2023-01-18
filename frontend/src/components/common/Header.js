@@ -1,7 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+import "./Header.css";
+// import "/path/to/pixel-borders.scss";
+
 const Header = () => {
+    const navigate = useNavigate();
+    const nickname = '임시닉네임'
     return (
-        <div>
-            <h3>닉네임이랑 프로필사진 전적~~</h3>
+        <div className="headerBlock">
+            <div className="pixel-borders pixel-borders--custom">
+                <span onClick={() => navigate('/profile')}>{nickname}</span>
+            </div>
         </div>
     );
 };
