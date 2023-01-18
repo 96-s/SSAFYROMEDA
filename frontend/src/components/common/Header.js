@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import "./Header.css";
+import "./PixelBorder.css";
 // import "/path/to/pixel-borders.scss";
 
 const HeaderDiv = styled.div`  
     z-index: 6;
     display: flex;
+    justify-content: start;
+    align-items: center;
     flex-direction: row;
-    width: 100vw;
+    padding: 0 5%;
     height: 5vh;
     background-color: skyblue;
 `;
@@ -17,12 +19,14 @@ const Header = () => {
     const nickname = '임시닉네임'
     return (
         <>
-            <HeaderDiv>
-
-                <div className="pixel-borders--2-inset">
-                    <Link to={'/profile'}>{nickname}</Link>
-                </div>
-            </HeaderDiv>
+            <div className="pixel-box--primary">
+                <HeaderDiv>
+                    <div>
+                        <Link to={'/profile'}>{nickname}</Link>
+                    </div>
+                    <span>전적 0승 0패</span>
+                </HeaderDiv>
+            </div>
         </>
     );
 };
