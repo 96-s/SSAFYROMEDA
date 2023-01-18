@@ -10,8 +10,10 @@ import io.openvidu.java.client.OpenViduRole;
 import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Service
 public class VideoService {
     private final OpenVidu openVidu;
 
