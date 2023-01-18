@@ -4,12 +4,12 @@
 
 .myhistory {
     display: flex;
-    height: 50vh;
+    /* height: 50vh; */
     width: 50vw;
 }
 
 .myinfo {
     display: flex;
-    height: 50vh;
+    /* height: 50vh; */
     width: 50vw;
 }
