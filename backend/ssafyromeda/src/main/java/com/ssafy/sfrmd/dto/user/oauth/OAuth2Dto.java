@@ -17,14 +17,14 @@ public class OAuth2Dto {
         this.nameAttributeKey = nameAttributeKey;
         this.oauth2UserInfo = oauth2UserInfo;
     }
-    private static OAuth2Dto ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+    public static OAuth2Dto ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
         return OAuth2Dto.builder()
             .nameAttributeKey(userNameAttributeName)
             .oauth2UserInfo(new OAuth2UserInfo(attributes))
             .build();
     }
     /**
-     * ofKakao메소드로 OAuthAttributes 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 주입된 상태
+     * ofKakao메소드로 OAuth2Dto 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 주입된 상태
      * OAuth2UserInfo에서 email을 가져와서 build, role은 GUEST로 설정
      */
     public User toEntity(OAuth2UserInfo oauth2UserInfo) {
