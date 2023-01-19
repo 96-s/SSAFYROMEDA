@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e22eaf71-6014-4b5a-abac-64d222f75412" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +17,9 @@
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/ssafyromeda">
       <ProjectState />
     </projectState>
   </component>
@@ -25,7 +31,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="backend" type="f1a62948:ProjectNode" />
+                <item name="ssafyromeda_is_good" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -47,10 +53,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/공통PJT/ssafyromeda/backend",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/openvidu-tutorials/openvidu-basic-java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,7 +75,7 @@
       <recent name="C:\Users\SSAFY\Desktop\S08P12D205\backend\ssafyromeda\src\main\java\com\ssafy\sfrmd\config" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
+  <component name="RunManager" selected="Spring Boot.SsafyromedaApplication">
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy._96s.Application" />
@@ -76,6 +86,20 @@
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="_96SProjectBackend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy._96s.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SsafyromedaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ssafyromeda_is_good.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy.sfrmd.SsafyromedaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,6 +118,7 @@
       <workItem from="1673835905399" duration="2625000" />
       <workItem from="1673844416611" duration="10000" />
       <workItem from="1674018577537" duration="25000" />
+      <workItem from="1674110773918" duration="5459000" />
     </task>
     <servers />
   </component>
