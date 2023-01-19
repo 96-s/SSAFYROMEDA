@@ -21,13 +21,15 @@ public class UserController {
     public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpDto userSignUpDto){
         String userEmail = userSignUpDto.getUserEmail();
         String userNickname = userSignUpDto.getUserNickName();
-        if(!userService.checkEmail(userEmail)){
-            return new ResponseEntity<>("중복된 이메일", HttpStatus.valueOf(400));
-        }else if(!userService.checkNickname(userNickname)){
-            return new ResponseEntity<>("중복된 닉네임", HttpStatus.valueOf(400));
-        }else{
-            User user = userService.sighUpUser(userSignUpDto);
-            return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
-        }
+        User user = userService.sighUpUser(userSignUpDto);
+        return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
+//        if(!userService.checkEmail(userEmail)){
+//            return new ResponseEntity<>("중복된 이메일", HttpStatus.valueOf(400));
+//        }else if(!userService.checkNickname(userNickname)){
+//            return new ResponseEntity<>("중복된 닉네임", HttpStatus.valueOf(400));
+//        }else{
+//            User user = userService.sighUpUser(userSignUpDto);
+//            return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
+//        }
     }
 }
