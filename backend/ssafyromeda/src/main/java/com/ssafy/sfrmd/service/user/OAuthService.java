@@ -1,6 +1,6 @@
 package com.ssafy.sfrmd.service.user;
 
-
+import com.ssafy.sfrmd.domain.user.OAuth2User;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.dto.user.oauth.OAuth2Dto;
@@ -48,10 +48,9 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
         // DefaultOAuth2User를 구현한 CustomOAuth2User 객체를 생성해서 반환
         return new OAuth2User(
-            Collections.singleton(new SimpleGrantedAuthority(createdUser.getUserRole().getKey())),
+            Collections.singleton(new SimpleGrantedAuthority(createdUser.getUserRole().getRole())),
             attributes,
             oauth2Dto.getNameAttributeKey(),
-            createdUser.getUserEmail(),
             createdUser.getUserRole());
     }
 
