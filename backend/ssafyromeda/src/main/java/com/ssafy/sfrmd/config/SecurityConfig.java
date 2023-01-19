@@ -1,16 +1,30 @@
 package com.ssafy.sfrmd.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // TODO Auto-generated method stub
+        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication().withUser("ssafyromeda").password("{noop}ssafyromeda").roles("USER");
+    }
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
             .formLogin().disable() // FormLogin 사용 X
@@ -30,7 +44,7 @@ public class SecurityConfig {
             // 아이콘, css, js 관련
             // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
             .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-            .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
+            .antMatchers("/user/signup").permitAll() // 회원가입 접근 가능
             .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
             .and();
 //            //== 소셜 로그인 설정 ==//
