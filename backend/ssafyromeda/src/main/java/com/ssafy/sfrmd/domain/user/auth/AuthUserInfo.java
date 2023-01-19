@@ -1,11 +1,12 @@
-package com.ssafy.sfrmd.domain.user.oauth;
+package com.ssafy.sfrmd.domain.user.auth;
+
 
 import java.util.Map;
 
-public class OAuth2UserInfo {
+public class AuthUserInfo {
     protected Map<String, Object> attributes;
 
-    public OAuth2UserInfo(Map<String, Object> attributes) {
+    public AuthUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
     }
 

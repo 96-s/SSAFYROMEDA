@@ -5,10 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e22eaf71-6014-4b5a-abac-64d222f75412" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/ssafyromeda_is_good.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/oauth/OAuth2User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/oauth/OAuth2UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/dto/user/auth/RefreshTokenResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/AudioDocument.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/resources/images/Logout.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/resources/images/OFF.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/resources/images/ON.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/resources/images/history.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/resources/images/userimage.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/store/audio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/controller/room/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/controller/room/RoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/player/PlayerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/player/PlayerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/room/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/room/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/auth/AuthUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/auth/AuthUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/auth/AuthUserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/domain/user/auth/AuthUserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/service/room/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/service/room/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/service/room/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/service/room/RoomServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/LobbyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/LobbyPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/AuthSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/AuthSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +70,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -51,29 +85,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/SSAFY/Desktop/openvidu-tutorials/openvidu-basic-java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "3241ca6184e7e06d7e2313367e60913a",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/openvidu-tutorials/openvidu-basic-java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;aeaa153eec9365148506d5d742dc9a01&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\SSAFY\Desktop\S08P12D205\backend\ssafyromeda\src\main\java\com\ssafy\sfrmd\config" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
   </component>
   <component name="RunManager" selected="Spring Boot.SsafyromedaApplication">
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -119,11 +161,23 @@
       <workItem from="1673844416611" duration="10000" />
       <workItem from="1674018577537" duration="25000" />
       <workItem from="1674110773918" duration="5459000" />
+      <workItem from="1674141441636" duration="224000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
