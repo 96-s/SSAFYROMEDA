@@ -35,10 +35,11 @@ public class User {
         private Role userRole;
 
         @Builder
-        public User(String userNickname, String userEmail, String userRefreshToken) {
+        public User(String userNickname, String userEmail, String userRefreshToken, Role userRole) {
                 this.userNickname = userNickname;
                 this.userEmail = userEmail;
                 this.userRefreshToken = userRefreshToken;
+                this.userRole = userRole;
         }
 
         public void authorizeUser() {
