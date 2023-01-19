@@ -31,19 +31,20 @@ public class User {
         @Column(name="user_refresh_token")
         private String userRefreshToken;
 
-//        @Enumerated(EnumType.STRING)
-//        private Role role;
+        @Enumerated(EnumType.STRING)
+        private Role userRole;
 
         @Builder
-        public User(String userNickname, String userEmail, String userRefreshToken) {
+        public User(String userNickname, String userEmail, String userRefreshToken, Role userRole) {
                 this.userNickname = userNickname;
                 this.userEmail = userEmail;
                 this.userRefreshToken = userRefreshToken;
+                this.userRole = userRole;
         }
 
-//        public void authorizeUser() {
-//                this.role = Role.USER;
-//        }
+        public void authorizeUser() {
+                this.userRole = Role.USER;
+        }
 
         public void updateUserRefreshToken(String updateRefreshToken) {
                 this.userRefreshToken = updateRefreshToken;
