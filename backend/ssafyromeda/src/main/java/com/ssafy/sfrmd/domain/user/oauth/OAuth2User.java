@@ -1,5 +1,6 @@
-package com.ssafy.sfrmd.domain.user;
+package com.ssafy.sfrmd.domain.user.oauth;
 
+import com.ssafy.sfrmd.domain.user.Role;
 import java.util.Collection;
 import java.util.Map;
 import lombok.Getter;
