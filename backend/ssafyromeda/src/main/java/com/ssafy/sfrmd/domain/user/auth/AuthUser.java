@@ -1,5 +1,6 @@
 package com.ssafy.sfrmd.domain.user.auth;
 
+
 import com.ssafy.sfrmd.domain.user.Role;
 import java.util.Collection;
 import java.util.Map;

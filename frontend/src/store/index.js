@@ -33,3 +33,15 @@ sagaMiddleware.run(rootSaga);
 
 // 외부에서 쓸 수 있도록 store를 export한다.
 export default store;
+
+
+// axios 비동기통신
+export const BASE_URL = 'http://localhost:3000/api/v1/'
+
+export const setToken = () => {
+    const token = localStorage.getItem('access') || '';
+    const config = {
+        Authorization: `Bearer ${token}`,
+    };
+    return config;
+}
