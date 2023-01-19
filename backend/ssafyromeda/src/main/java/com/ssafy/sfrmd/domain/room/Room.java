@@ -10,8 +10,8 @@ import lombok.Setter;
 public class Room {
 
     @Id
-    @Column(name="room_id")
-    private String roomId;
+    @Column(name="room_code")
+    private String roomCode;
 
     @Column(name="room_host")
     private int roomHost;
