@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 //bootstrap css
 import "nes.css/css/nes.min.css";
@@ -11,16 +12,31 @@ import insertcoin from "resources/images/insert_coin.png";
 import person from "resources/images/person.png";
 import notperson from "resources/images/notperson.png";
 
-//=====================Main_Body
-const BG = styled.div`  
+///////////////////             BODY
+const BG = styled.div`
   background: url(${background}) no-repeat center;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-size: 100% 100%;
-`;
 
-//=====================Title DIV
+  ///////////////////             Input CSS
+
+  .nes-radio:checked + span::before {
+    top: 25px;
+    left: -40px;
+    width: 0;
+    height: 0;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid transparent;
+    border-left: 20px solid rgb(255, 94, 0);
+    border-right: 20px solid transparent;
+    box-shadow: none !important;
+  }
+`;
+/*******************  HEADER *******************/
+
+///////////////////             Title DIV
 
 const Titlediv = styled.div`
   margin-top: 50px;
@@ -43,7 +59,7 @@ const Title = styled.img`
     }
   }
 `;
-//=====================InserCoin(section)
+///////////////////             InserCoin(section)
 const Insertcoin = styled.img`
   position: absolute;
   top: 200px;
@@ -60,36 +76,39 @@ const Insertcoin = styled.img`
     }
   }
 `;
+/*******************  SECTION *******************/
 
-//=====================Section(Container)
+///////////////////             Section(Container)
 const Container = styled.div`
-  // overflow:hidden;
-  width: 100%;
-  min-width: 1706px;
-  display: flex;
   //   justify-content: space-between;
-  bottom: -5px;
-  position: absolute;
-  bottom: 0px;
+  //길이 임의 포지션에서 줄일 때
+  // min-width: 1706px;
+  width: 100vw;
+
+  display: flex;
+  position: relative;
+  transform: translateY(35%);
+  margin: auto;
 `;
 
-//=====================Section(Left)
+///////////////////             Section(Left)
 const Leftdiv = styled.div`
   width: 100%;
   height: 100%;
 `;
 const Leftimg = styled.img``;
 
-//=====================Section(Middle)
+///////////////////             Section(Middle)
 const MiddelDiv = styled.div`
   width: 100%;
   height: 100%;
+  min-width: 500px;
   margin: auto;
   text-align: center;
   font-size: 100px;
 `;
 
-//=====================Section(Right)
+///////////////////             Section(Right)
 const RightDiv = styled.div`
   position: relative;
   width: 100%;
@@ -107,13 +126,19 @@ const Span = styled.span`
   & > a {
     text-decoration: none;
   }
-  color: ;
 `;
-//=====================Section(Input)
 
-/////////////////////////////////////////////////////
+///////////////////             Section(Input)
+const Input = styled.input``;
 
+///////////////////             Function
 const MainPage = () => {
+  const [inputStatus, setInputStatus] = useState(true);
+
+  const handleClickRadioButton = () => {
+    setInputStatus(inputStatus);
+  };
+
   return (
     <>
       <BG>
@@ -130,15 +155,18 @@ const MainPage = () => {
           </Leftdiv>
           <MiddelDiv>
             <label>
-              {/* <Input type="radio" className="nes-radio" name="answer" checked /> */}
-              <input type="radio" className="nes-radio" name="answer" checked />
+              <Input
+                type="radio"
+                className="nes-radio"
+                name="answer"
+                checked={inputStatus}
+                onChange={handleClickRadioButton}
+              />
 
               <Span>
                 <Link to="/lobby">S T A R T</Link>
               </Span>
             </label>
-
-            {/* <Middelimg></Middelimg> */}
           </MiddelDiv>
           <RightDiv>
             <Rightimg src={notperson}></Rightimg>

@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.user;
+package com.ssafy.sfrmd.domain.user.oauth;
 
 import java.util.Map;
 

@@ -9,6 +9,8 @@ import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
 
+// import { Provider } from "react-redux";
+
 function App() {
   return (
     <div className="App">

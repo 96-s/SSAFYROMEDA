@@ -1,6 +1,6 @@
 package com.ssafy.sfrmd.dto.user.oauth;
 
-import com.ssafy.sfrmd.domain.user.OAuth2UserInfo;
+import com.ssafy.sfrmd.domain.user.oauth.OAuth2UserInfo;
 import com.ssafy.sfrmd.domain.user.Role;
 import com.ssafy.sfrmd.domain.user.User;
 import java.util.Map;
