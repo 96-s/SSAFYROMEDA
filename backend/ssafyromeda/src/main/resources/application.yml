@@ -16,6 +16,7 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+                #ddl-auto: create #스키마 자동 생성
         database: mysql
 
     # redis
