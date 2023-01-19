@@ -31,8 +31,8 @@ public class User {
         @Column(name="user_refresh_token")
         private String userRefreshToken;
 
-        @Enumerated(EnumType.STRING)
-        private Role role;
+//        @Enumerated(EnumType.STRING)
+//        private Role role;
 
         @Builder
         public User(String userNickname, String userEmail, String userRefreshToken) {
@@ -41,9 +41,9 @@ public class User {
                 this.userRefreshToken = userRefreshToken;
         }
 
-        public void authorizeUser() {
-                this.role = Role.USER;
-        }
+//        public void authorizeUser() {
+//                this.role = Role.USER;
+//        }
 
         public void updateUserRefreshToken(String updateRefreshToken) {
                 this.userRefreshToken = updateRefreshToken;
