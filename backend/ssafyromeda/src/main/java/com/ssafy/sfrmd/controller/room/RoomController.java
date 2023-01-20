@@ -1,5 +1,6 @@
 package com.ssafy.sfrmd.controller.room;
 
+import com.ssafy.sfrmd.domain.room.Room;
 import com.ssafy.sfrmd.service.room.RoomService;
 import com.ssafy.sfrmd.service.room.RoomServiceImpl;
 import com.ssafy.sfrmd.service.user.UserServiceImpl;
@@ -22,11 +23,11 @@ public class RoomController {
     RoomServiceImpl roomService;
     @PostMapping
     public ResponseEntity<? extends Object> createRoom(){
-        boolean res= roomService.createRoom(1);
+        Room room= roomService.createRoom(1);
 
-        if(res){
-            return new ResponseEntity<>("방 생성 성공", HttpStatus.valueOf(200));
+        if(room.getRoomSeq() != null){
+            return new ResponseEntity<>(room, HttpStatus.valueOf(200));
         }
-        return new ResponseEntity<>("방 생성 실패", HttpStatus.valueOf(400));
+        return new ResponseEntity<>(null, HttpStatus.valueOf(400));
     }
 }
