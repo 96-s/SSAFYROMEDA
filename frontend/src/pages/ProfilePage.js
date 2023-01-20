@@ -1,4 +1,4 @@
-import MyButton from "../components/common/Button";
+// import MyButton from "../components/common/Button";
 import Header from "../components/common/Header";
 import MyHistory from "../components/personal/MyHistory";
 import MyInfo from "../components/personal/MyInfo";
@@ -19,12 +19,6 @@ const ProfilePage = () => {
           </div>
           <div className="MyInfo">
             <MyInfo/>
-            <MyButton
-                type={"Korean"}
-                className={"is-primary"}
-                text={"수정"}
-                onClick={() => {}}
-              />
           </div>
         </div>
         <MyPhoto/>
