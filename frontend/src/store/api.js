@@ -1,6 +1,8 @@
 // Axios
 import axios from 'axios';
 import { customAxios } from "./customAxios";
+import { BASE_URL } from 'store';
+import { setToken } from 'store';
 
 // 카카오 로그인
 
@@ -17,7 +19,7 @@ export const kakaoLogin = async () => await customAxios.get;
 // })
 
 export const getUserApi = ({
-    userid,
+    userid
 }) => axios({
         method: 'get',
         url: `${BASE_URL}/user/${userid}`,

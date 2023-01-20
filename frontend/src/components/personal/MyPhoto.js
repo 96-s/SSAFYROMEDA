@@ -1,8 +1,21 @@
+import PhotoItem from "./PhotoItem";
+import { useSelector } from "react-redux";
+
 const MyPhoto = () => {
+    const photoHistory = useSelector((state) => state.gameHistory.photo);
+    
     return (
-        <div>
-            <h3>나는 포토</h3>
-        </div>
+      <div>
+        {photoHistory.map((photo) => (
+          <PhotoItem
+            key={photo.id}
+            id={photo.id}
+            img={photo.img}
+            date={photo.date}
+            description={photo.description}
+          />
+        ))}
+      </div>
     );
 };
 

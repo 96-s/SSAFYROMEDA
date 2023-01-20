@@ -1,30 +1,45 @@
+
+import styled from "styled-components";
+import MyButton from "components/common/Button";
 import "./MyInfo.css";
+// import { useSelector } from "react-redux";
+
+const NicknameDiv = styled.div`
+  display: flex;
+`;
+
+
 
 const MyInfo = () => {
-    return (
-      <div>
-        <div class="nes-table-responsive">
-          <table class="nes-table is-bordered is-dark">
-            <thead>
-              <tr>
-                <th>Table.is-dark</th>
-                <th>Table.is-bordered</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Thou hast had a good morning</td>
-                <td>Thou hast had a good afternon</td>
-              </tr>
-              <tr>
-                <td>Thou hast had a good morning</td>
-                <td>Thou hast had a good afternoon</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+  // const { id, nickname } = useSelector((state) => state.auth.user);
+  const DUMMY_INFOS = [
+    { 
+      id: 'p1', 
+      nickname: '정은',
+    },
+    // { 
+    //   id: 'p2', 
+    //   nickname: '정은2'
+    // },
+  ]  
+
+  return (
+    <div>
+      <ul>
+        <li>아이디: {DUMMY_INFOS.id}</li>
+          <NicknameDiv>
+              <li>닉네임: {DUMMY_INFOS.nickname}</li>
+              <span>　</span>
+              <MyButton
+                  type={"Korean"}
+                  className={"is-primary"}
+                  text={"수정"}
+                  onClick={() => {}}
+              />
+          </NicknameDiv>
+      </ul>
+    </div>
+  );
 };
 
 export default MyInfo;
