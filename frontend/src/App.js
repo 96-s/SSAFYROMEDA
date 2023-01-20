@@ -8,6 +8,7 @@ import LoginPage from "pages/LoginPage";
 import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
+import KakaoRedirect from "components/auth/KakaoRedirect";
 
 // import { Provider } from "react-redux";
 
@@ -22,6 +23,8 @@ function App() {
         <Route path="/game" element={<GamePage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/openvidu" element={<OpenviduPage />} />
+
+        <Route path="" element={<KakaoRedirect />} />
       </Routes>
     </div>
   );
