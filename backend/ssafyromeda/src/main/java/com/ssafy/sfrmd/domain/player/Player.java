@@ -9,18 +9,18 @@ import lombok.Data;
 
 @Entity
 @Data
+// 게임 참여자 정보
 public class Player {
 
-    //게임 참여자 no (pk)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // id 자동 생성
-    @Column(name="player_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="player_no") // 플레이어 auto_increment
     private Long playerNo;
 
     @Column(name="room_code") // 방코드
-    private Long roomCode;
+    private String roomCode;
 
-    @Column(name="user_no") // 유저 고유 no(user pk key)
+    @Column(name="user_no") // 유저 고유 번호
     private Long userNo;
 
 }
