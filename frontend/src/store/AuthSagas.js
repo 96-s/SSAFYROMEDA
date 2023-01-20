@@ -8,3 +8,9 @@ import {
   fork,
   call,
 } from "redux-saga/effects";
+
+// actions import
+import { authActions } from "./AuthSlice";
+
+// api import
+import { kakaoLoginApi } from "./api";
