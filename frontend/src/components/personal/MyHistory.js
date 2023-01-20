@@ -1,28 +1,22 @@
+import { useSelector } from "react-redux";
+
+
 const MyHistory = () => {
-    return (
-      <div>
-        <div class="nes-table-responsive">
-          <table class="nes-table is-bordered is-centered">
-            <thead>
-              <tr>
-                <th>Table.is-bordered</th>
-                <th>Table.is-centered</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Thou hast had a good morning</td>
-                <td>Thou hast had a good afternoon</td>
-              </tr>
-              <tr>
-                <td>Thou hast had a good morning</td>
-                <td>Thou hast had a good afternoon</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+  const nickname = useSelector((state) => state.auth.user);
+  const winHistory = useSelector((state) => state.gameHistory.win);
+  const loseHistory = useSelector((state) => state.gameHistory.lose);
+ 
+
+  return (
+    <div>
+      <h2>{nickname}의 탈출일지</h2>
+      <ul>
+        <li>탈출성공: {winHistory}회</li>
+        <li>탈출실패: {loseHistory}회</li>
+      </ul>
+      
+    </div>
+  );
 };
 
 export default MyHistory;

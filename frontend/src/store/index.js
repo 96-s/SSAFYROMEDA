@@ -1,11 +1,11 @@
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-
 // saga import
 
 // 관리할 슬라이스 import
 import authReducer from "./AuthSlice";
+import infoSlice from "./profile";
 
 // Reducers 통합
 const rootReducers = combineReducers({
@@ -24,7 +24,7 @@ const middlewares = [sagaMiddleware];
 // Store는 하나의 리듀서만 가질 수 있다.
 // 그래서 여러 슬라이서의 리듀서를 합친다.
 const store = configureStore({
-  reducer: rootReducers,
+  reducer: {rootReducers, info: infoSlice.reducer},
   middleware: middlewares,
 });
 

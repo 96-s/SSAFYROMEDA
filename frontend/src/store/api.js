@@ -1,6 +1,8 @@
 // Axios
 import axios from "axios";
 import { customAxios } from "./customAxios";
+import { BASE_URL } from 'store';
+import { setToken } from 'store';
 
 // 카카오 로그인
 // 인가 코드 백엔드에 넘기기

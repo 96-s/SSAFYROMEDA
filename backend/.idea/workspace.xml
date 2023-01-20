@@ -5,7 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e22eaf71-6014-4b5a-abac-64d222f75412" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ssafyromeda_is_good.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-01-19__11_29__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-01-19__11_29__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-01-19_오후_11_29_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-01-19_오후_11_29_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/SsafyromedaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/controller/VideoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/service/VideoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/api/service/VideoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ssafyromeda/src/main/java/com/ssafy/sfrmd/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +32,9 @@
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/ssafyromeda">
       <ProjectState />
     </projectState>
   </component>
@@ -25,7 +46,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="backend" type="f1a62948:ProjectNode" />
+                <item name="ssafyromeda_is_good" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -34,7 +55,19 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -47,16 +80,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/공통PJT/ssafyromeda/backend",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/openvidu-tutorials/openvidu-basic-java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "3241ca6184e7e06d7e2313367e60913a",
+    "spring.configuration.checksum": "aeaa153eec9365148506d5d742dc9a01",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -65,7 +106,14 @@
       <recent name="C:\Users\SSAFY\Desktop\S08P12D205\backend\ssafyromeda\src\main\java\com\ssafy\sfrmd\config" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SsafyromedaApplication">
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy._96s.Application" />
@@ -76,6 +124,20 @@
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="_96SProjectBackend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy._96s.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SsafyromedaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ssafyromeda_is_good.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy.sfrmd.SsafyromedaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,11 +156,25 @@
       <workItem from="1673835905399" duration="2625000" />
       <workItem from="1673844416611" duration="10000" />
       <workItem from="1674018577537" duration="25000" />
+      <workItem from="1674110773918" duration="5459000" />
+      <workItem from="1674141441636" duration="224000" />
+      <workItem from="1674173318245" duration="18177000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
