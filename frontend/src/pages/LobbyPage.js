@@ -1,6 +1,7 @@
 //  CSS Styled
 import styled from "styled-components";
 import "nes.css/css/nes.min.css";
+
 // REACT
 import React, {
   useContext,
@@ -17,6 +18,7 @@ import { Link } from "react-router-dom";
 
 // Components
 import { Context } from "store/audio";
+import Modal from "components/common/Modal";
 
 //SLIDE LIBRARY
 
@@ -27,6 +29,8 @@ import audioOn from "resources/images/ON.png";
 import audioOff from "resources/images/OFF.png";
 import logout from "resources/images/Logout.png";
 import history from "resources/images/history.png";
+import prev from "resources/images/prev.png";
+import next from "resources/images/next.png";
 
 ///////////////////             BODY
 const BG = styled.div`
@@ -71,12 +75,11 @@ const HeaderLeftUserImage = styled.img`
 
 const HeaderLeftUserInfo = styled.div`
   text-align: center;
-  margin: 1px;
-  height: 80px;
+  margin: -5px;
+  height: 84px;
   width: 40px;
-  line-height: 80px;
+  line-height: 78px;
   font-size: 30px;
-  background-color: #fafafa;
   color: black;
 `;
 
@@ -116,30 +119,39 @@ const Img = styled.img`
 `;
 /*******************  MAIN *******************/
 
-const Main = styled.main`
+const MainLeft = styled.main`
   float: left;
-  margin-top: 40px;
-  margin-left: 50px;
+  margin-top: 2%;
+  margin-left: 2%;
   background: lightgray;
-  min-height: 550px;
-  width: 900px;
+  /* min-height: 75%; */
+  width: 60%;
+  height: 73%;
+`;
+const MainRight = styled.main`
+  float: right;
+  margin-top: 5%;
+  margin-right: 5%;
+  background: none;
+  min-height: 65%;
+
+  width: 30%;
 `;
 
 /******************* RIGHT SECTION *******************/
 const Section = styled.section`
   margin-top: 0px;
-  margin-right: 100px;
   background: none;
-  min-height: 300px;
-  width: 300px;
-  float: right;
-
+  margin-left: auto;
+  width: 40%;
+  margin-right: auto;
   text-align: center;
+
   img {
-    min-height: 100px;
+    min-height: 50%;
     /* height: 100px; */
     margin-top: 50px;
-    width: 100px;
+    width: 50%;
   }
   h1 {
     color: white;
@@ -148,28 +160,30 @@ const Section = styled.section`
 `;
 const SectionUnderOne = styled.section`
   border: 1px solid white;
-  margin-top: 0px;
-  margin-right: 100px;
+  margin-top: 10%;
+  margin: 10% auto;
+  /* margin-right: 100%; */
   background: none;
   min-height: 50px;
-  width: 300px;
-  float: right;
+  width: 60%;
+  /* float: right; */
   text-align: center;
-  padding: 5px 0px;
-  font-size: 50px;
+  padding: 1% 0px;
+  font-size:20px;
   color: white;
 `;
 const SectionUnderTwo = styled.section`
   border: 1px solid white;
-  margin-top: 40px;
-  margin-right: 100px;
+  margin-top: 10%;
+  margin: 10% auto;
+  /* margin-right: 100%; */
   background: none;
   min-height: 50px;
-  width: 300px;
-  float: right;
+  width: 60%;
+  /* float: right; */
   text-align: center;
-  padding: 5px 0px;
-  font-size: 50px;
+  padding: 1% 0px;
+  font-size: 20px;
   color: white;
 `;
 
@@ -178,21 +192,33 @@ const Footer = styled.footer``;
 
 /*******************  SLIDER *******************/
 const Wrapper = styled.div`
-  width: 900px;
-  height: 550px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 `;
 
 const SlideWrapper = styled.div`
   display: flex;
-  width: 900px;
-  height: 550px;
+  width: 100%;
+  height: 100%;
 `;
 
 const SlideImg = styled.img`
-  width: 900px;
-  height: 550px;
+  width: 100%;
+  height: 100%;
 `;
+const SlideButton = styled.div`
+  float: right;
+  background-color: none;
+  button {
+    background: navajowhite;
+  }
+  img {
+    height: 30px;
+    width: 40px;
+  }
+`;
+
 ///////////////////             Function
 
 const LobbyPage = () => {
@@ -202,15 +228,16 @@ const LobbyPage = () => {
     setIsPlay(!isPlay);
   }, [isPlay, setIsPlay]);
 
-  //slider setting
+  ///////////////////             slider setting
   const slideRef = useRef(null);
   const [currentImgOrder, setcCurrentImgOrder] = useState(0);
-  const IMG_WIDTH = 900;
+  const IMG_WIDTH = 100;
   const slideRange = currentImgOrder * IMG_WIDTH;
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${slideRange}px)`;
+    slideRef.current.style.transform = `translateX(-${slideRange}%)`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentImgOrder]);
 
   const moveToNextSlide = () => {
@@ -222,6 +249,15 @@ const LobbyPage = () => {
     if (currentImgOrder === 0) return;
     setcCurrentImgOrder(currentImgOrder - 1);
   };
+  ///////////////////             MODAL
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -231,11 +267,17 @@ const LobbyPage = () => {
             <HeaderLeftUserImage src={userimage}></HeaderLeftUserImage>
             &nbsp; 여기에는 닉네임과 전적
           </HeaderLeftDiv>
-          <HeaderLeftUserInfo>I</HeaderLeftUserInfo>
+          <HeaderLeftUserInfo>
+            <button onClick={openModal}>I</button>
+            {/* //header 부분에 텍스트를 입력한다. */}
+            <Modal open={modalOpen} close={closeModal} header="Modal heading">
+              {/* <main> {props.children} </main>에 내용이 입력된다. 리액트 함수형 */}
+              모달 창 나의 정보를 입력해보자잇!!!!!!!!!!!!!
+            </Modal>
+          </HeaderLeftUserInfo>
           <HeaderRightDiv>
             <HeaderRightSoundOn>
               <button onClick={onClickPlayMusicButton}>
-                {/* {isPlay ? "⏹" : "▶"} */}
                 {isPlay ? (
                   <img src={audioOn} alt="Aon" className="audioImg"></img>
                 ) : (
@@ -251,24 +293,33 @@ const LobbyPage = () => {
           </HeaderRightDiv>
         </HeaderContainer>
         {/* STORY PAGE */}
-        <Main>
+        <MainLeft>
           <Wrapper>
             <SlideWrapper ref={slideRef}>
               <SlideImg src={background} />
-              <SlideImg src={audioOff} />
-              <SlideImg src={audioOn} />
+              <SlideImg src={background} />
+              <SlideImg src={background} />
             </SlideWrapper>
           </Wrapper>
-          <button onClick={moveToPrevSlide}>prev</button>
-          <button onClick={moveToNextSlide}>next</button>
-        </Main>
+          <SlideButton>
+            <button onClick={moveToPrevSlide}>
+              <img src={prev} alt="prev" className="prev" />
+            </button>
+            <button onClick={moveToNextSlide}>
+              <img src={next} alt="next" className="next" />
+            </button>
+          </SlideButton>
+        </MainLeft>
+        <MainRight>
+          <Section>
+            <img src={history} alt="history" className="historys"></img>
+            <h1>탈출 일지(예비)</h1>
+          </Section>
+          {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
+          <SectionUnderOne>우주선 생성</SectionUnderOne>
+          <SectionUnderTwo>우주선 탑승</SectionUnderTwo>
+        </MainRight>
 
-        <Section>
-          <img src={history} alt="history" className="historys"></img>
-          <h1>탈출 일지(예비)</h1>
-        </Section>
-        <SectionUnderOne>asdasd</SectionUnderOne>
-        <SectionUnderTwo>asdasdas</SectionUnderTwo>
         <Footer></Footer>
       </BG>
     </>
