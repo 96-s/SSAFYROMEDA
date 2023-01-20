@@ -5,4 +5,6 @@ import com.ssafy.sfrmd.domain.room.Room;
 public interface RoomService {
     Room createRoom(long host);
 
+    Boolean delteRoom(String roomCode);
+
 }
