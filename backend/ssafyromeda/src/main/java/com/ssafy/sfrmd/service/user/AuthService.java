@@ -54,7 +54,13 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
             createdUser.getUserRole());
     }
 
-    private User getUser(AuthDto oauth2Dto) {
-        return null;
+    private User getUser(AuthDto authDto) {
+        User user = userRepository.findByUserEmail(authDto.getOauth2UserInfo().getEmail()).orElse(null);
+
+        if(user == null){
+            return saveUser(authDto);
+        }
+
+        return user;
     }
 }
