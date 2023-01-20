@@ -2,6 +2,7 @@ package com.ssafy.sfrmd.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,12 +23,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Auto-generated method stub
         http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+        http.cors();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication().withUser("ssafyromeda").password("{noop}ssafyromeda").roles("USER");
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        // Access-Control-Allow-Origin 값을 설정한다.
+        // setAllowedOrigins로 여러개를 한꺼번에 설정할 수 도 있다.
+        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        // 어떤 HTTP 메서드를 허용할지 정할 수 있다.
+        // setAllowedMethods로 여러개를 한꺼번에 설정할 수 있다.
+        corsConfiguration.addAllowedMethod("*");
+        // 허용할 헤더를 설정한다.
+        corsConfiguration.addAllowedHeader("*");
+        // 사용자 인증이 필요할 때 설정해줘야한다.
+        // true면 브라우저에서 쿠키를 보내 사용자 인증이 필요한 리소스에 접근할 수 있다.
+        corsConfiguration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        // 허용할 path 설정
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return urlBasedCorsConfigurationSource;
+    }
+
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
             .formLogin().disable() // FormLogin 사용 X
@@ -45,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
             .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
             .antMatchers("/user/signup").permitAll() // 회원가입 접근 가능
-            .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+            .anyRequest().permitAll() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
             .and();
 //            //== 소셜 로그인 설정 ==//
 //            .oauth2Login()
