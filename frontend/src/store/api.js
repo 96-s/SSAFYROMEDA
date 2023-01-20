@@ -19,14 +19,16 @@ export const kakaoLoginApi = async (code) =>
 //         }
 // })
 
-export const getUserApi = ({ userid }) =>
-  axios({
-    method: "get",
-    url: `${BASE_URL}/user/${userid}`,
-    headers: {
-      ...setToken(),
-    },
-  });
+
+export const getUserApi = ({
+    userid
+}) => axios({
+        method: 'get',
+        url: `${BASE_URL}/user/${userid}`,
+        headers: {
+            ...setToken(),
+        },
+    });
 
 // 회원정보 put
 // export const updateUserApi = async (user) =>
