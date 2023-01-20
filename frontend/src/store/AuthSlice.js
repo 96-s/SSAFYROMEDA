@@ -19,6 +19,8 @@ const authSlice = createSlice({
       const { form, key, value } = action.payload;
       state[form][key] = value;
     },
+    // 카카오 로그인
+    kakaoLogin() {},
   },
 });
 

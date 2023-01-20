@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+// 추후 redux문으로 바꾸는 것을 권장
+import React, { useState } from "react";
 
 export const Context = React.createContext({});
 
 const Container = (props) => {
-
   const [isPlay, setIsPlay] = useState(false);
 
   return (
@@ -11,9 +11,9 @@ const Container = (props) => {
       {props.children}
       {isPlay && (
         <audio
-          src='https://docs.google.com/uc?export=open&id=14JlzHWUE2TqAsN237ft43SOw02xDPori'
-          autoPlay={true}>
-        </audio>
+          src="https://docs.google.com/uc?export=open&id=14JlzHWUE2TqAsN237ft43SOw02xDPori"
+          autoPlay={true}
+        ></audio>
       )}
     </Context.Provider>
   );

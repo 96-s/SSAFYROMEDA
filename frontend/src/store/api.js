@@ -1,12 +1,13 @@
 // Axios
-import axios from 'axios';
+import axios from "axios";
 import { customAxios } from "./customAxios";
 import { BASE_URL } from 'store';
 import { setToken } from 'store';
 
 // 카카오 로그인
-
-export const kakaoLogin = async () => await customAxios.get;
+// 인가 코드 백엔드에 넘기기
+export const kakaoLoginApi = async (code) =>
+  await customAxios.get(`/login/oauth2/code/kakao?code=${code}`);
 
 // 회원정보 get
 // export const getUserApi = async () =>
@@ -18,15 +19,14 @@ export const kakaoLogin = async () => await customAxios.get;
 //         }
 // })
 
-export const getUserApi = ({
-    userid
-}) => axios({
-        method: 'get',
-        url: `${BASE_URL}/user/${userid}`,
-        headers: {
-            ...setToken(),
-        },
-    });
+export const getUserApi = ({ userid }) =>
+  axios({
+    method: "get",
+    url: `${BASE_URL}/user/${userid}`,
+    headers: {
+      ...setToken(),
+    },
+  });
 
 // 회원정보 put
 // export const updateUserApi = async (user) =>
@@ -37,52 +37,47 @@ export const getUserApi = ({
 //     },
 //   });
 
-export const updateUserApi = ({
-    userid,
-    nickname,
-}) => axios ({
-        method: 'put',
-        url: `${BASE_URL}/user/${userid}`,
-        data: {
-            nickname,
-        },
-        headers: {
-            ...setToken(),
-        },
-    });
+export const updateUserApi = ({ userid, nickname }) =>
+  axios({
+    method: "put",
+    url: `${BASE_URL}/user/${userid}`,
+    data: {
+      nickname,
+    },
+    headers: {
+      ...setToken(),
+    },
+  });
 
 // 탈출일지 불러오기
-export const getHistoryApi = ({
-    userid,
-    boarding,
-    win,
-    lose,
-}) => axios ({
-    method: 'get',
+export const getHistoryApi = ({ userid, boarding, win, lose }) =>
+  axios({
+    method: "get",
     url: `${BASE_URL}/user/history/${userid}`,
     data: {
-        boarding,
-        win,
-        lose,
-    }
-    });
+      boarding,
+      win,
+      lose,
+    },
+  });
 
 // 사진 불러오기
 export const getPhotoApi = ({
-    userid,
-    photo1,
-    photo2,
-    photo3,
-    photo4,
-    photo5,
-}) => axios ({
-    method: 'get',
+  userid,
+  photo1,
+  photo2,
+  photo3,
+  photo4,
+  photo5,
+}) =>
+  axios({
+    method: "get",
     url: `${BASE_URL}/user/photo/${userid}`,
     data: {
-        photo1,
-        photo2,
-        photo3,
-        photo4,
-        photo5,
-    }
-    });
+      photo1,
+      photo2,
+      photo3,
+      photo4,
+      photo5,
+    },
+  });
