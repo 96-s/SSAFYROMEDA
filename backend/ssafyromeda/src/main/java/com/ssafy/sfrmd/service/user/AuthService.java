@@ -41,16 +41,16 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
             .getUserInfoEndpoint().getUserNameAttributeName(); // OAuth2 로그인 시 키(PK)가 되는 값
         Map<String, Object> attributes = oAuth2User.getAttributes(); // 소셜 로그인에서 API가 제공하는 userInfo의 Json 값(유저 정보들)
 
-        // socialType에 따라 유저 정보를 통해 OAuthAttributes 객체 생성
-        AuthDto oauth2Dto = AuthDto.ofKakao(userNameAttributeName, attributes);
+        // 유저 정보를 통해 AuthDto 객체 생성
+        AuthDto authDto = AuthDto.ofKakao(userNameAttributeName, attributes);
 
-        User createdUser = getUser(oauth2Dto); // getUser() 메소드로 User 객체 생성 후 반환
+        User createdUser = getUser(authDto); // getUser() 메소드로 User 객체 생성 후 반환
 
-        // DefaultOAuth2User를 구현한 CustomOAuth2User 객체를 생성해서 반환
+        // DefaultOAuth2User를 구현한 AuthUser 객체를 생성해서 반환
         return new AuthUser(
             Collections.singleton(new SimpleGrantedAuthority(createdUser.getUserRole().getRole())),
             attributes,
-            oauth2Dto.getNameAttributeKey(),
+            authDto.getNameAttributeKey(),
             createdUser.getUserRole());
     }
 
