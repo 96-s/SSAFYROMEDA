@@ -1,13 +1,21 @@
 // Axios
 import axios from "axios";
 import { customAxios } from "./customAxios";
-import { BASE_URL } from 'store';
-import { setToken } from 'store';
+import { BASE_URL } from "store";
+import { setToken } from "store";
 
 // 카카오 로그인
 // 인가 코드 백엔드에 넘기기
 export const kakaoLoginApi = async (code) =>
   await customAxios.get(`/login/oauth2/code/kakao?code=${code}`);
+
+// 닉네임 중복체크
+export const checkNicknameApi = async (nickname) =>
+  await customAxios.get(`닉네임중복체크주소${nickname}`);
+
+// 닉네임 설정 요청?
+export const createNicknameApi = async (user) =>
+  await customAxios.post(`닉네임설정주소`, user);
 
 // 회원정보 get
 // export const getUserApi = async () =>
@@ -19,16 +27,14 @@ export const kakaoLoginApi = async (code) =>
 //         }
 // })
 
-
-export const getUserApi = ({
-    userid
-}) => axios({
-        method: 'get',
-        url: `${BASE_URL}/user/${userid}`,
-        headers: {
-            ...setToken(),
-        },
-    });
+export const getUserApi = ({ userid }) =>
+  axios({
+    method: "get",
+    url: `${BASE_URL}/user/${userid}`,
+    headers: {
+      ...setToken(),
+    },
+  });
 
 // 회원정보 put
 // export const updateUserApi = async (user) =>
