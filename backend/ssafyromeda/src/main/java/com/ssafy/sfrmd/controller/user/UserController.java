@@ -2,20 +2,20 @@ package com.ssafy.sfrmd.controller.user;
 
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.dto.user.UserSignUpDto;
+import com.ssafy.sfrmd.service.user.AuthService;
 import com.ssafy.sfrmd.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.core.OAuth2Token;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final AuthService authService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpDto userSignUpDto){
@@ -31,5 +31,10 @@ public class UserController {
 //            User user = userService.sighUpUser(userSignUpDto);
 //            return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
 //        }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestParam("code") String code){
+        return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
     }
 }
