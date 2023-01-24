@@ -23,12 +23,11 @@ import io.openvidu.java.client.OpenViduJavaClientException;
 import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/video")
 public class VideoController {
 
-    @Value("https://localhost:4443/")
+    @Value("http://localhost:4443/")
     private String OPENVIDU_URL;
 
     @Value("MY_SECRET")
