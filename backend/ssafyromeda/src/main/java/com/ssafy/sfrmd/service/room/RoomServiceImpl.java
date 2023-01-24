@@ -5,6 +5,7 @@ import com.ssafy.sfrmd.domain.player.PlayerRepository;
 import com.ssafy.sfrmd.domain.room.Room;
 import com.ssafy.sfrmd.domain.room.RoomRepository;
 import java.util.HashSet;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class RoomServiceImpl implements RoomService{
 
     @Autowired
     RoomRepository roomRepository;
+
+    @Autowired
+    RoomService roomService;
 
     @Autowired
     PlayerRepository playerRepository;
@@ -56,9 +60,19 @@ public class RoomServiceImpl implements RoomService{
     }
 
     @Override
-    public Boolean delteRoom(String roomCode) {
+    public Optional<Room> getRoomByRoomCode(String roomCode) {
+        return roomRepository.findByRoomCode(roomCode);
+    }
 
-        return false;
+    @Override
+    public boolean deleteRoom(Long roomSeq, String roomCode) {
+        try{
+            roomRepository.deleteById(roomSeq);
+            roomCodeSet.remove(roomCode);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 
