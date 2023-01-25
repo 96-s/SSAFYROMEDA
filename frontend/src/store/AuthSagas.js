@@ -13,7 +13,7 @@ import {
 import { authActions } from "./AuthSlice";
 
 // api import
-import { kakaoLoginApi, checkNicknameApi, createNicknameApi } from "./api";
+import { kakaoLoginApi, checkNicknameApi, createNicknameApi, getUserApi } from "./api";
 
 // 카카오 로그인 saga
 function* onLoginUserStartAsync({ payload }) {
@@ -56,6 +56,20 @@ function* onCreateNicknameStartAsync({ payload }) {
   }
 }
 
+// 회원정보 get
+function* onGetUserProfileInfoStartAsync() {
+  const { getUserProfileInfoSuccess, getUserError } = authActions;
+  try {    
+    const response = yield call(getUserApi);
+    console.log('유저 프로필 정보 응답', response);
+    // 유저정보 저장
+    yield put(getUserProfileInfoSuccess(response.data));
+  } catch (error) {
+    console.log(error);
+    yield put(getUserError(error.response.data));
+  }
+}
+
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
 function* onLoginUser() {
@@ -68,5 +82,14 @@ function* onCreateNickname() {
   yield takeLatest(createNicknameStart, onCreateNicknameStartAsync);
 }
 
+function* onGetUserUserProfileInfo() {
+  const { getUserProfileInfoStart } = authActions;
+  yield takeLatest(getUserProfileInfoStart, onGetUserProfileInfoStartAsync);
+}
+
 // 사가 export
-export const authSagas = [fork(onLoginUser), fork(onCreateNickname)];
+export const authSagas = [
+  fork(onLoginUser), 
+  fork(onCreateNickname), 
+  fork(onGetUserUserProfileInfo)
+];
