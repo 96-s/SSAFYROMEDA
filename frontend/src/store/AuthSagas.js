@@ -13,7 +13,12 @@ import {
 import { authActions } from "./AuthSlice";
 
 // api import
-import { kakaoLoginApi, checkNicknameApi, createNicknameApi, getUserApi } from "./api";
+import {
+  kakaoLoginApi,
+  checkNicknameApi,
+  createNicknameApi,
+  getUserApi,
+} from "./api";
 
 // 카카오 로그인 saga
 function* onKakaoLoginStartAsync({ payload }) {
@@ -59,9 +64,9 @@ function* onCreateNicknameStartAsync({ payload }) {
 // 회원정보 get
 function* onGetUserProfileInfoStartAsync() {
   const { getUserProfileInfoSuccess, getUserError } = authActions;
-  try {    
+  try {
     const response = yield call(getUserApi);
-    console.log('유저 프로필 정보 응답', response);
+    console.log("유저 프로필 정보 응답", response);
     // 유저정보 저장
     yield put(getUserProfileInfoSuccess(response.data));
   } catch (error) {
@@ -89,7 +94,7 @@ function* onGetUserUserProfileInfo() {
 
 // 사가 export
 export const authSagas = [
-  fork(onLoginUser), 
-  fork(onCreateNickname), 
-  fork(onGetUserUserProfileInfo)
+  fork(onKakaoLogin),
+  fork(onCreateNickname),
+  fork(onGetUserUserProfileInfo),
 ];
