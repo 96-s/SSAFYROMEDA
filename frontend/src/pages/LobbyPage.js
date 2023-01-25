@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 // Components
 import { Context } from "store/audio";
 import Modal from "components/common/Modal";
+import MakeRoomModal from "components/display/MakeRoomModal";
+import EnterRoomModal from "components/display/EnterRoomModal";
 
 //SLIDE LIBRARY
 
@@ -252,11 +254,27 @@ const LobbyPage = () => {
   ///////////////////             MODAL
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [MakeRoomModalOpen, setMakeRoomModalOpen] = useState(false);
+  const [EnterRoomModalOpen, setEnterRoomModalOpen] = useState(false);
+
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+  const openMakeRoomModal = () => {
+    setMakeRoomModalOpen(true);
+  };
+  const closeMakeRoomModal = () => {
+    setMakeRoomModalOpen(false);
+  };
+
+  const openEnterRoomModal = () => {
+    setEnterRoomModalOpen(true);
+  };
+  const closeEnterRoomModal = () => {
+    setEnterRoomModalOpen(false);
   };
 
   return (
@@ -316,8 +334,27 @@ const LobbyPage = () => {
             <h1>탈출 일지(예비)</h1>
           </Section>
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
-          <SectionUnderOne>우주선 생성</SectionUnderOne>
-          <SectionUnderTwo>우주선 탑승</SectionUnderTwo>
+          <SectionUnderOne>
+            <span onClick={openMakeRoomModal}>우주선 생성</span>
+            {/* //header 부분에 텍스트를 입력한다. */}
+            <MakeRoomModal
+              open={MakeRoomModalOpen}
+              close={closeMakeRoomModal}
+              header="Modal heading"
+            >
+              임시
+            </MakeRoomModal>
+          </SectionUnderOne>
+          <SectionUnderTwo>
+            <span onClick={openEnterRoomModal}>우주선 탑승</span>
+            <EnterRoomModal
+              open={EnterRoomModalOpen}
+              close={closeEnterRoomModal}
+              header="Modal heading"
+            >
+              임시
+            </EnterRoomModal>
+          </SectionUnderTwo>
         </MainRight>
 
         <Footer></Footer>

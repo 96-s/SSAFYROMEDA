@@ -16,7 +16,9 @@ const Modal = (props) => {
               &times;
             </button>
           </header>
-          <main>{props.children}</main>
+          <main>
+            {props.children}
+          </main>
           <footer>
             <button className="close" onClick={close}>
               close

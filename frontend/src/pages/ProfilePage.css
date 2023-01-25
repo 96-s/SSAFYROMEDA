@@ -1,9 +1,11 @@
 .Profile {
     display: flex;
     background-image: url('../resources/images/profile_bg.png');
+    background-position-x: center;
     background-size: 100%;
     background-repeat: no-repeat;
     padding: 50px;
+    height: 486px;
 }
 
 .MyHistory {

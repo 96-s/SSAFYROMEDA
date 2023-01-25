@@ -5,9 +5,12 @@ import MyInfo from "../components/personal/MyInfo";
 import MyPhoto from "../components/personal/MyPhoto";
 
 import "./ProfilePage.css";
+// import { useState } from "react";
 
 
 const ProfilePage = () => {
+  
+
   return (
     <>
       <h1>ProfilePage</h1>
