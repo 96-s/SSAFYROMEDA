@@ -18,9 +18,6 @@ public class RoomServiceImpl implements RoomService{
     RoomRepository roomRepository;
 
     @Autowired
-    RoomService roomService;
-
-    @Autowired
     PlayerRepository playerRepository;
 
     HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set

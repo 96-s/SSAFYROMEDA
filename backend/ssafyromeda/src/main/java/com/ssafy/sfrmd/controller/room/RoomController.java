@@ -24,6 +24,7 @@ public class RoomController {
     UserServiceImpl userService;
     @Autowired
     RoomServiceImpl roomService;
+
     @PostMapping
     public ResponseEntity<? extends Object> createRoom(){
         Room room= roomService.createRoom(1);
