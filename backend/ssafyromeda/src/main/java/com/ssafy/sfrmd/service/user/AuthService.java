@@ -3,6 +3,7 @@ package com.ssafy.sfrmd.service.user;
 import com.ssafy.sfrmd.domain.user.auth.AuthUser;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
+import com.ssafy.sfrmd.dto.user.UserLogInDto;
 import com.ssafy.sfrmd.dto.user.auth.AuthDto;
 import java.util.Collections;
 import java.util.Map;
