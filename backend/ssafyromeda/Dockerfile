@@ -1,12 +1,13 @@
-FROM node:16.13.0 as build-stage
-WORKDIR /var/jenkins_home/workspace/Deploy/backend/ssafyromeda
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-FROM nginx:stable-alpine as production-stage
+FROM adoptopenjdk/openjdk11 AS builder
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJAR
 
-COPY --from=build-stage /var/jenkins_home/workspace/Deploy/backend/ssafyromeda/build /usr/share/nginx/html
-#COPY --from=build-stage /var/jenkins_home/workspace/Deploy/backend/ssafyromeda/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g","daemon off;"]
+FROM adoptopenjdk/openjdk11
+COPY --from=builder build/libs/*.jar app.jar
+EXPOSE 10080
+ENTRYPOINT ["java", "-jar", "/app.jar"]
