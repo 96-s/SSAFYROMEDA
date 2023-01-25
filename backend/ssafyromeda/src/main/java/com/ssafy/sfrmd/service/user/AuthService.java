@@ -37,6 +37,9 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
     private String clientId;
     @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String redirectUri;
+    @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
+    private String clientSecret;
+
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
@@ -103,6 +106,7 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
         body.add("grant_type", "authorization_code");
         body.add("client_id", clientId);
         body.add("redirect_uri", redirectUri);
+        body.add("client_secret", clientSecret);
         body.add("code", code);
 
         // HTTP 요청 보내기
