@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 // Components
 import { Context } from "store/audio";
-import Modal from "components/common/Modal";
+import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
 
@@ -286,10 +286,12 @@ const LobbyPage = () => {
   return (
     <>
       <BG>
-        <HeaderContainer onClick={() => {
-          onClickMoveProfilePage();
-        }}>
-          <HeaderLeftDiv>
+        <HeaderContainer>
+          <HeaderLeftDiv
+            onClick={() => {
+              onClickMoveProfilePage();
+            }}
+          >
             <HeaderLeftUserImage src={userimage}></HeaderLeftUserImage>
             &nbsp; 여기에는 닉네임과 전적
           </HeaderLeftDiv>
