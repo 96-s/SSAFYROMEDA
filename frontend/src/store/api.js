@@ -18,23 +18,22 @@ export const createNicknameApi = async (user) =>
   await customAxios.post(`닉네임설정주소`, user);
 
 // 회원정보 get
-// export const getUserApi = async () =>
-//     const userid = localStorage.userid
-//     await customAxios.get(`api/users/${userid}`, {
-//         headers: {
-//             'Content-Type': 'application/json;charset=UTF-8',
-//             Authorization: `Bearer ${localStorage.getItem('token')}`,
-//         }
-// })
+export const getUserApi = async (userid) =>
+    await customAxios.get(`api/users/${userid}`, {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+})
 
-export const getUserApi = ({ userid }) =>
-  axios({
-    method: "get",
-    url: `${BASE_URL}/user/${userid}`,
-    headers: {
-      ...setToken(),
-    },
-  });
+// export const getUserApi = ({ userid }) =>
+//   axios({
+//     method: "get",
+//     url: `${BASE_URL}/user/${userid}`,
+//     headers: {
+//       ...setToken(),
+//     },
+//   });
 
 // 회원정보 put
 // export const updateUserApi = async (user) =>

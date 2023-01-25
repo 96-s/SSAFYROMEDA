@@ -5,7 +5,7 @@ const initialAuthState = {
   register: {
     nickname: "",
   },
-  ProfileInfo: [],
+  profileInfo: [],
   loading: false, // 로딩중
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
@@ -22,19 +22,19 @@ const authSlice = createSlice({
       state[form][key] = value;
     },
     // 로그인
-    loginUserStart(state) {
+    kakaoLoginStart(state) {
       state.error = false;
       state.isAuth = false;
       state.loading = true;
     },
-    loginUserSuccess(state, action) {
+    kakaoLoginSuccess(state, action) {
       state.loading = false;
       console.log("페이로드", action.payload);
       const { user, accessToken } = action.payload;
       console.log(user);
       // 토큰 로컬스토리지 저장 및 유저 상태 변경, 로그인 유무 변경
     },
-    loginUserError(state, action) {
+    kakaoLoginError(state, action) {
       state.loading = false;
       state.isAuth = false;
       state.error = action.payload;
@@ -49,6 +49,33 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
+    getUser(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    getUserSuccess(state, action){
+      console.log(action.payload);
+      const user = action.payload;
+      // console.log(user);
+      const { userId, email, name, nickname, profileImgNum } = user;
+      state.user = { userId, email, name, nickname, profileImgNum };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      state.loading = false;
+    },
+    getUserError(state, action){
+      state.loading = false;
+      state.error = action.payload.error;
+    },
+    // GET user game info(프로필용)
+    getUserProfileInfoStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    // getUserProfile Success
+    getUserProfileInfoSuccess(state, action) {
+      state.loading = false;
+      state.profileInfo = action.payload.userGameInfo;
+    }
   },
 });
 
