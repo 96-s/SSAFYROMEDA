@@ -32,7 +32,7 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
             // 전달받은 인증정보 SecurityContextHolder에 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
             // JWT Token 발급
-            String token = jwtProvider.createAccessToken(authUser.getUserEmail());
+            String token = jwtProvider.createAccessToken(authUser.getEmail());
             String url = makeRedirectUrl(token);
             getRedirectStrategy().sendRedirect(request, response, url);
         } else{
@@ -47,12 +47,12 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
                 .build().toUriString();
     }
     private void loginSuccess(HttpServletResponse response, AuthUser authUser) throws IOException {
-        String accessToken = jwtProvider.createAccessToken(authUser.getUserEmail());
+        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
         String refreshToken = jwtProvider.createRefreshToken();
         response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
         response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
 
         jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-        jwtProvider.updateRefreshToken(authUser.getUserEmail(), refreshToken);
+        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
     }
 }
