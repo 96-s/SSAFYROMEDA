@@ -1,22 +1,12 @@
-FROM openjdk:8-jdk-alpine as build
-WORKDIR /workspace/app
+FROM node:16.13.0 as build-stage
+WORKDIR /var/jenkins_home/workspace/Deploy/backend/ssafyromeda
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+FROM nginx:stable-alpine as production-stage
 
-COPY . /workspace/app
-RUN ./gradlew clean bootJar
-RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
-
-FROM openjdk:8-jdk-alpine AS local
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/build/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java", "-cp", "app:app/lib/*", "s05.p12a104.mafia.MafiaApplication"]
-
-FROM openjdk:8-jdk-alpine AS prod
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/build/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java", "-cp", "app:app/lib/*", "s05.p12a104.mafia.MafiaApplication"]
+COPY --from=build-stage /var/jenkins_home/workspace/Deploy/backend/ssafyromeda/build /usr/share/nginx/html
+#COPY --from=build-stage /var/jenkins_home/workspace/Deploy/backend/ssafyromeda/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g","daemon off;"]
