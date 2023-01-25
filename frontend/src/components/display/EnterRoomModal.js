@@ -2,13 +2,20 @@ import React from 'react';
 import 'components/common/modal.css';
 import MyButton from "components/common/Button";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 // import { useState } from 'react';
 
 const MakeRoomDiv = styled.div`
   flex: auto;
 `;
 
+
 const EnterRoomModal = (props) => {
+  const navigate = useNavigate();
+  
+  const onClickMoveGamePage = () => {
+    navigate('/game')
+  }
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
   // const [isMade, setIsMade] = useState(false);
@@ -40,7 +47,7 @@ const EnterRoomModal = (props) => {
                 type={"Korean"}
                 className={"is-primary"}
                 text={"입장"}
-                onClick={"임시"}
+                onClick={() => {onClickMoveGamePage();}}
                 />
               </div>
             </MakeRoomDiv>
