@@ -34,16 +34,9 @@ public class UserController {
 //        }
     }
 
-<<<<<<< HEAD
     @GetMapping("/login")
     public ResponseEntity<?> loginUser(@RequestParam("code") String code)
         throws JsonProcessingException {
         return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
     }
-=======
-//    @GetMapping("/login")
-//    public ResponseEntity<?> loginUser(@RequestParam("code") String code){
-//        return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
-//    }
->>>>>>> a019eda97b263b541dde41f93c28f453c85f3725
 }
