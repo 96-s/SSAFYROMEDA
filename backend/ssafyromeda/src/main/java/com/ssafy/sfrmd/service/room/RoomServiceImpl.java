@@ -20,7 +20,7 @@ public class RoomServiceImpl implements RoomService{
 
     private final PlayerRepository playerRepository;
 
-    HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
+//    HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
 
     @Override
     public Room createRoom(long host) {
@@ -28,16 +28,23 @@ public class RoomServiceImpl implements RoomService{
         // 방코드 생성
         String roomCode;
         Random random = new Random();
-        do {
-                roomCode = random.ints(48, 122 + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(10)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-        }while(roomCodeSet.contains(roomCode)); // 방코드 중복 검사
 
-        System.out.println(roomCode);
-        roomCodeSet.add(roomCode); // set에 방코드 저장
+        // 방코드 중복검사는 일단 보류
+//        do {
+//                roomCode = random.ints(48, 122 + 1)
+//                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+//                .limit(10)
+//                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+//                .toString();
+//        }while(roomCodeSet.contains(roomCode)); // 방코드 중복 검사
+
+//        roomCodeSet.add(roomCode); // set에 방코드 저장
+
+        roomCode = random.ints(48, 122 + 1)
+        .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+        .limit(10)
+        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+        .toString();
 
         // room 정보 저장
         Room room = new Room();
@@ -66,7 +73,8 @@ public class RoomServiceImpl implements RoomService{
     public boolean deleteRoom(Long roomSeq, String roomCode) {
         try{
             roomRepository.deleteById(roomSeq);
-            roomCodeSet.remove(roomCode);
+//            roomCodeSet.remove(roomCode);
+
             return true;
         }catch (Exception e){
             return false;
