@@ -8,9 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
-@Entity
+@Entity(name="room")
 @Data
-@Table(name="room")
+@Table
 // 방 정보
 public class Room {
 

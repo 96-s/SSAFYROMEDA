@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequiredArgsConstructor
 public class RoomController {
-    UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
-    RoomServiceImpl roomService;
+    private final RoomServiceImpl roomService;
 
     @PostMapping
     public ResponseEntity<? extends Object> createRoom(){
