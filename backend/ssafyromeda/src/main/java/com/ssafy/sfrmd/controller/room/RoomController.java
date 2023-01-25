@@ -1,11 +1,10 @@
 package com.ssafy.sfrmd.controller.room;
 
 import com.ssafy.sfrmd.domain.room.Room;
-import com.ssafy.sfrmd.service.room.RoomService;
 import com.ssafy.sfrmd.service.room.RoomServiceImpl;
 import com.ssafy.sfrmd.service.user.UserServiceImpl;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rooms")
 @CrossOrigin
+@RequiredArgsConstructor
 public class RoomController {
-
-    @Autowired
     UserServiceImpl userService;
-    @Autowired
+
     RoomServiceImpl roomService;
+
     @PostMapping
     public ResponseEntity<? extends Object> createRoom(){
         Room room= roomService.createRoom(1);

@@ -6,21 +6,17 @@ import com.ssafy.sfrmd.domain.room.Room;
 import com.ssafy.sfrmd.domain.room.RoomRepository;
 import java.util.HashSet;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Service("roomService")
+@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService{
-
-    @Autowired
     RoomRepository roomRepository;
 
-    @Autowired
-    RoomService roomService;
-
-    @Autowired
     PlayerRepository playerRepository;
 
     HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
