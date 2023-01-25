@@ -1,5 +1,6 @@
 package com.ssafy.sfrmd.service.room;
 
+import ch.qos.logback.core.CoreConstants;
 import com.ssafy.sfrmd.domain.player.Player;
 import com.ssafy.sfrmd.domain.player.PlayerRepository;
 import com.ssafy.sfrmd.domain.room.Room;
@@ -15,9 +16,9 @@ import java.util.Random;
 @Service("roomService")
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService{
-    RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
     HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
 
@@ -35,6 +36,7 @@ public class RoomServiceImpl implements RoomService{
                 .toString();
         }while(roomCodeSet.contains(roomCode)); // 방코드 중복 검사
 
+        System.out.println(roomCode);
         roomCodeSet.add(roomCode); // set에 방코드 저장
 
         // room 정보 저장
