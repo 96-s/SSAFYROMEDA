@@ -49,7 +49,7 @@ function* onCreateNicknameStartAsync({ payload }) {
     // 닉네임 설정 요청
     const response = yield call(createNicknameApi, payload);
     if (response.status === 200) {
-      // 닉네임 설정 성공
+      // 닉네임 설정 성공 -> 로비 페이지로 돌려보내기
     }
   } catch (error) {
     yield put(createNicknameError(error.response.data));
