@@ -1,5 +1,6 @@
 package com.ssafy.sfrmd.controller.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.dto.user.UserSignUpDto;
 import com.ssafy.sfrmd.service.user.AuthService;
@@ -34,7 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam("code") String code){
+    public ResponseEntity<?> loginUser(@RequestParam("code") String code)
+        throws JsonProcessingException {
         return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
     }
 }
