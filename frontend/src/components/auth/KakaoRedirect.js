@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { authActions } from "store/AuthSlice";
-import React from "react";
+import React, { useEffect } from "react";
 
 // 리다이렉트되는 화면
 const KakaoRedirect = (props) => {
@@ -9,9 +9,14 @@ const KakaoRedirect = (props) => {
   // 인가코드
   const code = new URL(window.location.href).searchParams.get("code");
 
-  React.useEffect(async () => {
-    await dispatch(authActions.kakaoLogin(code));
-  }, []);
+  // React.useEffect(async () => {
+  //   await dispatch(authActions.kakaoLoginStart(code));
+  // }, []);
+
+  useEffect(() => {
+    console.log("테스트");
+    dispatch(authActions.kakaoLoginStart(code));
+  }, [dispatch, code]);
 
   return (
     <div>

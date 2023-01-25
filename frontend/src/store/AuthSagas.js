@@ -16,16 +16,16 @@ import { authActions } from "./AuthSlice";
 import { kakaoLoginApi, checkNicknameApi, createNicknameApi } from "./api";
 
 // 카카오 로그인 saga
-function* onLoginUserStartAsync({ payload }) {
-  const { loginUserSuccess, loginUserError } = authActions;
+function* onKakaoLoginStartAsync({ payload }) {
+  const { kakaoLoginSuccess, kakaoLoginError } = authActions;
   try {
-    console.log("payload 확인용", payload);
+    console.log("인가코드", payload);
     // api 호출
     const response = yield call(kakaoLoginApi, payload);
     console.log("로그인 응답", response.status);
     // 로그인 성공시
     if (response.status === 200) {
-      yield put(loginUserSuccess(response.data));
+      yield put(kakaoLoginSuccess(response.data));
     }
   } catch (error) {
     console.log(error);
@@ -58,9 +58,9 @@ function* onCreateNicknameStartAsync({ payload }) {
 
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
-function* onLoginUser() {
-  const { loginUserStart } = authActions;
-  yield takeLatest(loginUserStart, onLoginUserStartAsync);
+function* onKakaoLogin() {
+  const { kakaoLoginStart } = authActions;
+  yield takeLatest(kakaoLoginStart, onKakaoLoginStartAsync);
 }
 
 function* onCreateNickname() {
@@ -69,4 +69,4 @@ function* onCreateNickname() {
 }
 
 // 사가 export
-export const authSagas = [fork(onLoginUser), fork(onCreateNickname)];
+export const authSagas = [fork(onKakaoLogin), fork(onCreateNickname)];
