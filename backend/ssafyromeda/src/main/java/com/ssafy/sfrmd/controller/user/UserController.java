@@ -33,8 +33,8 @@ public class UserController {
 //        }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam("code") String code){
-        return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
-    }
+//    @GetMapping("/login")
+//    public ResponseEntity<?> loginUser(@RequestParam("code") String code){
+//        return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
+//    }
 }
