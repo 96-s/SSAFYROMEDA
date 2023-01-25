@@ -16,10 +16,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
   reducers: {
-    // form 업데이트
+    // 닉네임 form 업데이트
     changeField(state, action) {
-      const { form, key, value } = action.payload;
-      state[form][key] = value;
+      state.register.nickname = action.payload;
+      console.log(state.register.nickname);
     },
     // 로그인
     kakaoLoginStart(state) {
@@ -29,6 +29,7 @@ const authSlice = createSlice({
     },
     kakaoLoginSuccess(state, action) {
       state.loading = false;
+      // 백서버에 code를 전송 (code가 어디 담겼는지 확인필요)
       console.log("페이로드", action.payload);
       const { user, accessToken } = action.payload;
       console.log(user);
@@ -48,6 +49,17 @@ const authSlice = createSlice({
     createNicknameError(state, action) {
       state.loading = false;
       state.error = action.payload.error;
+    },
+    // setUser
+    setUser(state, action) {
+      state.user = action.payload;
+      state.isAuth = true;
+    },
+    // logout
+    logout(state) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      Object.assign(state, initialAuthState); // 초기화
     },
     getUser(state) {
       state.loading = true;
