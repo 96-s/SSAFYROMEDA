@@ -5,7 +5,7 @@ const initialAuthState = {
   register: {
     nickname: "",
   },
-  ProfileInfo: [],
+  profileInfo: [],
   loading: false, // 로딩중
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
@@ -61,6 +61,33 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       Object.assign(state, initialAuthState); // 초기화
     },
+    getUser(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    getUserSuccess(state, action){
+      console.log(action.payload);
+      const user = action.payload;
+      // console.log(user);
+      const { userId, email, name, nickname, profileImgNum } = user;
+      state.user = { userId, email, name, nickname, profileImgNum };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      state.loading = false;
+    },
+    getUserError(state, action){
+      state.loading = false;
+      state.error = action.payload.error;
+    },
+    // GET user game info(프로필용)
+    getUserProfileInfoStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    // getUserProfile Success
+    getUserProfileInfoSuccess(state, action) {
+      state.loading = false;
+      state.profileInfo = action.payload.userGameInfo;
+    }
   },
 });
 

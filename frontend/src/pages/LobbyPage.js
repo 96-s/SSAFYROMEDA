@@ -12,13 +12,13 @@ import React, {
 } from "react";
 
 //ROUTER
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //SLIDER LIBRARY
 
 // Components
 import { Context } from "store/audio";
-import Modal from "components/common/Modal";
+import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
 
@@ -251,6 +251,12 @@ const LobbyPage = () => {
     if (currentImgOrder === 0) return;
     setcCurrentImgOrder(currentImgOrder - 1);
   };
+
+  const navigate = useNavigate();
+
+  const onClickMoveProfilePage = () => {
+    navigate('/profile');
+  }
   ///////////////////             MODAL
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -281,7 +287,11 @@ const LobbyPage = () => {
     <>
       <BG>
         <HeaderContainer>
-          <HeaderLeftDiv>
+          <HeaderLeftDiv
+            onClick={() => {
+              onClickMoveProfilePage();
+            }}
+          >
             <HeaderLeftUserImage src={userimage}></HeaderLeftUserImage>
             &nbsp; 여기에는 닉네임과 전적
           </HeaderLeftDiv>
@@ -305,7 +315,7 @@ const LobbyPage = () => {
             </HeaderRightSoundOn>
             <HeaderRightPlayOut>
               <Link to="/">
-                <Img src={logout} alt="out" classNmae="logout"></Img>
+                <Img src={logout} alt="out" className="logout"></Img>
               </Link>
             </HeaderRightPlayOut>
           </HeaderRightDiv>
@@ -340,7 +350,7 @@ const LobbyPage = () => {
             <MakeRoomModal
               open={MakeRoomModalOpen}
               close={closeMakeRoomModal}
-              header="Modal heading"
+              header="우주선 생성"
             >
               임시
             </MakeRoomModal>
@@ -350,7 +360,7 @@ const LobbyPage = () => {
             <EnterRoomModal
               open={EnterRoomModalOpen}
               close={closeEnterRoomModal}
-              header="Modal heading"
+              header="우주선 탑승"
             >
               임시
             </EnterRoomModal>

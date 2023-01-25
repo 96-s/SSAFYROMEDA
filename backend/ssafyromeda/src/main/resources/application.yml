@@ -13,10 +13,8 @@ spring:
     #jpa sql
     jpa:
         show-sql: true
-        properties:
-            hibernate:
-                format_sql: true
-                #ddl-auto: create #스키마 자동 생성
+        hibernate:
+            ddl-auto: update # 스키마 자동 생성
         database: mysql
 
     # redis
