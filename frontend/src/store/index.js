@@ -7,7 +7,6 @@ import { authSagas } from "./AuthSagas";
 
 // 관리할 슬라이스 import
 import authReducer from "./AuthSlice";
-import infoSlice from "./profile";
 
 // Reducers 통합
 const rootReducers = combineReducers({
@@ -25,8 +24,9 @@ const middlewares = [sagaMiddleware];
 
 // Store는 하나의 리듀서만 가질 수 있다.
 // 그래서 여러 슬라이서의 리듀서를 합친다.
+// 아래의 코드는 수정하지 않는다.
 const store = configureStore({
-  reducer: { rootReducers, info: infoSlice.reducer },
+  reducer: rootReducers,
   middleware: middlewares,
 });
 

@@ -19,7 +19,7 @@ const authSlice = createSlice({
     // 닉네임 form 업데이트
     changeField(state, action) {
       state.register.nickname = action.payload;
-      console.log(state.register.nickname);
+      console.log("changeField 테스트", state.register.nickname);
     },
     // 로그인
     kakaoLoginStart(state) {
@@ -65,16 +65,16 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    getUserSuccess(state, action){
+    getUserSuccess(state, action) {
       console.log(action.payload);
       const user = action.payload;
       // console.log(user);
       const { userId, email, name, nickname, profileImgNum } = user;
       state.user = { userId, email, name, nickname, profileImgNum };
-      localStorage.setItem('user', JSON.stringify(state.user));
+      localStorage.setItem("user", JSON.stringify(state.user));
       state.loading = false;
     },
-    getUserError(state, action){
+    getUserError(state, action) {
       state.loading = false;
       state.error = action.payload.error;
     },
@@ -87,7 +87,7 @@ const authSlice = createSlice({
     getUserProfileInfoSuccess(state, action) {
       state.loading = false;
       state.profileInfo = action.payload.userGameInfo;
-    }
+    },
   },
 });
 
