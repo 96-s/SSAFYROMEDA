@@ -68,4 +68,9 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
         User user = authDto.toEntity(authDto.getOauth2UserInfo());
         return userRepository.save(user);
     }
+
+    public UserLogInDto loginUser(String code){
+
+    }
+
 }
