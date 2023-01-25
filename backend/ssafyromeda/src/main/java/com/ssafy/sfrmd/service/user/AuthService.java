@@ -1,25 +1,47 @@
 package com.ssafy.sfrmd.service.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.sfrmd.domain.user.auth.AuthUser;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
+import com.ssafy.sfrmd.dto.user.UserLogInDto;
 import com.ssafy.sfrmd.dto.user.auth.AuthDto;
+import com.ssafy.sfrmd.dto.user.auth.AuthTokenResponse;
+import com.ssafy.sfrmd.jwt.JwtProvider;
 import java.util.Collections;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUser> {
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private String clientId;
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    private String redirectUri;
+    @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
+    private String clientSecret;
 
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Override
     public AuthUser loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -68,4 +90,40 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
         User user = authDto.toEntity(authDto.getOauth2UserInfo());
         return userRepository.save(user);
     }
+
+    public UserLogInDto loginUser(String code) throws JsonProcessingException {
+        String accessToken = getAccessToken(code);
+        return null;
+    }
+
+    private String getAccessToken(String code) throws JsonProcessingException {
+        // HTTP Header 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        // HTTP Body 생성
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "authorization_code");
+        body.add("client_id", clientId);
+        body.add("redirect_uri", redirectUri);
+        body.add("client_secret", clientSecret);
+        body.add("code", code);
+
+        // HTTP 요청 보내기
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<String> response = rt.exchange(
+            "https://kauth.kakao.com/oauth/token",
+            HttpMethod.POST,
+            kakaoTokenRequest,
+            String.class
+        );
+
+        // HTTP 응답 (JSON) -> 액세스 토큰 파싱
+        String responseBody = response.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+        return jsonNode.get("access_token").asText();
+    }
+
 }
