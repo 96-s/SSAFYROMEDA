@@ -5,6 +5,7 @@ import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.dto.user.UserLogInDto;
 import com.ssafy.sfrmd.dto.user.auth.AuthDto;
+import com.ssafy.sfrmd.jwt.JwtProvider;
 import java.util.Collections;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUser> {
 
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Override
     public AuthUser loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -71,7 +74,8 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, AuthUse
     }
 
     public UserLogInDto loginUser(String code){
-
+        OauthTokenResponse tokenResponse = getToken(code);
+        return null;
     }
 
 }
