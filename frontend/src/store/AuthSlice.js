@@ -22,19 +22,19 @@ const authSlice = createSlice({
       state[form][key] = value;
     },
     // 로그인
-    loginUserStart(state) {
+    kakaoLoginStart(state) {
       state.error = false;
       state.isAuth = false;
       state.loading = true;
     },
-    loginUserSuccess(state, action) {
+    kakaoLoginSuccess(state, action) {
       state.loading = false;
       console.log("페이로드", action.payload);
       const { user, accessToken } = action.payload;
       console.log(user);
       // 토큰 로컬스토리지 저장 및 유저 상태 변경, 로그인 유무 변경
     },
-    loginUserError(state, action) {
+    kakaoLoginError(state, action) {
       state.loading = false;
       state.isAuth = false;
       state.error = action.payload;
