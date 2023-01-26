@@ -27,7 +27,7 @@ import io.openvidu.java.client.SessionProperties;
 @RequestMapping("/video")
 public class VideoController {
 
-    @Value("http://localhost:4443/")
+    @Value("http://i8d205.p.ssafy.io:4443/")
     private String OPENVIDU_URL;
 
     @Value("MY_SECRET")
