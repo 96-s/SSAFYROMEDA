@@ -3,12 +3,11 @@ package com.ssafy.sfrmd.controller.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.dto.user.UserSignUpDto;
-import com.ssafy.sfrmd.service.user.AuthService;
+import com.ssafy.sfrmd.security.oauth.OAuthAttributes;
 import com.ssafy.sfrmd.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final AuthService authService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpDto userSignUpDto){
@@ -34,9 +32,4 @@ public class UserController {
 //        }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam("code") String code)
-        throws JsonProcessingException {
-        return new ResponseEntity<>(authService.loginUser(code), HttpStatus.valueOf(200));
-    }
 }

@@ -1,15 +1,21 @@
 package com.ssafy.sfrmd.config;
 
+import com.ssafy.sfrmd.jwt.JwtFilter;
+import com.ssafy.sfrmd.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -17,18 +23,24 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // TODO Auto-generated method stub
-        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
-        http.cors();
-    }
+    //JWT 제공 클래스
+    private final JwtProvider jwtProvider;
+    //인증 실패 또는 인증 헤더를 전달받지 못했을 때 핸들러
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    //인증 성공 핸들러
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    //인증 실패 핸들러
+    private final AuthenticationFailureHandler authenticationFailureHandler;
+    //인가 실패 핸들러
+    private final AccessDeniedHandler accessDeniedHandler;
+    //oauth2
+    private final OAuth2UserService OAuth2UserServiceImpl;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().withUser("ssafyromeda").password("{noop}ssafyromeda").roles("USER");
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
@@ -52,40 +64,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return urlBasedCorsConfigurationSource;
     }
 
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity
-            .formLogin().disable() // FormLogin 사용 X
-            .httpBasic().disable() // httpBasic 사용 X
-            .csrf().disable() // csrf 보안 사용 X
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .formLogin().disable()
+            .httpBasic().disable()
+            .csrf().disable()
             .headers().frameOptions().disable()
             .and()
-
-            // 세션 사용하지 않으므로 STATELESS로 설정
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
             .and()
-
+            .exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPoint) //인증 실패
+            .accessDeniedHandler(accessDeniedHandler) //인가 실패
+            .and()
             //== URL별 권한 관리 옵션 ==//
             .authorizeRequests()
+            .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
+            .permitAll()
+            .antMatchers("/users/login", "/users/signup", "/users/signup/*", "/users/check/*")
+            .permitAll() //로그인, 회원가입 요청은 허용
+            .antMatchers("/user/signUpNext").hasRole("GUEST")
+            .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
+            .and()
+            //== 소셜 로그인 설정 ==//
+            .oauth2Login()
+            .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
+            .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
+            .userInfoEndpoint()
+            .userService(
+                OAuth2UserServiceImpl); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
+        return http.build();
+    }
 
-            // 아이콘, css, js 관련
-            // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
-            .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-            .antMatchers("/user/signup").permitAll() // 회원가입 접근 가능
-            .anyRequest().permitAll() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-            .and();
-//            //== 소셜 로그인 설정 ==//
-//            .oauth2Login()
-//            .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
-//            .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
-//            .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
-//
-//        // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
-//        // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
-//        // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
-//        http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
-//        http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
-
-        return httpSecurity.build();
+    //JWT의 인증 및 권한을 확인하는 필터
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter(jwtProvider);
     }
 }

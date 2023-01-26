@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    include: KEY
   security:
     oauth2:
       client:
