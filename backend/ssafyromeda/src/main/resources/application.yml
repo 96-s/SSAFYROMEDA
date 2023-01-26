@@ -21,9 +21,9 @@ spring:
         database: mysql
 
     # redis
-    redis:
-        host: 127.0.0.1
-        port: 6379
+#    redis:
+#        host: 127.0.0.1 # change 127.0.0.1
+#        port: 6379
 
 ## jwt
 #springboot:
