@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './App.css';
 import UserVideoComponent from './UserVideoComponent';
 
-const APPLICATION_SERVER_URL = "http://i8d205.p.ssafy.io:10080/video/";
+const APPLICATION_SERVER_URL = "http://i8d205.p.ssafy.io/api/video/";
 
 
 class App extends Component {
