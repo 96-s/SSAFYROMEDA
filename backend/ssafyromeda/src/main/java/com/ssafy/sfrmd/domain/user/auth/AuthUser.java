@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 @Getter
 public class AuthUser extends DefaultOAuth2User {
     private Role role;
+    private String email;
 
     /**
      * Constructs a {@code DefaultOAuth2User} using the provided parameters.
@@ -22,8 +23,9 @@ public class AuthUser extends DefaultOAuth2User {
      */
     public AuthUser(
         Collection<? extends GrantedAuthority> authorities,
-        Map<String, Object> attributes, String nameAttributeKey, Role role) {
+        Map<String, Object> attributes, String nameAttributeKey, Role role, String email) {
         super(authorities, attributes, nameAttributeKey);
         this.role = role;
+        this.email = email;
     }
 }
