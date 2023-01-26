@@ -6,6 +6,8 @@ import java.util.Optional;
 public interface RoomService {
     Room createRoom(long host);
 
+    boolean updateRoom(String roomCode, Long userNo);
+
     Optional<Room> getRoomByRoomCode(String roomCode);
 
     boolean deleteRoom(Long roomSqe, String roomCode);
