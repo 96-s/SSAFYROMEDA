@@ -21,11 +21,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByUserEmail(email);
         if(user==null){
-            return new UserDetailsImpl(email, -1L, "invalid", null);
+            return new UserDetailsImpl(email, "invalid", null);
         }else{
             return new UserDetailsImpl(
                 user.getUserEmail(),
-                user.getUserNo(),
                 user.getUserNickname(),
                 Collections.singleton(new SimpleGrantedAuthority(user.getUserRole().getRole()))
             );
