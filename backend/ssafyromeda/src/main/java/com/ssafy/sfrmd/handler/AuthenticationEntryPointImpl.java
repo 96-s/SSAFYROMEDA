@@ -1,5 +1,7 @@
 package com.ssafy.sfrmd.handler;
 
+import com.ssafy.sfrmd.common.ApiResponse;
+import com.ssafy.sfrmd.common.ApiResponseType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

@@ -10,20 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Getter
+@Service
 public class JwtProvider {
     @Value("${jwt.secretKey}")
-    private String secretKey;
+    private static String secretKey;
     @Value("${jwt.access.expiration}")
-    private Long accessTokenExpirationPeriod;
+    private static Long accessTokenExpirationPeriod;
     @Value("${jwt.refresh.expiration}")
-    private Long refreshTokenExpirationPeriod;
+    private static Long refreshTokenExpirationPeriod;
     @Value("${jwt.access.header}")
-    private String accessHeader;
+    private static String accessHeader;
     @Value("${jwt.refresh.header}")
-    private String refreshHeader;
+    private static String refreshHeader;
 
     /**
      * JWT의 Subject와 Claim으로 email 사용 -> 클레임의 name을 "email"으로 설정
