@@ -41,15 +41,15 @@ public class RoomServiceImpl implements RoomService{
 //        roomCodeSet.add(roomCode); // set에 방코드 저장
 
         roomCode = random.ints(48, 122 + 1)
-        .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-        .limit(10)
-        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-        .toString();
+            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(10)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
 
         // room 정보 저장
         Room room = new Room();
         room.setRoomHost(host);
-        room.setRoomCnt(0);
+        room.setRoomCnt(1);
         room.setRoomCode(roomCode);
 
         long roomSeq = roomRepository.save(room).getRoomSeq();
@@ -62,6 +62,22 @@ public class RoomServiceImpl implements RoomService{
 
         return room;
 
+    }
+
+    public boolean updateRoom(String roomCode, Long userNo){
+        // 방 DB에 인원수 추가
+        try{
+            Optional<Room> updateRoom=roomRepository.findByRoomCode(roomCode);
+
+            int cnt=updateRoom.get().getRoomCnt();
+            updateRoom.get().setRoomCnt(++cnt);
+
+            roomRepository.save(updateRoom.get());
+
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override
