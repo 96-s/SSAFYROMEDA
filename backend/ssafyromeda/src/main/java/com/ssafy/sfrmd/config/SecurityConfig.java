@@ -94,41 +94,21 @@ public class SecurityConfig {
             .and()
             //== URL별 권한 관리 옵션 ==//
             .authorizeRequests()
-            .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-            .antMatchers("/users/login", "/users/signup", "/users/signup/*", "/users/check/*").permitAll() //로그인, 회원가입 요청은 허용
+            .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
+            .permitAll()
+            .antMatchers("/users/login", "/users/signup", "/users/signup/*", "/users/check/*")
+            .permitAll() //로그인, 회원가입 요청은 허용
             .antMatchers("/user/signUpNext").hasRole("GUEST")
             .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
             .and()
-            .addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
             //== 소셜 로그인 설정 ==//
             .oauth2Login()
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
             .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
             .userInfoEndpoint()
-            .userService(OAuth2UserServiceImpl); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
+            .userService(
+                OAuth2UserServiceImpl); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
         return http.build();
-    }
-
-    @Bean
-    UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new CustomUserDetailsService(userRepository);
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-        AuthenticationConfiguration authenticationConfiguration)
-        throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-        authenticationFilter.setFilterProcessesUrl("/users/login"); // 필터 URL 설정
-        authenticationFilter.setSuccessHandler(authenticationSuccessHandler);
-        authenticationFilter.setFailureHandler(authenticationFailureHandler);
-        authenticationFilter.afterPropertiesSet(); // BeanFactory에 의해 모든 property가 설정되고 난 뒤 실행
-        return authenticationFilter;
     }
 
     //JWT의 인증 및 권한을 확인하는 필터
