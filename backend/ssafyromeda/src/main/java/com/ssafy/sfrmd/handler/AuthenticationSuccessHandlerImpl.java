@@ -27,19 +27,19 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        AuthUser authUser = (AuthUser) authentication.getPrincipal();
-        if(authUser.getRole() == Role.GUEST){
-            // 전달받은 인증정보 SecurityContextHolder에 저장
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            // JWT Token 발급
-            String token = jwtProvider.createAccessToken(authUser.getEmail());
-            String url = makeRedirectUrl(token);
-            getRedirectStrategy().sendRedirect(request, response, url);
-        } else{
-            String provider = String.valueOf(((UserDetailsImpl) authUser.getProvider());
-            String url = makeRedirectUrl(provider);
-            getRedirectStrategy().sendRedirect(request, response, url);
-        }
+//        AuthUser authUser = (AuthUser) authentication.getPrincipal();
+//        if(authUser.getRole() == Role.GUEST){
+//            // 전달받은 인증정보 SecurityContextHolder에 저장
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            // JWT Token 발급
+//            String token = jwtProvider.createAccessToken(authUser.getEmail());
+//            String url = makeRedirectUrl(token);
+//            getRedirectStrategy().sendRedirect(request, response, url);
+//        } else{
+//            String provider = String.valueOf(((UserDetailsImpl) authUser.getProvider()));
+//            String url = makeRedirectUrl(provider);
+//            getRedirectStrategy().sendRedirect(request, response, url);
+//        }
     }
 
     private String makeRedirectUrl(String token) {
@@ -47,12 +47,12 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
                 .build().toUriString();
     }
     private void loginSuccess(HttpServletResponse response, AuthUser authUser) throws IOException {
-        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
-        String refreshToken = jwtProvider.createRefreshToken();
-        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
-        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
-
-        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
+//        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
+//        String refreshToken = jwtProvider.createRefreshToken();
+//        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
+//        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
+//
+//        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+//        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
     }
 }
