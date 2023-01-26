@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MapIMG from "resources/images/MapIMG.png";
+import Timer from "components/common/Timer";
 
 const Board = styled.div`
     margin: auto 0px;
@@ -8,13 +9,14 @@ const Board = styled.div`
     height: 750px;
     background: url(${MapIMG}) no-repeat;
     background-size: 100%;
+    color: white;
 `;
 
 const Map = () => {
     return(
         <div className="container">
             <Board>
-                냠
+                <Timer mm="1" ss="9"/>
             </Board>
         </div>
     )
