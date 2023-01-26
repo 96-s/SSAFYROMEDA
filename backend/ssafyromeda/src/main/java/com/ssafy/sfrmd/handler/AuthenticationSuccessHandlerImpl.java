@@ -1,16 +1,9 @@
 package com.ssafy.sfrmd.handler;
 
-import com.ssafy.sfrmd.domain.user.Role;
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.domain.user.auth.AuthUser;
-import com.ssafy.sfrmd.dto.user.auth.AuthDto;
 import com.ssafy.sfrmd.jwt.JwtProvider;
-import com.ssafy.sfrmd.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

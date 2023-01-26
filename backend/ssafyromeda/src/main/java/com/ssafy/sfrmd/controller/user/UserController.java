@@ -3,12 +3,10 @@ package com.ssafy.sfrmd.controller.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.dto.user.UserSignUpDto;
-import com.ssafy.sfrmd.service.user.AuthService;
 import com.ssafy.sfrmd.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
