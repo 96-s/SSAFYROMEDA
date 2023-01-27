@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './App.css';
 import UserVideoComponent from './UserVideoComponent';
 
-const APPLICATION_SERVER_URL = "http://i8d205.p.ssafy.io/api/video";
+const APPLICATION_SERVER_URL = "http://i8d205.p.ssafy.io/video/";
 
 
 class App extends Component {
@@ -339,7 +339,7 @@ class App extends Component {
     }
 
     async createToken(sessionId) {
-        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections', {}, { withCredentials: true }, {
+        const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections', {}, { withCredentials: true },{
             headers: { 'Content-Type': 'application/json', },
         });
         return response.data; // The token
