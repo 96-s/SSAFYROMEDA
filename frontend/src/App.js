@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+// import styled from "styled-components";
 
 import GamePage from "pages/GamePage";
 import MainPage from "pages/MainPage";
@@ -12,6 +13,15 @@ import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 
 // import { Provider } from "react-redux";
+
+// 스크롤바 없애기 누가 만들어주세요..
+// Routes {
+//   -ms-overflow-style: none;
+// }
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
 
 function App() {
   return (
