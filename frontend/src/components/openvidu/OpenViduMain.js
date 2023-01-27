@@ -15,6 +15,8 @@ const OpenViduMain = () => {
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(undefined);
   const [subscribers, setSubscribers] = useState([]);
+  // currentVideoDevice
+  const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
 
   // 중간에 오는 사람을 설정 (하위요소로 Props 필요함)
   const handleMainVideoStream = (stream) => {
@@ -80,32 +82,54 @@ const OpenViduMain = () => {
     getToken().then((token) => {
       // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
       // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
-      mySession.connect(token, { clientData: myUserName }).then(async () => {
-        let tempPublisher = newOv.initPublisher(undefined, {
-          audioSource: undefined, // The source of audio. If undefined default microphone
-          videoSource: undefined, // The source of video. If undefined default webcam
-          publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-          publishVideo: true, // Whether you want to start publishing with your video enabled or not
-          resolution: "640x480", // The resolution of your video
-          frameRate: 30, // The frame rate of your video
-          insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-          mirror: false, // Whether to mirror your local video or not
+      mySession
+        .connect(token, { clientData: myUserName })
+        .then(async () => {
+          var devices = await newOv.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+
+          // --- 5) Get your own camera stream ---
+
+          // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
+          // element: we will manage it on our own) and with the desired properties
+
+          let newPublisher = newOv.initPublisher(undefined, {
+            audioSource: undefined, // The source of audio. If undefined default microphone
+            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+            publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+            publishVideo: true, // Whether you want to start publishing with your video enabled or not
+            resolution: "640x480", // The resolution of your video
+            frameRate: 30, // The frame rate of your video
+            insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+            mirror: false, // Whether to mirror your local video or not
+          });
+
+          // --- 6) Publish your stream ---
+
+          mySession.publish(newPublisher);
+
+          // Set the main video in the page to display our webcam and store our Publisher
+          // 이름만 뽑아냄
+          // const publisherName = JSON.parse(newPublisher.stream.connection.data).clientData;
+          // console.log("퍼블리셔이름", publisherName)
+          // tempPlayers.push(publisherName);
+          setCurrentVideoDevice(videoDevices[0]);
+          setMainStreamManager(newPublisher);
+          setPublisher(newPublisher);
+        })
+        .catch((error) => {
+          console.log(
+            "There was an error connecting to the session:",
+            error.code,
+            error.message
+          );
         });
-
-        // --- 6) Publish your stream ---
-
-        mySession.publish(tempPublisher);
-
-        // Obtain the current video device in use
-        //   var devices = await this.OV.getDevices();
-        //   var videoDevices = devices.filter(device => device.kind === 'videoinput');
-        //   var currentVideoDeviceId = publisher.stream.getMediaStream().getVideoTracks()[0].getSettings().deviceId;
-        //   var currentVideoDevice = videoDevices.find(device => device.deviceId === currentVideoDeviceId);
-      });
     });
   };
 
-  // Token 관련 로직 (async await 생략?)
+  // Token 관련 로직 (async await 생략?) - join Session
   const getToken = () => {
     return createSession(mySessionId).then((sessionId) =>
       createToken(sessionId)
