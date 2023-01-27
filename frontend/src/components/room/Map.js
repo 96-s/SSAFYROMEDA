@@ -5,11 +5,12 @@ import Timer from "components/common/Timer";
 const Board = styled.div`
     margin: auto 0px;
     border: 1px solid black;
-    width: 750px;
-    height: 750px;
+    width: 670px;
+    height: 670px;
     background: url(${MapIMG}) no-repeat;
     background-size: 100%;
     color: white;
+    margin: 20px;
 `;
 
 const Map = () => {

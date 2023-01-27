@@ -6,6 +6,9 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 20px;
 `
 
 const Page = styled.div`
@@ -16,7 +19,6 @@ const Page = styled.div`
 const GamePage = () => {
   return (
     <Page>
-      <h1>GamePage</h1>
       <Container>
         <OurTeamVid/>
         <Map/>

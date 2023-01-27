@@ -3,20 +3,27 @@ import styled from "styled-components";
 const Box = styled.div`
     border: 1px solid black;
     width: 300px;
-    height: 250px;
+    height: 189.3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+`;
+const Nickname = styled.div`
+    text-align: center;
+`;
+const Video = styled.div`
+    margin: 20px;
 `
-
 
 const TheirTeamVid = () => {
     return (
-      <div className="container">
-        <Box>1</Box>
-        닉네임: 라라라라
-        <Box>2</Box>
-        닉네임: 마마마마
-        <Box>3</Box>
-        닉네임: 바바바바
-      </div>
+      <Video>
+          <Box>1</Box>
+              <Nickname>닉네임: 가가가가</Nickname>
+          <Box>2</Box>
+              <Nickname>닉네임: 가가가가</Nickname>
+          <Box>3</Box>
+              <Nickname>닉네임: 가가가가</Nickname>
+      </Video>
     );
 }
 
