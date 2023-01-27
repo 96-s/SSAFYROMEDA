@@ -3,6 +3,7 @@ import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
 
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -13,6 +14,7 @@ const Container = styled.div`
 
 const Page = styled.div`
   height: 100%;
+  width: 100%;
 `
 
 
