@@ -2,7 +2,7 @@ package com.ssafy.sfrmd.controller.room;
 
 import com.ssafy.sfrmd.domain.room.Room;
 import com.ssafy.sfrmd.service.room.RoomServiceImpl;
-import com.ssafy.sfrmd.service.user.UserServiceImpl;
+import com.ssafy.sfrmd.service.user.UserService;
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.ConnectionProperties;
 import io.openvidu.java.client.OpenVidu;
@@ -22,10 +22,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,7 +37,7 @@ public class RoomController {
     @Value("MY_SECRET")
     private String OPENVIDU_SECRET;
     private OpenVidu openvidu;
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final RoomServiceImpl roomService;
 
     @PostConstruct
