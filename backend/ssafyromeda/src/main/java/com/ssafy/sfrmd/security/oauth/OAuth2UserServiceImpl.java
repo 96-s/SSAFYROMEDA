@@ -2,7 +2,7 @@ package com.ssafy.sfrmd.security.oauth;
 
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
-import com.ssafy.sfrmd.security.UserDetailsImpl;
+
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
