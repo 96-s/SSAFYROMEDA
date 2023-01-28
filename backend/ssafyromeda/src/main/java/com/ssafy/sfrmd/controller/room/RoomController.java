@@ -2,6 +2,7 @@ package com.ssafy.sfrmd.controller.room;
 
 import com.ssafy.sfrmd.domain.room.Room;
 import com.ssafy.sfrmd.service.room.RoomServiceImpl;
+import com.ssafy.sfrmd.service.user.UserService;
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.ConnectionProperties;
 import io.openvidu.java.client.OpenVidu;
@@ -36,7 +37,7 @@ public class RoomController {
     @Value("MY_SECRET")
     private String OPENVIDU_SECRET;
     private OpenVidu openvidu;
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final RoomServiceImpl roomService;
 
     @PostConstruct
