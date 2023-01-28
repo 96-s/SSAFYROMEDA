@@ -1,7 +1,9 @@
 package com.ssafy.sfrmd.config;
 
+import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.jwt.JwtFilter;
 import com.ssafy.sfrmd.jwt.JwtProvider;
+import com.ssafy.sfrmd.security.oauth.OAuth2UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,8 @@ public class SecurityConfig {
 
     //JWT 제공 클래스
     private final JwtProvider jwtProvider;
+    private final UserRepository userRepository;
+    private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
     //인증 실패 또는 인증 헤더를 전달받지 못했을 때 핸들러
     private final AuthenticationEntryPoint authenticationEntryPoint;
     //인증 성공 핸들러
@@ -35,8 +39,6 @@ public class SecurityConfig {
     private final AuthenticationFailureHandler authenticationFailureHandler;
     //인가 실패 핸들러
     private final AccessDeniedHandler accessDeniedHandler;
-    //oauth2
-    private final OAuth2UserService OAuth2UserServiceImpl;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -91,13 +93,29 @@ public class SecurityConfig {
             .oauth2Login()
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
             .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
-            .userInfoEndpoint(); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
+            .userInfoEndpoint().userService(oAuth2UserServiceImpl); // customUserService 설정
         return http.build();
     }
 
+    /**
+     * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+     */
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessHandler(jwtProvider, userRepository);
+    }
+
+    /**
+     * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+     */
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new AuthenticationFailureHandler();
+    }
     //JWT의 인증 및 권한을 확인하는 필터
     @Bean
     public JwtFilter jwtFilter() {
-        return new JwtFilter(jwtProvider);
+        JwtFilter jwtFilter = new JwtFilter(jwtProvider, userRepository);
+        return jwtFilter;
     }
 }
