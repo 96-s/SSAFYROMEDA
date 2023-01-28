@@ -91,9 +91,7 @@ public class SecurityConfig {
             .oauth2Login()
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
             .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
-            .userInfoEndpoint()
-            .userService(
-                OAuth2UserServiceImpl); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
+            .userInfoEndpoint(); //로그인이 성공하면 해당 유저의 정보를 들고 customOAuth2UserService에서 후처리
         return http.build();
     }
 
