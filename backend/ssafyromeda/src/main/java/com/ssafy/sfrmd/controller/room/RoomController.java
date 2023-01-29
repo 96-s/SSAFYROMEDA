@@ -100,11 +100,9 @@ public class RoomController {
     public ResponseEntity<? extends Object> deleteRoom(@PathVariable("roomCode") String roomCode){
 
         // 삭제할 방이 존재하는지 확인
-        Optional<Room> deleteRoom;
-        try {
-            deleteRoom = roomService.getRoomByRoomCode(roomCode);
-        }catch (Exception e){
-            return new ResponseEntity<>(roomCode+" 방 정보가 없음", HttpStatus.valueOf(404));
+        Optional<Room> deleteRoom = roomService.getRoomByRoomCode(roomCode);
+        if(deleteRoom.isEmpty()) {
+            return new ResponseEntity<>(roomCode + " 방 정보가 없음", HttpStatus.valueOf(404));
         }
 
         // 삭제할 방의 roomSeq 가져오기
