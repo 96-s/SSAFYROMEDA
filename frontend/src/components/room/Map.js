@@ -28,7 +28,7 @@ const Marker1 = styled.section`
         width: 50px;
         position: relative;
         top: 20px;
-        left: -265px;
+        left: -275px;
     }
 `;
 const Marker2 = styled.section`
@@ -36,7 +36,7 @@ const Marker2 = styled.section`
         width: 50px;
         position: relative;
         top: 20px;
-        left: -280px;
+        left: -285px;
     }
 `;
 
