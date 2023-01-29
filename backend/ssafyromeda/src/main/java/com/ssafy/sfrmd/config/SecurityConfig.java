@@ -31,14 +31,10 @@ public class SecurityConfig {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
     private final OAuth2UserServiceImpl oAuth2UserServiceImpl;
-    //인증 실패 또는 인증 헤더를 전달받지 못했을 때 핸들러
-    private final AuthenticationEntryPoint authenticationEntryPoint;
     //인증 성공 핸들러
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     //인증 실패 핸들러
     private final AuthenticationFailureHandler authenticationFailureHandler;
-    //인가 실패 핸들러
-    private final AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -76,17 +72,13 @@ public class SecurityConfig {
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint) //인증 실패
-            .accessDeniedHandler(accessDeniedHandler) //인가 실패
-            .and()
             //== URL별 권한 관리 옵션 ==//
             .authorizeRequests()
             .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
             .permitAll()
-            .antMatchers("/users/login", "/users/signup", "/users/signup/*", "/users/check/*","/video/*")
+            .antMatchers("/login/*","/users/login", "/users/signup", "/users/signup/*", "/users/check/*","/video/*")
             .permitAll() //로그인, 회원가입 요청은 허용
-            .antMatchers("/user/signUpNext").hasRole("GUEST")
+            .antMatchers("/user/signUpNext", "/users/jwt-test").hasRole("GUEST")
             .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
             .and()
             //== 소셜 로그인 설정 ==//
@@ -97,21 +89,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
-     */
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new AuthenticationSuccessHandler(jwtProvider, userRepository);
-    }
-
-    /**
-     * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
-     */
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new AuthenticationFailureHandler();
-    }
     //JWT의 인증 및 권한을 확인하는 필터
     @Bean
     public JwtFilter jwtFilter() {

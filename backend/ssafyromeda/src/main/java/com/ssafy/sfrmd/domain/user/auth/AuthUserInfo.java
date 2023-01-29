@@ -18,6 +18,6 @@ public class AuthUserInfo {
             return null;
         }
 
-        return (String) profile.get("account_email");
+        return (String) account.get("email");
     }
 }

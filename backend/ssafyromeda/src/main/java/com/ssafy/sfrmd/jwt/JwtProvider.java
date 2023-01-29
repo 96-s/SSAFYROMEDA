@@ -94,7 +94,7 @@ public class JwtProvider {
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
-
+        System.out.println("토큰 전송");
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
     }
@@ -159,6 +159,7 @@ public class JwtProvider {
      * RefreshToken DB 저장(업데이트)
      */
     public void updateRefreshToken(String email, String refreshToken) {
+        System.out.println("토큰 저장");
         userRepository.findByUserEmail(email)
                 .ifPresentOrElse(
                         user -> user.updateUserRefreshToken(refreshToken),

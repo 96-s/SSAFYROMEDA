@@ -31,6 +31,7 @@ private final UserRepository userRepository;
 
         OAuthAttributes extractAttributes = OAuthAttributes.of(userNameAttributeName, attributes);
         User createdUser = getUser(extractAttributes); // getUser() 메소드로 User 객체 생성 후 반환
+
         // DefaultOAuth2User를 구현한 AuthUser 객체를 생성해서 반환
         return new AuthUser(
                 Collections.singleton(new SimpleGrantedAuthority(createdUser.getUserRole().getRole())),
@@ -47,6 +48,7 @@ private final UserRepository userRepository;
         if(findUser == null) {
             return saveUser(attributes);
         }
+
         return findUser;
     }
 
