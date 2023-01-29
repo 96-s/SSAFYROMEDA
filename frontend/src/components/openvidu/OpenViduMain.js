@@ -1,8 +1,9 @@
 import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
+import axios from "axios";
 
-// const OPENVIDU_SERVER_URL = "https://" + window.location.hostname + ":4443";
-// const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+const OPENVIDU_SERVER_URL = "https://" + window.location.hostname + ":4443";
+const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 const OpenViduMain = () => {
   // OV
@@ -129,6 +130,64 @@ const OpenViduMain = () => {
     });
   };
 
+  // 방 나갈때 필요함 (하위요소로 Props 필요)
+  const leaveSession = () => {
+    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+
+    const mySession = session;
+
+    if (mySession) {
+      mySession.disconnect();
+    }
+
+    // Empty all properties...
+    setOv(null);
+    setSession(undefined);
+    setSubscribers([]);
+    setMySessionId("");
+    setMyUserName("");
+    setMainStreamManager(undefined);
+    setPublisher(undefined);
+  };
+
+  // 카메라 변경에 필요
+  // 카메라 변경에 필요한 아이(하위요소로 PROPS 필요함)
+  const switchCamera = async () => {
+    try {
+      const devices = await ov.getDevices();
+      var videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+
+      if (videoDevices && videoDevices.length > 1) {
+        var newVideoDevice = videoDevices.filter(
+          (device) => device.deviceId !== currentVideoDevice.deviceId
+        );
+
+        if (newVideoDevice.length > 0) {
+          // Creating a new publisher with specific videoSource
+          // In mobile devices the default and first camera is the front one
+          var newPublisher = ov.initPublisher(undefined, {
+            videoSource: newVideoDevice[0].deviceId,
+            publishAudio: true,
+            publishVideo: true,
+            mirror: true,
+          });
+
+          //newPublisher.once("accessAllowed", () => {
+          await session.unpublish(mainStreamManager);
+
+          await session.publish(newPublisher);
+          setCurrentVideoDevice(newVideoDevice);
+          setMainStreamManager(newPublisher);
+          setPublisher(newPublisher);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Token 관련 로직 (async await 생략?) - join Session
   const getToken = () => {
     return createSession(mySessionId).then((sessionId) =>
@@ -136,9 +195,76 @@ const OpenViduMain = () => {
     );
   };
 
-  const createSession = () => {};
+  const createSession = (sessionId) => {
+    return new Promise((resolve, reject) => {
+      var data = JSON.stringify({ customSessionId: sessionId });
+      axios
+        .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions", data, {
+          headers: {
+            Authorization:
+              "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log("CREATE SESION", response);
+          resolve(response.data.id);
+        })
+        .catch((response) => {
+          var error = Object.assign({}, response);
+          if (error?.response?.status === 409) {
+            resolve(sessionId);
+          } else {
+            console.log(error);
+            console.warn(
+              "No connection to OpenVidu Server. This may be a certificate error at " +
+                OPENVIDU_SERVER_URL
+            );
+            if (
+              window.confirm(
+                'No connection to OpenVidu Server. This may be a certificate error at "' +
+                  OPENVIDU_SERVER_URL +
+                  '"\n\nClick OK to navigate and accept it. ' +
+                  'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
+                  OPENVIDU_SERVER_URL +
+                  '"'
+              )
+            ) {
+              // window.location.assign(OPENVIDU_SERVER_URL + '/accept-certificate');
+              window.location.assign(
+                OPENVIDU_SERVER_URL + "/accept-certificate"
+              );
+            }
+          }
+        });
+    });
+  };
 
-  const createToken = () => {};
+  const createToken = (sessionId) => {
+    return new Promise((resolve, reject) => {
+      var data = {};
+      axios
+        .post(
+          OPENVIDU_SERVER_URL +
+            "/openvidu/api/sessions/" +
+            sessionId +
+            "/connection",
+          data,
+          {
+            headers: {
+              Authorization:
+                "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log("TOKEN", response);
+          resolve(response.data.token);
+        })
+        .catch((error) => reject(error));
+    });
+  };
 
   return (
     <div>
