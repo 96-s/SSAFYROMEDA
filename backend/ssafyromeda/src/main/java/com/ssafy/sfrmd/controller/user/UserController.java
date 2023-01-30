@@ -30,6 +30,14 @@ public class UserController {
 //        }
     }
 
+    @GetMapping("/check/nickname")
+    public ResponseEntity<?> checkNickname(@RequestParam String userEmail){
+        if(userService.checkNickname(userEmail)==0){
+            return new ResponseEntity<>("닉네임 사용 가능", HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("닉네임 중복", HttpStatus.valueOf(400));
+        }
+    }
     @GetMapping("/jwt-test")
     public ResponseEntity<String> jwtTest() {
         return new ResponseEntity<>("성공", HttpStatus.OK);
