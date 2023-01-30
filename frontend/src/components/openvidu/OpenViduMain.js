@@ -2,8 +2,12 @@ import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
 import axios from "axios";
 
-const OPENVIDU_SERVER_URL = "https://" + window.location.hostname + ":4443";
-const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+// const OPENVIDU_SERVER_URL = "https://" + window.location.hostname + ":4443";
+// const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+
+const OPENVIDU_SERVER_URL =
+  "https://" + "i8d205.p.ssafy.io/dashboard" + ":4443";
+const OPENVIDU_SERVER_SECRET = "ssafyromeda";
 
 const OpenViduMain = () => {
   // OV

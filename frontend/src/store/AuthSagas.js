@@ -34,6 +34,7 @@ function* onKakaoLoginStartAsync({ payload }) {
     }
   } catch (error) {
     console.log(error);
+    console.log("카카오 로그인 에러");
     // 로그인 실패시 나올 로직 작성
   }
 }

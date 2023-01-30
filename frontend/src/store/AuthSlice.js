@@ -23,6 +23,7 @@ const authSlice = createSlice({
     },
     // 로그인
     kakaoLoginStart(state) {
+      console.log("카카오 로그인 start");
       state.error = false;
       state.isAuth = false;
       state.loading = true;
