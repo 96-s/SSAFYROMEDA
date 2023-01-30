@@ -18,6 +18,7 @@ const OpenViduMain = () => {
   const [subscribers, setSubscribers] = useState([]);
   // currentVideoDevice
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
+  const [whatDiceNum, setWhatDiceNum] = useState(0);
 
   // 중간에 오는 사람을 설정 (하위요소로 Props 필요함)
   const handleMainVideoStream = (stream) => {
