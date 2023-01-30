@@ -1,51 +1,68 @@
 package com.ssafy.sfrmd.handler;
 
+import com.ssafy.sfrmd.common.ApiResponse;
+import com.ssafy.sfrmd.common.ApiResponseType;
+import com.ssafy.sfrmd.domain.user.Role;
+import com.ssafy.sfrmd.domain.user.User;
+import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.domain.user.auth.AuthUser;
+import com.ssafy.sfrmd.dto.user.UserSignUpDto;
 import com.ssafy.sfrmd.jwt.JwtProvider;
+import com.ssafy.sfrmd.security.oauth.OAuth2UserServiceImpl;
+import com.ssafy.sfrmd.security.oauth.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
     private final JwtProvider jwtProvider;
+    private final UserRepository userRepository;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-//        AuthUser authUser = (AuthUser) authentication.getPrincipal();
-//        if(authUser.getRole() == Role.GUEST){
-//            // 전달받은 인증정보 SecurityContextHolder에 저장
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            // JWT Token 발급
-//            String token = jwtProvider.createAccessToken(authUser.getEmail());
-//            String url = makeRedirectUrl(token);
-//            getRedirectStrategy().sendRedirect(request, response, url);
-//        } else{
-//            String provider = String.valueOf(((UserDetailsImpl) authUser.getProvider()));
-//            String url = makeRedirectUrl(provider);
-//            getRedirectStrategy().sendRedirect(request, response, url);
-//        }
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        ApiResponse.error(response, ApiResponseType.SUCCESS, "로그인 성공");
+        try {
+            AuthUser authUser = (AuthUser) authentication.getPrincipal();
+
+            // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
+            if(authUser.getRole() == Role.GUEST) {
+                System.out.println("GUEST 로그인");
+                String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
+                response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
+                //회원가입 창으로 리다이렉트
+                //User user = User.builder().userEmail(authUser.getEmail()).userRole(authUser.getRole()).build();
+                //userRepository.save(user);
+
+                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
+                User findUser = userRepository.findByUserEmail(authUser.getEmail())
+                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+                findUser.authorizeUser();
+            } else {
+                System.out.println("토큰 생성");
+                loginSuccess(response, authUser); // 로그인에 성공한 경우 access, refresh 토큰 생성
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 
-    private String makeRedirectUrl(String token) {
-        return UriComponentsBuilder.fromUriString("http://i8d205.p.ssafy.io/oauth2/redirect?token="+token)
-                .build().toUriString();
-    }
     private void loginSuccess(HttpServletResponse response, AuthUser authUser) throws IOException {
-//        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
-//        String refreshToken = jwtProvider.createRefreshToken();
-//        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
-//        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
-//
-//        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-//        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
+        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
+        String refreshToken = jwtProvider.createRefreshToken();
+        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
+        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
+
+        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
     }
 }

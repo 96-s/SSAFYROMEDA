@@ -18,8 +18,6 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpDto userSignUpDto){
-        String userEmail = userSignUpDto.getUserEmail();
-        String userNickname = userSignUpDto.getUserNickName();
         User user = userService.sighUpUser(userSignUpDto);
         return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
 //        if(!userService.checkEmail(userEmail)){
@@ -30,6 +28,11 @@ public class UserController {
 //            User user = userService.sighUpUser(userSignUpDto);
 //            return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
 //        }
+    }
+
+    @GetMapping("/jwt-test")
+    public ResponseEntity<String> jwtTest() {
+        return new ResponseEntity<>("성공", HttpStatus.OK);
     }
 
 }

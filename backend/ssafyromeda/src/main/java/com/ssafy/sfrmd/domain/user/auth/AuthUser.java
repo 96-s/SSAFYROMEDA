@@ -25,7 +25,8 @@ public class AuthUser extends DefaultOAuth2User {
         Collection<? extends GrantedAuthority> authorities,
         Map<String, Object> attributes, String nameAttributeKey, Role role, String email) {
         super(authorities, attributes, nameAttributeKey);
+        Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
         this.role = role;
-        this.email = email;
+        this.email = (String) account.get("email");
     }
 }
