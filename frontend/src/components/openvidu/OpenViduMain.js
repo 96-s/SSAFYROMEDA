@@ -23,6 +23,7 @@ const OpenViduMain = () => {
   // currentVideoDevice
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   // 게임진행 변수
+  const [team, setTeam] = useState([]);
   const [players, setPlayers] = useState([]);
   const [turnNum, setTurnNum] = useState(0);
   const [nextPlayer, setNextPlayer] = useState('');
