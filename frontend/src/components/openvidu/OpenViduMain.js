@@ -2,6 +2,9 @@ import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
 import axios from "axios";
 
+import OpenViduSession from "./OpenViduSession";
+import WaitingRoom from "./WaitingRoom";
+
 // const OPENVIDU_SERVER_URL = "https://" + window.location.hostname + ":4443";
 // const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
@@ -273,6 +276,15 @@ const OpenViduMain = () => {
   return (
     <div>
       <h3>OpenVidu 메인 코드가 작성될 곳입니다.</h3>
+      <WaitingRoom
+        session={session}
+        handleMainVideoStream={handleMainVideoStream}
+        switchCamera={switchCamera}
+        leaveSession={leaveSession}
+        mainStreamManager={mainStreamManager}
+        publisher={publisher}
+        subscribers={subscribers}
+      ></WaitingRoom>
     </div>
   );
 };
