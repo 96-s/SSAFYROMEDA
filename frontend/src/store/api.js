@@ -7,9 +7,9 @@ import { setToken } from "store";
 // 카카오 로그인
 // 인가 코드 백엔드에 넘기기
 export const kakaoLoginApi = async (code) =>
-  await customAxios.get(`/login/oauth2/code/kakao?code=${code}`);
-
+  await customAxios.get(`login/oauth2/code/kakao?code=${code}`);
 // 닉네임 중복체크
+
 export const checkNicknameApi = async (nickname) =>
   await customAxios.get(`닉네임중복체크주소${nickname}`);
 
@@ -19,12 +19,12 @@ export const createNicknameApi = async (user) =>
 
 // 회원정보 get
 export const getUserApi = async (userid) =>
-    await customAxios.get(`api/users/${userid}`, {
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-        }
-})
+  await customAxios.get(`api/users/${userid}`, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
 // export const getUserApi = ({ userid }) =>
 //   axios({
