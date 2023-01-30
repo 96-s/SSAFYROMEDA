@@ -22,6 +22,16 @@ const OpenViduMain = () => {
   const [subscribers, setSubscribers] = useState([]);
   // currentVideoDevice
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
+  // 게임진행 변수
+  const [players, setPlayers] = useState([]);
+  const [turnNum, setTurnNum] = useState(0);
+  const [nextPlayer, setNextPlayer] = useState('');
+  const [posList, setPosList] = useState([0, 0, 0, 0, 0, 0]);
+  const [minigameType, setMinigameType] = useState(undefined)
+  const [isRoll, setIsRoll] = useState(false);
+
+  // 주사위 변수
+  const [whatDiceNum, setWhatDiceNum] = useState(0);
 
   // 중간에 오는 사람을 설정 (하위요소로 Props 필요함)
   const handleMainVideoStream = (stream) => {
