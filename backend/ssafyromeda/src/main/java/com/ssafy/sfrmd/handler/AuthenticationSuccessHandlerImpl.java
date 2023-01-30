@@ -23,7 +23,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        ApiResponse.error(response, ApiResponseType.SUCCESS, "로그인 성공");
         try {
             AuthUser authUser = (AuthUser) authentication.getPrincipal();
 

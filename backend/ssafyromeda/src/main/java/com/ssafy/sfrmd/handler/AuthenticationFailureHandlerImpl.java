@@ -13,6 +13,7 @@ import java.io.IOException;
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        ApiResponse.error(response, ApiResponseType.FORBIDDEN_RESPONSE, "로그인 실패");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.getWriter().write("로그인 실패");
     }
 }
