@@ -38,3 +38,6 @@ openvidu:
 server:
     ssl:
         enabled: false
+    port: 8080
+    servlet:
+        context-path: /api
