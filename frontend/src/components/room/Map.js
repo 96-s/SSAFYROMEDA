@@ -30,17 +30,17 @@ const Board = styled.div`
 
 const Marker1 = styled.section`
     img {
-        width: 50px;
+        width: 80px;
         position: relative;
-        top: 20px;
+        top: 10px;
         left: -275px;
     }
 `;
 const Marker2 = styled.section`
     img {
-        width: 50px;
+        width: 80px;
         position: relative;
-        top: 20px;
+        top: 10px;
         left: -285px;
     }
 `;
@@ -152,12 +152,12 @@ const Map = ({
           ) : (
             ""
           )}
-          {/* <Marker1 className={`pos${posList[myTurnNum]}`}>
+          <Marker1>
             <img src={Marker1IMG} alt="marker1"></img>
           </Marker1>
           <Marker2>
             <img src={Marker2IMG} alt="marker2"></img>
-          </Marker2> */}
+          </Marker2>
         </Board>
       </Page>
     );
