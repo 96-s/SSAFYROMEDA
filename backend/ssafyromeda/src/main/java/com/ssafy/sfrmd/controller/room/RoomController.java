@@ -1,6 +1,7 @@
 package com.ssafy.sfrmd.controller.room;
 
 import com.ssafy.sfrmd.domain.room.Room;
+import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.service.room.RoomServiceImpl;
 import com.ssafy.sfrmd.service.user.UserService;
 import io.openvidu.java.client.Connection;
@@ -46,14 +47,19 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends Object> createRoom()
+    public ResponseEntity<? extends Object> createRoom(@RequestBody User user)
         throws OpenViduJavaClientException, OpenViduHttpException {
-        Room room = roomService.createRoom(1);
+
         Map<String, Room> params = new HashMap<>();
-        params.put("roomCode", room);
+
+        Room room=null;
+        params.put("room", room);
+
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
-        room.setRoomCode(session.getSessionId());
+
+        room = roomService.createRoom(user.getUserNo(), session.getSessionId());
+
         if (room.getRoomSeq() != null) {
             return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
         }
