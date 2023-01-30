@@ -24,7 +24,7 @@ public class UserService{
         return null;
     }
 
-    public Boolean checkNickname(String userNickname) {
-        return null;
+    public Long checkNickname(String userNickname) {
+        return userRepository.countUserByUserNickname(userNickname);
     }
 }
