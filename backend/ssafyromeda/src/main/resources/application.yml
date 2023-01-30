@@ -6,7 +6,7 @@ spring:
             - OAUTH
     #mysql
     datasource:
-        url: jdbc:mysql://127.0.0.1:3306/ssafyromeda?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul #13.125.29.108
+        url: jdbc:mysql://i8d205.p.ssafy.io:3306/ssafyromeda?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul #13.125.29.108
         username: root #d205
         password: ${mysql-password}
         driver-class-name: com.mysql.cj.jdbc.Driver
