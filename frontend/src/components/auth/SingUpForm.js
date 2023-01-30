@@ -3,11 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import MyButton from "components/common/Button";
+import { parseJwt } from "components/utils/ParseJwt";
 
 const SignUpForm = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let token = useLocation().search.split("=")[1];
+  let email = parseJwt(token).email;
+
+  // redux 이메일 등록 로직 필요
+  // dispatch(authActions...)
 
   const { form, isAuth, authError } = useSelector((state) => ({
     form: state.auth.register, // {nickname: ''}

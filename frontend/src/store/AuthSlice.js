@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialAuthState = {
   // 회원가입(닉네임 등록)
   register: {
+    email: "",
     nickname: "",
   },
   profileInfo: [],
@@ -46,7 +47,11 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    // reset?
+    createNicknameSuccess(state, action) {
+      state.loading = false;
+      // console.log("페이로드", action.payload)
+      // 토큰 저장, 로그인 유무 변경
+    },
     createNicknameError(state, action) {
       state.loading = false;
       state.error = action.payload.error;

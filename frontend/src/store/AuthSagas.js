@@ -41,21 +41,23 @@ function* onKakaoLoginStartAsync({ payload }) {
 
 // 닉네임 설정 saga
 function* onCreateNicknameStartAsync({ payload }) {
-  const { createNicknameError } = authActions;
+  const { createNicknameError, createNicknameSuccess } = authActions;
 
   try {
     console.log("닉네임 입력 form", payload);
     const { nickname } = payload;
     const responseNickname = yield call(checkNicknameApi, nickname);
+    // console.log(responseNickname)
+    // responseNickname 응답을 확인하고 if문의 조건을 변경하면 된다.
     if (!responseNickname.data) {
       console.log("닉네임 중복");
       yield put(createNicknameError({ error: "중복된 닉네임입니다." }));
       return;
     }
-    // 닉네임 설정 요청
+    // 이메일, 닉네임 등록 요청
     const response = yield call(createNicknameApi, payload);
     if (response.status === 200) {
-      // 닉네임 설정 성공 -> 로비 페이지로 돌려보내기
+      // 닉네임 설정 성공 -> createNicknameSuccess 실행
     }
   } catch (error) {
     yield put(createNicknameError(error.response.data));
