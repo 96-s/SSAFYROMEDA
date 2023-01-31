@@ -5,19 +5,19 @@ import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("userService")
+@Service
+@RequiredArgsConstructor
 public class UserService{
-
-    @Autowired
-    UserRepository userRepository;
-    JwtProvider jwtProvider;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     public User sighUpUser(UserSignUpResponse userSignUpDto) {
         User user=userRepository.findByUserEmail(userSignUpDto.getUserEmail()).orElseThrow(NullPointerException::new);
-        user.updateUserNickname(userSignUpDto.getUserNickName());
+        user.updateUserNickname(userSignUpDto.getUserNickname());
         user.updateUserRole();
         user.updateUserRefreshToken(jwtProvider.createRefreshToken());
         return user;
