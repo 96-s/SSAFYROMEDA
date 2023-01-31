@@ -164,7 +164,7 @@ const MainPage = () => {
               />
 
               <Span>
-                <Link to="/lobby">S T A R T</Link>
+                <Link to="/signup">S T A R T</Link>
               </Span>
             </label>
           </MiddelDiv>

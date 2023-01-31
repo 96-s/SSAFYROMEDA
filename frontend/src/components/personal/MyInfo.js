@@ -38,8 +38,7 @@ const MyInfo = () => {
             onClick={openModal}
           />
           <NicknameModal open={modalOpen} close={closeModal} header="닉네임 수정">
-            {/* <main> {props.children} </main>에 내용이 입력된다. 리액트 함수형 */}
-            들어가
+
           </NicknameModal>
         </div>
       </ul>
