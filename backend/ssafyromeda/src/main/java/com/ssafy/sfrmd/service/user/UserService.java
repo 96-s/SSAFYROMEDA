@@ -2,7 +2,7 @@ package com.ssafy.sfrmd.service.user;
 
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
-import com.ssafy.sfrmd.dto.user.UserSignUpDto;
+import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ public class UserService{
     @Autowired
     UserRepository userRepository;
 
-    public User sighUpUser(UserSignUpDto userSignUpDto) {
+    public User sighUpUser(UserSignUpResponse userSignUpDto) {
         User user = User.builder()
                 .userEmail(userSignUpDto.getUserEmail())
                 .userNickname(userSignUpDto.getUserNickName())
