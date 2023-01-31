@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import Timer from "components/common/Timer";
 import DiceRoller from 'components/utils/DiceRoller';
+import DiceModal from './DiceModal';
+
+
 import Dice1 from "resources/images/Map/dice1.png";
 import Dice2 from "resources/images/Map/dice2.png";
 import Dice3 from "resources/images/Map/dice3.png";
 
 
-import MapIMG from "resources/images/Map/MapIMG.gif";
+import MapIMG from "resources/images/Map/MapIMG.gif"
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
 
@@ -117,24 +120,46 @@ const Map = ({
     const myTurnNum = 1;
     const [showDiceToggle, setShowDiceToggle] = useState(false);
 
-    useEffect(() => {    
-        if (whatDiceNum===0) {
-          return
-        }
+    const openDice = () => {
         setShowDiceToggle(true);
-        setTimeout(() => {
-          setShowDiceToggle(false);
-          setWhatDiceNum(0);
-        }, 4500);
-      }, [whatDiceNum]);
+        console.log("뜨나");
+    };
+    const closeDice = () => {
+        setShowDiceToggle(false);
+        console.log("뜬다");
+    };
+
+    // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
+    // useEffect(() => {    
+    //     if (whatDiceNum===0) {
+    //       return
+    //     }
+    //     setShowDiceToggle(true);
+    //     setTimeout(() => {
+    //       setShowDiceToggle(false);
+    //       setWhatDiceNum(0);
+    //     }, 4500);
+    //   }, [whatDiceNum]);
+
+    // 주사위 굴려지고 닫히면 말 이동
+    useEffect(() => {
+        if (setShowDiceToggle === false) {
+
+        }
+    })
 
     return (
       <Page>
         <Board>
+          <span onClick={openDice}>I</span>
+          <DiceModal
+            open={showDiceToggle}
+            close={closeDice}
+          ></DiceModal>
           <Timers>
             <Timer mm="1" ss="0" />
           </Timers>
-          {!isRoll & (myTurnNum === turnNum) ? (
+          {/* {!isRoll & (myTurnNum === turnNum) ? (
             <DiceRoller
               players={players}
               isRoll={isRoll}
@@ -145,13 +170,12 @@ const Map = ({
             ></DiceRoller>
           ) : (
             ""
-          )}
-          {showDiceToggle ? (
-            <ShowDiceModal className={`dice-${whatDiceNum}`}>
-            </ShowDiceModal>
+          )} */}
+          {/* {showDiceToggle ? (
+            <ShowDiceModal className={`dice-${whatDiceNum}`}></ShowDiceModal>
           ) : (
             ""
-          )}
+          )} */}
           <Marker1>
             <img src={Marker1IMG} alt="marker1"></img>
           </Marker1>
