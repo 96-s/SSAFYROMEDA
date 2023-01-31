@@ -4,6 +4,7 @@ import DiceRoller from 'components/utils/DiceRoller';
 // import MyButton from "components/common/Button";
 import styled from "styled-components";
 
+
 const Dice = styled.div`
     display: flex;
     justify-content: center;
@@ -23,11 +24,14 @@ const DiceModal = (props) => {
     turnNum,
     whatDiceNum,
     myUserNameValue,
-    setWhatDiceNum } = props;
+    setWhatDiceNum,
+    setDiceValue } = props;
   // const playerNum = players.length;
   const playerNum = 6;
   // const myTurnNum = players.indexOf(myUserNameValue);
   const myTurnNum = 1;
+
+  
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -36,7 +40,6 @@ const DiceModal = (props) => {
         <section>
           <main>
             <Dice>
-
                 <DiceRoller
                 players={players}
                 isRoll={isRoll}
@@ -44,6 +47,7 @@ const DiceModal = (props) => {
                 playerNum={playerNum}
                 myTurnNum={myTurnNum}
                 mySessionIdValue={sessionIdValue}
+                setDiceValue={setDiceValue}
                 ></DiceRoller>
             </Dice>
           </main>
