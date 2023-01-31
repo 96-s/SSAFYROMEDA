@@ -22,7 +22,7 @@ public class UserController {
         User user = userService.sighUpUser(userSignUpRequest);
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
             .userEmail(user.getUserEmail())
-            .userNickName(user.getUserNickname())
+            .userNickname(user.getUserNickname())
             .accessToken(jwtProvider.createAccessToken(user.getUserEmail()))
             .refreshToken(user.getUserRefreshToken())
             .build();
