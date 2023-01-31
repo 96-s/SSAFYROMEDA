@@ -32,10 +32,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                 String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
                 response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
                 //회원가입 창으로 리다이렉트
+                response.sendRedirect("http://localhost:3000/signup?token="+accessToken);
                 //User user = User.builder().userEmail(authUser.getEmail()).userRole(authUser.getRole()).build();
                 //userRepository.save(user);
 
-                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
+//                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
 //                User findUser = userRepository.findByUserEmail(authUser.getEmail())
 //                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
 //                findUser.authorizeUser();
