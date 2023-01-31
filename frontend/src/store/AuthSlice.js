@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuthState = {
   // 회원가입(닉네임 등록)
@@ -11,6 +11,7 @@ const initialAuthState = {
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
   user: null, // 유저 정보 저장
+  token: null, // 토큰 저장
 };
 
 const authSlice = createSlice({
@@ -56,8 +57,9 @@ const authSlice = createSlice({
       const { user, accessToken } = action.payload;
       console.log(user); // 유저정보 확인
       const { nickname, email } = user;
+      // 토큰 및 유저정보 저장, 로그인 유무 변경
       state.user = { nickname, email };
-      // 토큰 저장, 로그인 유무 변경
+      state.token = accessToken;
       state.isAuth = true;
     },
     createNicknameError(state, action) {
