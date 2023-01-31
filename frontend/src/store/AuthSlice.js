@@ -1,16 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialAuthState = {
   // 회원가입(닉네임 등록)
   register: {
-    email: "",
     nickname: "",
+    email: "dd",
   },
   profileInfo: [],
   loading: false, // 로딩중
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
   user: null, // 유저 정보 저장
+  test: false,
 };
 
 const authSlice = createSlice({
@@ -19,8 +20,8 @@ const authSlice = createSlice({
   reducers: {
     // 닉네임 form 업데이트
     changeField(state, action) {
-      state.register.nickname = action.payload;
-      console.log("changeField 테스트", state.register.nickname);
+      const { value } = action.payload;
+      state.register.nickname = value;
     },
     // 로그인
     kakaoLoginStart(state) {

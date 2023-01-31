@@ -10,25 +10,26 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let token = useLocation().search.split("=")[1];
-  let email = parseJwt(token).email;
+  // let token = useLocation().search.split("=")[1];
+  // let email = parseJwt(token).email;
 
   // redux 이메일 등록 로직 필요
   // dispatch(authActions...)
 
   const { form, isAuth, authError } = useSelector((state) => ({
-    form: state.auth.register, // {nickname: ''}
+    form: state.auth.register,
     isAuth: state.auth.isAuth,
     authError: state.auth.error,
+    test: state.auth.test,
   }));
 
-  // const temp = useSelector((state) => state.auth);
-  // console.log("테스트: ", temp);
+  const temp = useSelector((state) => state.auth);
+  console.log("테스트: ", temp);
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
     let { value } = e.target;
-    dispatch(authActions.changeField(value)); // value: 입력되는 문자
+    dispatch(authActions.changeField({ value })); // value: 입력되는 문자
   };
 
   // 2. form 등록 이벤트 핸들러

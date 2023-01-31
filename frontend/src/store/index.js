@@ -13,16 +13,16 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 
+// Reducers 통합
+const rootReducers = combineReducers({
+  auth: authReducer,
+});
+
 // 새로운 persist 선언
 const persistConfig = {
   key: "root", // reducer의 어느 시점부터 데이터를 저장할 것인지
   storage: storage, // 웹의 localStorage
 };
-
-// Reducers 통합
-const rootReducers = combineReducers({
-  auth: authReducer,
-});
 
 // persist + rootReducer
 const persistedReducer = persistReducer(persistConfig, rootReducers);
