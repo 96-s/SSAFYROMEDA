@@ -42,10 +42,12 @@ public class User {
                 this.userRole = userRole;
         }
 
-        public void authorizeUser() {
+        public void updateUserNickname(String updateNickname){
+                this.userNickname = updateNickname;
+        }
+        public void updateUserRole() {
                 this.userRole = Role.USER;
         }
-
         public void updateUserRefreshToken(String updateRefreshToken) {
                 this.userRefreshToken = updateRefreshToken;
         }
