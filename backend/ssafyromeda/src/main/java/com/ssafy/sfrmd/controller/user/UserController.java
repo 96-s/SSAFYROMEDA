@@ -1,9 +1,7 @@
 package com.ssafy.sfrmd.controller.user;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.dto.user.UserSignUpDto;
-import com.ssafy.sfrmd.security.oauth.OAuthAttributes;
+import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpDto userSignUpDto){
+    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpResponse userSignUpDto){
         User user = userService.sighUpUser(userSignUpDto);
         return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
 //        if(!userService.checkEmail(userEmail)){
