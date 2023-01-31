@@ -8,4 +8,6 @@ import lombok.NoArgsConstructor;
 public class UserSignUpResponse {
     private String userEmail;
     private String userNickName;
+    private String AccessToken;
+    private String RefreshToken;
 }
