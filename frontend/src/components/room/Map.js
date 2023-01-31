@@ -122,12 +122,13 @@ const Map = ({
 
     const openDice = () => {
         setShowDiceToggle(true);
-        console.log("왜떠?");
+        console.log("뜨나");
     };
     const closeDice = () => {
         setShowDiceToggle(false);
+        console.log("뜬다");
     };
-    
+
     // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
     // useEffect(() => {    
     //     if (whatDiceNum===0) {
@@ -139,6 +140,13 @@ const Map = ({
     //       setWhatDiceNum(0);
     //     }, 4500);
     //   }, [whatDiceNum]);
+
+    // 주사위 굴려지고 닫히면 말 이동
+    useEffect(() => {
+        if (setShowDiceToggle === false) {
+
+        }
+    })
 
     return (
       <Page>
