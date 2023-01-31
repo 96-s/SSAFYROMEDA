@@ -1,6 +1,7 @@
 package com.ssafy.sfrmd.controller.user;
 
 import com.ssafy.sfrmd.domain.user.User;
+import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import com.ssafy.sfrmd.service.user.UserService;
@@ -17,8 +18,8 @@ public class UserController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpResponse userSignUpDto){
-        User user = userService.sighUpUser(userSignUpDto);
+    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
+        User user = userService.sighUpUser(userSignUpRequest);
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
             .userEmail(user.getUserEmail())
             .userNickName(user.getUserNickname())
