@@ -20,7 +20,7 @@ public class UserService{
         user.updateUserNickname(userSignUpDto.getUserNickname());
         user.updateUserRole();
         user.updateUserRefreshToken(jwtProvider.createRefreshToken());
-        return user;
+        return userRepository.save(user);
     }
 
     public Boolean checkEmail(String userEamil) {
