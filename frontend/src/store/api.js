@@ -11,7 +11,7 @@ export const kakaoLoginApi = async (code) =>
 
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
-  await customAxios.get(`api/users/check/${nickname}`);
+  await customAxios.get(`api/users/check/nickname/${nickname}`);
 
 // 닉네임 설정 요청?
 export const createNicknameApi = async (user) =>
