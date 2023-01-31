@@ -38,7 +38,7 @@ const EnterRoomModal = (props) => {
             <MakeRoomDiv>
                 <span>초대코드를 입력해주세요.</span>
               <div>
-                <input className="editNickname" type="text"></input>
+                <input className="inviteCode" type="text"></input>
               </div>
               <div>
 

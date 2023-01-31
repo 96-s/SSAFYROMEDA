@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import Timer from "components/common/Timer";
-import DiceRoller from 'components/utils/DiceRoller';
+// import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from './DiceModal';
 
 
@@ -32,19 +32,36 @@ const Board = styled.div`
 `;
 
 const Marker1 = styled.section`
+    animation-name: marker1;
+    animation-duration:2s;
+    animation-duration:leaner;
+    animation-iteration-count:3;
+    animation-direction:alternate;
+    animation-fill-mode: forwards;
+
     img {
         width: 80px;
-        position: relative;
-        top: 10px;
-        left: -275px;
+        position: absolute;
+        top: 65px;
+        left: 470px;
     }
 `;
+
+// @-webkit-keyframes marker1 {
+//     0% {
+//         left: 100px;
+//     }
+//     100% {
+//         left: 300px;
+//     }
+// }
+
 const Marker2 = styled.section`
     img {
         width: 80px;
-        position: relative;
-        top: 10px;
-        left: -285px;
+        position: absolute;
+        top: 65px;
+        left: 470px;
     }
 `;
 
