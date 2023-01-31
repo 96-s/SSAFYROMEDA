@@ -2,6 +2,7 @@ package com.ssafy.sfrmd.service.user;
 
 import com.ssafy.sfrmd.domain.user.User;
 import com.ssafy.sfrmd.domain.user.UserRepository;
+import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import java.util.Optional;
@@ -15,9 +16,9 @@ public class UserService{
     UserRepository userRepository;
     JwtProvider jwtProvider;
 
-    public User sighUpUser(UserSignUpResponse userSignUpDto) {
-        User user=userRepository.findByUserEmail(userSignUpDto.getUserEmail()).orElseThrow(NullPointerException::new);
-        user.updateUserNickname(userSignUpDto.getUserNickName());
+    public User sighUpUser(UserSignUpRequest userSignUpRequest) {
+        User user=userRepository.findByUserEmail(userSignUpRequest.getUserEmail()).orElseThrow(NullPointerException::new);
+        user.updateUserNickname(userSignUpRequest.getUserNickname());
         user.updateUserRole();
         user.updateUserRefreshToken(jwtProvider.createRefreshToken());
         return user;

@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserSignUpResponse {
     private String userEmail;
-    private String userNickName;
+    private String userNickname;
     private String accessToken;
     private String RefreshToken;
 
     @Builder
-    public UserSignUpResponse(String userEmail, String userNickName, String accessToken, String refreshToken){
+    public UserSignUpResponse(String userEmail, String userNickname, String accessToken, String refreshToken){
         this.userEmail = userEmail;
-        this.userNickName = userNickName;
+        this.userNickname = userNickname;
         this.accessToken = accessToken;
         this.RefreshToken = refreshToken;
     }
