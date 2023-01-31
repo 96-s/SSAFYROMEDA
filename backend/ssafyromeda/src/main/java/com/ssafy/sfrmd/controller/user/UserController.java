@@ -1,6 +1,7 @@
 package com.ssafy.sfrmd.controller.user;
 
 import com.ssafy.sfrmd.domain.user.User;
+import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import com.ssafy.sfrmd.service.user.UserService;
@@ -17,20 +18,20 @@ public class UserController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpResponse userSignUpDto){
-        User user = userService.sighUpUser(userSignUpDto);
+    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
+        User user = userService.sighUpUser(userSignUpRequest);
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
             .userEmail(user.getUserEmail())
-            .userNickName(user.getUserNickname())
+            .userNickname(user.getUserNickname())
             .accessToken(jwtProvider.createAccessToken(user.getUserEmail()))
             .refreshToken(user.getUserRefreshToken())
             .build();
         return new ResponseEntity<>(userSignUpResponse, HttpStatus.valueOf(200));
     }
 
-    @GetMapping("/check/nickname")
-    public ResponseEntity<?> checkNickname(@RequestParam String userEmail){
-        if(userService.checkNickname(userEmail)==0){
+    @GetMapping("/check/nickname/{nickname}")
+    public ResponseEntity<?> checkNickname(@RequestParam("nickname") String userNickname){
+        if(userService.checkNickname(userNickname)==0){
             return new ResponseEntity<>("닉네임 사용 가능", HttpStatus.valueOf(200));
         }else{
             return new ResponseEntity<>("닉네임 중복", HttpStatus.valueOf(400));
