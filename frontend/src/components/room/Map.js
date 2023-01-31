@@ -10,7 +10,7 @@ import Dice2 from "resources/images/Map/dice2.png";
 import Dice3 from "resources/images/Map/dice3.png";
 
 
-import MapIMG from "resources/images/Map/MapIMG.gif";
+import MapIMG from "resources/images/Map/MapIMG.gif"
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
 
