@@ -32,12 +32,7 @@ const Board = styled.div`
 `;
 
 const Marker1 = styled.section`
-    animation-name: marker1;
-    animation-duration:2s;
-    animation-duration:leaner;
-    animation-iteration-count:3;
-    animation-direction:alternate;
-    animation-fill-mode: forwards;
+    animation: moveToRight-17 2s ease;
 
     img {
         width: 80px;
@@ -131,6 +126,7 @@ const Map = ({
     setWhatDiceNum
 
 }) => {
+    const [diceValue, setDiceValue] =  useState(null)
     // const playerNum = players.length;
     const playerNum = 6;
     // const myTurnNum = players.indexOf(myUserNameValue);
@@ -141,21 +137,32 @@ const Map = ({
         setShowDiceToggle(true);
         console.log("뜨나");
     };
-    const closeDice = () => {
-        setShowDiceToggle(false);
-        console.log("뜬다");
-    };
+
+    const closeDice = useEffect(() => {
+      console.log(diceValue);
+      if (diceValue !== null) {
+        setTimeout(() => {
+          setShowDiceToggle(false)
+          setDiceValue(null)
+        }, 3000)
+        console.log("닫힌다");
+        // setShowDiceToggle(false)
+        // diceValue(null)
+      }
+    }, [diceValue])
 
     // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
     // useEffect(() => {    
     //     if (whatDiceNum===0) {
     //       return
     //     }
-    //     setShowDiceToggle(true);
+    //     // setShowDiceToggle(true);
+        
     //     setTimeout(() => {
     //       setShowDiceToggle(false);
     //       setWhatDiceNum(0);
-    //     }, 4500);
+    //     }, 6000);
+    //     console.log("꺼진다");
     //   }, [whatDiceNum]);
 
     // 주사위 굴려지고 닫히면 말 이동
@@ -172,6 +179,7 @@ const Map = ({
           <DiceModal
             open={showDiceToggle}
             close={closeDice}
+            setDiceValue={setDiceValue}
           ></DiceModal>
           <Timers>
             <Timer mm="1" ss="0" />

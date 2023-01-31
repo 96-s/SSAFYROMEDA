@@ -17,16 +17,20 @@ export const DiceRoller = ({
     playerNum,
     myTurnNum,
     sessionIdValue,
+    setDiceValue,
 }) => {
     const [diceNum, setDiceNum] = useState();
 
     const onRollHandler = (value) => {
-        const myPos = posList[myTurnNum];
+        // const myPos = posList[myTurnNum];
+        const myPos = 1
         if (value > 3) {
             value = value - 3;
         }
 
         setDiceNum(value);
+        setDiceValue(value);
+        // console.log(value);
         const tempPosNum = (myPos + value) % 20;
 
         let nextPosList = [...posList]
