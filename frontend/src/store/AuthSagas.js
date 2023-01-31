@@ -20,7 +20,7 @@ import {
   getUserApi,
 } from "./api";
 
-// 카카오 로그인 saga
+// 로그인 saga
 function* onKakaoLoginStartAsync({ payload }) {
   const { kakaoLoginSuccess, kakaoLoginError } = authActions;
   try {
@@ -42,12 +42,11 @@ function* onKakaoLoginStartAsync({ payload }) {
 // 닉네임 설정 saga
 function* onCreateNicknameStartAsync({ payload }) {
   const { createNicknameError, createNicknameSuccess } = authActions;
-
+  console.log("payload 확인", payload);
+  const { nickname, tempEmail } = payload;
   try {
-    console.log("닉네임 입력 form", payload);
-    const { nickname } = payload;
     const responseNickname = yield call(checkNicknameApi, nickname);
-    // console.log(responseNickname)
+    console.log("닉네임중복응답:", responseNickname);
     // responseNickname 응답을 확인하고 if문의 조건을 변경하면 된다.
     if (!responseNickname.data) {
       console.log("닉네임 중복");
@@ -57,7 +56,8 @@ function* onCreateNicknameStartAsync({ payload }) {
     // 이메일, 닉네임 등록 요청
     const response = yield call(createNicknameApi, payload);
     if (response.status === 200) {
-      // 닉네임 설정 성공 -> createNicknameSuccess 실행
+      // 닉네임 설정 성공 -> 토큰저장로직 실행
+      yield put(createNicknameSuccess(response.data));
     }
   } catch (error) {
     yield put(createNicknameError(error.response.data));

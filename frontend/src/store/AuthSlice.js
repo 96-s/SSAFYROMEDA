@@ -4,14 +4,13 @@ const initialAuthState = {
   // 회원가입(닉네임 등록)
   register: {
     nickname: "",
-    email: "dd",
+    email: "",
   },
   profileInfo: [],
   loading: false, // 로딩중
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
   user: null, // 유저 정보 저장
-  test: false,
 };
 
 const authSlice = createSlice({
@@ -23,7 +22,10 @@ const authSlice = createSlice({
       const { value } = action.payload;
       state.register.nickname = value;
     },
-    // 로그인
+    reset(state) {
+      Object.assign(state, initialAuthState);
+    },
+    // 카카오 로그인
     kakaoLoginStart(state) {
       console.log("카카오 로그인 start");
       state.error = false;
@@ -50,8 +52,13 @@ const authSlice = createSlice({
     },
     createNicknameSuccess(state, action) {
       state.loading = false;
-      // console.log("페이로드", action.payload)
+      console.log("토큰?: ", action.payload); // 응답(토큰, 유저 정보)가 잘 넘어왔는지 확인
+      const { user, accessToken } = action.payload;
+      console.log(user); // 유저정보 확인
+      const { nickname, email } = user;
+      state.user = { nickname, email };
       // 토큰 저장, 로그인 유무 변경
+      state.isAuth = true;
     },
     createNicknameError(state, action) {
       state.loading = false;

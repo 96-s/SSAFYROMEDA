@@ -10,12 +10,6 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // let token = useLocation().search.split("=")[1];
-  // let email = parseJwt(token).email;
-
-  // redux 이메일 등록 로직 필요
-  // dispatch(authActions...)
-
   const { form, isAuth, authError } = useSelector((state) => ({
     form: state.auth.register,
     isAuth: state.auth.isAuth,
@@ -25,6 +19,14 @@ const SignUpForm = () => {
 
   const temp = useSelector((state) => state.auth);
   console.log("테스트: ", temp);
+
+  // let token = useLocation().search.split("=")[1];
+  // let email = parseJwt(token).email;
+
+  // redux 이메일 등록 로직 필요
+  // dispatch(authActions...)
+  const tempEmail = "123@abcd.com";
+  console.log(tempEmail);
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
@@ -41,7 +43,7 @@ const SignUpForm = () => {
       return;
     }
     if (nickname) {
-      dispatch(authActions.createNicknameStart(nickname));
+      dispatch(authActions.createNicknameStart({ nickname, tempEmail }));
     } else {
       setError("닉네임을 입력해주세요.");
       return;
@@ -80,7 +82,7 @@ const SignUpForm = () => {
         />
         <MyButton
           lang={"Korean"}
-          text={"제출"}
+          text={"결정"}
           type={"is-success"}
           onClick={onSubmit}
         />
