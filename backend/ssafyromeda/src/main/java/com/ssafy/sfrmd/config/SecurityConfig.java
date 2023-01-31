@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -74,11 +75,13 @@ public class SecurityConfig {
             .and()
             //== URL별 권한 관리 옵션 ==//
             .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS)
+            .permitAll()//preflight 요청 모두 허용
             .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
             .permitAll()
-            .antMatchers("/login/*","/users/login", "/users/signup", "/users/signup/*", "/users/check/*","/video/*")
+            .antMatchers("/login/*", "/users/signup", "/users/check/*","/video/*")
             .permitAll() //로그인, 회원가입 요청은 허용
-            .antMatchers("/user/signUpNext", "/users/jwt-test").hasRole("GUEST")
+            .antMatchers("/users/jwt-test").hasRole("GUEST")
             .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
             .and()
             //== 소셜 로그인 설정 ==//
