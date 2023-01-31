@@ -6,22 +6,22 @@ import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("userService")
+@Service
+@RequiredArgsConstructor
 public class UserService{
-
-    @Autowired
-    UserRepository userRepository;
-    JwtProvider jwtProvider;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     public User sighUpUser(UserSignUpRequest userSignUpRequest) {
         User user=userRepository.findByUserEmail(userSignUpRequest.getUserEmail()).orElseThrow(NullPointerException::new);
         user.updateUserNickname(userSignUpRequest.getUserNickname());
         user.updateUserRole();
         user.updateUserRefreshToken(jwtProvider.createRefreshToken());
-        return user;
+        return userRepository.save(user);
     }
 
     public Boolean checkEmail(String userEamil) {
