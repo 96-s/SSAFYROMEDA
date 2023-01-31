@@ -1,4 +1,4 @@
-FROM node:18.13.0 as build-stage
+FROM node:16.13.0 as build-stage
 WORKDIR /var/jenkins_home/workspace/Deploy/frontend
 COPY package*.json ./
 RUN npm install
