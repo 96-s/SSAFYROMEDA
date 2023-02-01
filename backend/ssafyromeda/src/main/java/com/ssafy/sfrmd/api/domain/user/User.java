@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.user;
+package com.ssafy.sfrmd.api.domain.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import com.ssafy.sfrmd.domain.user.Role;
 
 @Entity
 @Getter

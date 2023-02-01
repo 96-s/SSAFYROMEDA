@@ -1,9 +1,8 @@
 package com.ssafy.sfrmd.security.oauth;
 
-import com.ssafy.sfrmd.domain.user.Role;
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.auth.AuthUser;
-import com.ssafy.sfrmd.domain.user.auth.AuthUserInfo;
+import com.ssafy.sfrmd.api.domain.user.Role;
+import com.ssafy.sfrmd.api.domain.user.User;
+import com.ssafy.sfrmd.api.domain.user.auth.AuthUserInfo;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;

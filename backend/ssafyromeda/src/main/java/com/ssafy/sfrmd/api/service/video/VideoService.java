@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.api.service;
+package com.ssafy.sfrmd.api.service.video;
 
 import io.openvidu.java.client.Connection;
 import io.openvidu.java.client.ConnectionProperties;

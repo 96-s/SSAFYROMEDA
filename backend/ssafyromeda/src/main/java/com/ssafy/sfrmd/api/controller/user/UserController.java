@@ -1,10 +1,10 @@
-package com.ssafy.sfrmd.controller.user;
+package com.ssafy.sfrmd.api.controller.user;
 
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
-import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
+import com.ssafy.sfrmd.api.domain.user.User;
+import com.ssafy.sfrmd.api.dto.user.UserSignUpRequest;
+import com.ssafy.sfrmd.api.dto.user.UserSignUpResponse;
 import com.ssafy.sfrmd.jwt.JwtProvider;
-import com.ssafy.sfrmd.service.user.UserService;
+import com.ssafy.sfrmd.api.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

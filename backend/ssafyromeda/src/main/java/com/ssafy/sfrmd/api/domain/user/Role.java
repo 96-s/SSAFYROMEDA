@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.user;
+package com.ssafy.sfrmd.api.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

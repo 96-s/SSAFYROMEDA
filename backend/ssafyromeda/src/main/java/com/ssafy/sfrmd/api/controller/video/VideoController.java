@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.api.controller;
+package com.ssafy.sfrmd.api.controller.video;
 
 import java.util.Map;
 

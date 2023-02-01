@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.player;
+package com.ssafy.sfrmd.api.domain.player;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
