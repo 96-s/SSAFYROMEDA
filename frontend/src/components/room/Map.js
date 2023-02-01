@@ -37,8 +37,8 @@ const Marker1 = styled.section`
     img {
         width: 80px;
         position: absolute;
-        top: 38.5vh;
-        left: 43.2vw;
+        top: 78.5vh;
+        left: 62.3vw;
     }
     &.pos0 {
       top: 8.5vh;
@@ -223,8 +223,8 @@ const Marker1 = styled.section`
   }
 
   &.pos13 {
-    top: 2.5vh;
-    left: 48vw;
+    top: 40vh;
+    left: 36.8vw;
     @keyframes moveToRight-13 {
       0% {
         transform: translateX(10vw);
@@ -237,8 +237,8 @@ const Marker1 = styled.section`
   }
 
   &.pos14 {
-    top: 3vh;
-    left: 35.5vw;
+    top: 52.5vh;
+    left: 32.7vw;
     @keyframes moveToRight-14 {
       0% {
         transform: translateX(10vw);
@@ -251,8 +251,8 @@ const Marker1 = styled.section`
   }
 
   &.pos15 {
-    top: 3vh;
-    left: 22vw;
+    top: 64.3vh;
+    left: 34.05vw;
     @keyframes moveToRight-15 {
       0% {
         transform: translateX(10vw);
@@ -265,8 +265,8 @@ const Marker1 = styled.section`
   }
 
   &.pos16 {
-    top: 16vh;
-    left: 17vw;
+    top: 67.8vh;
+    left: 40.15vw;
     @keyframes moveToRight-16 {
       0% {
         transform: translate(5vw, -5vh);
@@ -279,8 +279,8 @@ const Marker1 = styled.section`
   }
 
   &.pos17 {
-    top: 30vh;
-    left: 13vw;
+    top: 67.1vh;
+    left: 46vw;
     @keyframes moveToRight-17 {
       0% {
         transform: translate(5vw, -5vh);
@@ -293,8 +293,8 @@ const Marker1 = styled.section`
   }
 
   &.pos18 {
-    top: 40vh;
-    left: 16vw;
+    top: 62.8vh;
+    left: 53.3vw;
     @keyframes moveToRight-18 {
       0% {
         transform: translate(-5vw, -5vh);
@@ -307,8 +307,47 @@ const Marker1 = styled.section`
   }
 
   &.pos19 {
-    top: 50vh;
-    left: 14vw;
+    top: 60.5vh;
+    left: 59.7vw;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(3vw, -5vh);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos19 {
+    top: 60.5vh;
+    left: 59.7vw;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(3vw, -5vh);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos20 {
+    top: 64.4vh;
+    left: 64.6vw;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(3vw, -5vh);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos21 {
+    top: 78.5vh;
+    left: 62.3vw;
     @keyframes moveToRight-19 {
       0% {
         transform: translate(3vw, -5vh);
