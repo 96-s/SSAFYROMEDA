@@ -3,17 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import MyButton from "components/common/Button";
-import { parseJwt } from "components/utils/ParseJwt";
+import styled from "styled-components";
+
+// 적용x -> 수정필요
+const InputContainer = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+`;
 
 const SignUpForm = () => {
-  // let token = useLocation().search.split("=")[1];
-  // let userEmail = parseJwt(token).email;
-  // console.log("현재 유저 이메일", userEmail);
-
-  // useEffect(() => {
-  //   dispatch(authActions.addUserEmail({ userEmail }));
-  // }, [dispatch, userEmail]);
-
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,12 +25,6 @@ const SignUpForm = () => {
 
   const temp = useSelector((state) => state.auth);
   console.log("테스트: ", temp);
-
-  // let token = useLocation().search.split("=")[1];
-  // let email = parseJwt(token).email;
-
-  // redux 이메일 등록 로직 필요
-  // dispatch(authActions...)
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
@@ -67,11 +59,6 @@ const SignUpForm = () => {
 
   // 3. 회원가입 성공 / 실패 처리
   useEffect(() => {
-    // 이메일 변경처리
-    // if (userEmail) {
-    //   dispatch(authActions.addUserEmail(userEmail));
-    // }
-
     if (authError) {
       // 닉네임 입력 중 에러발생
       setError(authError);
@@ -87,20 +74,22 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <h3>닉네임 입력</h3>
-      <form onSubmit={onSubmit} onKeyDown={(e) => onCheckEnter(e)}>
-        <input
-          name="nickname"
-          placeholder="닉네임을 입력하세요"
-          onChange={onChange}
-        />
-        <MyButton
-          lang={"Korean"}
-          text={"제출"}
-          type={"is-success"}
-          onClick={onSubmit}
-        />
-      </form>
+      <InputContainer>
+        <form onSubmit={onSubmit} onKeyDown={(e) => onCheckEnter(e)}>
+          <input
+            className="nes-input is-dark"
+            name="nickname"
+            placeholder="닉네임을 입력하세요"
+            onChange={onChange}
+          />
+          <MyButton
+            lang={"Korean"}
+            text={"결정"}
+            type={"is-success"}
+            onClick={onSubmit}
+          />
+        </form>
+      </InputContainer>
     </div>
   );
 };
