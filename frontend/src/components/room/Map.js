@@ -37,9 +37,9 @@ const Marker1 = styled.section`
 
   img {
       width: 80px;
-      position: absolute;
-      top: 7px;
-      left: 31.5px;
+      position: relative;
+      top: 1%;
+      left: 5%;
   }
   &.pos0 {
     // top: 1%;
@@ -49,7 +49,7 @@ const Marker1 = styled.section`
         transform: translate(0px, 0px);
       }
       100% {
-        transform: translate(28px, 80px);
+        transform: translate(3.5%, 110%);
       }
     }
     animation: moveToRight-0 2s ease;
@@ -60,7 +60,7 @@ const Marker1 = styled.section`
     // left: 8.9%;
     @keyframes moveToRight-1 {
       0% {
-        transform: translate(0);
+        transform: translate(0px, 0px);
       }
       100% {
         transform: translate(8.9%, 13.7%);
@@ -74,7 +74,7 @@ const Marker1 = styled.section`
   //   left: 38.2vw;
   //   @keyframes moveToRight-2 {
   //     0% {
-  //       transform: translateX(-10vw);
+  //       transform: translate(0px, 0px);
   //     }
   //     100% {
   //       transform: translateX(0vw);
@@ -88,7 +88,7 @@ const Marker1 = styled.section`
   //   left: 45vw;
   //   @keyframes moveToRight-3 {
   //     0% {
-  //       transform: translateX(-10vw);
+  //       transform: translate(0px, 0px);
   //     }
   //     100% {
   //       transform: translateX(0vw);
