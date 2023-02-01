@@ -67,9 +67,10 @@ const SignUpForm = () => {
 
   // 3. 회원가입 성공 / 실패 처리
   useEffect(() => {
-    if (userEmail) {
-      dispatch(authActions.addUserEmail(userEmail));
-    }
+    // 이메일 변경처리
+    // if (userEmail) {
+    //   dispatch(authActions.addUserEmail(userEmail));
+    // }
 
     if (authError) {
       // 닉네임 입력 중 에러발생
@@ -82,7 +83,7 @@ const SignUpForm = () => {
       console.log("닉네임 설정 성공");
       navigate("/lobby");
     }
-  }, [userEmail, isAuth, authError, dispatch, navigate]);
+  }, [isAuth, authError, dispatch, navigate]);
 
   return (
     <div>

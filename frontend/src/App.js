@@ -11,6 +11,7 @@ import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
 // import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
+import RedirectPage from "pages/RedirectPage";
 
 // import { Provider } from "react-redux";
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/lobby" element={<LobbyPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/oauthRedirect" element={<RedirectPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/game" element={<GamePage />} />
