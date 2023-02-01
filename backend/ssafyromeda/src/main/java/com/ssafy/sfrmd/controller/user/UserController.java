@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/check/nickname/{nickname}")
-    public ResponseEntity<?> checkNickname(@RequestParam("nickname") String userNickname){
+    public ResponseEntity<?> checkNickname(@PathVariable("nickname") String userNickname){
         if(userService.checkNickname(userNickname)==0){
             return new ResponseEntity<>("닉네임 사용 가능", HttpStatus.valueOf(200));
         }else{
