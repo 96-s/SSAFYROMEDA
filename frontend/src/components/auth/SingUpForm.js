@@ -6,6 +6,9 @@ import MyButton from "components/common/Button";
 import { parseJwt } from "components/utils/ParseJwt";
 
 const SignUpForm = () => {
+  let token = useLocation().search.split("=")[1];
+  let email = parseJwt(token).email;
+  console.log(email);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,8 +28,8 @@ const SignUpForm = () => {
 
   // redux 이메일 등록 로직 필요
   // dispatch(authActions...)
-  const tempEmail = "123@abcd.com";
-  console.log(tempEmail);
+  const userEmail = email;
+  console.log(userEmail);
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
@@ -36,14 +39,14 @@ const SignUpForm = () => {
 
   // 2. form 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    const { nickname } = form;
+    const { userNickname } = form;
     e.preventDefault();
-    if (nickname.lenght > 8) {
+    if (userNickname.length > 8) {
       setError("닉네임은 8글자 이하로 입력해야 합니다.");
       return;
     }
-    if (nickname) {
-      dispatch(authActions.createNicknameStart({ nickname, tempEmail }));
+    if (userNickname) {
+      dispatch(authActions.createNicknameStart({ userNickname, userEmail }));
     } else {
       setError("닉네임을 입력해주세요.");
       return;
@@ -82,7 +85,7 @@ const SignUpForm = () => {
         />
         <MyButton
           lang={"Korean"}
-          text={"결정"}
+          text={"제출"}
           type={"is-success"}
           onClick={onSubmit}
         />

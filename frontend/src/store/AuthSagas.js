@@ -43,9 +43,9 @@ function* onKakaoLoginStartAsync({ payload }) {
 function* onCreateNicknameStartAsync({ payload }) {
   const { createNicknameError, createNicknameSuccess } = authActions;
   console.log("payload 확인", payload);
-  const { nickname, tempEmail } = payload;
+  const { userEmail, userNickname } = payload;
   try {
-    const responseNickname = yield call(checkNicknameApi, nickname);
+    const responseNickname = yield call(checkNicknameApi, userNickname);
     console.log("닉네임중복응답:", responseNickname);
     // responseNickname 응답을 확인하고 if문의 조건을 변경하면 된다.
     if (!responseNickname.data) {
