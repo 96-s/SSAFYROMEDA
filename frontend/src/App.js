@@ -9,6 +9,7 @@ import LoginPage from "pages/LoginPage";
 import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
+import TestPage from "pages/TestPage";
 // import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/game" element={<GamePage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/openvidu" element={<OpenviduPage />} />
+        <Route path="/test" element={<TestPage />} />
 
         {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
       </Routes>
