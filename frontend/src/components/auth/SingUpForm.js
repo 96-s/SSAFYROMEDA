@@ -6,9 +6,9 @@ import MyButton from "components/common/Button";
 import { parseJwt } from "components/utils/ParseJwt";
 
 const SignUpForm = () => {
-  let token = useLocation().search.split("=")[1];
-  let userEmail = parseJwt(token).email;
-  console.log("현재 유저 이메일", userEmail);
+  // let token = useLocation().search.split("=")[1];
+  // let userEmail = parseJwt(token).email;
+  // console.log("현재 유저 이메일", userEmail);
 
   // useEffect(() => {
   //   dispatch(authActions.addUserEmail({ userEmail }));
@@ -42,7 +42,7 @@ const SignUpForm = () => {
 
   // 2. form 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    const { userNickname } = form;
+    const { userNickname, userEmail } = form;
     e.preventDefault();
     if (userNickname.length > 8) {
       // 에러메세지 상자 출력시켜야함
