@@ -20,32 +20,32 @@ import {
   getUserApi,
 } from "./api";
 
-// 로그인 saga
-function* onKakaoLoginStartAsync({ payload }) {
-  const { kakaoLoginSuccess, kakaoLoginError } = authActions;
-  try {
-    console.log("인가코드", payload);
-    // api 호출
-    const response = yield call(kakaoLoginApi, payload);
-    console.log("로그인 응답", response.status);
-    // 로그인 성공시
-    if (response.status === 200) {
-      yield put(kakaoLoginSuccess(response.data));
-    }
-  } catch (error) {
-    console.log(error);
-    console.log("카카오 로그인 에러");
-    // 로그인 실패시 나올 로직 작성
-  }
-}
+// 카카오 로그인 saga (미사용)
+// function* onKakaoLoginStartAsync({ payload }) {
+//   const { kakaoLoginSuccess, kakaoLoginError } = authActions;
+//   try {
+//     console.log("인가코드", payload);
+//     // api 호출
+//     const response = yield call(kakaoLoginApi, payload);
+//     console.log("로그인 응답", response.status);
+//     // 로그인 성공시
+//     if (response.status === 200) {
+//       yield put(kakaoLoginSuccess(response.data));
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     console.log("카카오 로그인 에러");
+//     // 로그인 실패시 나올 로직 작성
+//   }
+// }
 
 // 닉네임 설정 saga
 function* onCreateNicknameStartAsync({ payload }) {
   const { createNicknameError, createNicknameSuccess } = authActions;
   console.log("payload 확인", payload);
-  const { nickname, tempEmail } = payload;
+  const { userEmail, userNickname } = payload;
   try {
-    const responseNickname = yield call(checkNicknameApi, nickname);
+    const responseNickname = yield call(checkNicknameApi, userNickname);
     console.log("닉네임중복응답:", responseNickname);
     // responseNickname 응답을 확인하고 if문의 조건을 변경하면 된다.
     if (!responseNickname.data) {
@@ -80,10 +80,10 @@ function* onGetUserProfileInfoStartAsync() {
 
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
-function* onKakaoLogin() {
-  const { kakaoLoginStart } = authActions;
-  yield takeLatest(kakaoLoginStart, onKakaoLoginStartAsync);
-}
+// function* onKakaoLogin() {
+//   const { kakaoLoginStart } = authActions;
+//   yield takeLatest(kakaoLoginStart, onKakaoLoginStartAsync);
+// }
 
 function* onCreateNickname() {
   const { createNicknameStart } = authActions;
@@ -97,7 +97,7 @@ function* onGetUserUserProfileInfo() {
 
 // 사가 export
 export const authSagas = [
-  fork(onKakaoLogin),
+  // fork(onKakaoLogin),
   fork(onCreateNickname),
   fork(onGetUserUserProfileInfo),
 ];

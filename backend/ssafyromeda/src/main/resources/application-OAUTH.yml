@@ -7,7 +7,7 @@ spring:
           kakao:
             client-id: ${kakao-client-id}
             client-secret: ${kakao-client-secret}
-            redirect-uri: "http://localhost:8080/api/login/oauth2/code/kakao"
+            redirect-uri: "https://i8d205.p.ssafy.io/api/login/oauth2/code/kakao"
             client-authentication-method: POST
             authorization-grant-type: authorization_code
             scope: account_email
