@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.api.controller;
+package com.ssafy.sfrmd.api.controller.video;
 
 import java.util.Map;
 
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,13 +24,14 @@ import io.openvidu.java.client.SessionProperties;
 
 @RestController
 @RequestMapping("/video")
+@RequiredArgsConstructor
 public class VideoController {
 
     @Value("http://i8d205.p.ssafy.io:4443/")
-    private String OPENVIDU_URL;
+    private final String OPENVIDU_URL;
 
     @Value("MY_SECRET")
-    private String OPENVIDU_SECRET;
+    private final String OPENVIDU_SECRET;
 
     private OpenVidu openvidu;
 

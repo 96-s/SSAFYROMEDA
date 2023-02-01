@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.player;
+package com.ssafy.sfrmd.api.domain.player;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

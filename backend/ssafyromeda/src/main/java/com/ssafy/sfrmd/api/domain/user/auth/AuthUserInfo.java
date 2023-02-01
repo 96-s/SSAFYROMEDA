@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.user.auth;
+package com.ssafy.sfrmd.api.domain.user.auth;
 
 
 import java.util.Map;

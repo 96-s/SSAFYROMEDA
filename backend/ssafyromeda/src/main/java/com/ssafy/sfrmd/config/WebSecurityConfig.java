@@ -1,6 +1,6 @@
 package com.ssafy.sfrmd.config;
 
-import com.ssafy.sfrmd.domain.user.UserRepository;
+import com.ssafy.sfrmd.api.domain.user.UserRepository;
 import com.ssafy.sfrmd.jwt.JwtFilter;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import com.ssafy.sfrmd.security.oauth.OAuth2UserServiceImpl;
@@ -14,10 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
@@ -27,7 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class WebSecurityConfig {
 
     //JWT 제공 클래스
     private final JwtProvider jwtProvider;

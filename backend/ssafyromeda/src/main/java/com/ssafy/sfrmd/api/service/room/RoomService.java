@@ -1,23 +1,22 @@
-package com.ssafy.sfrmd.service.room;
+package com.ssafy.sfrmd.api.service.room;
 
-import com.ssafy.sfrmd.domain.player.Player;
-import com.ssafy.sfrmd.domain.player.PlayerRepository;
-import com.ssafy.sfrmd.domain.room.Room;
-import com.ssafy.sfrmd.domain.room.RoomRepository;
+import com.ssafy.sfrmd.api.domain.player.Player;
+import com.ssafy.sfrmd.api.domain.player.PlayerRepository;
+import com.ssafy.sfrmd.api.domain.room.Room;
+import com.ssafy.sfrmd.api.domain.room.RoomRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service("roomService")
+@Service
 @RequiredArgsConstructor
-public class RoomServiceImpl implements RoomService{
+public class RoomService {
     private final RoomRepository roomRepository;
 
     private final PlayerRepository playerRepository;
 
 //    HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
 
-    @Override
     public Room createRoom(long host, String roomCode) {
 
         // room 정보 저장
@@ -52,12 +51,12 @@ public class RoomServiceImpl implements RoomService{
         }
     }
 
-    @Override
+
     public Optional<Room> getRoomByRoomCode(String roomCode) {
         return roomRepository.findByRoomCode(roomCode);
     }
 
-    @Override
+
     public boolean deleteRoom(Long roomSeq, String roomCode) {
         try{
             roomRepository.deleteById(roomSeq);

@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.domain.room;
+package com.ssafy.sfrmd.api.domain.room;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

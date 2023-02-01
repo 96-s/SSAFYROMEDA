@@ -1,4 +1,4 @@
-package com.ssafy.sfrmd.dto.user;
+package com.ssafy.sfrmd.api.dto.user;
 
 import lombok.Builder;
 import lombok.Getter;

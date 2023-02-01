@@ -1,13 +1,10 @@
-package com.ssafy.sfrmd.service.user;
+package com.ssafy.sfrmd.api.service.user;
 
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.UserRepository;
-import com.ssafy.sfrmd.dto.user.UserSignUpRequest;
-import com.ssafy.sfrmd.dto.user.UserSignUpResponse;
+import com.ssafy.sfrmd.api.domain.user.User;
+import com.ssafy.sfrmd.api.domain.user.UserRepository;
+import com.ssafy.sfrmd.api.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.jwt.JwtProvider;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

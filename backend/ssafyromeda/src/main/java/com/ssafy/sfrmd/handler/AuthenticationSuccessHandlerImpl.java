@@ -1,9 +1,8 @@
 package com.ssafy.sfrmd.handler;
 
-import com.ssafy.sfrmd.domain.user.Role;
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.UserRepository;
-import com.ssafy.sfrmd.domain.user.auth.AuthUser;
+import com.ssafy.sfrmd.api.domain.user.Role;
+import com.ssafy.sfrmd.api.domain.user.UserRepository;
+import com.ssafy.sfrmd.api.domain.user.auth.AuthUser;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
