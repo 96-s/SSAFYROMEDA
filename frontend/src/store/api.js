@@ -6,12 +6,12 @@ import { setToken } from "store";
 
 // 카카오 로그인
 // 인가 코드 백엔드에 넘기기
-export const kakaoLoginApi = async (code) =>
-  await customAxios.get(`login/oauth2/code/kakao?code=${code}`);
+// export const kakaoLoginApi = async (code) =>
+//   await customAxios.get(`login/oauth2/code/kakao?code=${code}`);
 
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
-  await customAxios.get(`api/users/check/${nickname}`);
+  await customAxios.get(`api/users/check/nickname/${nickname}`);
 
 // 닉네임 설정 요청?
 export const createNicknameApi = async (user) =>

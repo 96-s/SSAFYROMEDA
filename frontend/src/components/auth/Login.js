@@ -1,8 +1,9 @@
 // 카카오 로그인
 import kakaoBtn from "resources/images/kakao_login_M.png";
-import { KAKAO_AUTH_URL } from "./Oauth";
+// import { KAKAO_AUTH_URL } from "./Oauth";
 
 const kakaoLogin = () => {
+  const KAKAO_AUTH_URL = `https://i8d205.p.ssafy.io/api/oauth2/authorization/kakao`;
   window.location.href = KAKAO_AUTH_URL;
 };
 

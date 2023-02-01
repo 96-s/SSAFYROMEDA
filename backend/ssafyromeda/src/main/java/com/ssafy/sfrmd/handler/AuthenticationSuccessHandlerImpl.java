@@ -1,9 +1,8 @@
 package com.ssafy.sfrmd.handler;
 
-import com.ssafy.sfrmd.domain.user.Role;
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.UserRepository;
-import com.ssafy.sfrmd.domain.user.auth.AuthUser;
+import com.ssafy.sfrmd.api.domain.user.Role;
+import com.ssafy.sfrmd.api.domain.user.UserRepository;
+import com.ssafy.sfrmd.api.domain.user.auth.AuthUser;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -32,13 +31,14 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                 String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
                 response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
                 //회원가입 창으로 리다이렉트
+                response.sendRedirect("https://i8d205.p.ssafy.io/signup?token="+accessToken);
                 //User user = User.builder().userEmail(authUser.getEmail()).userRole(authUser.getRole()).build();
                 //userRepository.save(user);
 
-                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
-                User findUser = userRepository.findByUserEmail(authUser.getEmail())
-                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
-                findUser.authorizeUser();
+//                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
+//                User findUser = userRepository.findByUserEmail(authUser.getEmail())
+//                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+//                findUser.authorizeUser();
             } else {
                 System.out.println("토큰 생성");
                 loginSuccess(response, authUser); // 로그인에 성공한 경우 access, refresh 토큰 생성

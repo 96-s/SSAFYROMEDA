@@ -6,15 +6,17 @@ import MyButton from "components/common/Button";
 import { parseJwt } from "components/utils/ParseJwt";
 
 const SignUpForm = () => {
+  let token = useLocation().search.split("=")[1];
+  let userEmail = parseJwt(token).email;
+  console.log("현재 유저 이메일", userEmail);
+
+  // useEffect(() => {
+  //   dispatch(authActions.addUserEmail({ userEmail }));
+  // }, [dispatch, userEmail]);
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // let token = useLocation().search.split("=")[1];
-  // let email = parseJwt(token).email;
-
-  // redux 이메일 등록 로직 필요
-  // dispatch(authActions...)
 
   const { form, isAuth, authError } = useSelector((state) => ({
     form: state.auth.register,
@@ -26,6 +28,12 @@ const SignUpForm = () => {
   const temp = useSelector((state) => state.auth);
   console.log("테스트: ", temp);
 
+  // let token = useLocation().search.split("=")[1];
+  // let email = parseJwt(token).email;
+
+  // redux 이메일 등록 로직 필요
+  // dispatch(authActions...)
+
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
     let { value } = e.target;
@@ -34,16 +42,19 @@ const SignUpForm = () => {
 
   // 2. form 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    const { nickname } = form;
+    const { userNickname } = form;
     e.preventDefault();
-    if (nickname.lenght > 8) {
+    if (userNickname.length > 8) {
+      // 에러메세지 상자 출력시켜야함
+      console.log("닉네임 8글자 초과했다");
       setError("닉네임은 8글자 이하로 입력해야 합니다.");
       return;
     }
-    if (nickname) {
-      dispatch(authActions.createNicknameStart(nickname));
+    if (userNickname) {
+      dispatch(authActions.createNicknameStart({ userNickname, userEmail }));
     } else {
       setError("닉네임을 입력해주세요.");
+      console.log("닉네임 비었다");
       return;
     }
   };
@@ -56,6 +67,11 @@ const SignUpForm = () => {
 
   // 3. 회원가입 성공 / 실패 처리
   useEffect(() => {
+    // 이메일 변경처리
+    // if (userEmail) {
+    //   dispatch(authActions.addUserEmail(userEmail));
+    // }
+
     if (authError) {
       // 닉네임 입력 중 에러발생
       setError(authError);

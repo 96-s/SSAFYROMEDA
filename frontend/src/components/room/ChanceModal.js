@@ -1,17 +1,19 @@
 import React from 'react';
 import 'components/common/modal.css';
-import DiceRoller from 'components/utils/DiceRoller';
-// import MyButton from "components/common/Button";
 import styled from "styled-components";
+import CardFrameIMG from "resources/images/Map/card-frame.png"
 
 
-const Dice = styled.div`
+const ChanceCard = styled.div`
     display: flex;
     justify-content: center;
     padding: 20px;
-`
+    width: 340px;
+    height: 460px;
+    background: url(${CardFrameIMG}) no-repeat;
+`;
 
-const DiceModal = (props) => {
+const ChanceModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { 
     open, 
@@ -39,17 +41,9 @@ const DiceModal = (props) => {
       {open ? (
         <section>
           <main>
-            <Dice>
-                <DiceRoller
-                players={players}
-                isRoll={isRoll}
-                posList={posList}
-                playerNum={playerNum}
-                myTurnNum={myTurnNum}
-                mySessionIdValue={sessionIdValue}
-                setDiceValue={setDiceValue}
-                ></DiceRoller>
-            </Dice>
+            <ChanceCard>
+                
+            </ChanceCard>
           </main>
           <footer>
             <button className="close" onClick={close}>
@@ -61,4 +55,4 @@ const DiceModal = (props) => {
     </div>
   );
 };
-export default DiceModal;
+export default ChanceModal;

@@ -1,7 +1,7 @@
 package com.ssafy.sfrmd.jwt;
 
-import com.ssafy.sfrmd.domain.user.User;
-import com.ssafy.sfrmd.domain.user.UserRepository;
+import com.ssafy.sfrmd.api.domain.user.User;
+import com.ssafy.sfrmd.api.domain.user.UserRepository;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
