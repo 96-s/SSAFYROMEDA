@@ -15,7 +15,7 @@ export const checkNicknameApi = async (nickname) =>
 
 // 닉네임 설정 요청?
 export const createNicknameApi = async (user) =>
-  await customAxios.post("api/users/signup", user);
+  await customAxios.post("api/users/signup", user, {withCredentials: true});
 
 // 회원정보 get
 export const getUserApi = async (userid) =>
@@ -25,7 +25,6 @@ export const getUserApi = async (userid) =>
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-
 // export const getUserApi = ({ userid }) =>
 //   axios({
 //     method: "get",
