@@ -11,15 +11,17 @@ import { setToken } from "store";
 
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
-  await customAxios.get(`api/users/check/nickname/${nickname}`,{withCredentials: true});
+  await customAxios.get(`users/check/nickname/${nickname}`, {
+    withCredentials: true,
+  });
 
 // 닉네임 설정 요청?
 export const createNicknameApi = async (user) =>
-  await customAxios.post("api/users/signup", user);
+  await customAxios.post("users/signup", user);
 
 // 회원정보 get
 export const getUserApi = async (userid) =>
-  await customAxios.get(`api/users/${userid}`, {
+  await customAxios.get(`users/${userid}`, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
