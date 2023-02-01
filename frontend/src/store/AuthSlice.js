@@ -26,26 +26,26 @@ const authSlice = createSlice({
     reset(state) {
       Object.assign(state, initialAuthState);
     },
-    // 카카오 로그인
-    kakaoLoginStart(state) {
-      console.log("카카오 로그인 start");
-      state.error = false;
-      state.isAuth = false;
-      state.loading = true;
-    },
-    kakaoLoginSuccess(state, action) {
-      state.loading = false;
-      // 백서버에 code를 전송 (code가 어디 담겼는지 확인필요)
-      console.log("페이로드", action.payload);
-      const { user, accessToken } = action.payload;
-      console.log(user);
-      // 토큰 로컬스토리지 저장 및 유저 상태 변경, 로그인 유무 변경
-    },
-    kakaoLoginError(state, action) {
-      state.loading = false;
-      state.isAuth = false;
-      state.error = action.payload;
-    },
+    // 카카오 로그인 (미사용)
+    // kakaoLoginStart(state) {
+    //   console.log("카카오 로그인 start");
+    //   state.error = false;
+    //   state.isAuth = false;
+    //   state.loading = true;
+    // },
+    // kakaoLoginSuccess(state, action) {
+    //   state.loading = false;
+    //   // 백서버에 code를 전송 (code가 어디 담겼는지 확인필요)
+    //   console.log("페이로드", action.payload);
+    //   const { user, accessToken } = action.payload;
+    //   console.log(user);
+    //   // 토큰 로컬스토리지 저장 및 유저 상태 변경, 로그인 유무 변경
+    // },
+    // kakaoLoginError(state, action) {
+    //   state.loading = false;
+    //   state.isAuth = false;
+    //   state.error = action.payload;
+    // },
     // 이메일 받아오기
     addUserEmail(state, action) {
       state.register.userEmail = action.payload;

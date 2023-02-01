@@ -9,7 +9,7 @@ import LoginPage from "pages/LoginPage";
 import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
-import KakaoRedirect from "components/auth/KakaoRedirect";
+// import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 
 // import { Provider } from "react-redux";
@@ -36,7 +36,7 @@ function App() {
         <Route path="/result" element={<ResultPage />} />
         <Route path="/openvidu" element={<OpenviduPage />} />
 
-        <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} />
+        {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
       </Routes>
     </div>
   );
