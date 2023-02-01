@@ -7,8 +7,13 @@ import { parseJwt } from "components/utils/ParseJwt";
 
 const SignUpForm = () => {
   let token = useLocation().search.split("=")[1];
-  let email = parseJwt(token).email;
-  console.log(email);
+  let userEmail = parseJwt(token).email;
+  console.log("현재 유저 이메일", userEmail);
+
+  // useEffect(() => {
+  //   dispatch(authActions.addUserEmail({ userEmail }));
+  // }, [dispatch, userEmail]);
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,8 +33,6 @@ const SignUpForm = () => {
 
   // redux 이메일 등록 로직 필요
   // dispatch(authActions...)
-  const userEmail = email;
-  console.log(userEmail);
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
@@ -42,6 +45,8 @@ const SignUpForm = () => {
     const { userNickname } = form;
     e.preventDefault();
     if (userNickname.length > 8) {
+      // 에러메세지 상자 출력시켜야함
+      console.log("닉네임 8글자 초과했다");
       setError("닉네임은 8글자 이하로 입력해야 합니다.");
       return;
     }
@@ -49,6 +54,7 @@ const SignUpForm = () => {
       dispatch(authActions.createNicknameStart({ userNickname, userEmail }));
     } else {
       setError("닉네임을 입력해주세요.");
+      console.log("닉네임 비었다");
       return;
     }
   };
@@ -61,6 +67,10 @@ const SignUpForm = () => {
 
   // 3. 회원가입 성공 / 실패 처리
   useEffect(() => {
+    if (userEmail) {
+      dispatch(authActions.addUserEmail(userEmail));
+    }
+
     if (authError) {
       // 닉네임 입력 중 에러발생
       setError(authError);
@@ -72,7 +82,7 @@ const SignUpForm = () => {
       console.log("닉네임 설정 성공");
       navigate("/lobby");
     }
-  }, [isAuth, authError, dispatch, navigate]);
+  }, [userEmail, isAuth, authError, dispatch, navigate]);
 
   return (
     <div>
