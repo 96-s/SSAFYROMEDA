@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialAuthState = {
   // 회원가입(닉네임 등록)
   register: {
-    nickname: "",
-    email: "",
+    userNickname: "",
+    userEmail: "",
   },
   profileInfo: [],
   loading: false, // 로딩중
@@ -21,7 +21,7 @@ const authSlice = createSlice({
     // 닉네임 form 업데이트
     changeField(state, action) {
       const { value } = action.payload;
-      state.register.nickname = value;
+      state.register.userNickname = value;
     },
     reset(state) {
       Object.assign(state, initialAuthState);
@@ -45,6 +45,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.isAuth = false;
       state.error = action.payload;
+    },
+    // 이메일 받아오기
+    addUserEmail(state, action) {
+      state.register.userEmail = action.payload;
     },
     // 닉네임 설정
     createNicknameStart(state) {
