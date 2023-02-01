@@ -31,7 +31,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                 String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
                 response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
                 //회원가입 창으로 리다이렉트
-                response.sendRedirect("https://i8d205.p.ssafy.io/signup?token="+accessToken);
+                response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
                 //User user = User.builder().userEmail(authUser.getEmail()).userRole(authUser.getRole()).build();
                 //userRepository.save(user);
 
