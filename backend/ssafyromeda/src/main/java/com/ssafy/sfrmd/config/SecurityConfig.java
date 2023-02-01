@@ -4,6 +4,7 @@ import com.ssafy.sfrmd.domain.user.UserRepository;
 import com.ssafy.sfrmd.jwt.JwtFilter;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import com.ssafy.sfrmd.security.oauth.OAuth2UserServiceImpl;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -46,7 +47,7 @@ public class SecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // Access-Control-Allow-Origin 값을 설정한다.
         // setAllowedOrigins로 여러개를 한꺼번에 설정할 수 도 있다.
-        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://192.168.100.63:3000"));
         // 어떤 HTTP 메서드를 허용할지 정할 수 있다.
         // setAllowedMethods로 여러개를 한꺼번에 설정할 수 있다.
         corsConfiguration.addAllowedMethod("*");
