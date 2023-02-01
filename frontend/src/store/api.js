@@ -11,7 +11,7 @@ import { setToken } from "store";
 
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
-  await customAxios.get(`api/users/check/nickname/${nickname}`);
+  await customAxios.get(`api/users/check/nickname/${nickname}`,{withCredentials: true});
 
 // 닉네임 설정 요청?
 export const createNicknameApi = async (user) =>
@@ -25,7 +25,6 @@ export const getUserApi = async (userid) =>
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-
 // export const getUserApi = ({ userid }) =>
 //   axios({
 //     method: "get",
