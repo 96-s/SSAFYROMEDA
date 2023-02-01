@@ -54,11 +54,12 @@ const authSlice = createSlice({
     createNicknameSuccess(state, action) {
       state.loading = false;
       console.log("토큰?: ", action.payload); // 응답(토큰, 유저 정보)가 잘 넘어왔는지 확인
-      const { user, accessToken } = action.payload;
-      console.log(user); // 유저정보 확인
-      const { nickname, email } = user;
+      const { userEmail, userNickname, accessToken, refreshToken } =
+        action.payload;
+      console.log(userNickname); // 유저정보 확인
+      //const { nickname, email } = user;
       // 토큰 및 유저정보 저장, 로그인 유무 변경
-      state.user = { nickname, email };
+      state.user = { userEmail, userNickname };
       state.token = accessToken;
       state.isAuth = true;
     },
