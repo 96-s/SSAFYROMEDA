@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  position: absolute;
   justify-content: center;
   border: 1px solid black;
   border-radius: 20px;
@@ -13,6 +14,9 @@ const Container = styled.div`
 `
 
 const Page = styled.div`
+  position: relative;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
 `
