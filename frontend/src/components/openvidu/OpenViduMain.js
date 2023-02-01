@@ -1,7 +1,6 @@
 import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
 import axios from "axios";
-
 import OpenViduSession from "./OpenViduSession";
 import WaitingRoom from "./WaitingRoom";
 

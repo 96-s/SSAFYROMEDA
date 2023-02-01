@@ -37,13 +37,13 @@ const Marker1 = styled.section`
 
   img {
       width: 80px;
-      position: relative;
-      top: 1%;
-      left: 5%;
+      position: absolute;
+      top: 0.8vh;
+      left: 2vw;
   }
   &.pos0 {
-    // top: 1%;
-    // left: 4.5%;
+    // top: 0.8vh;
+    // left: 2vw;
     @keyframes moveToRight-0 {
       0% {
         transform: translate(0px, 0px);
