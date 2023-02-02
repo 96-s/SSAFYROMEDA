@@ -4,6 +4,7 @@ import MyButton from "components/common/Button";
 import styled from "styled-components";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MakeRoomDiv = styled.div`
   flex: auto;
@@ -17,8 +18,42 @@ const MakeRoomModal = (props) => {
   }
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header } = props;
+  const {
+    open,
+    close, 
+    header,
+    mySessionIdValue,
+    publisher,
+    players,
+    subscribers, } = props;
   const [isMade, setIsMade] = useState(false);
+
+  const makeCode = () => {
+
+    const nextTurnNum = Math.floor(Math.random() * 6);
+    const nextPlayer = players[nextTurnNum];
+
+    const sendData = {
+      session: mySessionIdValue,
+      to: [],
+      data: JSON.stringify({
+        nextTurnNum: nextTurnNum,
+        nextPlayer: nextPlayer,
+
+
+      })
+    };
+    fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(sendData),
+    });
+    setIsMade(!isMade);
+
+  }
   // const toggleIsMade = () => {
   //   ;
   // }
@@ -41,7 +76,7 @@ const MakeRoomModal = (props) => {
                   type={"Korean"}
                   className={"is-primary"}
                   text={"초대코드 생성"}
-                  onClick={() => setIsMade(!isMade)}
+                  onClick={makeCode}
                 />
               }
               <div>

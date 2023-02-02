@@ -36,38 +36,38 @@ const Marker1 = styled.section`
   animation: moveToRight-0 2s ease;
 
   img {
-      width: 80px;
+      width: 10vmin;
       position: absolute;
-      top: 0.8vh;
-      left: 2vw;
+      top: 1%;
+      left: 4.9%;
   }
-  &.pos0 {
-    // top: 0.8vh;
-    // left: 2vw;
-    @keyframes moveToRight-0 {
-      0% {
-        transform: translate(0px, 0px);
-      }
-      100% {
-        transform: translate(3.5%, 110%);
-      }
-    }
-    animation: moveToRight-0 2s ease;
-  }
+  // &.pos0 {
+  //   // top: 0.8vh;
+  //   // left: 2vw;
+  //   @keyframes moveToRight-0 {
+  //     0% {
+  //       transform: translate(0px, 0px);
+  //     }
+  //     100% {
+  //       transform: translate(3.5%, 110%);
+  //     }
+  //   }
+  //   animation: moveToRight-0 2s ease;
+  // }
     
-  &.pos1 {
-    // top: 13.7%;
-    // left: 8.9%;
-    @keyframes moveToRight-1 {
-      0% {
-        transform: translate(0px, 0px);
-      }
-      100% {
-        transform: translate(8.9%, 13.7%);
-      }
-    }
-    animation: moveToRight-1 2s ease;
-  }
+  // &.pos1 {
+  //   // top: 13.7%;
+  //   // left: 8.9%;
+  //   @keyframes moveToRight-1 {
+  //     0% {
+  //       transform: translate(0px, 0px);
+  //     }
+  //     100% {
+  //       transform: translate(8.9%, 13.7%);
+  //     }
+  //   }
+  //   animation: moveToRight-1 2s ease;
+  // }
 
   // &.pos2 {
   //   top: 22.5vh;
