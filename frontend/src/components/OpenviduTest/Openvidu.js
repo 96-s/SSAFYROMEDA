@@ -8,7 +8,7 @@ import UserVideoComponent from './UserVideoComponent';
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
+const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 
 class Openvidu extends Component {
   constructor(props) {
@@ -400,7 +400,7 @@ class Openvidu extends Component {
 
   async createSession(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
+      APPLICATION_SERVER_URL,
       { customSessionId: sessionId },
       {
         headers: { "Content-Type": "application/json" },
@@ -411,8 +411,11 @@ class Openvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-      {},
+      APPLICATION_SERVER_URL + "connect/" + sessionId,
+      JSON.stringify({
+        userNo: 111,
+        userNickname: hihihihihi
+      }),
       {
         headers: { "Content-Type": "application/json" },
       }
