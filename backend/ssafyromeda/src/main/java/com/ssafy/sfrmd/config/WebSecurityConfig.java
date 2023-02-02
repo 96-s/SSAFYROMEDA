@@ -80,7 +80,8 @@ public class WebSecurityConfig {
             .antMatchers("/login/*", "/users/signup", "/users/check/**","/video/*")
             .permitAll() //로그인, 회원가입 요청은 허용
             .antMatchers("/users/jwt-test").hasRole("GUEST")
-            .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
+            .antMatchers("/**").permitAll() //나머지 요청에 대해서는 인증을 요구
+            //!!!!!!!!!!!!!나중에 꼭 수정하기!!!!!!!!!!!!!!
             .and()
             //== 소셜 로그인 설정 ==//
             .oauth2Login()
