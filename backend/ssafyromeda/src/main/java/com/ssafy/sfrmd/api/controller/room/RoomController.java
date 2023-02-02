@@ -47,7 +47,7 @@ public class RoomController {
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
     }
 
-    @PostMapping("/api/sessions")
+    @PostMapping()
     public ResponseEntity<? extends Object> createRoom()
         throws OpenViduJavaClientException, OpenViduHttpException {
 
@@ -60,7 +60,7 @@ public class RoomController {
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
-    @PostMapping("/api/sessions/{sessionId}/connections")
+    @PostMapping("/{sessionId}/connections")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
         @RequestBody(required = false) Map<String, Object> params)
         throws OpenViduJavaClientException, OpenViduHttpException {
@@ -72,6 +72,7 @@ public class RoomController {
         Connection connection = session.createConnection(properties);
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
+
 
 //    @PostMapping
 //    public ResponseEntity<? extends Object> createRoom(){
