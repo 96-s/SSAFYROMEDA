@@ -9,6 +9,11 @@ import styled from "styled-components";
 const InputContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  float: left;
+`;
+
+const ButtonDiv = styled.div`
+  // float: left;
 `;
 
 const SignUpForm = () => {
@@ -16,9 +21,9 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { form, isAuth, authError } = useSelector((state) => ({
+  const { form, isNickname, authError } = useSelector((state) => ({
     form: state.auth.register,
-    isAuth: state.auth.isAuth,
+    isNickname: state.auth.isNickname,
     authError: state.auth.error,
     test: state.auth.test,
   }));
@@ -66,11 +71,11 @@ const SignUpForm = () => {
     }
 
     // isAuth 대신 닉네임 입력받은 상태를 나타낼 다른 변수 필요
-    if (isAuth) {
+    if (isNickname) {
       console.log("닉네임 설정 성공");
       navigate("/lobby");
     }
-  }, [isAuth, authError, dispatch, navigate]);
+  }, [isNickname, authError, dispatch, navigate]);
 
   return (
     <div>
@@ -82,12 +87,14 @@ const SignUpForm = () => {
             placeholder="닉네임을 입력하세요"
             onChange={onChange}
           />
-          <MyButton
-            lang={"Korean"}
-            text={"결정"}
-            type={"is-success"}
-            onClick={onSubmit}
-          />
+          <ButtonDiv>
+            <MyButton
+              lang={"Korean"}
+              text={"결정"}
+              type={"is-success"}
+              onClick={onSubmit}
+            />
+          </ButtonDiv>
         </form>
       </InputContainer>
     </div>

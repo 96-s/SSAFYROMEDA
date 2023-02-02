@@ -11,6 +11,7 @@ const initialAuthState = {
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
   user: null, // 유저 정보 저장
+  isNickname: null, // 닉네임 설정 유무
   token: null, // 토큰 저장
 };
 
@@ -26,29 +27,13 @@ const authSlice = createSlice({
     reset(state) {
       Object.assign(state, initialAuthState);
     },
-    // 카카오 로그인 (미사용)
-    // kakaoLoginStart(state) {
-    //   console.log("카카오 로그인 start");
-    //   state.error = false;
-    //   state.isAuth = false;
-    //   state.loading = true;
-    // },
-    // kakaoLoginSuccess(state, action) {
-    //   state.loading = false;
-    //   // 백서버에 code를 전송 (code가 어디 담겼는지 확인필요)
-    //   console.log("페이로드", action.payload);
-    //   const { user, accessToken } = action.payload;
-    //   console.log(user);
-    //   // 토큰 로컬스토리지 저장 및 유저 상태 변경, 로그인 유무 변경
-    // },
-    // kakaoLoginError(state, action) {
-    //   state.loading = false;
-    //   state.isAuth = false;
-    //   state.error = action.payload;
-    // },
-    // 이메일 받아오기
-    addUserEmail(state, action) {
-      state.register.userEmail = action.payload;
+
+    // 토큰 및 이메일 저장
+    addTokenEmail(state, action) {
+      const { token, userEmail } = action.payload;
+      state.register.userEmail = userEmail;
+      state.token = token;
+      state.isAuth = true;
     },
     // 닉네임 설정
     createNicknameStart(state) {
@@ -58,14 +43,13 @@ const authSlice = createSlice({
     createNicknameSuccess(state, action) {
       state.loading = false;
       console.log("토큰?: ", action.payload); // 응답(토큰, 유저 정보)가 잘 넘어왔는지 확인
-      const { userEmail, userNickname, accessToken, refreshToken } =
-        action.payload;
+      const { userEmail, userNickname, accessToken } = action.payload;
       console.log(userNickname); // 유저정보 확인
       //const { nickname, email } = user;
       // 토큰 및 유저정보 저장, 로그인 유무 변경
       state.user = { userEmail, userNickname };
       state.token = accessToken;
-      state.isAuth = true;
+      state.isNickname = true;
     },
     createNicknameError(state, action) {
       state.loading = false;
