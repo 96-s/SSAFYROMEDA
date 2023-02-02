@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class RoomConnectRequest {
-    private Long userNo;
+    private String userNo;
     private String userNickname;
 }
