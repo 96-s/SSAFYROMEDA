@@ -39,7 +39,7 @@ public class RoomService {
 
         // room 정보 저장
         Room room = new Room();
-        room.setRoomHost(roomConnectRequest.getUserNo());
+        // room.setRoomHost(roomConnectRequest.getUserNo());
         room.setRoomCnt(1);
         room.setRoomCode(roomCode);
         roomRepository.save(room);
