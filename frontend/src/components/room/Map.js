@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from './DiceModal';
+import ChanceModal from './ChanceModal';
 
 
 // import Dice1 from "resources/images/Map/dice1.png";
@@ -441,6 +442,7 @@ const Map = ({
 }) => {
     const [diceValue, setDiceValue] =  useState(null)
     const [showDiceToggle, setShowDiceToggle] = useState(false);
+    const [openChanceToggle, setOpenChanceToggle] = useState(false);
 
     const openDice = () => {
         setShowDiceToggle(true);
@@ -458,6 +460,14 @@ const Map = ({
       }
     }, [diceValue])
     // console.log(diceValue);
+
+    const openChance = () => {
+      setOpenChanceToggle(true);
+    };
+
+    const closeChance = () => {
+      setOpenChanceToggle(false);
+    };
 
     // const moveMarker = useEffect(() => {
     //   // myPos + diceValue
@@ -518,12 +528,16 @@ const Map = ({
     return (
       <Page>
         <Board>
-          {/* <span onClick={openDice}>I</span>
+          <span onClick={openChance}>I</span>
+          <ChanceModal
+            open={openChanceToggle}
+            close={closeChance}/>
+          <span onClick={openDice}>I</span>
           <DiceModal
             open={showDiceToggle}
             close={closeDice}
             setDiceValue={setDiceValue}
-          ></DiceModal> */}
+          ></DiceModal>
           <Timers>
             {/* <Timer mm="1" ss="0" /> */}
           </Timers>

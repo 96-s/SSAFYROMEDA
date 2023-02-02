@@ -4,4 +4,6 @@ export const chanceCardList = [
     ['+3칸 이동', '뜻밖의 행운이다. 3칸 앞으로 이동하라.'],
     ['-5칸 이동', '탈출의 길에는 장애물도 있는 법, 쉬엄쉬엄 가자.'],
     ['뭐하지', '어쩌구저쩌구~~']
-]
+];
+
+export default chanceCardList;

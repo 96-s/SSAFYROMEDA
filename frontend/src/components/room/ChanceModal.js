@@ -1,13 +1,14 @@
 import React from 'react';
 import 'components/common/modal.css';
 import styled from "styled-components";
+import { chanceCardList } from './ChanceCardList';
 import CardFrameIMG from "resources/images/Map/card-frame.png"
 
 
 const ChanceCard = styled.div`
     display: flex;
     justify-content: center;
-    padding: 20px;
+    // padding: 20px;
     width: 340px;
     height: 460px;
     background: url(${CardFrameIMG}) no-repeat;
@@ -42,7 +43,7 @@ const ChanceModal = (props) => {
         <section>
           <main>
             <ChanceCard>
-                
+                <chanceCardList/>
             </ChanceCard>
           </main>
           <footer>
