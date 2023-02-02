@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -88,6 +89,7 @@ public class WebSecurityConfig {
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
             .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
             .userInfoEndpoint().userService(oAuth2UserServiceImpl); // customUserService 설정
+        http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
