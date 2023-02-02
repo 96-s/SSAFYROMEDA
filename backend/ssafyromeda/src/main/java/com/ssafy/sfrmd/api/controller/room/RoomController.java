@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RoomController {
 
-    @Value("http://i8d205.p.ssafy.io:5443")
+    @Value("http://localhost:5443")
     private String OPENVIDU_URL;
     @Value("MY_SECRET")
     private String OPENVIDU_SECRET;
