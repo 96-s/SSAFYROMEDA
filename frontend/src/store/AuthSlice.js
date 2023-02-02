@@ -50,7 +50,7 @@ const authSlice = createSlice({
     // 이메일 받아오기
     addUserEmail(state, action) {
       const { token, userEmail } = action.payload;
-      console.log("token은?", token);
+      // console.log("token은?", token);
       state.register.userEmail = userEmail;
       state.token = token;
       state.isNickname = true;
