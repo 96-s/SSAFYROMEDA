@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 public class History {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
     private Long userNo;
 

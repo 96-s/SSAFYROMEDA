@@ -1,8 +1,10 @@
 package com.ssafy.sfrmd.api.controller.user;
 
+import com.ssafy.sfrmd.api.domain.history.History;
 import com.ssafy.sfrmd.api.domain.user.User;
 import com.ssafy.sfrmd.api.dto.user.UserSignUpRequest;
 import com.ssafy.sfrmd.api.dto.user.UserSignUpResponse;
+import com.ssafy.sfrmd.api.service.history.HistoryService;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import com.ssafy.sfrmd.api.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +17,22 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final HistoryService historyService;
     private final JwtProvider jwtProvider;
 
     @PostMapping("/signup")
     public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
         User user = userService.sighUpUser(userSignUpRequest);
+        History history = historyService.getHistory(user.getUserNo());
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
+            .userNo(user.getUserNo())
             .userEmail(user.getUserEmail())
             .userNickname(user.getUserNickname())
             .accessToken(jwtProvider.createAccessToken(user.getUserEmail()))
             .refreshToken(user.getUserRefreshToken())
+            .historyPlayCount(history.getHistoryPlayCount())
+            .historyWinCount(history.getHistoryWinCount())
+            .historyLoseCount(history.getHistoryLoseCount())
             .build();
         return new ResponseEntity<>(userSignUpResponse, HttpStatus.valueOf(200));
     }
