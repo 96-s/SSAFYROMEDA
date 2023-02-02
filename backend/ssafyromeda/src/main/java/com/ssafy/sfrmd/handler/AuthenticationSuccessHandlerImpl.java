@@ -28,18 +28,14 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
             // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
             if(authUser.getRole() == Role.GUEST) {
-                System.out.println("GUEST 로그인");
                 String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
                 response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
-                //회원가입 창으로 리다이렉트
+                //닉네임 입력으로 리다이렉트
                 response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
-                //User user = User.builder().userEmail(authUser.getEmail()).userRole(authUser.getRole()).build();
-                //userRepository.save(user);
-
-                jwtProvider.sendAccessAndRefreshToken(response, accessToken, null);
-            } else {
-                System.out.println("토큰 생성");
-                loginSuccess(response, authUser); // 로그인에 성공한 경우 access, refresh 토큰 생성
+            }else {
+                //로비 화면으로 리다이렉트
+                response.sendRedirect("https://i8d205.p.ssafy.io/lobby");
+//              loginSuccess(response, authUser); // 로그인에 성공한 경우 access, refresh 토큰 생성
             }
         } catch (Exception e) {
             throw e;
@@ -47,13 +43,13 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     }
 
-    private void loginSuccess(HttpServletResponse response, AuthUser authUser) throws IOException {
-        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
-        String refreshToken = jwtProvider.createRefreshToken();
-        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
-        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
-
-        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
-    }
+//    private void loginSuccess(HttpServletResponse response, AuthUser authUser) throws IOException {
+//        String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
+//        String refreshToken = jwtProvider.createRefreshToken();
+//        response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
+//        response.addHeader(jwtProvider.getRefreshHeader(), "Bearer " + refreshToken);
+//
+//        jwtProvider.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+//        jwtProvider.updateRefreshToken(authUser.getEmail(), refreshToken);
+//    }
 }
