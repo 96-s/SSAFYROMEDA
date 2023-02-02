@@ -414,7 +414,7 @@ class Openvidu extends Component {
       APPLICATION_SERVER_URL + "connect/" + sessionId,
       JSON.stringify({
         userNo: 111,
-        userNickname: "hihihihihi"
+        userNickname: this.state.myUserName
       }),
       {
         headers: { "Content-Type": "application/json" },
