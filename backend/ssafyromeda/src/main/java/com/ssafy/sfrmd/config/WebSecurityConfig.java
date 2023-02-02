@@ -77,7 +77,7 @@ public class WebSecurityConfig {
             .permitAll()//preflight 요청 모두 허용
             .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
             .permitAll()
-            .antMatchers("/login/*", "/users/signup", "/users/check/*","/video/*")
+            .antMatchers("/login/*", "/users/signup", "/users/check/**","/video/*")
             .permitAll() //로그인, 회원가입 요청은 허용
             .antMatchers("/users/jwt-test").hasRole("GUEST")
             .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
