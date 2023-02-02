@@ -495,6 +495,23 @@ const Map = ({
     //   });
     // });
     
+    let positionList = [];
+
+    for (let i = 0; i < 22; i++) {
+      positionList.push(i)
+    }
+    console.log(positionList);
+
+    const [nowPos, setNowPos] = useState(0);
+
+    var index = 0;
+    useEffect (() => {
+      setInterval(() => {
+        setNowPos(positionList[index++]);
+        if (index === positionList.length)
+          index = 0
+      }, 2000)
+    }, nowPos);
 
     return (
       <Page>
@@ -529,7 +546,7 @@ const Map = ({
           ) : (
             ""
           )} */}
-          <Marker1 className={`pos${21}`}>
+          <Marker1 className={`pos${nowPos}`}>
             <img src={Marker1IMG} alt="marker1" id="marker1"></img>
           </Marker1>
           {/* <Marker2>
