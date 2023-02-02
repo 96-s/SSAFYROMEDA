@@ -22,14 +22,13 @@ public class UserController {
 
     @GetMapping("/{no}")
     public ResponseEntity<?> getUser(@PathVariable("no") Long userNo){
-        User user = userService.sighUpUser(userSignUpRequest);
-        History history = historyService.getHistory(user.getUserNo());
+        User user = userService.getUser(userNo);
+        History history = historyService.getHistory(userNo);
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
             .userNo(user.getUserNo())
             .userEmail(user.getUserEmail())
             .userNickname(user.getUserNickname())
             .accessToken(jwtProvider.createAccessToken(user))
-            .refreshToken(user.getUserRefreshToken())
             .historyPlayCount(history.getHistoryPlayCount())
             .historyWinCount(history.getHistoryWinCount())
             .historyLoseCount(history.getHistoryLoseCount())
