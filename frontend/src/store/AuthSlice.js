@@ -5,7 +5,7 @@ const initialAuthState = {
   // 회원가입(닉네임 등록)
   register: {
     userNickname: "",
-    userEmail: "",
+    userNo: "",
   },
   profileInfo: [],
   loading: false, // 로딩중
@@ -29,10 +29,10 @@ const authSlice = createSlice({
       Object.assign(state, initialAuthState);
     },
 
-    // 토큰 및 이메일 저장
-    addTokenEmail(state, action) {
-      const { token, userEmail } = action.payload;
-      state.register.userEmail = userEmail;
+    // 토큰 및 유저번호 저장
+    addTokenUserNo(state, action) {
+      const { token, userNo } = action.payload;
+      state.register.userNo = userNo;
       state.token = token;
       state.isAuth = true;
     },
@@ -48,6 +48,7 @@ const authSlice = createSlice({
       console.log(userNickname); // 유저정보 확인
       //const { nickname, email } = user;
       // 토큰 및 유저정보 저장
+      // 전적 관련 정보 추가저장해야함
       state.user = { userEmail, userNickname };
       state.token = accessToken;
       state.isNickname = true;
@@ -67,18 +68,18 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       Object.assign(state, initialAuthState); // 초기화
     },
-    getUser(state) {
+    // 로그인하며 회원정보 요청하기
+    getUserStart(state) {
       state.loading = true;
       state.error = null;
     },
     getUserSuccess(state, action) {
-      console.log(action.payload);
-      const user = action.payload;
-      // console.log(user);
-      const { userId, email, name, nickname, profileImgNum } = user;
-      state.user = { userId, email, name, nickname, profileImgNum };
-      localStorage.setItem("user", JSON.stringify(state.user));
       state.loading = false;
+      console.log(action.payload);
+      const { userEmail, userNickname, accessToken } = action.payload;
+      // 전적 관련 정보 추가저장해야함
+      state.user = { userEmail, userNickname };
+      state.token = accessToken;
     },
     getUserError(state, action) {
       state.loading = false;

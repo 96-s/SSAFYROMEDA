@@ -13,11 +13,11 @@ export const createNicknameApi = async (user) =>
   await customAxios.post("users/signup", user);
 
 // 회원정보 get
-export const getUserApi = async (userid) =>
-  await customAxios.get(`users/${userid}`, {
+export const getUserApi = async (token, userno) =>
+  await customAxios.get(`회원정보get/${userno}`, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 // export const getUserApi = ({ userid }) =>
