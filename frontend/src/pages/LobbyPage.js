@@ -21,6 +21,7 @@ import { Context } from "store/audio";
 import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
+import Logout from "components/common/Logout";
 
 //SLIDE LIBRARY
 
@@ -171,7 +172,7 @@ const SectionUnderOne = styled.section`
   /* float: right; */
   text-align: center;
   padding: 1% 0px;
-  font-size:20px;
+  font-size: 20px;
   color: white;
 `;
 const SectionUnderTwo = styled.section`
@@ -255,8 +256,8 @@ const LobbyPage = () => {
   const navigate = useNavigate();
 
   const onClickMoveProfilePage = () => {
-    navigate('/profile');
-  }
+    navigate("/profile");
+  };
   ///////////////////             MODAL
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -320,6 +321,7 @@ const LobbyPage = () => {
             </HeaderRightPlayOut>
           </HeaderRightDiv>
         </HeaderContainer>
+        <Logout />
         {/* STORY PAGE */}
         <MainLeft>
           <Wrapper>

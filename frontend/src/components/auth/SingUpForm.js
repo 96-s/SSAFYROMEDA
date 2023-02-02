@@ -7,13 +7,37 @@ import styled from "styled-components";
 
 // 적용x -> 수정필요
 const InputContainer = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 50px;
+`;
+
+const SignupText = styled.div`
+  font-size: 1.25rem;
+  color: white;
+
+  margin-top: -30px;
+  margin-bottom: 20px;
+`;
+
+const InputDiv = styled.div`
+  width: 300px;
   float: left;
 `;
 
 const ButtonDiv = styled.div`
-  // float: left;
+  float: right;
+
+  margin-left: 10px;
+`;
+
+const ErrorMsg = styled.div`
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
 `;
 
 const SignUpForm = () => {
@@ -70,7 +94,7 @@ const SignUpForm = () => {
       return;
     }
 
-    // isAuth 대신 닉네임 입력받은 상태를 나타낼 다른 변수 필요
+    // 닉네임 입력 성공하면 lobby 페이지로 보낸다
     if (isNickname) {
       console.log("닉네임 설정 성공");
       navigate("/lobby");
@@ -80,13 +104,16 @@ const SignUpForm = () => {
   return (
     <div>
       <InputContainer>
+        <SignupText>당신의 이름은?</SignupText>
         <form onSubmit={onSubmit} onKeyDown={(e) => onCheckEnter(e)}>
-          <input
-            className="nes-input is-dark"
-            name="nickname"
-            placeholder="닉네임을 입력하세요"
-            onChange={onChange}
-          />
+          <InputDiv>
+            <input
+              className="nes-input is-dark"
+              name="nickname"
+              placeholder="닉네임을 입력하세요"
+              onChange={onChange}
+            />
+          </InputDiv>
           <ButtonDiv>
             <MyButton
               lang={"Korean"}
@@ -96,6 +123,8 @@ const SignUpForm = () => {
             />
           </ButtonDiv>
         </form>
+
+        <ErrorMsg>{error}</ErrorMsg>
       </InputContainer>
     </div>
   );
