@@ -24,7 +24,7 @@ const OauthRedirect = () => {
       dispatch(authActions.addUserEmail({ token, userEmail }));
       console.log("이메밀 저장 성공");
       let tempToken1 = localStorage.getItem("persist:root");
-      let tempToken2 = tempToken1.auth.token;
+      let tempToken2 = JSON.parse(tempToken1);
       console.log("local의 토큰은?", tempToken1);
       console.log("local의 토큰은?", tempToken2);
       navigate("/signup");
