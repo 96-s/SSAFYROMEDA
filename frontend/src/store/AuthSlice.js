@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
 const initialAuthState = {
   // 회원가입(닉네임 등록)
@@ -46,7 +47,7 @@ const authSlice = createSlice({
       const { userEmail, userNickname, accessToken } = action.payload;
       console.log(userNickname); // 유저정보 확인
       //const { nickname, email } = user;
-      // 토큰 및 유저정보 저장, 로그인 유무 변경
+      // 토큰 및 유저정보 저장
       state.user = { userEmail, userNickname };
       state.token = accessToken;
       state.isNickname = true;
@@ -93,6 +94,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.profileInfo = action.payload.userGameInfo;
     },
+  },
+  // 로그아웃을 위해 localStorage 초기화
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialAuthState);
   },
 });
 

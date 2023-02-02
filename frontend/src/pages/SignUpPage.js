@@ -38,10 +38,6 @@ const InputBox = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   border: 2px solid #b4b4dc;
   border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const SignUpPage = () => {
