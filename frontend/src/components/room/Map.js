@@ -59,7 +59,7 @@ const Marker1 = styled.div`
     left: 8.6%;
     @keyframes moveToRight-1 {
       0% {
-        transform: translate(-1.9vw, -11.1vh);
+        transform: translate(-30%, -100%);
       }
       100% {
         transform: translate(0%, 0%);
@@ -73,7 +73,7 @@ const Marker1 = styled.div`
     left: 21.3%;
     @keyframes moveToRight-2 {
       0% {
-        transform: translate(-30%, -3%);
+        transform: translate(-100%, -30%);
       }
       100% {
         transform: translateX(0);
@@ -82,282 +82,269 @@ const Marker1 = styled.div`
     animation: moveToRight-2 2s ease;
   }
 
-  // &.pos3 {
-  //   top: 21.5vh;
-  //   left: 45vw;
-  //   @keyframes moveToRight-3 {
-  //     0% {
-  //       transform: translate(0px, 0px);
-  //     }
-  //     100% {
-  //       transform: translateX(0vw);
-  //     }
-  //   }
-  //   animation: moveToRight-3 2s ease;
-  // }
+  &.pos3 {
+    top: 16%;
+    left: 37.5%;
+    @keyframes moveToRight-3 {
+      0% {
+        transform: translate(-125%, 10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-3 2s ease;
+  }
 
-  // &.pos4 {
-  //   top: 16vh;
-  //   left: 50.55vw;
-  //   @keyframes moveToRight-4 {
-  //     0% {
-  //       transform: translateX(-10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0vw);
-  //     }
-  //   }
-  //   animation: moveToRight-4 2s ease;
-  // }
+  &.pos4 {
+    top: 9.7%;
+    left: 51.1%;
+    @keyframes moveToRight-4 {
+      0% {
+        transform: translate(-105%, 45%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-4 2s ease;
+  }
 
-  // &.pos5 {
-  //   top: 15.2vh;
-  //   left: 55.9vw;
-  //   @keyframes moveToRight-5 {
-  //     0% {
-  //       transform: translateX(-10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0vw);
-  //     }
-  //   }
-  //   animation: moveToRight-5 2s ease;
-  // }
+  &.pos5 {
+    top: 8.5%;
+    left: 64%;
+    @keyframes moveToRight-5 {
+      0% {
+        transform: translate(-102%, 10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-5 2s ease;
+  }
 
-  // &.pos6 {
-  //   top: 16.5vh;
-  //   left: 67.4vw;
-  //   @keyframes moveToRight-6 {
-  //     0% {
-  //       transform: translateX(-10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-6 2s ease;
-  // }
+  &.pos6 {
+    top: 9.9%;
+    left: 77.1%;
+    @keyframes moveToRight-6 {
+      0% {
+        transform: translate(-102%, -10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-6 2s ease;
+  }
 
-  // &.pos7 {
-  //   top: 27vh;
-  //   left: 65.25vw;
-  //   @keyframes moveToRight-7 {
-  //     0% {
-  //       transform: translate(-4vw, 10vh);
-  //     }
-  //     100% {
-  //       transform: translate(0, 0);
-  //     }
-  //   }
-  //   animation: moveToRight-7 2s ease;
-  // }
+  &.pos7 {
+    top: 22.3%;
+    left: 86.5%;
+    @keyframes moveToRight-7 {
+      0% {
+        transform: translate(-73%, -95%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-7 2s ease;
+  }
 
-  // &.pos8 {
-  //   top: 40.5vh;
-  //   left: 64.4vw;
-  //   @keyframes moveToRight-8 {
-  //     0% {
-  //       transform: translate(-4vw, 10vh);
-  //     }
-  //     100% {
-  //       transform: translate(0, 0);
-  //     }
-  //   }
-  //   animation: moveToRight-8 2s ease;
-  // }
+  &.pos8 {
+    top: 38.3%;
+    left: 84.5%;
+    @keyframes moveToRight-8 {
+      0% {
+        transform: translate(15%, -125%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-8 2s ease;
+  }
 
-  // &.pos9 {
-  //   top: 41.8vh;
-  //   left: 58.7vw;
-  //   @keyframes moveToRight-9 {
-  //     0% {
-  //       transform: translate(-4vw, 10vh);
-  //     }
-  //     100% {
-  //       transform: translate(0, 0);
-  //     }
-  //   }
-  //   animation: moveToRight-9 2s ease;
-  // }
+  &.pos9 {
+    top: 40.5%;
+    left: 70.8%;
+    @keyframes moveToRight-9 {
+      0% {
+        transform: translate(105%, -15%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-9 2s ease;
+  }
 
-  // &.pos10 {
-  //   top: 38vh;
-  //   left: 53.4vw;
-  //   @keyframes moveToRight-10 {
-  //     0% {
-  //       transform: translate(4vw, 10vh);
-  //     }
-  //     100% {
-  //       transform: translate(0, 0);
-  //     }
-  //   }
-  //   animation: moveToRight-10 2s ease;
-  // }
+  &.pos10 {
+    top: 35.3%;
+    left: 57.8%;
+    @keyframes moveToRight-10 {
+      0% {
+        transform: translate(103%, 38%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-10 2s ease;
+  }
 
-  // &.pos11 {
-  //   top: 35.7vh;
-  //   left: 48.5vw;
-  //   @keyframes moveToRight-11 {
-  //     0% {
-  //       transform: translateX(10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-11 2s ease;
-  // }
+  &.pos11 {
+    top: 33%;
+    left: 46%;
+    @keyframes moveToRight-11 {
+      0% {
+        transform: translate(95%, 18%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-11 2s ease;
+  }
 
-  // &.pos12 {
-  //   top: 38.5vh;
-  //   left: 43.2vw;
-  //   @keyframes moveToRight-12 {
-  //     0% {
-  //       transform: translateX(10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-12 2s ease;
-  // }
+  &.pos12 {
+    top: 36%;
+    left: 33.5%;
+    @keyframes moveToRight-12 {
+      0% {
+        transform: translate(98%, -20%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-12 2s ease;
+  }
 
-  // &.pos13 {
-  //   top: 40vh;
-  //   left: 36.8vw;
-  //   @keyframes moveToRight-13 {
-  //     0% {
-  //       transform: translateX(10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-13 2s ease;
-  // }
+  &.pos13 {
+    top: 37.8%;
+    left: 18.3%;
+    @keyframes moveToRight-13 {
+      0% {
+        transform: translate(118%, -15%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-13 2s ease;
+  }
 
-  // &.pos14 {
-  //   top: 52.5vh;
-  //   left: 32.7vw;
-  //   @keyframes moveToRight-14 {
-  //     0% {
-  //       transform: translateX(10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-14 2s ease;
-  // }
+  &.pos14 {
+    top: 53%;
+    left: 8.3%;
+    @keyframes moveToRight-14 {
+      0% {
+        transform: translate(75%, -120%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-14 2s ease;
+  }
 
-  // &.pos15 {
-  //   top: 64.3vh;
-  //   left: 34.05vw;
-  //   @keyframes moveToRight-15 {
-  //     0% {
-  //       transform: translateX(10vw);
-  //     }
-  //     100% {
-  //       transform: translateX(0);
-  //     }
-  //   }
-  //   animation: moveToRight-15 2s ease;
-  // }
+  &.pos15 {
+    top: 66.5%;
+    left: 11.5%;
+    @keyframes moveToRight-15 {
+      0% {
+        transform: translate(-25%, -108%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-15 2s ease;
+  }
 
-  // &.pos16 {
-  //   top: 67.8vh;
-  //   left: 40.15vw;
-  //   @keyframes moveToRight-16 {
-  //     0% {
-  //       transform: translate(5vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-16 2s ease;
-  // }
+  &.pos16 {
+    top: 70.8%;
+    left: 26%;
+    @keyframes moveToRight-16 {
+      0% {
+        transform: translate(-113%, -32%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-16 2s ease;
+  }
 
-  // &.pos17 {
-  //   top: 67.1vh;
-  //   left: 46vw;
-  //   @keyframes moveToRight-17 {
-  //     0% {
-  //       transform: translate(5vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-17 2s ease;
-  // }
+  &.pos17 {
+    top: 69.8%;
+    left: 40.3%;
+    @keyframes moveToRight-17 {
+      0% {
+        transform: translate(-113%, 10%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-17 2s ease;
+  }
 
-  // &.pos18 {
-  //   top: 62.8vh;
-  //   left: 53.3vw;
-  //   @keyframes moveToRight-18 {
-  //     0% {
-  //       transform: translate(-5vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-18 2s ease;
-  // }
+  &.pos18 {
+    top: 64.8%;
+    left: 57.8%;
+    @keyframes moveToRight-18 {
+      0% {
+        transform: translate(-138%, 40%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-18 2s ease;
+  }
 
-  // &.pos19 {
-  //   top: 60.5vh;
-  //   left: 59.7vw;
-  //   @keyframes moveToRight-19 {
-  //     0% {
-  //       transform: translate(3vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-19 2s ease;
-  // }
-  // &.pos19 {
-  //   top: 60.5vh;
-  //   left: 59.7vw;
-  //   @keyframes moveToRight-19 {
-  //     0% {
-  //       transform: translate(3vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-19 2s ease;
-  // }
-  // &.pos20 {
-  //   top: 64.4vh;
-  //   left: 64.6vw;
-  //   @keyframes moveToRight-19 {
-  //     0% {
-  //       transform: translate(3vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-19 2s ease;
-  // }
-  // &.pos21 {
-  //   top: 78.5vh;
-  //   left: 62.3vw;
-  //   @keyframes moveToRight-19 {
-  //     0% {
-  //       transform: translate(3vw, -5vh);
-  //     }
-  //     100% {
-  //       transform: translate(0);
-  //     }
-  //   }
-  //   animation: moveToRight-19 2s ease;
-  // }
+  &.pos19 {
+    top: 62%;
+    left: 73%;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(-120%, 23%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos20 {
+    top: 66.8%;
+    left: 84.8%;
+    @keyframes moveToRight-20 {
+      0% {
+        transform: translate(-93%, -38%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-20 2s ease;
+  }
+  &.pos21 {
+    top: 83.5%;
+    left: 79.2%;
+    @keyframes moveToRight-21 {
+      0% {
+        transform: translate(44%, -130%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-21 2s ease;
+  }
   // &.testPos {
   //   margin-left: 2vw;
   // }
@@ -542,7 +529,7 @@ const Map = ({
           ) : (
             ""
           )} */}
-          <Marker1 className={`pos${1}`}>
+          <Marker1 className={`pos${21}`}>
             <img src={Marker1IMG} alt="marker1" id="marker1"></img>
           </Marker1>
           {/* <Marker2>
