@@ -21,12 +21,8 @@ const OauthRedirect = () => {
   useEffect(() => {
     // 받아온 이메일과 토큰을 redux에 저장
     if (userEmail) {
-      dispatch(authActions.addUserEmail({ token, userEmail }));
-      console.log("이메알 저장 성공");
-      let tempToken1 = localStorage.getItem("persist:root");
-      // let tempToken2 = JSON.parse(tempToken1);
-      console.log("local의 토큰은?", tempToken1);
-      // console.log("local의 토큰은?", tempToken2);
+      dispatch(authActions.addTokenEmail({ token, userEmail }));
+      console.log("이메일 및 토큰 저장 성공");
       navigate("/signup");
     }
   }, [userEmail, dispatch]);
