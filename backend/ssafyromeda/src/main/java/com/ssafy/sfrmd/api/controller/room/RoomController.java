@@ -36,7 +36,7 @@ public class RoomController {
 
     @Value("https://i8d205.p.ssafy.io")
     private String OPENVIDU_URL;
-    @Value("MY_SECRET")
+    @Value("ssafyromeda")
     private String OPENVIDU_SECRET;
     private OpenVidu openvidu;
     private final UserService userService;
