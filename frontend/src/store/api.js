@@ -4,19 +4,14 @@ import { customAxios } from "./customAxios";
 import { BASE_URL } from "store";
 import { setToken } from "store";
 
-// 카카오 로그인
-// 인가 코드 백엔드에 넘기기
-// export const kakaoLoginApi = async (code) =>
-//   await customAxios.get(`login/oauth2/code/kakao?code=${code}`);
-
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
   await customAxios.get(`users/check/nickname/${nickname}`, {
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      // withCredentials: true,
-    },
+    // headers: {
+    //   "Content-Type": "application/json;charset=UTF-8",
+    //   // Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //   // withCredentials: true,
+    // },
   });
 
 // 닉네임 설정 요청?
