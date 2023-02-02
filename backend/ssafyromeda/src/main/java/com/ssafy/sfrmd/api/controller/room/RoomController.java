@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RoomController {
 
-    @Value("http://localhost:5443")
+    @Value("https://i8d205.p.ssafy.io")
     private String OPENVIDU_URL;
     @Value("MY_SECRET")
     private String OPENVIDU_SECRET;
@@ -60,7 +60,8 @@ public class RoomController {
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
-    @PostMapping("/{sessionId}/connections")
+
+    @PostMapping("/connect/{sessionId}")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
         @RequestBody(required = false) Map<String, Object> params)
         throws OpenViduJavaClientException, OpenViduHttpException {
