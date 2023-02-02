@@ -11,6 +11,7 @@ const initialAuthState = {
   isAuth: null, // 로그인 유무
   error: null, // 에러 유무
   user: null, // 유저 정보 저장
+  isNickname: null, // 닉네임 설정 유무
   token: null, // 토큰 저장
 };
 
@@ -48,7 +49,11 @@ const authSlice = createSlice({
     // },
     // 이메일 받아오기
     addUserEmail(state, action) {
-      state.register.userEmail = action.payload;
+      const { token, userEmail } = action.payload;
+      console.log("token은?", token);
+      state.register.userEmail = userEmail;
+      state.token = token;
+      state.isNickname = true;
     },
     // 닉네임 설정
     createNicknameStart(state) {
@@ -58,8 +63,7 @@ const authSlice = createSlice({
     createNicknameSuccess(state, action) {
       state.loading = false;
       console.log("토큰?: ", action.payload); // 응답(토큰, 유저 정보)가 잘 넘어왔는지 확인
-      const { userEmail, userNickname, accessToken, refreshToken } =
-        action.payload;
+      const { userEmail, userNickname, accessToken } = action.payload;
       console.log(userNickname); // 유저정보 확인
       //const { nickname, email } = user;
       // 토큰 및 유저정보 저장, 로그인 유무 변경
