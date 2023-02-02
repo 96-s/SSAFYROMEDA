@@ -20,8 +20,8 @@ public class UserController {
     private final HistoryService historyService;
     private final JwtProvider jwtProvider;
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> sighUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
+    @GetMapping("/{no}")
+    public ResponseEntity<?> getUser(@PathVariable("no") Long userNo){
         User user = userService.sighUpUser(userSignUpRequest);
         History history = historyService.getHistory(user.getUserNo());
         UserSignUpResponse userSignUpResponse = new UserSignUpResponse().builder()
@@ -37,10 +37,11 @@ public class UserController {
         return new ResponseEntity<>(userSignUpResponse, HttpStatus.valueOf(200));
     }
 
-    @GetMapping("/check/nickname/{nickname}")
-    public ResponseEntity<?> checkNickname(@PathVariable("nickname") String userNickname){
-        if(userService.checkNickname(userNickname)==0){
-            return new ResponseEntity<>("닉네임 사용 가능", HttpStatus.valueOf(200));
+    @PostMapping("/signup")
+    public ResponseEntity<?> signUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
+        if(userService.checkNickname(userSignUpRequest.getUserNickname())==0){
+            userService.sighUpUser(userSignUpRequest);
+            return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
         }else{
             return new ResponseEntity<>("닉네임 중복", HttpStatus.valueOf(400));
         }
