@@ -9,6 +9,11 @@ import styled from "styled-components";
 const InputContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  float: left;
+`;
+
+const ButtonDiv = styled.div`
+  // float: left;
 `;
 
 const SignUpForm = () => {
@@ -82,12 +87,14 @@ const SignUpForm = () => {
             placeholder="닉네임을 입력하세요"
             onChange={onChange}
           />
-          <MyButton
-            lang={"Korean"}
-            text={"결정"}
-            type={"is-success"}
-            onClick={onSubmit}
-          />
+          <ButtonDiv>
+            <MyButton
+              lang={"Korean"}
+              text={"결정"}
+              type={"is-success"}
+              onClick={onSubmit}
+            />
+          </ButtonDiv>
         </form>
       </InputContainer>
     </div>
