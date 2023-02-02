@@ -2,6 +2,7 @@ package com.ssafy.sfrmd.api.controller.room;
 
 import com.ssafy.sfrmd.api.domain.room.Room;
 import com.ssafy.sfrmd.api.domain.user.User;
+import com.ssafy.sfrmd.api.dto.room.RoomConnectRequest;
 import com.ssafy.sfrmd.api.service.room.RoomService;
 import com.ssafy.sfrmd.api.service.user.UserService;
 import io.openvidu.java.client.Connection;
@@ -47,7 +48,7 @@ public class RoomController {
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<? extends Object> createRoom()
         throws OpenViduJavaClientException, OpenViduHttpException {
 
@@ -63,14 +64,19 @@ public class RoomController {
 
     @PostMapping("/connect/{sessionId}")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
-        @RequestBody(required = false) Map<String, Object> params)
+        @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
+
+        Map<String, Object> params=roomService.createConnect(roomConnectRequest, sessionId);
+
         Session session = openvidu.getActiveSession(sessionId);
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
+
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 

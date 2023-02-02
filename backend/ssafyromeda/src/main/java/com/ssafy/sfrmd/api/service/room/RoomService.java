@@ -4,6 +4,9 @@ import com.ssafy.sfrmd.api.domain.player.Player;
 import com.ssafy.sfrmd.api.domain.player.PlayerRepository;
 import com.ssafy.sfrmd.api.domain.room.Room;
 import com.ssafy.sfrmd.api.domain.room.RoomRepository;
+import com.ssafy.sfrmd.api.dto.room.RoomConnectRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -32,22 +35,27 @@ public class RoomService {
         return generatedString;
     }
 
-    public Room createRoom(long host, String roomCode) {
+    public Map<String, Object> createConnect(RoomConnectRequest roomConnectRequest, String roomCode) {
 
         // room 정보 저장
         Room room = new Room();
-        room.setRoomHost(host);
+        room.setRoomHost(roomConnectRequest.getUserNo());
         room.setRoomCnt(1);
+        room.setRoomCode(roomCode);
+        roomRepository.save(room);
 
-        long roomSeq = roomRepository.save(room).getRoomSeq();
+        Map<String, Object> params=new HashMap<>();
+        params.put("userNo", roomConnectRequest.getUserNo());
+        params.put("userNickname", roomConnectRequest.getUserNickname());
 
-        // host 정보 저장
-        Player player = new Player();
-        player.setUserNo(host);
-        player.setRoomCode(roomCode);
-        playerRepository.save(player);
+        return params;
 
-        return room;
+        // host 정보 저장(일단 보류)
+//        Player player = new Player();
+//        player.setUserNo(host);
+//        player.setRoomCode(roomCode);
+//        playerRepository.save(player);
+
     }
 
     public boolean updateRoom(String roomCode, Long userNo){
