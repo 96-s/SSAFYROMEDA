@@ -12,9 +12,9 @@ const OauthRedirect = () => {
   let userEmail = parseJwt(token).email;
   console.log("현재 유저 이메일", userEmail);
 
-  const tempToken1 = localStorage.getItem("token");
-  const tempToken2 = localStorage.getItem("auth");
-  const tempToken3 = localStorage.getItem("persist:root");
+  // const tempToken1 = localStorage.getItem("token");
+  // const tempToken2 = localStorage.getItem("auth");
+  // const tempToken3 = localStorage.getItem("persist:root");
 
   //   const email = useSelector((state) => state.auth.register.userEmail);
 
@@ -23,9 +23,10 @@ const OauthRedirect = () => {
     if (userEmail) {
       dispatch(authActions.addUserEmail({ token, userEmail }));
       console.log("이메밀 저장 성공");
+      let tempToken1 = localStorage.getItem("persist:root");
+      let tempToken2 = tempToken1.auth.token;
       console.log("local의 토큰은?", tempToken1);
       console.log("local의 토큰은?", tempToken2);
-      console.log("local의 토큰은?", tempToken3);
       navigate("/signup");
     }
   }, [userEmail, dispatch]);
