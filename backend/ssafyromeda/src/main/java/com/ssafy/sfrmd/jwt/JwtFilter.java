@@ -79,7 +79,7 @@ public class JwtFilter extends OncePerRequestFilter {
         userRepository.findByUserRefreshToken(refreshToken)
                 .ifPresent(user -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(user);
-                    jwtProvider.sendAccessAndRefreshToken(response, jwtProvider.createAccessToken(user.getUserEmail()),
+                    jwtProvider.sendAccessAndRefreshToken(response, jwtProvider.createAccessToken(user),
                             reIssuedRefreshToken);
                 });
     }

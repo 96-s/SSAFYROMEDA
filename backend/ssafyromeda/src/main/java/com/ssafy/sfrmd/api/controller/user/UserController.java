@@ -28,7 +28,7 @@ public class UserController {
             .userNo(user.getUserNo())
             .userEmail(user.getUserEmail())
             .userNickname(user.getUserNickname())
-            .accessToken(jwtProvider.createAccessToken(user.getUserEmail()))
+            .accessToken(jwtProvider.createAccessToken(user))
             .refreshToken(user.getUserRefreshToken())
             .historyPlayCount(history.getHistoryPlayCount())
             .historyWinCount(history.getHistoryWinCount())
