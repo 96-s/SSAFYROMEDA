@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from "styled-components";
 import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
@@ -32,18 +32,16 @@ const Board = styled.div`
     color: white;
 `;
 
-const Marker1 = styled.section`
-  animation: moveToRight-0 2s ease;
+const Marker1 = styled.div`
+  display: flex;
+  width: 11vmin;
+  height: 11vmin;
+  position: absolute;
+  z-index: 5;
 
-  img {
-      width: 10vmin;
-      position: absolute;
-      top: 1%;
-      left: 4.9%;
-  }
   // &.pos0 {
-  //   // top: 0.8vh;
-  //   // left: 2vw;
+  //   top: 0.8%;
+  //   left: 4%;
   //   @keyframes moveToRight-0 {
   //     0% {
   //       transform: translate(0px, 0px);
@@ -55,33 +53,33 @@ const Marker1 = styled.section`
   //   animation: moveToRight-0 2s ease;
   // }
     
-  // &.pos1 {
-  //   // top: 13.7%;
-  //   // left: 8.9%;
-  //   @keyframes moveToRight-1 {
-  //     0% {
-  //       transform: translate(0px, 0px);
-  //     }
-  //     100% {
-  //       transform: translate(8.9%, 13.7%);
-  //     }
-  //   }
-  //   animation: moveToRight-1 2s ease;
-  // }
+  &.pos1 {
+    top: 13.5%;
+    left: 8.6%;
+    @keyframes moveToRight-1 {
+      0% {
+        transform: translate(-1.9vw, -11.1vh);
+      }
+      100% {
+        transform: translate(0%, 0%);
+      }
+    }
+    animation: moveToRight-1 2s ease;
+  }
 
-  // &.pos2 {
-  //   top: 22.5vh;
-  //   left: 38.2vw;
-  //   @keyframes moveToRight-2 {
-  //     0% {
-  //       transform: translate(0px, 0px);
-  //     }
-  //     100% {
-  //       transform: translateX(0vw);
-  //     }
-  //   }
-  //   animation: moveToRight-2 2s ease;
-  // }
+  &.pos2 {
+    top: 17.3%;
+    left: 21.3%;
+    @keyframes moveToRight-2 {
+      0% {
+        transform: translate(-30%, -3%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-2 2s ease;
+  }
 
   // &.pos3 {
   //   top: 21.5vh;
@@ -364,14 +362,6 @@ const Marker1 = styled.section`
   // }
 `;
 
-// @-webkit-keyframes marker1 {
-//     0% {
-//         left: 100px;
-//     }
-//     100% {
-//         left: 300px;
-//     }
-// }
 
 // const Marker2 = styled.section`
 //     img {
@@ -382,7 +372,7 @@ const Marker1 = styled.section`
 //     }
 // `;
 
-const Timers = styled.section`
+const Timers = styled.div`
     display: flex;
     positon: absolute;
     justify-content: center;
@@ -458,7 +448,7 @@ const Map = ({
     };
 
     const closeDice = useEffect(() => {
-      console.log(diceValue);
+      // console.log(diceValue);
       if (diceValue !== null) {
         setTimeout(() => {
           setShowDiceToggle(false)
@@ -467,11 +457,11 @@ const Map = ({
         console.log("닫힌다");
       }
     }, [diceValue])
-    console.log(diceValue);
+    // console.log(diceValue);
 
-    const moveMarker = useEffect(() => {
-      // myPos + diceValue
-    })
+    // const moveMarker = useEffect(() => {
+    //   // myPos + diceValue
+    // })
 
     // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
     // useEffect(() => {    
@@ -488,17 +478,48 @@ const Map = ({
     //   }, [whatDiceNum]);
 
     // 주사위 굴려지고 닫히면 말 이동
-    useEffect(() => {
-        if (setShowDiceToggle === false) {
+    // useEffect(() => {
+    //     if (setShowDiceToggle === false) {
 
-        }
+    //     }
+    // })
+
+  
+
+    // useEffect (() => {
+    //   const marker1 = document.getElementById("marker1");
+
+    //   marker1.animate([
+    //     { transform: 'translate(-10%, -100%)' },
+    //     { transform: 'translate(0%, 0%)'}
+    //   ], {
+    //     duration: 1000,
+    //     iterations: 1
+    //   });
+    // });
+
+    useEffect(() => {
+      const marker1 = document.getElementById("marker1");
+      let nowPosTop = marker1.offsetTop;
+      let nowPosLeft = marker1.offsetTop;
+
+      console.log(nowPosTop);
+
+      const nextPosTop = nowPosTop + 10
+      const nextPosLeft = nowPosLeft + 50
+
+      nowPosTop += 50
+
+      console.log(nowPosTop);
+
     })
+    
 
     return (
       <Page>
         <Board>
-          {/* <span onClick={openDice}>I</span> */}
-          {/* <DiceModal
+          {/* <span onClick={openDice}>I</span>
+          <DiceModal
             open={showDiceToggle}
             close={closeDice}
             setDiceValue={setDiceValue}
@@ -523,8 +544,8 @@ const Map = ({
           ) : (
             ""
           )} */}
-          <Marker1>
-            <img src={Marker1IMG} alt="marker1"></img>
+          <Marker1 className={`pos${1}`}>
+            <img src={Marker1IMG} alt="marker1" id="marker1"></img>
           </Marker1>
           {/* <Marker2>
             <img src={Marker2IMG} alt="marker2"></img>
@@ -532,6 +553,7 @@ const Map = ({
         </Board>
       </Page>
     );
+    
 };
 
 export default Map;
