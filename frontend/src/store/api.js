@@ -12,7 +12,11 @@ import { setToken } from "store";
 // 닉네임 중복체크
 export const checkNicknameApi = async (nickname) =>
   await customAxios.get(`users/check/nickname/${nickname}`, {
-    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      // withCredentials: true,
+    },
   });
 
 // 닉네임 설정 요청?
