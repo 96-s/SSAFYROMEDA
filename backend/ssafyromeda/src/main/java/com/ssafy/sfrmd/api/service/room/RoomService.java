@@ -5,6 +5,7 @@ import com.ssafy.sfrmd.api.domain.player.PlayerRepository;
 import com.ssafy.sfrmd.api.domain.room.Room;
 import com.ssafy.sfrmd.api.domain.room.RoomRepository;
 import java.util.Optional;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,20 @@ public class RoomService {
     private final PlayerRepository playerRepository;
 
 //    HashSet<String> roomCodeSet=new HashSet<>(); // 방코드 set
+
+    public String makeRoomCode() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit,rightLimit + 1)
+            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(targetStringLength)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+        return generatedString;
+    }
 
     public Room createRoom(long host, String roomCode) {
 

@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -80,13 +81,14 @@ public class WebSecurityConfig {
             .antMatchers("/login/*", "/users/signup", "/users/check/*","/video/*")
             .permitAll() //로그인, 회원가입 요청은 허용
             .antMatchers("/users/jwt-test").hasRole("GUEST")
-            .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
+            .anyRequest().authenticated() //나머지 요청에 대해서는 인증을 요구
             .and()
             //== 소셜 로그인 설정 ==//
             .oauth2Login()
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
             .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
             .userInfoEndpoint().userService(oAuth2UserServiceImpl); // customUserService 설정
+        http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

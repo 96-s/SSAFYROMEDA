@@ -5,6 +5,7 @@ import com.ssafy.sfrmd.api.domain.user.UserRepository;
 import com.ssafy.sfrmd.api.domain.user.auth.AuthUser;
 import com.ssafy.sfrmd.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

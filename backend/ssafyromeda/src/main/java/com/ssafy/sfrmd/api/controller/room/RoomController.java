@@ -14,6 +14,7 @@ import io.openvidu.java.client.SessionProperties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,24 +47,17 @@ public class RoomController {
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
     }
 
-    @PostMapping
-    public ResponseEntity<? extends Object> createRoom(@RequestBody User user)
+    @PostMapping("/api/sessions")
+    public ResponseEntity<? extends Object> createRoom()
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        Map<String, Room> params = new HashMap<>();
-
-        Room room=null;
-        params.put("room", room);
+        Map<String, Object> params = new HashMap<>();
+        params.put("customSessionId", roomService.makeRoomCode());
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
 
-        room = roomService.createRoom(user.getUserNo(), session.getSessionId());
-
-        if (room.getRoomSeq() != null) {
-            return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.valueOf(400));
+        return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
     @PostMapping("/api/sessions/{sessionId}/connections")
