@@ -21,9 +21,9 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { form, isAuth, authError } = useSelector((state) => ({
+  const { form, isNickname, authError } = useSelector((state) => ({
     form: state.auth.register,
-    isAuth: state.auth.isAuth,
+    isNickname: state.auth.isNickname,
     authError: state.auth.error,
     test: state.auth.test,
   }));
@@ -71,11 +71,11 @@ const SignUpForm = () => {
     }
 
     // isAuth 대신 닉네임 입력받은 상태를 나타낼 다른 변수 필요
-    if (isAuth) {
+    if (isNickname) {
       console.log("닉네임 설정 성공");
       navigate("/lobby");
     }
-  }, [isAuth, authError, dispatch, navigate]);
+  }, [isNickname, authError, dispatch, navigate]);
 
   return (
     <div>
