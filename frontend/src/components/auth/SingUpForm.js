@@ -63,7 +63,7 @@ const SignUpForm = () => {
 
   // 2. form 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    const { userNickname, userEmail } = form;
+    const { userNickname, userNo } = form;
     e.preventDefault();
     if (userNickname.length > 8) {
       // 에러메세지 상자 출력시켜야함
@@ -72,7 +72,7 @@ const SignUpForm = () => {
       return;
     }
     if (userNickname) {
-      dispatch(authActions.createNicknameStart({ userNickname, userEmail }));
+      dispatch(authActions.createNicknameStart({ userNickname, userNo }));
     } else {
       setError("닉네임을 입력해주세요.");
       console.log("닉네임 비었다");
