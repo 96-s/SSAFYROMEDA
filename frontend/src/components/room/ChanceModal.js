@@ -1,9 +1,8 @@
 import React from 'react';
 import 'components/common/modal.css';
 import styled from "styled-components";
-import { chanceCardList } from './ChanceCardList';
 import CardFrameIMG from "resources/images/Map/card-frame.png"
-
+import Chance from './Chance';
 
 const ChanceCard = styled.div`
     display: flex;
@@ -33,8 +32,8 @@ const ChanceModal = (props) => {
   const playerNum = 6;
   // const myTurnNum = players.indexOf(myUserNameValue);
   const myTurnNum = 1;
-
   
+
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -43,7 +42,7 @@ const ChanceModal = (props) => {
         <section>
           <main>
             <ChanceCard>
-                <chanceCardList/>
+              <Chance/>
             </ChanceCard>
           </main>
           <footer>

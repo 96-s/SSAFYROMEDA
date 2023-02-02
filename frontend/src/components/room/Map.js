@@ -40,19 +40,19 @@ const Marker1 = styled.div`
   position: absolute;
   z-index: 5;
 
-  // &.pos0 {
-  //   top: 0.8%;
-  //   left: 4%;
-  //   @keyframes moveToRight-0 {
-  //     0% {
-  //       transform: translate(0px, 0px);
-  //     }
-  //     100% {
-  //       transform: translate(3.5%, 110%);
-  //     }
-  //   }
-  //   animation: moveToRight-0 2s ease;
-  // }
+  &.pos0 {
+    top: 0.8%;
+    left: 4%;
+    // @keyframes moveToRight-0 {
+    //   0% {
+    //     transform: translate(0px, 0px);
+    //   }
+    //   100% {
+    //     transform: translate(3.5%, 110%);
+    //   }
+    // }
+    // animation: moveToRight-0 2s ease;
+  }
     
   &.pos1 {
     top: 13.5%;
@@ -507,22 +507,6 @@ const Map = ({
     //     iterations: 1
     //   });
     // });
-
-    useEffect(() => {
-      const marker1 = document.getElementById("marker1");
-      let nowPosTop = marker1.offsetTop;
-      let nowPosLeft = marker1.offsetTop;
-
-      console.log(nowPosTop);
-
-      const nextPosTop = nowPosTop + 10
-      const nextPosLeft = nowPosLeft + 50
-
-      nowPosTop += 50
-
-      console.log(nowPosTop);
-
-    })
     
 
     return (
@@ -539,7 +523,7 @@ const Map = ({
             setDiceValue={setDiceValue}
           ></DiceModal>
           <Timers>
-            {/* <Timer mm="1" ss="0" /> */}
+            <Timer mm="1" ss="0" />
           </Timers>
           {/* {!isRoll & (myTurnNum === turnNum) ? (
             <DiceRoller
