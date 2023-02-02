@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from './DiceModal';
+import ChanceModal from './ChanceModal';
 
 
 // import Dice1 from "resources/images/Map/dice1.png";
@@ -39,19 +40,19 @@ const Marker1 = styled.div`
   position: absolute;
   z-index: 5;
 
-  // &.pos0 {
-  //   top: 0.8%;
-  //   left: 4%;
-  //   @keyframes moveToRight-0 {
-  //     0% {
-  //       transform: translate(0px, 0px);
-  //     }
-  //     100% {
-  //       transform: translate(3.5%, 110%);
-  //     }
-  //   }
-  //   animation: moveToRight-0 2s ease;
-  // }
+  &.pos0 {
+    top: 0.8%;
+    left: 4%;
+    // @keyframes moveToRight-0 {
+    //   0% {
+    //     transform: translate(0px, 0px);
+    //   }
+    //   100% {
+    //     transform: translate(3.5%, 110%);
+    //   }
+    // }
+    // animation: moveToRight-0 2s ease;
+  }
     
   &.pos1 {
     top: 13.5%;
@@ -441,6 +442,7 @@ const Map = ({
 }) => {
     const [diceValue, setDiceValue] =  useState(null)
     const [showDiceToggle, setShowDiceToggle] = useState(false);
+    const [openChanceToggle, setOpenChanceToggle] = useState(false);
 
     const openDice = () => {
         setShowDiceToggle(true);
@@ -458,6 +460,14 @@ const Map = ({
       }
     }, [diceValue])
     // console.log(diceValue);
+
+    const openChance = () => {
+      setOpenChanceToggle(true);
+    };
+
+    const closeChance = () => {
+      setOpenChanceToggle(false);
+    };
 
     // const moveMarker = useEffect(() => {
     //   // myPos + diceValue
@@ -497,35 +507,23 @@ const Map = ({
     //     iterations: 1
     //   });
     // });
-
-    useEffect(() => {
-      const marker1 = document.getElementById("marker1");
-      let nowPosTop = marker1.offsetTop;
-      let nowPosLeft = marker1.offsetTop;
-
-      console.log(nowPosTop);
-
-      const nextPosTop = nowPosTop + 10
-      const nextPosLeft = nowPosLeft + 50
-
-      nowPosTop += 50
-
-      console.log(nowPosTop);
-
-    })
     
 
     return (
       <Page>
         <Board>
-          {/* <span onClick={openDice}>I</span>
+          <span onClick={openChance}>I</span>
+          <ChanceModal
+            open={openChanceToggle}
+            close={closeChance}/>
+          <span onClick={openDice}>I</span>
           <DiceModal
             open={showDiceToggle}
             close={closeDice}
             setDiceValue={setDiceValue}
-          ></DiceModal> */}
+          ></DiceModal>
           <Timers>
-            {/* <Timer mm="1" ss="0" /> */}
+            <Timer mm="1" ss="0" />
           </Timers>
           {/* {!isRoll & (myTurnNum === turnNum) ? (
             <DiceRoller

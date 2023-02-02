@@ -14,9 +14,10 @@ const Container = styled.div`
 `
 
 const Page = styled.div`
+  display: flex;
   position: relative;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   height: 100%;
   width: 100%;
 `
