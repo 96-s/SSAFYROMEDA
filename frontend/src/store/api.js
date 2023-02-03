@@ -8,26 +8,19 @@ import { setToken } from "store";
 export const checkNicknameApi = async (nickname) =>
   await customAxios.get(`users/check/nickname/${nickname}`);
 
-// 닉네임 설정 요청?
+// 회원가입 (닉네임 중복체크 및 등록)
 export const createNicknameApi = async (user) =>
   await customAxios.post("users/signup", user);
 
-// 회원정보 get
-export const getUserApi = async (token, userno) =>
-  await customAxios.get(`회원정보get/${userno}`, {
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-// export const getUserApi = ({ userid }) =>
-//   axios({
-//     method: "get",
-//     url: `${BASE_URL}/user/${userid}`,
-//     headers: {
-//       ...setToken(),
-//     },
-//   });
+// 로그인 시 회원정보 get
+export const getUserInfoApi = async (userno) =>
+  await customAxios.get(`users/${userno}`);
+
+// headers
+// headers: {
+//   "Content-Type": "application/json;charset=UTF-8",
+//   Authorization: `Bearer ${token}`,
+// },
 
 // 회원정보 put
 // export const updateUserApi = async (user) =>
