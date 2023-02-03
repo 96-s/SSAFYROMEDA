@@ -48,7 +48,7 @@ const authSlice = createSlice({
     },
     createNicknameError(state, action) {
       state.loading = false;
-      state.error = action.payload.error;
+      state.error = action.payload;
     },
     // setUser
     setUser(state, action) {
