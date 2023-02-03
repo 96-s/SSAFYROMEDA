@@ -17,7 +17,7 @@ class Openvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: "SessionA",
+      mySessionId: "",
       myUserName: "Participant" + Math.floor(Math.random() * 10),
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
@@ -220,6 +220,7 @@ class Openvidu extends Component {
   }
 
   joinRoom(code) {
+    this.state.mySessionId = code;
     this.setState(
       {
         session: this.OV.initSession(),
@@ -257,7 +258,7 @@ class Openvidu extends Component {
         // --- 4) Connect to the session with a valid user token ---
 
         // Get a token from the OpenVidu deployment
-        this.guest(this.state.mySessionId).then((token) => {
+        this.guest(code).then((token) => {
           // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
           // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
           mySession
