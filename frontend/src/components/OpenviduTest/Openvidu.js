@@ -32,8 +32,8 @@ class Openvidu extends Component {
     this.initRoom = this.initRoom.bind(this);
     // this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
-    // this.switchCamera = this.switchCamera.bind(this);
-    // this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
+    this.switchCamera = this.switchCamera.bind(this);
+    this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     // this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -80,11 +80,11 @@ class Openvidu extends Component {
     }
   }
 
-//   handleChangeSessionId(e) {
-//     this.setState({
-//       mySessionId: e.target.value,
-//     });
-//   }
+  handleChangeSessionId(e) {
+    this.setState({
+      mySessionId: e.target.value,
+    });
+  }
 
 //   handleChangeUserName(e) {
 //     this.setState({
