@@ -25,5 +25,10 @@ public class HistoryService {
         return historyRepository.save(history);
     }
 
-
+    public History updateHistoryLoseCount(Long userNo){
+        History history = historyRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+        history.updateHistoryPlayCount();
+        history.updateHistoryLoseCount();
+        return historyRepository.save(history);
+    }
 }

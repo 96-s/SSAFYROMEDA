@@ -28,4 +28,14 @@ public class HistoryController {
         return new ResponseEntity<>(historyUpdateResponse, HttpStatus.valueOf(200));
     }
 
+    @PutMapping("/lose/{no}")
+    public ResponseEntity<?> updateHistoryLoseCount(@PathVariable("no")long userNo){
+        History history = historyService.updateHistoryLoseCount(userNo);
+        HistoryUpdateResponse historyUpdateResponse = HistoryUpdateResponse.builder()
+            .historyPlayCount(history.getHistoryPlayCount())
+            .historyWinCount(history.getHistoryWinCount())
+            .historyLoseCount(history.getHistoryLoseCount())
+            .build();
+        return new ResponseEntity<>(historyUpdateResponse, HttpStatus.valueOf(200));
+    }
 }
