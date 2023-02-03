@@ -26,6 +26,8 @@ function* onCreateNicknameStartAsync({ payload }) {
       yield put(createNicknameError({ error: "중복된 닉네임입니다." }));
       return;
     }
+    // 결과: 회원정보 등록 성공
+    // 그러면 signup 페이지로 돌아가서 다시 getuserinfo 시작해야함
     if (response.status === 200) {
       yield put(createNicknameSuccess(response.data));
     }
