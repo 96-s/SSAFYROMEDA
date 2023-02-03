@@ -66,7 +66,6 @@ const SignUpForm = () => {
     const { userNickname, userNo } = form;
     e.preventDefault();
     if (userNickname.length > 8) {
-      // 에러메세지 상자 출력시켜야함
       console.log("닉네임 8글자 초과했다");
       setError("닉네임은 8글자 이하로 입력해야 합니다.");
       return;
@@ -76,6 +75,18 @@ const SignUpForm = () => {
     } else {
       setError("닉네임을 입력해주세요.");
       console.log("닉네임 비었다");
+      return;
+    }
+    var blank_pattern = /^\s+|\s+$/g;
+    if (userNickname.replace(blank_pattern, "") == "") {
+      console.log("공백만 입력됨!");
+      setError("공백은 사용할 수 없습니다.");
+      return;
+    }
+    var blank_pattern2 = /[\s]/g;
+    if (blank_pattern2.test(userNickname) == true) {
+      console.log("공백이 포함됨!");
+      setError("공백은 사용할 수 없습니다.");
       return;
     }
   };
