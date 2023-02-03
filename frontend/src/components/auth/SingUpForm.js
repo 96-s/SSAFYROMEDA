@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import MyButton from "components/common/Button";
 import styled from "styled-components";
 
-// 적용x -> 수정필요
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,7 +106,7 @@ const SignUpForm = () => {
       return;
     }
 
-    // 닉네임 입력 성공하면 lobby 페이지로 보낸다
+    // 닉네임 입력 성공하면 유저정보를 받아온 후 lobby 페이지로 보낸다
     if (isNickname) {
       const { userNo } = form;
       console.log("닉네임 설정 성공");

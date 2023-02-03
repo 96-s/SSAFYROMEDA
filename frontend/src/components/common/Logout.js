@@ -7,7 +7,6 @@ import PixelModal from "./PixelModal";
 
 const Logout = () => {
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
 
   // 로그아웃 되었다는 알림창 필요
   const purge = async () => {
