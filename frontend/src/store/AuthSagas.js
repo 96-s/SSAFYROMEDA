@@ -22,7 +22,7 @@ function* onCreateNicknameStartAsync({ payload }) {
   try {
     const response = yield call(createNicknameApi, payload);
     if (response.status === 400) {
-      console.log("닉네임 중복");
+      console.log("닉네임 중복..");
       yield put(createNicknameError(response.data));
       return;
     }
