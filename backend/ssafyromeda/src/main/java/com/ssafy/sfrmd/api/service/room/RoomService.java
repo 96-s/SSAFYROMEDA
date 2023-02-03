@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -41,6 +43,7 @@ public class RoomService {
             .roomHost(roomConnectRequest.getUserNo())
             .roomCount(1)
             .build();
+        log.info("tsetsetsetsetset{}",room);
         roomRepository.save(room);
 
         // host 정보 저장(일단 보류)
