@@ -518,9 +518,7 @@ class Openvidu extends Component {
     console.log("토큰 만들자");
     const response = await axios.post(
       APPLICATION_SERVER_URL + "connect/" + sessionId,
-      JSON.stringify({
-        sessionId: this.sessionId
-      }),
+      {},
       {
         headers: { "Content-Type": "application/json" },
       }
