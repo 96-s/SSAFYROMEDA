@@ -429,7 +429,9 @@ const Map = ({
 }) => {
     const [diceValue, setDiceValue] =  useState(null)
     const [showDiceToggle, setShowDiceToggle] = useState(false);
+    const [chanceNum, setChanceNum] = useState(null);
     const [openChanceToggle, setOpenChanceToggle] = useState(false);
+    // var chanceNum = null;
 
     const openDice = () => {
         setShowDiceToggle(true);
@@ -449,8 +451,16 @@ const Map = ({
     // console.log(diceValue);
 
     const openChance = () => {
-      setOpenChanceToggle(true);
+      const randomNum = Math.floor(Math.random() * 5)
+      setChanceNum(randomNum)
     };
+
+    useEffect(() => {
+      if (chanceNum !== null) {
+        setOpenChanceToggle(true);
+        }
+    }, [chanceNum])
+    
 
     const closeChance = () => {
       setOpenChanceToggle(false);
@@ -500,18 +510,18 @@ const Map = ({
     for (let i = 0; i < 22; i++) {
       positionList.push(i)
     }
-    console.log(positionList);
+    // console.log(positionList);
 
     const [nowPos, setNowPos] = useState(0);
 
-    var index = 0;
-    useEffect (() => {
-      setInterval(() => {
-        setNowPos(positionList[index++]);
-        if (index === positionList.length)
-          index = 0
-      }, 2000)
-    }, nowPos);
+    // var index = 0;
+    // useEffect (() => {
+    //   setInterval(() => {
+    //     setNowPos(positionList[index++]);
+    //     if (index === positionList.length)
+    //       index = 0
+    //   }, 2000)
+    // }, nowPos);
 
     return (
       <Page>
@@ -519,7 +529,9 @@ const Map = ({
           <span onClick={openChance}>I</span>
           <ChanceModal
             open={openChanceToggle}
-            close={closeChance}/>
+            close={closeChance}
+            chanceNum={chanceNum}
+            />
           <span onClick={openDice}>I</span>
           <DiceModal
             open={showDiceToggle}
