@@ -18,4 +18,12 @@ public class HistoryService {
         return historyRepository.save(new History(userNo, 0, 0, 0));
     }
 
+    public History updateHistoryWinCount(Long userNo){
+        History history = historyRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+        history.updateHistoryPlayCount();
+        history.updateHistoryWinCount();
+        return historyRepository.save(history);
+    }
+
+
 }
