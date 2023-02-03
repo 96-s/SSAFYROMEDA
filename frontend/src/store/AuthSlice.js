@@ -44,12 +44,25 @@ const authSlice = createSlice({
     createNicknameSuccess(state, action) {
       state.loading = false;
       console.log("토큰?: ", action.payload); // 응답(토큰, 유저 정보)가 잘 넘어왔는지 확인
-      const { userEmail, userNickname, accessToken } = action.payload;
+      const {
+        userEmail,
+        userNickname,
+        accessToken,
+        historyPlayCount,
+        historyWinCount,
+        historyLoseCount,
+      } = action.payload;
       console.log(userNickname); // 유저정보 확인
       //const { nickname, email } = user;
       // 토큰 및 유저정보 저장
       // 전적 관련 정보 추가저장해야함
-      state.user = { userEmail, userNickname };
+      state.user = {
+        userEmail,
+        userNickname,
+        historyPlayCount,
+        historyWinCount,
+        historyLoseCount,
+      };
       state.token = accessToken;
       state.isNickname = true;
     },
@@ -63,25 +76,38 @@ const authSlice = createSlice({
       state.isAuth = true;
     },
     // logout
-    logout(state) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      Object.assign(state, initialAuthState); // 초기화
-    },
+    // logout(state) {
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("user");
+    //   Object.assign(state, initialAuthState); // 초기화
+    // },
+
     // 로그인하며 회원정보 요청하기
-    getUserStart(state) {
+    getUserInfoStart(state) {
       state.loading = true;
       state.error = null;
     },
-    getUserSuccess(state, action) {
+    getUserInfoSuccess(state, action) {
       state.loading = false;
       console.log(action.payload);
-      const { userEmail, userNickname, accessToken } = action.payload;
-      // 전적 관련 정보 추가저장해야함
-      state.user = { userEmail, userNickname };
+      const {
+        userEmail,
+        userNickname,
+        accessToken,
+        historyPlayCount,
+        historyWinCount,
+        historyLoseCount,
+      } = action.payload;
+      state.user = {
+        userEmail,
+        userNickname,
+        historyPlayCount,
+        historyWinCount,
+        historyLoseCount,
+      };
       state.token = accessToken;
     },
-    getUserError(state, action) {
+    getUserInfoError(state, action) {
       state.loading = false;
       state.error = action.payload.error;
     },
