@@ -35,20 +35,13 @@ public class RoomService {
         return generatedString;
     }
 
-    public Map<String, Object> createConnect(RoomConnectRequest roomConnectRequest, String roomCode) {
-
-        // room 정보 저장
-        Room room = new Room();
-        // room.setRoomHost(roomConnectRequest.getUserNo());
-        room.setRoomCnt(1);
-        room.setRoomCode(roomCode);
+    public void createConnection(RoomConnectRequest roomConnectRequest, String roomCode) {
+        Room room = Room.builder()
+            .roomCode(roomCode)
+            .roomHost(roomConnectRequest.getUserNo())
+            .roomCount(1)
+            .build();
         roomRepository.save(room);
-
-        Map<String, Object> params=new HashMap<>();
-        params.put("userNo", roomConnectRequest.getUserNo());
-        params.put("userNickname", roomConnectRequest.getUserNickname());
-
-        return params;
 
         // host 정보 저장(일단 보류)
 //        Player player = new Player();
@@ -61,12 +54,10 @@ public class RoomService {
     public boolean updateRoom(String roomCode, Long userNo){
         // 방 DB에 인원수 추가
         try{
-            Optional<Room> updateRoom=roomRepository.findByRoomCode(roomCode);
+            Room updateRoom=roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
+            updateRoom.updateRoomNo();
 
-            int cnt=updateRoom.get().getRoomCnt();
-            updateRoom.get().setRoomCnt(++cnt);
-
-            roomRepository.save(updateRoom.get());
+            roomRepository.save(updateRoom);
 
             return true;
         }catch (Exception e){
@@ -75,21 +66,19 @@ public class RoomService {
     }
 
 
-    public Optional<Room> getRoomByRoomCode(String roomCode) {
-        return roomRepository.findByRoomCode(roomCode);
+    public Room getRoomByRoomCode(String roomCode) {
+        return roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
     }
 
 
-    public boolean deleteRoom(Long roomSeq, String roomCode) {
-        try{
-            roomRepository.deleteById(roomSeq);
-//            roomCodeSet.remove(roomCode);
-
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
+//    public boolean deleteRoom(Long roomSeq) {
+//        try{
+//            roomRepository.deleteById(roomSeq);
+//            return true;
+//        }catch (Exception e){
+//            return false;
+//        }
+//    }
 
 
 }

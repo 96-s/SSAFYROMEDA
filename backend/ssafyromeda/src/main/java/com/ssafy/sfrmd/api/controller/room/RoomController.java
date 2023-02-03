@@ -49,7 +49,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends Object> createRoom()
+    public ResponseEntity<?> createRoom()
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         Map<String, Object> params = new HashMap<>();
@@ -58,26 +58,30 @@ public class RoomController {
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
 
-        return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
+        return new ResponseEntity<>(session.getSessionId(), HttpStatus.valueOf(200));
     }
 
 
     @PostMapping("/connect/{sessionId}")
-    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
+    public ResponseEntity<?> createConnection(@PathVariable("sessionId") String sessionId,
         @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        Map<String, Object> params=roomService.createConnect(roomConnectRequest, sessionId);
+        roomService.createConnection(roomConnectRequest, sessionId);
+
+        Map<String, Object> params=new HashMap<>();
+        params.put("userNo", roomConnectRequest.getUserNo());
+        params.put("userNickname", roomConnectRequest.getUserNickname());
 
         Session session = openvidu.getActiveSession(sessionId);
         if (session == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.valueOf(404));
         }
 
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
 
-        return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
+        return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
     }
 
 
@@ -104,24 +108,14 @@ public class RoomController {
 //        }
 //    }
 
-    @DeleteMapping("/delete/{roomCode}")
-    public ResponseEntity<? extends Object> deleteRoom(@PathVariable("roomCode") String roomCode){
-
-        // 삭제할 방이 존재하는지 확인
-        Optional<Room> deleteRoom = roomService.getRoomByRoomCode(roomCode);
-        if(deleteRoom.isEmpty()) {
-            return new ResponseEntity<>(roomCode + " 방 정보가 없음", HttpStatus.valueOf(404));
-        }
-
-        // 삭제할 방의 roomSeq 가져오기
-        Long roomSeq=deleteRoom.get().getRoomSeq();
-
-        // 삭제하기
-        if(roomService.deleteRoom(roomSeq, roomCode)){
-            return new ResponseEntity<>(roomCode+" 방 삭제 성공", HttpStatus.valueOf(200));
-        }
-        else{
-            return new ResponseEntity<>(roomCode+" 방 삭제 실패", HttpStatus.valueOf(405));
-        }
-    }
+//    @DeleteMapping("/{roomCode}")
+//    public ResponseEntity<? extends Object> deleteRoom(@PathVariable("roomCode") String roomCode){
+//        Room deleteRoom = roomService.getRoomByRoomCode(roomCode);
+//        // 삭제하기
+//        if(roomService.deleteRoom(deleteRoom.getRoomNo())){
+//            return new ResponseEntity<>(roomCode+" 방 삭제 성공", HttpStatus.valueOf(200));
+//        } else{
+//            return new ResponseEntity<>(roomCode+" 방 삭제 실패", HttpStatus.valueOf(400));
+//        }
+//    }
 }
