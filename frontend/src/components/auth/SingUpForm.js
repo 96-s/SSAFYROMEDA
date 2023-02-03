@@ -96,7 +96,9 @@ const SignUpForm = () => {
 
     // 닉네임 입력 성공하면 lobby 페이지로 보낸다
     if (isNickname) {
+      const { userNo } = form;
       console.log("닉네임 설정 성공");
+      dispatch(authActions.getUserInfoStart(userNo));
       navigate("/lobby");
     }
   }, [isNickname, authError, dispatch, navigate]);
