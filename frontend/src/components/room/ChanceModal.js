@@ -27,12 +27,13 @@ const ChanceModal = (props) => {
     whatDiceNum,
     myUserNameValue,
     setWhatDiceNum,
-    setDiceValue } = props;
+    setDiceValue,
+    chanceNum
+   } = props;
   // const playerNum = players.length;
   const playerNum = 6;
   // const myTurnNum = players.indexOf(myUserNameValue);
   const myTurnNum = 1;
-  
 
 
   return (
@@ -42,7 +43,9 @@ const ChanceModal = (props) => {
         <section>
           <main>
             <ChanceCard>
-              <Chance/>
+              <Chance
+                chanceNum={chanceNum}
+              />
             </ChanceCard>
           </main>
           <footer>
