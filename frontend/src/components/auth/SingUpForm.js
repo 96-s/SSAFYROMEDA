@@ -70,13 +70,7 @@ const SignUpForm = () => {
       setError("닉네임은 8글자 이하로 입력해야 합니다.");
       return;
     }
-    if (userNickname) {
-      dispatch(authActions.createNicknameStart({ userNickname, userNo }));
-    } else {
-      setError("닉네임을 입력해주세요.");
-      console.log("닉네임 비었다");
-      return;
-    }
+
     var blank_pattern = /^\s+|\s+$/g;
     if (userNickname.replace(blank_pattern, "") == "") {
       console.log("공백만 입력됨!");
@@ -87,6 +81,14 @@ const SignUpForm = () => {
     if (blank_pattern2.test(userNickname) == true) {
       console.log("공백이 포함됨!");
       setError("공백은 사용할 수 없습니다.");
+      return;
+    }
+
+    if (userNickname) {
+      dispatch(authActions.createNicknameStart({ userNickname, userNo }));
+    } else {
+      setError("닉네임을 입력해주세요.");
+      console.log("닉네임 비었다");
       return;
     }
   };
