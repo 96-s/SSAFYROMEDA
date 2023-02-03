@@ -12,6 +12,10 @@ export const createNicknameApi = async (user) =>
 export const getUserInfoApi = async (userno) =>
   await customAxios.get(`users/${userno}`);
 
+// 로그아웃 요청
+export const logoutApi = async (userno) =>
+  await customAxios.put(`users/signout/${userno}`);
+
 // headers
 // headers: {
 //   "Content-Type": "application/json;charset=UTF-8",
