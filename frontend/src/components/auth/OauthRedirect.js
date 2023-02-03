@@ -36,7 +36,7 @@ const OauthRedirect = () => {
 
   return (
     <div>
-      <h3>토큰을 빼오는 곳입니다 ㅎㅎ</h3>
+      <h3>잠시만 기다려 주세요...</h3>
     </div>
   );
 };

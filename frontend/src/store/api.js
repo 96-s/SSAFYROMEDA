@@ -4,10 +4,6 @@ import { customAxios } from "./customAxios";
 import { BASE_URL } from "store";
 import { setToken } from "store";
 
-// 닉네임 중복체크
-export const checkNicknameApi = async (nickname) =>
-  await customAxios.get(`users/check/nickname/${nickname}`);
-
 // 회원가입 (닉네임 중복체크 및 등록)
 export const createNicknameApi = async (user) =>
   await customAxios.post("users/signup", user);

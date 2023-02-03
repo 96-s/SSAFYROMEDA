@@ -55,12 +55,6 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuth = true;
     },
-    // logout
-    // logout(state) {
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("user");
-    //   Object.assign(state, initialAuthState); // 초기화
-    // },
 
     // 로그인하며 회원정보 요청하기
     getUserInfoStart(state) {

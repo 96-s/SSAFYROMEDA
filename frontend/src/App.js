@@ -39,8 +39,6 @@ function App() {
         <Route path="/result" element={<ResultPage />} />
         <Route path="/openvidu" element={<OpenviduPage />} />
         <Route path="/test" element={<TestPage />} />
-
-        {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
       </Routes>
     </div>
   );
