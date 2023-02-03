@@ -510,10 +510,12 @@ class Openvidu extends Component {
         headers: { "Content-Type": "application/json" },
       }
     );
+    console.log("세션 만듬");
     return response.data; // The sessionId
   }
 
   async createToken(sessionId) {
+    console.log("토큰 만들자");
     const response = await axios.post(
       APPLICATION_SERVER_URL + "connect/" + sessionId,
       JSON.stringify({
@@ -523,6 +525,7 @@ class Openvidu extends Component {
         headers: { "Content-Type": "application/json" },
       }
     );
+    console.log("토큰 만듬");
     return response.data; // The token
   }
 }

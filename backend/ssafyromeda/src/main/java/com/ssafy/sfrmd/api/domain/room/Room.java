@@ -11,11 +11,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "room")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
+@ToString
 // 방 정보
 public class Room {
 
