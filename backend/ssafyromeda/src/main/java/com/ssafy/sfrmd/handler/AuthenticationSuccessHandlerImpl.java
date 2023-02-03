@@ -26,18 +26,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         try {
             AuthUser authUser = (AuthUser) authentication.getPrincipal();
+            User user = userRepository.findByUserEmail(authUser.getEmail()).orElseThrow(NullPointerException::new);
 
-            // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
-            if(authUser.getRole() == Role.GUEST) {
-                String accessToken = jwtProvider.createAccessToken(authUser.getEmail());
-                response.addHeader(jwtProvider.getAccessHeader(), "Bearer " + accessToken);
-                //닉네임 입력으로 리다이렉트
-                response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
-            }else {
-                //로비 화면으로 리다이렉트
-                response.sendRedirect("https://i8d205.p.ssafy.io/lobby");
-//              loginSuccess(response, authUser); // 로그인에 성공한 경우 access, refresh 토큰 생성
-            }
+            //userNo, userRole이 담긴 토큰 생성
+            String accessToken = jwtProvider.createAccessToken(user);
+            //토큰 전송
+            response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
         } catch (Exception e) {
             throw e;
         }

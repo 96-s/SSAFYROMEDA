@@ -13,15 +13,18 @@ public class UserService{
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
+    public User getUser(Long userNo){
+        return userRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+    }
     public User sighUpUser(UserSignUpRequest userSignUpRequest) {
-        User user=userRepository.findByUserEmail(userSignUpRequest.getUserEmail()).orElseThrow(NullPointerException::new);
+        User user=userRepository.findByUserNo(userSignUpRequest.getUserNo()).orElseThrow(NullPointerException::new);
         user.updateUserNickname(userSignUpRequest.getUserNickname());
         user.updateUserRole();
         user.updateUserRefreshToken(jwtProvider.createRefreshToken());
         return userRepository.save(user);
     }
 
-    public Boolean checkEmail(String userEamil) {
+    public Boolean checkEmail(String userEmail) {
         return null;
     }
 
