@@ -21,13 +21,13 @@ function* onCreateNicknameStartAsync({ payload }) {
   console.log("닉네임, 유저번호 확인", payload);
   try {
     const response = yield call(createNicknameApi, payload);
-    if (response.status !== 200) {
+    if (response.status === 400) {
       console.log("닉네임 중복");
       yield put(createNicknameError({ error: "중복된 닉네임입니다." }));
       return;
     }
     // 결과: 회원정보 등록 성공
-    // 그러면 signup 페이지로 돌아가서 다시 getuserinfo 시작해야함
+    // signup 페이지로 돌아가서 다시 getuserinfo 시작해야함
     if (response.status === 200) {
       yield put(createNicknameSuccess(response.data));
     }
