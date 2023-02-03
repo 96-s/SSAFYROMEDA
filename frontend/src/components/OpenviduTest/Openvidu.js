@@ -30,6 +30,7 @@ class Openvidu extends Component {
     };
 
     this.initRoom = this.initRoom.bind(this);
+    this.joinRoom = this.joinRoom.bind(this);
     // this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
@@ -131,7 +132,8 @@ class Openvidu extends Component {
       },
       () => {
         let mySession = this.state.session;
-
+        console.log(2);
+        console.log(this.state);
         // --- 3) Specify the actions when events take place in the session ---
 
         // Session 객체가 각각 새로운 stream에 대해 구독 후, subscribers 상태값 업뎃
@@ -182,7 +184,6 @@ class Openvidu extends Component {
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
                 mirror: false, // Whether to mirror your local video or not
               });
-
               // --- 6) Publish your stream ---
 
               mySession.publish(publisher);
@@ -221,6 +222,7 @@ class Openvidu extends Component {
 
   joinRoom(code) {
     this.state.mySessionId = code;
+    console.log(this.state);
     this.setState(
       {
         session: this.OV.initSession(),
