@@ -4,6 +4,7 @@ import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from './DiceModal';
 import ChanceModal from './ChanceModal';
+import Quiz from './quiz'
 
 
 // import Dice1 from "resources/images/Map/dice1.png";
@@ -529,6 +530,7 @@ const Map = ({
     return (
       <Page>
         <Board>
+          <Quiz/>
           <span onClick={openChance}>I</span>
           <ChanceModal
             open={openChanceToggle}
