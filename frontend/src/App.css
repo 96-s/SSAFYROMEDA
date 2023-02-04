@@ -38,3 +38,44 @@ body {
   } */
 
 /* ============================================== */
+
+
+/* 페이지 transition 효과 */
+.fadeIn {
+  animation: 0.3s fadeIn forwards;
+  background-color: black;
+}
+
+.fadeOut {
+  animation: 0.3s fadeOut forwards;
+  background-color: black;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-20px, 0);
+    background-color: black;
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+    background-color: black;
+
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0px, 0px);
+    background-color: black;
+
+  }
+  to {
+    transform: translate(-20px, 0);
+    opacity: 0;
+    background-color: black;
+
+  }
+}

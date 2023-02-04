@@ -1,6 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { useLocation, Route, Routes } from "react-router-dom";
 import "./App.css";
-// import styled from "styled-components";
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useEffect, useState } from "react";
 
 import GamePage from "pages/GamePage";
 import ExplanationPage from "pages/ExplanationPage";
@@ -27,21 +28,39 @@ import RedirectPage from "pages/RedirectPage";
 // }
 
 function App() {
+
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransitionStage] = useState("fadeIn");
+
+  useEffect(() => {
+    if (location !== displayLocation) setTransitionStage("fadeOut");
+  }, [location, displayLocation]);
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/explanation" element={<ExplanationPage />} />
-        <Route path="/lobby" element={<LobbyPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauthRedirect" element={<RedirectPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/result" element={<ResultPage />} />
-        <Route path="/openvidu" element={<OpenviduPage />} />
-        <Route path="/test" element={<TestPage />} />
-      </Routes>
+      <div className={`${transitionStage}`}
+      onAnimationEnd={() => {
+        if (transitionStage === "fadeOut") {
+          setTransitionStage("fadeIn");
+          setDisplayLocation(location);
+        }
+      }}
+        >
+          <Routes location={displayLocation}>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/explanation" element={<ExplanationPage />} />
+            <Route path="/lobby" element={<LobbyPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/oauthRedirect" element={<RedirectPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/game" element={<GamePage />} />
+            <Route path="/result" element={<ResultPage />} />
+            <Route path="/openvidu" element={<OpenviduPage />} />
+            <Route path="/test" element={<TestPage />} />
+          </Routes>
+        </div>
     </div>
   );
 }
