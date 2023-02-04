@@ -37,15 +37,17 @@ function App() {
     if (location !== displayLocation) setTransitionStage("fadeOut");
   }, [location, displayLocation]);
 
+  const handleAnimationEnd = (event) => {
+    if (transitionStage === "fadeOut") {
+      setTransitionStage("fadeIn");
+      setDisplayLocation(location);
+    }
+  }
+
   return (
     <div className="App">
       <div className={`${transitionStage}`}
-      onAnimationEnd={() => {
-        if (transitionStage === "fadeOut") {
-          setTransitionStage("fadeIn");
-          setDisplayLocation(location);
-        }
-      }}
+      onAnimationEnd={handleAnimationEnd}
         >
           <Routes location={displayLocation}>
             <Route path="/" element={<MainPage />} />

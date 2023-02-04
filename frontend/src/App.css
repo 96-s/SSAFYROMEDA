@@ -54,14 +54,39 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translate(-20px, -20px);
+    transform: scale(0);
+    transform-origin: top left;
+  }
+  to {
+      opacity: 1;
+      transform: translate(0px, 0px);
+      transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+    transform: scale(1);
+    transform-origin: bottom right;
+  }
+  to {
+      opacity: 0;
+      transform: translate(-20px, -20px);
+      transform: scale(0);
+  }
+}
+
+/* @keyframes fadeIn {
+  from {
+    opacity: 0;
     transform: translate(-20px, 0);
-    background-color: black;
   }
   to {
     opacity: 1;
     transform: translate(0px, 0px);
-    background-color: black;
-
   }
 }
 
@@ -69,13 +94,9 @@ body {
   from {
     opacity: 1;
     transform: translate(0px, 0px);
-    background-color: black;
-
   }
   to {
     transform: translate(-20px, 0);
     opacity: 0;
-    background-color: black;
-
   }
-}
+} */
