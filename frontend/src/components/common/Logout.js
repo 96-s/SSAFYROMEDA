@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logout from "resources/images/logout_icon.png";
 
 import { persistor } from "../../store/index";
-import MyButton from "./Button";
 import PixelModal from "./PixelModal";
 
 import { logoutApi } from "../../store/api";
@@ -28,15 +28,7 @@ const Logout = () => {
 
   return (
     <div>
-      <MyButton
-        lang={"Korean"}
-        text={"로그아웃"}
-        type={"is-warning"}
-        onClick={() => async () => {
-          await logoutRequest;
-          await purge;
-        }}
-      />
+      <img src={logout} onClick={purge} width="60px"/>
     </div>
   );
 };

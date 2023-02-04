@@ -22,18 +22,19 @@ import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
 import Logout from "components/common/Logout";
+import MyButton from "components/common/Button";
 
 //SLIDE LIBRARY
 
 //IMAGE Components
 import background from "resources/images/back.PNG";
 import userimage from "resources/images/userimage.PNG";
-import audioOn from "resources/images/ON.png";
-import audioOff from "resources/images/OFF.png";
-import logout from "resources/images/Logout.png";
 import history from "resources/images/history.png";
 import prev from "resources/images/prev.png";
 import next from "resources/images/next.png";
+import sdon from "resources/images/soundon_icon.png";
+import sdoff from "resources/images/soundoff_icon.png";
+import logout from "resources/images/logout_icon.png";
 
 ///////////////////             BODY
 const BG = styled.div`
@@ -98,13 +99,12 @@ const HeaderRightDiv = styled.div`
   height: 70px;
   width: 150px;
   margin-left: auto;
-  background-color: blue;
+  // background-color: blue;
   opacity: 0.73;
   color: black;
 `;
 const HeaderRightSoundOn = styled.div`
-  width: 75px;
-  height: 50px;
+  width: 60px;
   .audioImg {
     width: 50px;
     height: 50px;
@@ -162,7 +162,6 @@ const Section = styled.section`
   }
 `;
 const SectionUnderOne = styled.section`
-  border: 1px solid white;
   margin-top: 10%;
   margin: 10% auto;
   /* margin-right: 100%; */
@@ -175,8 +174,8 @@ const SectionUnderOne = styled.section`
   font-size: 20px;
   color: white;
 `;
+
 const SectionUnderTwo = styled.section`
-  border: 1px solid white;
   margin-top: 10%;
   margin: 10% auto;
   /* margin-right: 100%; */
@@ -308,20 +307,20 @@ const LobbyPage = () => {
             <HeaderRightSoundOn>
               <button onClick={onClickPlayMusicButton}>
                 {isPlay ? (
-                  <img src={audioOn} alt="Aon" className="audioImg"></img>
+                  <img src={sdon} alt="Aon" className="audioImg"></img>
                 ) : (
-                  <img src={audioOff} alt="Aof" className="audioImg"></img>
+                  <img src={sdoff} alt="Aof" className="audioImg"></img>
                 )}
               </button>
             </HeaderRightSoundOn>
             <HeaderRightPlayOut>
               <Link to="/">
-                <Img src={logout} alt="out" className="logout"></Img>
+                <Logout />
+                {/* <Img src={logout} alt="out" className="logout"></Img> */}
               </Link>
             </HeaderRightPlayOut>
           </HeaderRightDiv>
         </HeaderContainer>
-        <Logout />
         {/* STORY PAGE */}
         <MainLeft>
           <Wrapper>
@@ -347,7 +346,12 @@ const LobbyPage = () => {
           </Section>
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
           <SectionUnderOne>
-            <span onClick={openMakeRoomModal}>우주선 생성</span>
+            <MyButton
+              lang={"Korean"}
+              text={"　우주선 생성　"}
+              type={"is-primary"}
+              onClick={openMakeRoomModal}
+              />
             {/* //header 부분에 텍스트를 입력한다. */}
             <MakeRoomModal
               open={MakeRoomModalOpen}
@@ -358,7 +362,12 @@ const LobbyPage = () => {
             </MakeRoomModal>
           </SectionUnderOne>
           <SectionUnderTwo>
-            <span onClick={openEnterRoomModal}>우주선 탑승</span>
+            <MyButton
+              lang={"Korean"}
+              text={"　우주선 탑승　"}
+              type={"is-success"}
+              onClick={openEnterRoomModal}
+              />
             <EnterRoomModal
               open={EnterRoomModalOpen}
               close={closeEnterRoomModal}

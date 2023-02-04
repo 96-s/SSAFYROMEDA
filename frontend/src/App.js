@@ -3,6 +3,7 @@ import "./App.css";
 // import styled from "styled-components";
 
 import GamePage from "pages/GamePage";
+import ExplanationPage from "pages/ExplanationPage";
 import MainPage from "pages/MainPage";
 import LobbyPage from "pages/LobbyPage";
 import LoginPage from "pages/LoginPage";
@@ -30,6 +31,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/explanation" element={<ExplanationPage />} />
         <Route path="/lobby" element={<LobbyPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/oauthRedirect" element={<RedirectPage />} />
