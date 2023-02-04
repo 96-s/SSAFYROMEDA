@@ -22,6 +22,7 @@ import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
 import Logout from "components/common/Logout";
+import MyButton from "components/common/Button";
 
 //SLIDE LIBRARY
 
@@ -162,7 +163,6 @@ const Section = styled.section`
   }
 `;
 const SectionUnderOne = styled.section`
-  border: 1px solid white;
   margin-top: 10%;
   margin: 10% auto;
   /* margin-right: 100%; */
@@ -175,8 +175,8 @@ const SectionUnderOne = styled.section`
   font-size: 20px;
   color: white;
 `;
+
 const SectionUnderTwo = styled.section`
-  border: 1px solid white;
   margin-top: 10%;
   margin: 10% auto;
   /* margin-right: 100%; */
@@ -347,7 +347,12 @@ const LobbyPage = () => {
           </Section>
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
           <SectionUnderOne>
-            <span onClick={openMakeRoomModal}>우주선 생성</span>
+            <MyButton
+              lang={"Korean"}
+              text={"　우주선 생성　"}
+              type={"is-primary"}
+              onClick={openMakeRoomModal}
+              />
             {/* //header 부분에 텍스트를 입력한다. */}
             <MakeRoomModal
               open={MakeRoomModalOpen}
@@ -358,7 +363,12 @@ const LobbyPage = () => {
             </MakeRoomModal>
           </SectionUnderOne>
           <SectionUnderTwo>
-            <span onClick={openEnterRoomModal}>우주선 탑승</span>
+            <MyButton
+              lang={"Korean"}
+              text={"　우주선 탑승　"}
+              type={"is-success"}
+              onClick={openEnterRoomModal}
+              />
             <EnterRoomModal
               open={EnterRoomModalOpen}
               close={closeEnterRoomModal}
