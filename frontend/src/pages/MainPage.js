@@ -164,8 +164,7 @@ const MainPage = () => {
               />
 
               <Span>
-                <Link to="/login">S T A R T</Link>
-                {/* <Link to="/signup">회원가입 하기</Link> */}
+                <Link to="/explanation">S T A R T</Link>
               </Span>
             </label>
           </MiddelDiv>

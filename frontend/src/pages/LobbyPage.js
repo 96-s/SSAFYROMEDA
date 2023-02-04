@@ -29,12 +29,12 @@ import MyButton from "components/common/Button";
 //IMAGE Components
 import background from "resources/images/back.PNG";
 import userimage from "resources/images/userimage.PNG";
-import audioOn from "resources/images/ON.png";
-import audioOff from "resources/images/OFF.png";
-import logout from "resources/images/Logout.png";
 import history from "resources/images/history.png";
 import prev from "resources/images/prev.png";
 import next from "resources/images/next.png";
+import sdon from "resources/images/soundon_icon.png";
+import sdoff from "resources/images/soundoff_icon.png";
+import logout from "resources/images/logout_icon.png";
 
 ///////////////////             BODY
 const BG = styled.div`
@@ -99,13 +99,12 @@ const HeaderRightDiv = styled.div`
   height: 70px;
   width: 150px;
   margin-left: auto;
-  background-color: blue;
+  // background-color: blue;
   opacity: 0.73;
   color: black;
 `;
 const HeaderRightSoundOn = styled.div`
-  width: 75px;
-  height: 50px;
+  width: 60px;
   .audioImg {
     width: 50px;
     height: 50px;
@@ -308,20 +307,20 @@ const LobbyPage = () => {
             <HeaderRightSoundOn>
               <button onClick={onClickPlayMusicButton}>
                 {isPlay ? (
-                  <img src={audioOn} alt="Aon" className="audioImg"></img>
+                  <img src={sdon} alt="Aon" className="audioImg"></img>
                 ) : (
-                  <img src={audioOff} alt="Aof" className="audioImg"></img>
+                  <img src={sdoff} alt="Aof" className="audioImg"></img>
                 )}
               </button>
             </HeaderRightSoundOn>
             <HeaderRightPlayOut>
               <Link to="/">
-                <Img src={logout} alt="out" className="logout"></Img>
+                <Logout />
+                {/* <Img src={logout} alt="out" className="logout"></Img> */}
               </Link>
             </HeaderRightPlayOut>
           </HeaderRightDiv>
         </HeaderContainer>
-        <Logout />
         {/* STORY PAGE */}
         <MainLeft>
           <Wrapper>

@@ -38,7 +38,7 @@ const ExplanationPage = () => {
     const navigate = useNavigate();
 
     const toLobby = () => {
-        navigate('/lobby')
+        navigate('/login')
     }
 
     return (
