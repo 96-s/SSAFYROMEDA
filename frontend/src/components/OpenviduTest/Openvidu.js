@@ -506,7 +506,7 @@ class Openvidu extends Component {
    */
   async host() {
     const sessionId = await this.createSession();
-    console.log(sessionId);
+    this.state.mySessionId = sessionId;
     return await this.createToken(sessionId);
   }
 
