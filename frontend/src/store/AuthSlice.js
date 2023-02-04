@@ -86,6 +86,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
+
     // GET user game info(프로필용)
     getUserProfileInfoStart(state) {
       state.loading = true;
