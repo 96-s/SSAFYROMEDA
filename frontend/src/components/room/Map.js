@@ -433,6 +433,7 @@ const Map = ({
     const [openChanceToggle, setOpenChanceToggle] = useState(false);
     // var chanceNum = null;
 
+    // 주사위 모달
     const openDice = () => {
         setShowDiceToggle(true);
         console.log("뜨나");
@@ -450,6 +451,8 @@ const Map = ({
     }, [diceValue])
     // console.log(diceValue);
 
+
+    // 찬스 모달
     const openChance = () => {
       const randomNum = Math.floor(Math.random() * 5)
       setChanceNum(randomNum)
