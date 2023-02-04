@@ -222,7 +222,7 @@ class Openvidu extends Component {
     );
   }
 
-  joinRoom(code) {
+  joinRoom() {
     this.OV = new OpenVidu();
 
     this.OV.setAdvancedConfiguration({
@@ -233,7 +233,6 @@ class Openvidu extends Component {
     });
 
     console.log("방에 들어갑니다.");
-    console.log(code);
     console.log(this.state);
     this.setState(
       {
@@ -273,7 +272,7 @@ class Openvidu extends Component {
         // --- 4) Connect to the session with a valid user token ---
 
         // Get a token from the OpenVidu deployment
-        this.guest(code).then((token) => {
+        this.guest(this.state.mySessionId).then((token) => {
           // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
           // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
           mySession
@@ -507,12 +506,12 @@ class Openvidu extends Component {
    */
   async host() {
     const sessionId = await this.createSession();
-    this.state.mySessionId = sessionId;
+    console.log(sessionId);
     return await this.createToken(sessionId);
   }
 
-  async guest(sessionId) {
-    return await this.createToken(sessionId);
+  async guest() {
+    return await this.createToken(this.state.mySessionId);
   }
 
   async createSession() {
@@ -531,9 +530,8 @@ class Openvidu extends Component {
   }
 
   async createToken(sessionId) {
-    console.log("토큰 만들자");
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "connect/" + sessionId,
+      APPLICATION_SERVER_URL + 'connect/' + sessionId,
       {
         withCredentials: true
       },
