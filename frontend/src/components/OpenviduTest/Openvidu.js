@@ -123,16 +123,17 @@ class Openvidu extends Component {
           threshold: -75,
         },
     });
+    console.log("세션 생성 전");
+    console.log(this.state);
 
     // --- 2) Init a session ---
-
     this.setState(
       {
         session: this.OV.initSession(),
       },
       () => {
         let mySession = this.state.session;
-        console.log(2);
+        console.log("세션 생성 후");
         console.log(this.state);
         // --- 3) Specify the actions when events take place in the session ---
 
@@ -187,7 +188,8 @@ class Openvidu extends Component {
               // --- 6) Publish your stream ---
 
               mySession.publish(publisher);
-
+              console.log("퍼블리시 후");
+              console.log(this.state);
               // Obtain the current video device in use
               var devices = await this.OV.getDevices();
               var videoDevices = devices.filter(
@@ -221,13 +223,24 @@ class Openvidu extends Component {
   }
 
   joinRoom(code) {
-    this.state.mySessionId = code;
+    this.OV = new OpenVidu();
+
+    this.OV.setAdvancedConfiguration({
+        publisherSpeakingEventsOptions: {
+          interval: 50,
+          threshold: -75,
+        },
+    });
+
+    console.log("방에 들어갑니다.");
+    console.log(code);
     console.log(this.state);
     this.setState(
       {
         session: this.OV.initSession(),
       },
       () => {
+        console.log(this.state);
         let mySession = this.state.session;
 
         // --- 3) Specify the actions when events take place in the session ---
@@ -505,6 +518,9 @@ class Openvidu extends Component {
   async createSession() {
     const response = await axios.post(
       APPLICATION_SERVER_URL,
+      {
+        withCredentials: true
+      },
       {},
       {
         headers: { "Content-Type": "application/json" },
@@ -518,6 +534,9 @@ class Openvidu extends Component {
     console.log("토큰 만들자");
     const response = await axios.post(
       APPLICATION_SERVER_URL + "connect/" + sessionId,
+      {
+        withCredentials: true
+      },
       {},
       {
         headers: { "Content-Type": "application/json" },
