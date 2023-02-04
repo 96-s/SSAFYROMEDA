@@ -34,7 +34,7 @@ import prev from "resources/images/prev.png";
 import next from "resources/images/next.png";
 import sdon from "resources/images/soundon_icon.png";
 import sdoff from "resources/images/soundoff_icon.png";
-import logout from "resources/images/logout_icon.png";
+// import logout from "resources/images/logout_icon.png";
 
 ///////////////////             BODY
 const BG = styled.div`
@@ -103,11 +103,11 @@ const HeaderRightDiv = styled.div`
   opacity: 0.73;
   color: black;
 `;
+
 const HeaderRightSoundOn = styled.div`
-  width: 60px;
   .audioImg {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
 `;
 
@@ -116,10 +116,10 @@ const HeaderRightPlayOut = styled.div`
   width: 60px;
   height: 60px;
 `;
-const Img = styled.img`
-  width: 60px;
-  height: 60px;
-`;
+// const Img = styled.img`
+//   width: 60px;
+//   height: 60px;
+// `;
 /*******************  MAIN *******************/
 
 const MainLeft = styled.main`
@@ -304,20 +304,15 @@ const LobbyPage = () => {
             </Modal>
           </HeaderLeftUserInfo>
           <HeaderRightDiv>
-            <HeaderRightSoundOn>
-              <button onClick={onClickPlayMusicButton}>
-                {isPlay ? (
-                  <img src={sdon} alt="Aon" className="audioImg"></img>
-                ) : (
-                  <img src={sdoff} alt="Aof" className="audioImg"></img>
-                )}
-              </button>
+            <HeaderRightSoundOn onClick={onClickPlayMusicButton}>
+              {isPlay ? (
+                <img src={sdon} alt="Aon" className="audioImg"></img>
+              ) : (
+                <img src={sdoff} alt="Aof" className="audioImg"></img>
+              )}
             </HeaderRightSoundOn>
             <HeaderRightPlayOut>
-              <Link to="/">
-                <Logout />
-                {/* <Img src={logout} alt="out" className="logout"></Img> */}
-              </Link>
+              <Logout />
             </HeaderRightPlayOut>
           </HeaderRightDiv>
         </HeaderContainer>
