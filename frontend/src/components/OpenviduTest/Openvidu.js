@@ -22,9 +22,9 @@ class Openvidu extends Component {
 
 
     // console.log(this.props);
-    console.log(this.props.userInfo);
-    let userNickname = this.props.userInfo.userNickname ? this.props.userInfo.userNickname : "guest";
-    console.log(userNickname);
+    // console.log(this.props.userInfo);
+    // let userNickname = this.props.userInfo.userNickname ? this.props.userInfo.userNickname : "guest";
+    // console.log(userNickname);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
