@@ -4,6 +4,7 @@ import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from './DiceModal';
 import ChanceModal from './ChanceModal';
+import Quiz from './quiz'
 
 
 // import Dice1 from "resources/images/Map/dice1.png";
@@ -433,6 +434,7 @@ const Map = ({
     const [openChanceToggle, setOpenChanceToggle] = useState(false);
     // var chanceNum = null;
 
+    // 주사위 모달
     const openDice = () => {
         setShowDiceToggle(true);
         console.log("뜨나");
@@ -450,6 +452,8 @@ const Map = ({
     }, [diceValue])
     // console.log(diceValue);
 
+
+    // 찬스 모달
     const openChance = () => {
       const randomNum = Math.floor(Math.random() * 5)
       setChanceNum(randomNum)
@@ -526,6 +530,7 @@ const Map = ({
     return (
       <Page>
         <Board>
+          <Quiz/>
           <span onClick={openChance}>I</span>
           <ChanceModal
             open={openChanceToggle}

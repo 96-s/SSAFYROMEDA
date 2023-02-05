@@ -1,5 +1,5 @@
 import React from 'react';
-import 'components/common/modal.css';
+import './modal.css';
 import styled from "styled-components";
 import CardFrameIMG from "resources/images/Map/card-frame.png"
 import Chance from './Chance';
@@ -12,6 +12,8 @@ const ChanceCard = styled.div`
     height: 460px;
     background: url(${CardFrameIMG}) no-repeat;
 `;
+
+
 
 const ChanceModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -49,7 +51,7 @@ const ChanceModal = (props) => {
             </ChanceCard>
           </main>
           <footer>
-            <button className="close" onClick={close}>
+            <button className="close" onClick={props.close}>
               close
             </button>
           </footer>

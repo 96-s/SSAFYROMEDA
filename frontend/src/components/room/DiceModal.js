@@ -1,5 +1,5 @@
 import React from 'react';
-import 'components/common/modal.css';
+import './modal.css';
 import DiceRoller from 'components/utils/DiceRoller';
 // import MyButton from "components/common/Button";
 import styled from "styled-components";
