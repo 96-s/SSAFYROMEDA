@@ -12,22 +12,22 @@ const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process
 
 class Openvidu extends Component {
   constructor(props) {
-    // const { sessionNickname, sessionRoomId, sessionCapacity, sessionHost } = this.props
-    // const mapStateToProps = (state) => ({
-    //   userInfo: state.user
-    // })
-    
-    
-
     super(props);
     this.userRef = React.createRef();
 
+    // let sessionName = this.props.sessionName
+    //   ? this.props.sessionName
+    //   : undefined
+
+    console.log(this.props.user.userNickname);
+    // let userName = this.props.user.userNickname ? this.props.auth.userNickname : "guest"
+
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: "",
+      mySessionId: undefined,
       // mySessionId: sessionRoomId,
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
-      // myUserName: sessionNickname,
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      myUserName: undefined,
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
@@ -399,7 +399,7 @@ class Openvidu extends Component {
 
   render() {
     const mySessionId = this.state.mySessionId;
-    const myUserName = this.state.myUserName;
+    const userInfo = this.props
 
     return (
       <div className="container">
@@ -554,4 +554,17 @@ class Openvidu extends Component {
   }
 }
 
-export default Openvidu;
+
+// 리덕스 state에 있는 값 사용할 때
+const mapStateToProps = (state) => ({
+  userInfo: state.auth,
+});
+
+// 리덕스 slice의 actions 사용할 때
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
