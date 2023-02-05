@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
@@ -658,14 +658,628 @@ const Marker1 = styled.div`
 `;
 
 
-// const Marker2 = styled.section`
-//     img {
-//         width: 80px;
-//         position: absolute;
-//         // top: 65px;
-//         // left: 470px;
-//     }
-// `;
+const Marker2 = styled.div`
+  display: flex;
+  width: 11vmin;
+  height: 11vmin;
+  position: absolute;
+  z-index: 5;
+
+  // 정방향
+  &.pos0 {
+    top: 0.8%;
+    left: 4%;
+    // @keyframes moveToRight-0 {
+    //   0% {
+    //     transform: translate(0px, 0px);
+    //   }
+    //   100% {
+    //     transform: translate(3.5%, 110%);
+    //   }
+    // }
+    // animation: moveToRight-0 2s ease;
+  }
+    
+  &.pos1 {
+    top: 13.5%;
+    left: 8.6%;
+    @keyframes moveToRight-1 {
+      0% {
+        transform: translate(-30%, -100%);
+      }
+      100% {
+        transform: translate(0%, 0%);
+      }
+    }
+    animation: moveToRight-1 2s ease;
+  }
+
+  &.pos2 {
+    top: 17.3%;
+    left: 21.3%;
+    @keyframes moveToRight-2 {
+      0% {
+        transform: translate(-100%, -30%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-2 2s ease;
+  }
+
+  &.pos3 {
+    top: 16%;
+    left: 37.5%;
+    @keyframes moveToRight-3 {
+      0% {
+        transform: translate(-125%, 10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-3 2s ease;
+  }
+
+  &.pos4 {
+    top: 9.7%;
+    left: 51.1%;
+    @keyframes moveToRight-4 {
+      0% {
+        transform: translate(-105%, 45%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-4 2s ease;
+  }
+
+  &.pos5 {
+    top: 8.5%;
+    left: 64%;
+    @keyframes moveToRight-5 {
+      0% {
+        transform: translate(-102%, 10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-5 2s ease;
+  }
+
+  &.pos6 {
+    top: 9.9%;
+    left: 77.1%;
+    @keyframes moveToRight-6 {
+      0% {
+        transform: translate(-102%, -10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-6 2s ease;
+  }
+
+  &.pos7 {
+    top: 22.3%;
+    left: 86.5%;
+    @keyframes moveToRight-7 {
+      0% {
+        transform: translate(-73%, -95%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-7 2s ease;
+  }
+
+  &.pos8 {
+    top: 38.3%;
+    left: 84.5%;
+    @keyframes moveToRight-8 {
+      0% {
+        transform: translate(15%, -125%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-8 2s ease;
+  }
+
+  &.pos9 {
+    top: 40.5%;
+    left: 70.8%;
+    @keyframes moveToRight-9 {
+      0% {
+        transform: translate(105%, -15%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-9 2s ease;
+  }
+
+  &.pos10 {
+    top: 35.3%;
+    left: 57.8%;
+    @keyframes moveToRight-10 {
+      0% {
+        transform: translate(103%, 38%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToRight-10 2s ease;
+  }
+
+  &.pos11 {
+    top: 33%;
+    left: 46%;
+    @keyframes moveToRight-11 {
+      0% {
+        transform: translate(95%, 18%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-11 2s ease;
+  }
+
+  &.pos12 {
+    top: 36%;
+    left: 33.5%;
+    @keyframes moveToRight-12 {
+      0% {
+        transform: translate(98%, -20%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-12 2s ease;
+  }
+
+  &.pos13 {
+    top: 37.8%;
+    left: 18.3%;
+    @keyframes moveToRight-13 {
+      0% {
+        transform: translate(118%, -15%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-13 2s ease;
+  }
+
+  &.pos14 {
+    top: 53%;
+    left: 8.3%;
+    @keyframes moveToRight-14 {
+      0% {
+        transform: translate(75%, -120%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-14 2s ease;
+  }
+
+  &.pos15 {
+    top: 66.5%;
+    left: 11.5%;
+    @keyframes moveToRight-15 {
+      0% {
+        transform: translate(-25%, -108%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-15 2s ease;
+  }
+
+  &.pos16 {
+    top: 70.8%;
+    left: 26%;
+    @keyframes moveToRight-16 {
+      0% {
+        transform: translate(-113%, -32%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-16 2s ease;
+  }
+
+  &.pos17 {
+    top: 69.8%;
+    left: 40.3%;
+    @keyframes moveToRight-17 {
+      0% {
+        transform: translate(-113%, 10%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-17 2s ease;
+  }
+
+  &.pos18 {
+    top: 64.8%;
+    left: 57.8%;
+    @keyframes moveToRight-18 {
+      0% {
+        transform: translate(-138%, 40%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-18 2s ease;
+  }
+
+  &.pos19 {
+    top: 62%;
+    left: 73%;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(-120%, 23%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos20 {
+    top: 66.8%;
+    left: 84.8%;
+    @keyframes moveToRight-20 {
+      0% {
+        transform: translate(-93%, -38%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-20 2s ease;
+  }
+  &.pos21 {
+    top: 83.5%;
+    left: 79.2%;
+    @keyframes moveToRight-21 {
+      0% {
+        transform: translate(44%, -130%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-21 2s ease;
+  }
+
+
+  // 역방향
+  &.pos-0 {
+    top: 0.8%;
+    left: 4%;
+    @keyframes moveToLeft-0 {
+      0% {
+        transform: translate(100%, 30%);
+      }
+      100% {
+        transform: translate(0%, 0%);
+      }
+    }
+    animation: moveToLeft-0 2s ease;
+  }
+    
+  &.pos-1 {
+    top: 13.5%;
+    left: 8.6%;
+    @keyframes moveToLeft-1 {
+      0% {
+        transform: translate(100%, 30%);
+      }
+      100% {
+        transform: translate(0%, 0%);
+      }
+    }
+    animation: moveToLeft-1 2s ease;
+  }
+
+  &.pos-2 {
+    top: 17.3%;
+    left: 21.3%;
+    @keyframes moveToLeft-2 {
+      0% {
+        transform: translate(125%, -10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-2 2s ease;
+  }
+
+  &.pos-3 {
+    top: 16%;
+    left: 37.5%;
+    @keyframes moveToLeft-3 {
+      0% {
+        transform: translate(105%, -45%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-3 2s ease;
+  }
+
+  &.pos-4 {
+    top: 9.7%;
+    left: 51.1%;
+    @keyframes moveToLeft-4 {
+      0% {
+        transform: translate(102%, -10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-4 2s ease;
+  }
+
+  &.pos-5 {
+    top: 8.5%;
+    left: 64%;
+    @keyframes moveToLeft-5 {
+      0% {
+        transform: translate(102%, 10%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-5 2s ease;
+  }
+
+  &.pos-6 {
+    top: 9.9%;
+    left: 77.1%;
+    @keyframes moveToLeft-6 {
+      0% {
+        transform: translate(73%, 95%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-6 2s ease;
+  }
+
+  &.pos-7 {
+    top: 22.3%;
+    left: 86.5%;
+    @keyframes moveToLeft-7 {
+      0% {
+        transform: translate(-15%, 125%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToLeft-7 2s ease;
+  }
+
+  &.pos-8 {
+    top: 38.3%;
+    left: 84.5%;
+    @keyframes moveToLeft-8 {
+      0% {
+        transform: translate(-105%, 15%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToLeft-8 2s ease;
+  }
+
+  &.pos-9 {
+    top: 40.5%;
+    left: 70.8%;
+    @keyframes moveToLeft-9 {
+      0% {
+        transform: translate(-103%, -38%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToLeft-9 2s ease;
+  }
+
+  &.pos-10 {
+    top: 35.3%;
+    left: 57.8%;
+    @keyframes moveToLeft-10 {
+      0% {
+        transform: translate(-95%, -18%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    animation: moveToLeft-10 2s ease;
+  }
+
+  &.pos-11 {
+    top: 33%;
+    left: 46%;
+    @keyframes moveToLeft-11 {
+      0% {
+        transform: translate(-98%, 20%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToLeft-11 2s ease;
+  }
+
+  &.pos-12 {
+    top: 36%;
+    left: 33.5%;
+    @keyframes moveToRight-12 {
+      0% {
+        transform: translate(-118%, 15%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-12 2s ease;
+  }
+
+  &.pos-13 {
+    top: 37.8%;
+    left: 18.3%;
+    @keyframes moveToRight-13 {
+      0% {
+        transform: translate(-75%, 120%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-13 2s ease;
+  }
+
+  &.pos-14 {
+    top: 53%;
+    left: 8.3%;
+    @keyframes moveToRight-14 {
+      0% {
+        transform: translate(25%, 108%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-14 2s ease;
+  }
+
+  &.pos-15 {
+    top: 66.5%;
+    left: 11.5%;
+    @keyframes moveToRight-15 {
+      0% {
+        transform: translate(113%, 32%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    animation: moveToRight-15 2s ease;
+  }
+
+  &.pos-16 {
+    top: 70.8%;
+    left: 26%;
+    @keyframes moveToRight-16 {
+      0% {
+        transform: translate(113%, -10%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-16 2s ease;
+  }
+
+  &.pos-17 {
+    top: 69.8%;
+    left: 40.3%;
+    @keyframes moveToRight-17 {
+      0% {
+        transform: translate(138%, -40%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-17 2s ease;
+  }
+
+  &.pos-18 {
+    top: 64.8%;
+    left: 57.8%;
+    @keyframes moveToRight-18 {
+      0% {
+        transform: translate(120%, -23%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-18 2s ease;
+  }
+
+  &.pos-19 {
+    top: 62%;
+    left: 73%;
+    @keyframes moveToRight-19 {
+      0% {
+        transform: translate(93%, 38%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-19 2s ease;
+  }
+  &.pos-20 {
+    top: 66.8%;
+    left: 84.8%;
+    @keyframes moveToRight-20 {
+      0% {
+        transform: translate(-44%, 130%);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    animation: moveToRight-20 2s ease;
+  }
+  &.pos-21 {
+    top: 83.5%;
+    left: 79.2%;
+  //   @keyframes moveToRight-21 {
+  //     0% {
+  //       transform: translate(44%, -130%);
+  //     }
+  //     100% {
+  //       transform: translate(0);
+  //     }
+  //   }
+  //   animation: moveToRight-21 2s ease;
+  // }
+`;
 
 const Timers = styled.div`
     display: flex;
@@ -874,9 +1488,9 @@ const Map = ({
           <Marker1 className={`pos${nowPos}`}>
             <img src={Marker1IMG} alt="marker1" id="marker1"></img>
           </Marker1>
-          {/* <Marker2>
+          <Marker2 className={`pos${0}`}>
             <img src={Marker2IMG} alt="marker2"></img>
-          </Marker2> */}
+          </Marker2>
         </Board>
       </Page>
     );

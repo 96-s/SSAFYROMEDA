@@ -1,5 +1,5 @@
 import { OpenVidu } from 'openvidu-browser';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
 import React, { Component } from 'react';
 // import './App.css';
@@ -12,13 +12,22 @@ const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process
 
 class Openvidu extends Component {
   constructor(props) {
+    // const { sessionNickname, sessionRoomId, sessionCapacity, sessionHost } = this.props
+    // const mapStateToProps = (state) => ({
+    //   userInfo: state.user
+    // })
+    
+    
+
     super(props);
     this.userRef = React.createRef();
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "",
+      // mySessionId: sessionRoomId,
       myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: sessionNickname,
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
