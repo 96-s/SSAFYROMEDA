@@ -27,33 +27,40 @@ const MakeRoomModal = (props) => {
     players,
     subscribers, } = props;
   const [isMade, setIsMade] = useState(false);
+  
+  // roomCode를 받기 위해 선언
+  const [roomCode, setRoomCode] = useState("");
 
   const makeCode = () => {
 
-    const nextTurnNum = Math.floor(Math.random() * 6);
-    const nextPlayer = players[nextTurnNum];
+    // const nextTurnNum = Math.floor(Math.random() * 6);
+    // const nextPlayer = players[nextTurnNum];
 
-    const sendData = {
-      session: mySessionIdValue,
-      to: [],
-      data: JSON.stringify({
-        nextTurnNum: nextTurnNum,
-        nextPlayer: nextPlayer,
+    // const sendData = {
+    //   session: mySessionIdValue,
+    //   to: [],
+    //   data: JSON.stringify({
+    //     nextTurnNum: nextTurnNum,
+    //     nextPlayer: nextPlayer,
 
 
-      })
-    };
-    fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
+    //   })
+    // };
+    fetch('http://localhost:8080/api/rooms', {
       method: 'POST',
       headers: {
-        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
+        // Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
         'Content-type': 'application/json',
-      },
-      body: JSON.stringify(sendData),
+      }
+      // body: JSON.stringify(sendData),
+    }).then(response => response.json())
+    .then(data => {
+      setRoomCode(data.sessionId);
     });
     setIsMade(!isMade);
 
   }
+
   // const toggleIsMade = () => {
   //   ;
   // }
@@ -85,7 +92,7 @@ const MakeRoomModal = (props) => {
               {isMade && 
                 <div>
 
-                  <span>{'초대코드'}</span>
+                  <span>{roomCode}</span>
                   <MyButton
                   type={"Korean"}
                   className={"is-primary"}
