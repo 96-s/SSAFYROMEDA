@@ -23,6 +23,7 @@ class Openvidu extends Component {
 
     // console.log(userInfo)
     console.log(this.props);
+    console.log(this.props.user);
     console.log(this.props.user.userNickname);
     // let userName = this.props.user.userNickname ? this.props.auth.userNickname : "guest"
 
