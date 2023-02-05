@@ -39,10 +39,10 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser(@RequestBody UserSignUpRequest userSignUpRequest){
         if(userService.checkNickname(userSignUpRequest.getUserNickname())==0){
-            userService.sighUpUser(userSignUpRequest);
+            userService.signUpUser(userSignUpRequest);
             return new ResponseEntity<>("회원 정보 등록 성공", HttpStatus.valueOf(200));
         }else{
-            return new ResponseEntity<>("닉네임 중복", HttpStatus.valueOf(400));
+            return new ResponseEntity<>("중복된 닉네임입니다.", HttpStatus.valueOf(400));
         }
     }
     @PutMapping("/signout/{no}")
