@@ -172,7 +172,7 @@ const MainPage = () => {
               />
 
               <Span>
-                <Link to="/login">GAME START</Link>
+                <Link to="/explanation">GAME START</Link>
 
                 {/* <Link to="/signup">회원가입 하기</Link> */}
               </Span>

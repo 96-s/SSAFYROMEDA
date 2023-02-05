@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 // import './App.css';
 import UserVideoComponent from './UserVideoComponent';
+// import { userInfo } from 'os';
 
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
@@ -20,7 +21,10 @@ class Openvidu extends Component {
     //   : undefined
 
 
-    console.log(this.props.user.userNickname);
+    console.log(this.props);
+    console.log(this.props.user);
+    console.log(this.props.userInfo.user.userNickname);
+    console.log(this.props.userNickname);
     // let userName = this.props.user.userNickname ? this.props.auth.userNickname : "guest"
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
@@ -558,7 +562,7 @@ class Openvidu extends Component {
 
 // 리덕스 state에 있는 값 사용할 때
 const mapStateToProps = (state) => ({
-  userInfo: state.auth,
+  userInfo: state.auth.user,
 });
 
 // 리덕스 slice의 actions 사용할 때
