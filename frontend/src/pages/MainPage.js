@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 import "nes.css/css/nes.min.css";
 
 //IMAGE Components
-import background from "resources/images/back.PNG";
+import background from "resources/images/back1.jpg";
 import title from "resources/images/title.png";
 import insertcoin from "resources/images/insert_coin.png";
 import person from "resources/images/person.png";
 import notperson from "resources/images/notperson.png";
 
+//Sound
+import MusicContainer from "../store/audio";
+import Sound from "components/common/sound.js";
 ///////////////////             BODY
 const BG = styled.div`
   background: url(${background}) no-repeat center;
@@ -23,13 +26,13 @@ const BG = styled.div`
   ///////////////////             Input CSS
 
   .nes-radio:checked + span::before {
-    top: 25px;
-    left: -40px;
+    top: 4%;
+    left: -15%;
     width: 0;
     height: 0;
     border-bottom: 20px solid transparent;
     border-top: 20px solid transparent;
-    border-left: 20px solid rgb(255, 94, 0);
+    border-left: 20px solid rgb(255, 222, 173);
     border-right: 20px solid transparent;
     box-shadow: none !important;
   }
@@ -64,6 +67,7 @@ const Insertcoin = styled.img`
   position: absolute;
   top: 200px;
   left: 50%;
+  height: 3%;
   transform: translate(-50%, -50%);
   animation: motion 0.3s linear 0s infinite alternate;
   @keyframes motion {
@@ -104,8 +108,9 @@ const MiddelDiv = styled.div`
   height: 100%;
   min-width: 500px;
   margin: auto;
+  margin-top: 18%;
   text-align: center;
-  font-size: 100px;
+  font-size: 50px;
 `;
 
 ///////////////////             Section(Right)
@@ -121,10 +126,13 @@ const Rightimg = styled.img`
 `;
 const Span = styled.span`
   & > a:hover {
-    color: #fff;
+    color: white;
   }
   & > a {
     text-decoration: none;
+  }
+  a {
+    color: yellow;
   }
 `;
 
@@ -164,9 +172,14 @@ const MainPage = () => {
               />
 
               <Span>
-                <Link to="/explanation">S T A R T</Link>
+                <Link to="/login">GAME START</Link>
+
+                {/* <Link to="/signup">회원가입 하기</Link> */}
               </Span>
             </label>
+            <MusicContainer>
+              <Sound />
+            </MusicContainer>
           </MiddelDiv>
           <RightDiv>
             <Rightimg src={notperson}></Rightimg>

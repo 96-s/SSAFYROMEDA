@@ -28,7 +28,7 @@ const Logout = () => {
 
   return (
     <div>
-      <img src={logout} onClick={purge} width="60px"/>
+      <img className="nes-pointer" src={logout} onClick={purge} width="60px" />
     </div>
   );
 };
