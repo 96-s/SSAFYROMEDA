@@ -27,13 +27,14 @@ import MyButton from "components/common/Button";
 //SLIDE LIBRARY
 
 //IMAGE Components
-import background from "resources/images/back.PNG";
+import background from "resources/images/lobby_background3.png";
 import userimage from "resources/images/userimage.PNG";
 import history from "resources/images/history.png";
 import prev from "resources/images/prev.png";
 import next from "resources/images/next.png";
 import sdon from "resources/images/soundon_icon.png";
 import sdoff from "resources/images/soundoff_icon.png";
+import astronaut from "resources/images/astronaut2.png";
 // import logout from "resources/images/logout_icon.png";
 
 ///////////////////             BODY
@@ -68,6 +69,32 @@ const HeaderLeftDiv = styled.div`
   color: black;
 `;
 
+const MyPageBalloon = styled.div`
+  animation: motion 1s linear 0s infinite alternate;
+  @keyframes motion {
+    0% {
+      margin-top: 60px;
+    }
+
+    100% {
+      margin-top: 90px;
+    }
+  }
+`;
+
+const AustronautImg = styled.img`
+  animation: motion 1s linear 0s infinite alternate;
+  @keyframes motion {
+    0% {
+      margin-top: 60px;
+    }
+
+    100% {
+      margin-top: 90px;
+    }
+  }
+`;
+
 const HeaderLeftUserImage = styled.img`
   height: 80px;
   width: 80px;
@@ -79,10 +106,9 @@ const HeaderLeftUserImage = styled.img`
 
 const HeaderLeftUserInfo = styled.div`
   text-align: center;
-  margin: -5px;
-  height: 84px;
-  width: 40px;
-  line-height: 78px;
+  margin-top: 170px;
+  margin-left: 100px;
+
   font-size: 30px;
   color: black;
 `;
@@ -92,6 +118,7 @@ const HeaderRightDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 5px;
@@ -124,24 +151,45 @@ const HeaderRightPlayOut = styled.div`
 
 const MainLeft = styled.main`
   float: left;
-  margin-top: 2%;
-  margin-left: 2%;
-  background: lightgray;
-  /* min-height: 75%; */
-  width: 60%;
-  height: 73%;
+  margin-top: 50px;
+  margin-left: 200px;
 `;
 const MainRight = styled.main`
   float: right;
-  margin-top: 5%;
-  margin-right: 5%;
+  margin-top: 20px;
+  margin-right: 120px;
   background: none;
   min-height: 65%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   width: 30%;
 `;
 
 /******************* RIGHT SECTION *******************/
+const TitleText = styled.h1`
+  font-size: 2.5rem;
+  color: white;
+
+  margin-bottom: 10px;
+`;
+
+const ButtonBox = styled.div`
+  width: 350px;
+  height: 350px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid #dcdcdc;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Section = styled.section`
   margin-top: 0px;
   background: none;
@@ -236,21 +284,21 @@ const LobbyPage = () => {
   const IMG_WIDTH = 100;
   const slideRange = currentImgOrder * IMG_WIDTH;
 
-  useEffect(() => {
-    slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${slideRange}%)`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentImgOrder]);
+  // useEffect(() => {
+  //   slideRef.current.style.transition = "all 0.5s ease-in-out";
+  //   slideRef.current.style.transform = `translateX(-${slideRange}%)`;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentImgOrder]);
 
-  const moveToNextSlide = () => {
-    if (currentImgOrder === 2) return;
-    setcCurrentImgOrder(currentImgOrder + 1);
-  };
+  // const moveToNextSlide = () => {
+  //   if (currentImgOrder === 2) return;
+  //   setcCurrentImgOrder(currentImgOrder + 1);
+  // };
 
-  const moveToPrevSlide = () => {
-    if (currentImgOrder === 0) return;
-    setcCurrentImgOrder(currentImgOrder - 1);
-  };
+  // const moveToPrevSlide = () => {
+  //   if (currentImgOrder === 0) return;
+  //   setcCurrentImgOrder(currentImgOrder - 1);
+  // };
 
   const navigate = useNavigate();
 
@@ -287,18 +335,20 @@ const LobbyPage = () => {
     <>
       <BG>
         <HeaderContainer>
-          <HeaderLeftDiv
-            onClick={() => {
-              onClickMoveProfilePage();
-            }}
-          >
-            <HeaderLeftUserImage src={userimage}></HeaderLeftUserImage>
-            &nbsp; 여기에는 닉네임과 전적
-          </HeaderLeftDiv>
           <HeaderLeftUserInfo>
-            <button onClick={openModal}>I</button>
+            <MyPageBalloon
+              className="nes-balloon from-right nes-pointer"
+              onClick={openModal}
+            >
+              <span>나의 탈출일지</span>
+            </MyPageBalloon>
             {/* //header 부분에 텍스트를 입력한다. */}
-            <Modal open={modalOpen} close={closeModal} header="Modal heading">
+            <Modal
+              className="nes-dialog is-rounded"
+              open={modalOpen}
+              close={closeModal}
+              header="Modal heading"
+            >
               {/* <main> {props.children} </main>에 내용이 입력된다. 리액트 함수형 */}
               모달 창 나의 정보를 입력해보자잇!!!!!!!!!!!!!
             </Modal>
@@ -306,9 +356,17 @@ const LobbyPage = () => {
           <HeaderRightDiv>
             <HeaderRightSoundOn onClick={onClickPlayMusicButton}>
               {isPlay ? (
-                <img src={sdon} alt="Aon" className="audioImg"></img>
+                <img
+                  src={sdon}
+                  alt="Aon"
+                  className="audioImg nes-pointer"
+                ></img>
               ) : (
-                <img src={sdoff} alt="Aof" className="audioImg"></img>
+                <img
+                  src={sdoff}
+                  alt="Aof"
+                  className="audioImg nes-pointer"
+                ></img>
               )}
             </HeaderRightSoundOn>
             <HeaderRightPlayOut>
@@ -318,59 +376,45 @@ const LobbyPage = () => {
         </HeaderContainer>
         {/* STORY PAGE */}
         <MainLeft>
-          <Wrapper>
-            <SlideWrapper ref={slideRef}>
-              <SlideImg src={background} />
-              <SlideImg src={background} />
-              <SlideImg src={background} />
-            </SlideWrapper>
-          </Wrapper>
-          <SlideButton>
-            <button onClick={moveToPrevSlide}>
-              <img src={prev} alt="prev" className="prev" />
-            </button>
-            <button onClick={moveToNextSlide}>
-              <img src={next} alt="next" className="next" />
-            </button>
-          </SlideButton>
+          <AustronautImg src={astronaut} />
         </MainLeft>
+
         <MainRight>
-          <Section>
-            <img src={history} alt="history" className="historys"></img>
-            <h1>탈출 일지(예비)</h1>
-          </Section>
+          <TitleText>게임 시작하기</TitleText>
+
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
-          <SectionUnderOne>
-            <MyButton
-              lang={"Korean"}
-              text={"　우주선 생성　"}
-              type={"is-primary"}
-              onClick={openMakeRoomModal}
+          <ButtonBox>
+            <SectionUnderOne>
+              <MyButton
+                lang={"Korean"}
+                text={"　우주선 생성　"}
+                onClick={openMakeRoomModal}
               />
-            {/* //header 부분에 텍스트를 입력한다. */}
-            <MakeRoomModal
-              open={MakeRoomModalOpen}
-              close={closeMakeRoomModal}
-              header="우주선 생성"
-            >
-              임시
-            </MakeRoomModal>
-          </SectionUnderOne>
-          <SectionUnderTwo>
-            <MyButton
-              lang={"Korean"}
-              text={"　우주선 탑승　"}
-              type={"is-success"}
-              onClick={openEnterRoomModal}
+              {/* //header 부분에 텍스트를 입력한다. */}
+              <MakeRoomModal
+                open={MakeRoomModalOpen}
+                close={closeMakeRoomModal}
+                header="우주선 생성"
+              >
+                임시
+              </MakeRoomModal>
+            </SectionUnderOne>
+            <SectionUnderTwo>
+              <MyButton
+                lang={"Korean"}
+                text={"　우주선 탑승　"}
+                type={"is-warning"}
+                onClick={openEnterRoomModal}
               />
-            <EnterRoomModal
-              open={EnterRoomModalOpen}
-              close={closeEnterRoomModal}
-              header="우주선 탑승"
-            >
-              임시
-            </EnterRoomModal>
-          </SectionUnderTwo>
+              <EnterRoomModal
+                open={EnterRoomModalOpen}
+                close={closeEnterRoomModal}
+                header="우주선 탑승"
+              >
+                임시
+              </EnterRoomModal>
+            </SectionUnderTwo>
+          </ButtonBox>
         </MainRight>
 
         <Footer></Footer>
