@@ -45,9 +45,13 @@ public class UserController {
             return new ResponseEntity<>("닉네임 중복", HttpStatus.valueOf(400));
         }
     }
-    @GetMapping("/jwt-test")
-    public ResponseEntity<String> jwtTest() {
-        return new ResponseEntity<>("성공", HttpStatus.OK);
+    @PutMapping("/signout/{no}")
+    public ResponseEntity<String> signOutUser(@PathVariable("no") Long userNo) {
+        if(userService.signOutUser(userNo).getUserRefreshToken()==null){
+            return new ResponseEntity<>("signOut 성공", HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("signOut 실패", HttpStatus.valueOf(400));
+        }
     }
 
 }

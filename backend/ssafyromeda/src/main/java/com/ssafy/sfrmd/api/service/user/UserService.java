@@ -24,8 +24,10 @@ public class UserService{
         return userRepository.save(user);
     }
 
-    public Boolean checkEmail(String userEmail) {
-        return null;
+    public User signOutUser(Long userNo) {
+        User user = userRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+        user.updateUserRefreshToken(null);
+        return userRepository.save(user);
     }
 
     public Long checkNickname(String userNickname) {
