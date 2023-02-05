@@ -23,6 +23,17 @@ const EnterRoomModal = (props) => {
   //   ;
   // }
 
+  // const onClickJoinGame = (roomCode, capacity, host) => {
+  //   navigate('/openvidutest', {
+  //     state: {
+  //       sessionNickname: nickname,
+  //       sessionRoomId: roomCode,
+  //       sessionCapacity: capacity,
+  //       sessionHost: host,
+  //     },
+  //   });
+  // };
+
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -44,10 +55,19 @@ const EnterRoomModal = (props) => {
 
                 <span>{'초대코드'}</span>
                 <MyButton
-                type={"Korean"}
-                className={"is-primary"}
-                text={"입장"}
-                onClick={() => {onClickMoveGamePage();}}
+                  type={"Korean"}
+                  className={"is-primary"}
+                  text={"입장"}
+                  onClick={
+                    // ()=> {
+                    onClickMoveGamePage
+                    // onClickJoinGame(
+                    //   `${myGamePlanList[count].roomCode}`,
+                    //   `${myGamePlanList[count].maxCapacity}`,
+                    //   `${myGamePlanList[count].host}`,
+                    // );
+                  // }
+                }
                 />
               </div>
             </MakeRoomDiv>
