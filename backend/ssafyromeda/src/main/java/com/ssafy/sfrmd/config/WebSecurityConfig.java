@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -74,21 +75,18 @@ public class WebSecurityConfig {
             .and()
             //== URL별 권한 관리 옵션 ==//
             .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS)
-            .permitAll()//preflight 요청 모두 허용
-            .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**")
-            .permitAll()
-            .antMatchers("/login/*", "/users/{no}", "/users/signup","/video/*")
-            .permitAll() //로그인, 회원가입 요청은 허용
-            .antMatchers("/users/jwt-test").hasRole("GUEST")
-            .antMatchers("/**").permitAll() //나머지 요청에 대해서는 인증을 요구
-            //!!!!!!!!!!!!!나중에 꼭 수정하기!!!!!!!!!!!!!!
+            .antMatchers(HttpMethod.OPTIONS).permitAll()//preflight 요청 모두 허용
+            .antMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/h2-console/**").permitAll()
+            .antMatchers("/login/*", "/users/{no}", "/users/signup","/video/*").permitAll() //로그인, 회원가입 요청은 허용
+//            .antMatchers("/users/jwt-test").hasRole("GUEST")
+            .antMatchers("/**").authenticated() //나머지 요청에 대해서는 인증을 요구
             .and()
             //== 소셜 로그인 설정 ==//
             .oauth2Login()
+            .userInfoEndpoint().userService(oAuth2UserServiceImpl) // customUserService 설정
+            .and()
             .successHandler(authenticationSuccessHandler) //동의하고 계속하기를 눌렀을 때 Handler
-            .failureHandler(authenticationFailureHandler) //소셜 로그인 실패했을 때 Handler
-            .userInfoEndpoint().userService(oAuth2UserServiceImpl); // customUserService 설정
+            .failureHandler(authenticationFailureHandler); //소셜 로그인 실패했을 때 Handler
         http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
