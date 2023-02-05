@@ -1,10 +1,9 @@
 import { OpenVidu } from 'openvidu-browser';
-import { connect } from 'react-redux';
+
 import axios from 'axios';
 import React, { Component } from 'react';
 // import './App.css';
 import UserVideoComponent from './UserVideoComponent';
-// import { userInfo } from 'os';
 
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
@@ -16,22 +15,10 @@ class Openvidu extends Component {
     super(props);
     this.userRef = React.createRef();
 
-    // let sessionName = this.props.sessionName
-    //   ? this.props.sessionName
-    //   : undefined
-
-
-    // console.log(this.props);
-    // console.log(this.props.userInfo);
-    // let userNickname = this.props.userInfo.userNickname ? this.props.userInfo.userNickname : "guest";
-    // console.log(userNickname);
-
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: undefined,
-      // mySessionId: sessionRoomId,
-      // myUserName: "Participant" + Math.floor(Math.random() * 10),
-      myUserName: undefined,
+      mySessionId: "",
+      myUserName: "Participant" + Math.floor(Math.random() * 10),
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
@@ -403,7 +390,7 @@ class Openvidu extends Component {
 
   render() {
     const mySessionId = this.state.mySessionId;
-    const userInfo = this.props
+    const myUserName = this.state.myUserName;
 
     return (
       <div className="container">
@@ -558,17 +545,4 @@ class Openvidu extends Component {
   }
 }
 
-
-// 리덕스 state에 있는 값 사용할 때
-const mapStateToProps = (state) => ({
-  userInfo: state.auth.user,
-});
-
-// 리덕스 slice의 actions 사용할 때
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
+export default Openvidu;
