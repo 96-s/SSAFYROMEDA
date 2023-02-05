@@ -24,13 +24,14 @@ class Openvidu extends Component {
     // console.log(this.props);
     console.log(this.props.userInfo);
     let userNickname = this.props.userInfo.userNickname ? this.props.userInfo.userNickname : "guest";
+    console.log(userNickname);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: undefined,
       // mySessionId: sessionRoomId,
       // myUserName: "Participant" + Math.floor(Math.random() * 10),
-      myUserName: userNickname,
+      myUserName: undefined,
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
