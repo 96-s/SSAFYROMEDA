@@ -108,7 +108,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                                   FilterChain filterChain) throws ServletException, IOException {
         jwtProvider.extractAccessToken(request)
                 .filter(jwtProvider::isTokenValid)
-                .ifPresent(accessToken -> jwtProvider.extractEmail(accessToken)
+                .ifPresent(accessToken -> jwtProvider.extractClaim(accessToken)
                         .ifPresent(no -> userRepository.findByUserNo(no)
                                 .ifPresent(this::saveAuthentication)));
 
