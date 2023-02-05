@@ -22,15 +22,16 @@ const MyInfo = () => {
   // const toggleIsEdit = () => setIsEdit(!isEdit);
   
   const userInfo = useSelector(state => state.auth)
-  console.log(userInfo);
-  console.log(userInfo.user.userNickname);
+  
+  const userId = userInfo.user.userEmail
+  const userNickname = userInfo.user.userNickname
 
   return (
     <div>
       <ul>
-        <li>아이디: {userInfo.user.userEmail}</li>
+        <li>아이디: {userId}</li>
         <div className="nickname">
-          <li>닉네임: {userInfo.user.userNickname}</li>
+          <li>닉네임: {userNickname}</li>
           <span>　</span>
           <MyButton
             type={"Korean"}
