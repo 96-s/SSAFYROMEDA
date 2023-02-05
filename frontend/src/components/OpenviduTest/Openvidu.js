@@ -19,7 +19,9 @@ class Openvidu extends Component {
     //   ? this.props.sessionName
     //   : undefined
 
-    console.log(this.props.user.userNickname);
+
+    console.log(this.props);
+    console.log(this.props.register);
     // let userName = this.props.user.userNickname ? this.props.auth.userNickname : "guest"
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
