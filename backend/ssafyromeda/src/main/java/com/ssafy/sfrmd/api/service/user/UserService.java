@@ -16,7 +16,7 @@ public class UserService{
     public User getUser(Long userNo){
         return userRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
     }
-    public User sighUpUser(UserSignUpRequest userSignUpRequest) {
+    public User signUpUser(UserSignUpRequest userSignUpRequest) {
         User user=userRepository.findByUserNo(userSignUpRequest.getUserNo()).orElseThrow(NullPointerException::new);
         user.updateUserNickname(userSignUpRequest.getUserNickname());
         user.updateUserRole();
