@@ -109,7 +109,7 @@ public class JwtFilter extends OncePerRequestFilter {
         jwtProvider.extractAccessToken(request)
                 .filter(jwtProvider::isTokenValid)
                 .ifPresent(accessToken -> jwtProvider.extractEmail(accessToken)
-                        .ifPresent(email -> userRepository.findByUserEmail(email)
+                        .ifPresent(no -> userRepository.findByUserNo(no)
                                 .ifPresent(this::saveAuthentication)));
 
         filterChain.doFilter(request, response);
@@ -132,7 +132,8 @@ public class JwtFilter extends OncePerRequestFilter {
      */
     public void saveAuthentication(User myUser) {
         UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
-                .username(myUser.getUserEmail())
+                .username(String.valueOf(myUser.getUserNo()))
+                .password("password")
                 .roles(myUser.getUserRole().name())
                 .build();
 
@@ -142,4 +143,5 @@ public class JwtFilter extends OncePerRequestFilter {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
 }
