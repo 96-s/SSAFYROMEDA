@@ -11,7 +11,7 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
 
     public History getHistory(Long userNo){
-        return historyRepository.findByUserNo(userNo).orElse(createHistory(userNo));
+        return historyRepository.findByUserNo(userNo).orElseGet(() -> createHistory(userNo));
     }
 
     private History createHistory(Long userNo) {
