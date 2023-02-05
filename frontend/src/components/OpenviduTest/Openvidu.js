@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 // import './App.css';
 import UserVideoComponent from './UserVideoComponent';
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
@@ -21,7 +21,7 @@ class Openvidu extends Component {
     //   : undefined
 
 
-    console.log(userInfo)
+    // console.log(userInfo)
     console.log(this.props);
     console.log(this.props.user.userNickname);
     // let userName = this.props.user.userNickname ? this.props.auth.userNickname : "guest"
