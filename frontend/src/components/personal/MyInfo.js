@@ -1,6 +1,7 @@
 import MyButton from "components/common/Button";
 import NicknameModal from "components/personal/NicknameModal";
 import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 
 
@@ -20,16 +21,16 @@ const MyInfo = () => {
 
   // const toggleIsEdit = () => setIsEdit(!isEdit);
   
-  const DUMMY_INFOS = { 
-      id: 'p1', 
-      nickname: '정은',
-  };
+  const userInfo = useSelector(state => state.auth)
+  console.log(userInfo);
+  console.log(userInfo.user.userNickname);
+
   return (
     <div>
       <ul>
-        <li>아이디: {DUMMY_INFOS.id}</li>
+        <li>아이디: {userInfo.user.userEmail}</li>
         <div className="nickname">
-          <li>닉네임: {DUMMY_INFOS.nickname}</li>
+          <li>닉네임: {userInfo.user.userNickname}</li>
           <span>　</span>
           <MyButton
             type={"Korean"}
