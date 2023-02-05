@@ -5,10 +5,11 @@ import { authActions } from "store/AuthSlice";
 import { useDispatch } from "react-redux";
 
 //IMAGE Components
-import background from "resources/images/back.PNG";
+// import background from "resources/images/back.PNG";
+import bg from "resources/images/bg.png";
 
 const BackGround = styled.div`
-  background: url(${background}) no-repeat center;
+  background: url(${bg}) no-repeat center;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
