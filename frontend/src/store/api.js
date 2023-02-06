@@ -8,10 +8,10 @@ import { customAxios } from "./customAxios";
 // const token = temp3.token;
 
 const temp = localStorage.getItem("persist:root");
-const temp2 = JSON.parse(temp);
 let token = "";
 
-if (temp2.auth) {
+if (temp) {
+  const temp2 = JSON.parse(temp);
   const temp3 = JSON.parse(temp2.auth);
   token = temp3.token;
 }
