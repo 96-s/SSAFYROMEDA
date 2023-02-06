@@ -524,7 +524,8 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${userInfo.token}` },
       }
     );
     console.log("세션 만듬");
@@ -539,7 +540,8 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 
+        "Authorization" : `Bearer ${userInfo.token}`},
       }
     );
     console.log("토큰 만듬");
@@ -549,7 +551,7 @@ class Openvidu extends Component {
 
 // 리덕스 state에 있는 값 사용할 때
 const mapStateToProps = (state) => ({
-  userInfo: state.auth.user,
+  userInfo: state.auth,
 });
 
 // 리덕스 slice의 actions 사용할 때
