@@ -26,44 +26,26 @@ const MakeRoomModal = (props) => {
     publisher,
     players,
     subscribers, } = props;
+
   const [isMade, setIsMade] = useState(false);
-  
-  // roomCode를 받기 위해 선언
   const [roomCode, setRoomCode] = useState("");
 
-  const makeCode = () => {
+  const getCode = async () => {
 
-    // const nextTurnNum = Math.floor(Math.random() * 6);
-    // const nextPlayer = players[nextTurnNum];
-
-    // const sendData = {
-    //   session: mySessionIdValue,
-    //   to: [],
-    //   data: JSON.stringify({
-    //     nextTurnNum: nextTurnNum,
-    //     nextPlayer: nextPlayer,
-
-
-    //   })
-    // };
-    fetch('https://i8d205.p.ssafy.io/api/rooms/', {
-      method: 'POST',
-      headers: {
-        // Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
-        'Content-type': 'application/json',
+    const response=await axios.post(
+      "https://i8d205.p.ssafy.io/api/rooms/",
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type" : "application/json",
+          Authorization : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm5vIjozLCJyb2xlIjoiVVNFUiIsImV4cCI6MTY3NTY5NzA1OX0.JP1Nt-vy2rV4S4JtqtqQtzIqYnVp-6nplFtrxyoTiZ3UGoJ9diMGx8Fg8CHDPKh_tZQiHYrHm5b1_qZpkvRjmQ",
+        },
       }
-      // body: JSON.stringify(sendData),
-    }).then(response => response.json())
-    .then(data => {
-      setRoomCode(data.sessionId);
-    });
+    );
+    setRoomCode(response.data);
     setIsMade(!isMade);
-
   }
-
-  // const toggleIsMade = () => {
-  //   ;
-  // }
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -72,9 +54,9 @@ const MakeRoomModal = (props) => {
         <section>
           <header>
             {header}
-            {/* <button className="close" onClick={close}>
+            <button className="close" onClick={close}>
               &times;
-            </button> */}
+            </button>
           </header>
           <main>
             <MakeRoomDiv>
@@ -83,7 +65,7 @@ const MakeRoomModal = (props) => {
                   type={"Korean"}
                   className={"is-primary"}
                   text={"초대코드 생성"}
-                  onClick={makeCode}
+                  onClick={getCode}
                 />
               }
               <div>
