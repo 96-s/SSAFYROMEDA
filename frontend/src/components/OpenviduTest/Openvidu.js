@@ -1,5 +1,4 @@
 import { OpenVidu } from "openvidu-browser";
-import { connect } from "react-redux";
 
 import axios from "axios";
 import React, { Component } from "react";
@@ -545,14 +544,4 @@ class Openvidu extends Component {
   }
 }
 
-// 리덕스 state에 있는 값 사용할 때
-const mapStateToProps = (state) => ({
-  // userInfo: state.auth.user,
-});
-
-// 리덕스 slice의 actions 사용할 때
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
+export default Openvidu;
