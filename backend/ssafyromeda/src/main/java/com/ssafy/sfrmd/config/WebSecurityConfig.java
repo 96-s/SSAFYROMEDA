@@ -47,7 +47,7 @@ public class WebSecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // Access-Control-Allow-Origin 값을 설정한다.
         // setAllowedOrigins로 여러개를 한꺼번에 설정할 수 도 있다.
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://192.168.100.63:3000", "https://i8d205.p.ssafy.io"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://i8d205.p.ssafy.io"));
         // 어떤 HTTP 메서드를 허용할지 정할 수 있다.
         // setAllowedMethods로 여러개를 한꺼번에 설정할 수 있다.
         corsConfiguration.addAllowedMethod("*");
