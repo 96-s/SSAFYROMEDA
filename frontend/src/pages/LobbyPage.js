@@ -14,7 +14,9 @@ import React, {
 //ROUTER
 import { Link, useNavigate } from "react-router-dom";
 
-//SLIDER LIBRARY
+//Music
+import MusicContainer from "../store/audio";
+import Sound from "components/common/sound.js";
 
 // Components
 import { Context } from "store/audio";
@@ -360,21 +362,9 @@ const LobbyPage = () => {
             </Modal>
           </HeaderLeftUserInfo>
           <HeaderRightDiv>
-            <HeaderRightSoundOn onClick={onClickPlayMusicButton}>
-              {isPlay ? (
-                <img
-                  src={sdon}
-                  alt="Aon"
-                  className="audioImg nes-pointer"
-                ></img>
-              ) : (
-                <img
-                  src={sdoff}
-                  alt="Aof"
-                  className="audioImg nes-pointer"
-                ></img>
-              )}
-            </HeaderRightSoundOn>
+            <MusicContainer>
+              <Sound />
+            </MusicContainer>
             <HeaderRightPlayOut>
               <Logout />
             </HeaderRightPlayOut>
