@@ -20,9 +20,9 @@ spring:
             ddl-auto: update # 스키마 자동 생성
         database: mysql
 
-    redis:
-        host: 127.0.0.1 # change 127.0.0.1
-        port: 6379
+#    redis:
+#        host: i8d205.p.ssafy.io # change 127.0.0.1
+#        port: 6379
 
 ## jwt
 #springboot:
