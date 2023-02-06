@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import axios from "axios";
 import React, { Component } from "react";
 // import './App.css';
+import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
+
+const SessionIdDiv = styled.div`
+  color: white;
+`
 
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
@@ -195,10 +200,10 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "640x480", // The resolution of your video
+                resolution: "400x300", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                mirror: true, // Whether to mirror your local video or not
               });
               // --- 6) Publish your stream ---
 
@@ -302,10 +307,10 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "640x480", // The resolution of your video
+                resolution: "400x300", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                mirror: true, // Whether to mirror your local video or not
               });
 
               // --- 6) Publish your stream ---
@@ -412,7 +417,9 @@ class Openvidu extends Component {
         {this.state.session === undefined ? (
           <div id="join">
             <div id="join-dialog" className="jumbotron vertical-center">
-              <h1> Join a video session </h1>
+              <SessionIdDiv>
+                <h1> Join a video session </h1>
+              </SessionIdDiv>
               <form className="form-group" onSubmit={this.initRoom}>
                 <p className="text-center">
                   <input
@@ -451,7 +458,9 @@ class Openvidu extends Component {
         {this.state.session !== undefined ? (
           <div id="session">
             <div id="session-header">
-              <h1 id="session-title">{mySessionId}</h1>
+              <SessionIdDiv>
+              <h1 id="session-title">Room Code: {mySessionId}</h1>
+              </SessionIdDiv>
               <input
                 className="btn btn-large btn-danger"
                 type="button"
@@ -475,7 +484,9 @@ class Openvidu extends Component {
                 />
               </div>
             ) : null} */}
+
             <div id="video-container">
+              {/* 방장 */}
               {this.state.publisher !== undefined ? (
                 <div
                   className="stream-container"
@@ -487,6 +498,7 @@ class Openvidu extends Component {
                 </div>
                 // null
               ) : null}
+              {/* 방 참가자들 */}
               {this.state.subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
