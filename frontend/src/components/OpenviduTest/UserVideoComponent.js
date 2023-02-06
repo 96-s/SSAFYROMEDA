@@ -4,8 +4,8 @@ import styled from 'styled-components';
 // import './UserVideo.css';
 
 const StreamComponent = styled.div`
-    height: 25vh;
-    aspect-ratio: 4 / 3;
+    // height: 25vh;
+    // aspect-ratio: 4 / 3;
 `;
 
 export default class UserVideoComponent extends Component {
