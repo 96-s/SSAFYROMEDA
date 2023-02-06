@@ -9,14 +9,9 @@ const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
-const temp = localStorage.getItem("persist:root");
-let token = "";
-
-if (temp) {
-  const temp2 = JSON.parse(temp);
-  const temp3 = JSON.parse(temp2.auth);
-  token = temp3.token;
-}
+const token = JSON.parse(
+  JSON.parse(localStorage.getItem("persist:root")).auth
+).token;
 
 class Openvidu extends Component {
   constructor(props) {
@@ -24,17 +19,14 @@ class Openvidu extends Component {
     this.userRef = React.createRef();
 
     console.log(this.props);
-    console.log(this.props.userInfo.user);
-    console.log(this.props.userInfo.user.userNickname);
+    console.log(this.props.userInfo);
+    console.log(this.props.userInfo.token);
     // console.log(this.props.userInfo.user);
-
-    let userNickname = this.props.userInfo.user.userNickname;
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "",
-      // myUserName: "Participant" + Math.floor(Math.random() * 10),
-      myUserName: userNickname,
+      myUserName: "Participant" + Math.floor(Math.random() * 10),
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
@@ -354,16 +346,13 @@ class Openvidu extends Component {
       mySession.disconnect();
     }
 
-    console.log(this.props.userInfo.user.userNickname);
-
     // Empty all properties...
     this.OV = null;
     this.setState({
       session: undefined,
       subscribers: [],
       mySessionId: "SessionA",
-      // myUserName: "Participant" + Math.floor(Math.random() * 10),
-      myUserName: undefined,
+      myUserName: "Participant" + Math.floor(Math.random() * 10),
       mainStreamManager: undefined,
       publisher: undefined,
     });
@@ -556,7 +545,6 @@ class Openvidu extends Component {
       {},
       {
         withCredentials: true,
-
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
