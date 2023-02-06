@@ -2,10 +2,19 @@
 import axios from "axios";
 import { customAxios } from "./customAxios";
 
+// const temp = localStorage.getItem("persist:root");
+// const temp2 = JSON.parse(temp);
+// const temp3 = JSON.parse(temp2.auth);
+// const token = temp3.token;
+
 const temp = localStorage.getItem("persist:root");
 const temp2 = JSON.parse(temp);
-const temp3 = JSON.parse(temp2.auth);
-const token = temp3.token;
+let token = "";
+
+if (temp2.auth) {
+  const temp3 = JSON.parse(temp2.auth);
+  token = temp3.token;
+}
 
 // 회원가입 (닉네임 중복체크 및 등록)
 export const createNicknameApi = async (user) =>
