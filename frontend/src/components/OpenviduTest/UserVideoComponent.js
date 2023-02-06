@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import OpenViduVideoComponent from './OvVideo';
+import styled from 'styled-components';
 // import './UserVideo.css';
+
+const StreamComponent = styled.div`
+    height: 25vh;
+    aspect-ratio: 4 / 3;
+`
 
 export default class UserVideoComponent extends Component {
 
@@ -13,10 +19,13 @@ export default class UserVideoComponent extends Component {
         return (
             <div>
                 {this.props.streamManager !== undefined ? (
-                    <div className="streamcomponent">
-                        <OpenViduVideoComponent streamManager={this.props.streamManager} />
-                        <div><p>{this.getNicknameTag()}</p></div>
-                    </div>
+                    <StreamComponent>
+
+                        <div className="streamcomponent">
+                            <OpenViduVideoComponent streamManager={this.props.streamManager} />
+                            <div><p>{this.getNicknameTag()}</p></div>
+                        </div>
+                    </StreamComponent>
                 ) : null}
             </div>
         );
