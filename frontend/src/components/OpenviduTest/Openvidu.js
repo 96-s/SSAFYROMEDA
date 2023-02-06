@@ -16,7 +16,8 @@ class Openvidu extends Component {
     this.userRef = React.createRef();
 
     console.log(this.props);
-    console.log(this.props.userInfo);
+    console.log(this.props.user.userInfo);
+    // console.log(this.props.userInfo.user);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
@@ -550,7 +551,7 @@ class Openvidu extends Component {
 
 // 리덕스 state에 있는 값 사용할 때
 const mapStateToProps = (state) => ({
-  userInfo: state.auth.user,
+  userInfo: state.auth,
 });
 
 // 리덕스 slice의 actions 사용할 때
