@@ -58,14 +58,3 @@ export const persistor = persistStore(store);
 // };
 
 // export default stores;
-
-// axios 비동기통신
-export const BASE_URL = "http://localhost:3000/api/v1/";
-
-export const setToken = () => {
-  const token = localStorage.getItem("access") || "";
-  const config = {
-    Authorization: `Bearer ${token}`,
-  };
-  return config;
-};
