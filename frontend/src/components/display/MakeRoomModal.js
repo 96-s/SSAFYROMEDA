@@ -46,7 +46,7 @@ const MakeRoomModal = (props) => {
 
     //   })
     // };
-    fetch('http://localhost:8080/api/rooms', {
+    fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
       method: 'POST',
       headers: {
         // Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
