@@ -88,7 +88,20 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
-
+    // 로그아웃 요청 후 로직
+    logoutRequestStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    logoutRequestSuccess(state) {
+      state.loading = false;
+      state.isAuth = false;
+      state.token = null;
+    },
+    logoutRequestError(state, action) {
+      state.loading = false;
+      state.error = action.payload.error;
+    },
     // GET user game info(프로필용)
     getUserProfileInfoStart(state) {
       state.loading = true;

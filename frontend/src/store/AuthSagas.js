@@ -13,7 +13,7 @@ import {
 import { authActions } from "./AuthSlice";
 
 // api import
-import { createNicknameApi, getUserInfoApi } from "./api";
+import { createNicknameApi, getUserInfoApi, logoutRequestApi } from "./api";
 
 // 닉네임 설정 saga
 function* onCreateNicknameStartAsync({ payload }) {
@@ -53,6 +53,21 @@ function* onGetUserInfoStartAsync({ payload }) {
   }
 }
 
+// 로그아웃
+function* onLogoutRequestStartAsync({ payload }) {
+  const { logoutRequestSuccess, logoutRequestError } = authActions;
+  const userNo = payload;
+  try {
+    const response = yield call(logoutRequestApi, userNo);
+    console.log("로그아웃 요청 응답", response);
+    if (response.status === 200) {
+      yield put(logoutRequestSuccess());
+    }
+  } catch (error) {
+    yield put(logoutRequestError(error.response.data));
+  }
+}
+
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
 
@@ -66,9 +81,15 @@ function* onGetUserInfo() {
   yield takeLatest(getUserInfoStart, onGetUserInfoStartAsync);
 }
 
+function* onLogoutRequest() {
+  const { logoutRequestStart } = authActions;
+  yield takeLatest(logoutRequestStart, onLogoutRequestStartAsync);
+}
+
 // 사가 export
 export const authSagas = [
   // fork(onKakaoLogin),
   fork(onCreateNickname),
   fork(onGetUserInfo),
+  fork(onLogoutRequest),
 ];
