@@ -1,9 +1,9 @@
 import { OpenVidu } from 'openvidu-browser';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
 import React, { Component } from 'react';
 // import './App.css';
-import UserVideoComponent from './UserVideoComponent';
+import UserVideoComponent from "./UserVideoComponent";
 
 const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
@@ -14,6 +14,11 @@ class Openvidu extends Component {
   constructor(props) {
     super(props);
     this.userRef = React.createRef();
+
+    console.log(this.props);
+    // console.log(this.props.userInfo.user.userNickname);
+    // console.log(this.props.userInfo.token);
+    // console.log(this.props.userInfo.user);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
@@ -87,11 +92,11 @@ class Openvidu extends Component {
     });
   }
 
-//   handleChangeUserName(e) {
-//     this.setState({
-//       myUserName: e.target.value,
-//     });
-//   }
+  //   handleChangeUserName(e) {
+  //     this.setState({
+  //       myUserName: e.target.value,
+  //     });
+  //   }
 
   handleMainVideoStream(stream) {
     if (this.state.mainStreamManager !== stream) {
@@ -118,10 +123,10 @@ class Openvidu extends Component {
     this.OV = new OpenVidu();
 
     this.OV.setAdvancedConfiguration({
-        publisherSpeakingEventsOptions: {
-          interval: 50,
-          threshold: -75,
-        },
+      publisherSpeakingEventsOptions: {
+        interval: 50,
+        threshold: -75,
+      },
     });
     console.log("세션 생성 전");
     console.log(this.state);
@@ -226,10 +231,10 @@ class Openvidu extends Component {
     this.OV = new OpenVidu();
 
     this.OV.setAdvancedConfiguration({
-        publisherSpeakingEventsOptions: {
-          interval: 50,
-          threshold: -75,
-        },
+      publisherSpeakingEventsOptions: {
+        interval: 50,
+        threshold: -75,
+      },
     });
 
     console.log("방에 들어갑니다.");
@@ -431,7 +436,6 @@ class Openvidu extends Component {
               </form>
             </div>
           </div>
-          
         ) : null}
 
         {this.state.session !== undefined ? (
@@ -518,11 +522,12 @@ class Openvidu extends Component {
     const response = await axios.post(
       APPLICATION_SERVER_URL,
       {
-        withCredentials: true
+        withCredentials: true,
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${userInfo.token}` },
       }
     );
     console.log("세션 만듬");
@@ -531,13 +536,14 @@ class Openvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + 'connect/' + sessionId,
+      APPLICATION_SERVER_URL + "connect/" + sessionId,
       {
-        withCredentials: true
+        withCredentials: true,
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 
+        "Authorization" : `Bearer ${userInfo.token}`},
       }
     );
     console.log("토큰 만듬");
@@ -545,4 +551,18 @@ class Openvidu extends Component {
   }
 }
 
-export default Openvidu;
+// 리덕스 state에 있는 값 사용할 때
+const mapStateToProps = (state) => ({
+  userInfo: state.auth,
+});
+
+// 리덕스 slice의 actions 사용할 때
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
+
+// export default Openvidu;

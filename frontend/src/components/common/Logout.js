@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import logout from "resources/images/logout_icon.png";
 
@@ -8,10 +9,16 @@ import PixelModal from "./PixelModal";
 import { logoutApi } from "../../store/api";
 
 const Logout = () => {
+  const { user } = useSelector((state) => ({
+    user: state.auth.user,
+  }));
+
+  const userNo = user.userNo;
+
   const navigate = useNavigate();
 
   const logoutRequest = () => {
-    logoutApi
+    logoutApi(userNo)
       .then((response) => {
         console.log(response.data);
       })
@@ -28,7 +35,16 @@ const Logout = () => {
 
   return (
     <div>
-      <img className="nes-pointer" src={logout} onClick={purge} width="60px" />
+      <img
+        className="nes-pointer"
+        src={logout}
+        onClick={() => {
+          logoutRequest();
+          purge();
+        }}
+        width="60px"
+        alt="로그아웃"
+      />
     </div>
   );
 };
