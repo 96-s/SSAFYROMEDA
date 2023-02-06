@@ -1,7 +1,7 @@
-import { OpenVidu } from 'openvidu-browser';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import React, { Component } from 'react';
+import { OpenVidu } from "openvidu-browser";
+import { connect } from "react-redux";
+import axios from "axios";
+import React, { Component } from "react";
 // import './App.css';
 import UserVideoComponent from "./UserVideoComponent";
 
@@ -9,6 +9,9 @@ const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
+const token = JSON.parse(
+  JSON.parse(localStorage.getItem("persist:root")).auth
+).token;
 
 class Openvidu extends Component {
   constructor(props) {
@@ -16,8 +19,8 @@ class Openvidu extends Component {
     this.userRef = React.createRef();
 
     console.log(this.props);
-    // console.log(this.props.userInfo.user.userNickname);
-    // console.log(this.props.userInfo.token);
+    console.log(this.props.userInfo);
+    console.log(this.props.userInfo.token);
     // console.log(this.props.userInfo.user);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
@@ -519,6 +522,7 @@ class Openvidu extends Component {
   }
 
   async createSession() {
+    console.log(token);
     const response = await axios.post(
       APPLICATION_SERVER_URL,
       {
@@ -526,8 +530,10 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json",
-        "Authorization" : `Bearer ${this.userInfo.token}` },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     console.log("세션 만듬");
@@ -542,8 +548,10 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json", 
-        "Authorization" : `Bearer ${this.userInfo.token}`},
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     console.log("토큰 만듬");
@@ -558,10 +566,8 @@ const mapStateToProps = (state) => ({
 
 // 리덕스 slice의 actions 사용할 때
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-}
+  return {};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
 
