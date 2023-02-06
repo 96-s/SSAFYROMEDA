@@ -11,28 +11,13 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const temp = useSelector((state) => state.auth);
-  console.log("테스트: ", temp);
-
-  // const { user } = useSelector((state) => ({
-  //   user: state.auth.user,
-  // }));
+  const userInfo = useSelector((state) => state.auth);
 
   const logoutRequesthandle = () => {
-    const userNo = temp.user.userNo;
+    const userNo = userInfo.user.userNo;
     console.log("로그아웃 전 userNo 확인: ", userNo);
     dispatch(authActions.logoutRequestStart(userNo));
   };
-
-  // const logoutRequest = () => {
-  //   logoutApi(userNo)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   // 로그아웃 되었다는 알림창 필요
   const purge = async () => {
@@ -40,14 +25,17 @@ const Logout = () => {
     await navigate("/");
   };
 
+  if (!userInfo.isAuth) {
+    purge();
+  }
+
   return (
     <div>
       <img
         className="nes-pointer"
         src={logout}
-        onClick={async () => {
-          await logoutRequesthandle();
-          await purge();
+        onClick={() => {
+          logoutRequesthandle();
         }}
         width="60px"
         alt="로그아웃"
