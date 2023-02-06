@@ -20,8 +20,8 @@ const Logout = () => {
 
   const logoutRequesthandle = () => {
     const userNo = temp.user.userNo;
-    console.log(userNo);
-    // dispatch(authActions.logoutRequestStart(userNo));
+    console.log("로그아웃 전 userNo 확인: ", userNo);
+    dispatch(authActions.logoutRequestStart(userNo));
   };
 
   // const logoutRequest = () => {
