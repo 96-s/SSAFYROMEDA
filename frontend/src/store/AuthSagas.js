@@ -61,7 +61,7 @@ function* onLogoutRequestStartAsync({ payload }) {
     const response = yield call(logoutRequestApi, userNo);
     console.log("로그아웃 요청 응답", response);
     if (response.status === 200) {
-      yield put(logoutRequestSuccess());
+      yield put(logoutRequestSuccess(response.data));
     }
   } catch (error) {
     yield put(logoutRequestError(error.response.data));

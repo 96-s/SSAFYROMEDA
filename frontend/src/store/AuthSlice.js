@@ -93,7 +93,7 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    logoutRequestSuccess(state) {
+    logoutRequestSuccess(state, action) {
       state.loading = false;
       state.isAuth = false;
       state.token = null;
