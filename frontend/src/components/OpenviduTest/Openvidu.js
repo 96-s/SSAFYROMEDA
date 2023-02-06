@@ -20,13 +20,16 @@ class Openvidu extends Component {
 
     console.log(this.props);
     console.log(this.props.userInfo.user);
-    console.log(this.props.userInfo.userNickname);
+    console.log(this.props.userInfo.user.userNickname);
     // console.log(this.props.userInfo.user);
+
+    let userNickname = this.props.userInfo.user.userNickname;
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "",
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      myUserName: userNickname,
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
@@ -346,13 +349,16 @@ class Openvidu extends Component {
       mySession.disconnect();
     }
 
+    console.log(this.props.userInfo.user.userNickname);
+
     // Empty all properties...
     this.OV = null;
     this.setState({
       session: undefined,
       subscribers: [],
       mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: userNickname,
       mainStreamManager: undefined,
       publisher: undefined,
     });
