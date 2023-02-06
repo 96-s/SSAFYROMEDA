@@ -473,16 +473,16 @@ class Openvidu extends Component {
             </div>
 
             {this.state.mainStreamManager !== undefined ? (
-              <div id="main-video" className="col-md-6">
+              <div id="main-video">
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
               </div>
             ) : null}
-            <div id="video-container" className="col-md-6">
+            <div id="video-container">
               {this.state.publisher !== undefined ? (
                 <div
-                  className="stream-container col-md-6 col-xs-6"
+                  className="stream-container"
                   onClick={() =>
                     this.handleMainVideoStream(this.state.publisher)
                   }
@@ -493,7 +493,7 @@ class Openvidu extends Component {
               {this.state.subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
-                  className="stream-container col-md-6 col-xs-6"
+                  className="stream-container"
                   onClick={() => this.handleMainVideoStream(sub)}
                 >
                   <span>{sub.id}</span>

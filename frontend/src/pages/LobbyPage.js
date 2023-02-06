@@ -172,12 +172,12 @@ const MainRight = styled.main`
 `;
 
 /******************* RIGHT SECTION *******************/
-// const TitleText = styled.h1`
-//   font-size: 2.5rem;
-//   color: white;
+const TitleText = styled.h1`
+  font-size: 2.5rem;
+  color: white;
 
-//   margin-bottom: 10px;
-// `;
+  margin-bottom: 10px;
+`;
 
 const ButtonBox = styled.div`
   width: 350px;
@@ -370,7 +370,7 @@ const LobbyPage = () => {
         </MainLeft>
 
         <MainRight>
-          {/* <TitleText>게임 시작하기</TitleText> */}
+          <TitleText>게임 시작하기</TitleText>
 
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
           <ButtonBox>
