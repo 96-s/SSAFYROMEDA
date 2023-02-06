@@ -65,6 +65,7 @@ const authSlice = createSlice({
       state.loading = false;
       console.log(action.payload);
       const {
+        userNo,
         userEmail,
         userNickname,
         accessToken,
@@ -73,6 +74,7 @@ const authSlice = createSlice({
         historyLoseCount,
       } = action.payload;
       state.user = {
+        userNo,
         userEmail,
         userNickname,
         historyPlayCount,
