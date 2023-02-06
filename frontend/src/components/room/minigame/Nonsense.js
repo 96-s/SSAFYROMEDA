@@ -1,6 +1,6 @@
 export const nonsenseQuiz = [
     {
-        question: '모짜렐라핫도그의 반댓말은? (띄어쓰기X)',
+        question: '통모짜핫도그의 반댓말은? (띄어쓰기X)',
         answer: '요즘잘자쿨냥이'
     }, {
         question: '바나나가 웃으면?',
