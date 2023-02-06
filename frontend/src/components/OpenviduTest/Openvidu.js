@@ -525,11 +525,9 @@ class Openvidu extends Component {
     console.log(token);
     const response = await axios.post(
       APPLICATION_SERVER_URL,
-      {
-        withCredentials: true,
-      },
       {},
       {
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -543,11 +541,10 @@ class Openvidu extends Component {
   async createToken(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "connect/" + sessionId,
-      {
-        withCredentials: true,
-      },
       {},
       {
+        withCredentials: true,
+
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
