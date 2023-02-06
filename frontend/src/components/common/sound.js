@@ -1,15 +1,14 @@
 import React, { useContext, useCallback } from "react";
 
 import { Context } from "../../store/audio";
-
-import audioOn from "resources/images/ON.png";
-import audioOff from "resources/images/OFF.png";
+import sdon from "resources/images/soundon_icon.png";
+import sdoff from "resources/images/soundoff_icon.png";
 
 import styled from "styled-components";
 
 const SoundDiv = styled.div`
   width: 100%;
-  height: 10%;
+  height: 95%;
   button.firstBtn:focus {
     border: none;
     outline: none;
@@ -27,11 +26,16 @@ const Button = styled.button`
   img {
     width: 100%;
   }
-  h4{
+  h4 {
     color: skyblue;
   }
 `;
-
+const HeaderRightSoundOn = styled.div`
+  .audioImg {
+    width: 60px;
+    height: 60px;
+  }
+`;
 const Sound = () => {
   const { isPlay, setIsPlay } = useContext(Context);
   console.log("sound.js");
@@ -42,9 +46,13 @@ const Sound = () => {
   }, [isPlay, setIsPlay]);
   return (
     <SoundDiv>
-      <Button onClick={onClickPlayMusicButton}>
-        {isPlay ? <h4>배경 ON</h4> : <h4>배경 OFF</h4>}
-      </Button>
+      <HeaderRightSoundOn onClick={onClickPlayMusicButton}>
+        {isPlay ? (
+          <img src={sdon} alt="Aon" className="audioImg nes-pointer"></img>
+        ) : (
+          <img src={sdoff} alt="Aof" className="audioImg nes-pointer"></img>
+        )}
+      </HeaderRightSoundOn>
     </SoundDiv>
   );
 };
