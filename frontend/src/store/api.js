@@ -36,12 +36,17 @@ export const getUserInfoApi = async (userno) =>
 
 // 로그아웃 요청
 export const logoutRequestApi = async (userno) =>
-  await customAxios.put(`users/signout/${userno}`, {
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  await customAxios.put(
+    `users/signout/${userno}`,
+    {},
+    {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
 // headers
 // headers: {
