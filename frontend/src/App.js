@@ -15,6 +15,7 @@ import TestPage from "pages/TestPage";
 // import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
+import DialogTest from "components/common/DialogTest";
 
 // import { Provider } from "react-redux";
 
@@ -28,7 +29,6 @@ import RedirectPage from "pages/RedirectPage";
 // }
 
 function App() {
-
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitionStage, setTransitionStage] = useState("fadeIn");
@@ -42,27 +42,27 @@ function App() {
       setTransitionStage("fadeIn");
       setDisplayLocation(location);
     }
-  }
+  };
 
   return (
     <div className="App">
-      <div className={`${transitionStage}`}
-      onAnimationEnd={handleAnimationEnd}
-        >
-          <Routes location={displayLocation}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/explanation" element={<ExplanationPage />} />
-            <Route path="/lobby" element={<LobbyPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/oauthRedirect" element={<RedirectPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/game" element={<GamePage />} />
-            <Route path="/result" element={<ResultPage />} />
-            <Route path="/openvidu" element={<OpenviduPage />} />
-            <Route path="/test" element={<TestPage />} />
-          </Routes>
-        </div>
+      <div className={`${transitionStage}`} onAnimationEnd={handleAnimationEnd}>
+        <Routes location={displayLocation}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/explanation" element={<ExplanationPage />} />
+          <Route path="/lobby" element={<LobbyPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/oauthRedirect" element={<RedirectPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/game" element={<GamePage />} />
+          <Route path="/result" element={<ResultPage />} />
+          <Route path="/openvidu" element={<OpenviduPage />} />
+          <Route path="/test" element={<TestPage />} />
+
+          <Route path="/dialogtest" element={<DialogTest />} />
+        </Routes>
+      </div>
     </div>
   );
 }
