@@ -481,14 +481,15 @@ class Openvidu extends Component {
             ) : null}
             <div id="video-container">
               {this.state.publisher !== undefined ? (
-                <div
-                  className="stream-container"
-                  onClick={() =>
-                    this.handleMainVideoStream(this.state.publisher)
-                  }
-                >
-                  <UserVideoComponent streamManager={this.state.publisher} />
-                </div>
+                // <div
+                //   className="stream-container"
+                //   onClick={() =>
+                //     this.handleMainVideoStream(this.state.publisher)
+                //   }
+                // >
+                //   <UserVideoComponent streamManager={this.state.publisher} />
+                // </div>
+                null
               ) : null}
               {this.state.subscribers.map((sub, i) => (
                 <div
