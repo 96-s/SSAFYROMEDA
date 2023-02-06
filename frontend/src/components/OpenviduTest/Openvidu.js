@@ -24,14 +24,17 @@ class Openvidu extends Component {
     this.userRef = React.createRef();
 
     console.log(this.props);
-    console.log(this.props.userInfo);
+    console.log(this.props.userInfo.user.userNickname);
     console.log(this.props.userInfo.token);
+
+    let userNickname = this.props.userInfo.user.userNickname;
     // console.log(this.props.userInfo.user);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "",
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      myUserName: userNickname,
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, // 로컬 웹캠 스트림
@@ -61,6 +64,10 @@ class Openvidu extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
+    this.joinRoom();
+    return () => {
+      window.removeEventListener('beforeunload', this.onbeforeunload);
+    };
   }
 
   onbeforeunload(event) {
@@ -466,13 +473,13 @@ class Openvidu extends Component {
               />
             </div>
 
-            {/* {this.state.mainStreamManager !== undefined ? (
+            {this.state.mainStreamManager !== undefined ? (
               <div id="main-video">
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
               </div>
-            ) : null} */}
+            ) : null}
             <div id="video-container">
               {this.state.publisher !== undefined ? (
                 <div
