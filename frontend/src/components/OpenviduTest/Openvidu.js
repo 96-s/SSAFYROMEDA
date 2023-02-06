@@ -363,7 +363,7 @@ class Openvidu extends Component {
       subscribers: [],
       mySessionId: "SessionA",
       // myUserName: "Participant" + Math.floor(Math.random() * 10),
-      // myUserName: userNickname,
+      myUserName: undefined,
       mainStreamManager: undefined,
       publisher: undefined,
     });
