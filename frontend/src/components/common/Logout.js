@@ -31,9 +31,9 @@ const Logout = () => {
       <img
         className="nes-pointer"
         src={logout}
-        onClick={async () => {
-          await logoutRequest;
-          await purge;
+        onClick={() => {
+          logoutRequest();
+          purge();
         }}
         width="60px"
         alt="로그아웃"
