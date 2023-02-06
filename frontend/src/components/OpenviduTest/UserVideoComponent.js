@@ -4,8 +4,14 @@ import styled from 'styled-components';
 // import './UserVideo.css';
 
 const StreamComponent = styled.div`
-    // height: 25vh;
+    display: flex;
+    // height: 300px;
     // aspect-ratio: 4 / 3;
+`;
+
+const Nickname = styled.div`
+    color: white;
+    text-align: center;
 `;
 
 export default class UserVideoComponent extends Component {
@@ -20,10 +26,9 @@ export default class UserVideoComponent extends Component {
             <div>
                 {this.props.streamManager !== undefined ? (
                     <StreamComponent>
-
                         <div className="streamcomponent">
                             <OpenViduVideoComponent streamManager={this.props.streamManager} />
-                            <div><p>{this.getNicknameTag()}</p></div>
+                            <Nickname><p>{this.getNicknameTag()}</p></Nickname>
                         </div>
                     </StreamComponent>
                 ) : null}
