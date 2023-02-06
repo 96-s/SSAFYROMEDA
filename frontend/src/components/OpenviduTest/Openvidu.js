@@ -9,9 +9,14 @@ const OPENVIDU_SERVER_URL = "";
 const OPENVIDU_SERVER_SECRET = "";
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
-const token = JSON.parse(
-  JSON.parse(localStorage.getItem("persist:root")).auth
-).token;
+const temp = localStorage.getItem("persist:root");
+let token = "";
+
+if (temp) {
+  const temp2 = JSON.parse(temp);
+  const temp3 = JSON.parse(temp2.auth);
+  token = temp3.token;
+}
 
 class Openvidu extends Component {
   constructor(props) {
@@ -478,8 +483,8 @@ class Openvidu extends Component {
                 >
                   <UserVideoComponent streamManager={this.state.publisher} />
                 </div>
-                // null
-              ) : null}
+              ) : // null
+              null}
               {this.state.subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
