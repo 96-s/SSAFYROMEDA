@@ -21,7 +21,7 @@ spring:
         database: mysql
 
     redis:
-        host: 127.0.0.1 # change 127.0.0.1
+        host: i8d205.p.ssafy.io # change 127.0.0.1
         port: 6379
 
 ## jwt
