@@ -525,7 +525,8 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${userInfo.token}` },
       }
     );
     console.log("세션 만듬");
@@ -540,7 +541,8 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", 
+        "Authorization" : `Bearer ${userInfo.token}`},
       }
     );
     console.log("토큰 만듬");
