@@ -1,7 +1,7 @@
-import { OpenVidu } from 'openvidu-browser';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import React, { Component } from 'react';
+import { OpenVidu } from "openvidu-browser";
+import { connect } from "react-redux";
+import axios from "axios";
+import React, { Component } from "react";
 // import './App.css';
 import UserVideoComponent from "./UserVideoComponent";
 
@@ -526,8 +526,10 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json",
-        "Authorization" : `Bearer ${this.userInfo.token}` },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.userInfo.token}`,
+        },
       }
     );
     console.log("세션 만듬");
@@ -542,8 +544,10 @@ class Openvidu extends Component {
       },
       {},
       {
-        headers: { "Content-Type": "application/json", 
-        "Authorization" : `Bearer ${this.userInfo.token}`},
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.userInfo.token}`,
+        },
       }
     );
     console.log("토큰 만듬");
@@ -558,10 +562,8 @@ const mapStateToProps = (state) => ({
 
 // 리덕스 slice의 actions 사용할 때
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-}
+  return {};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
 
