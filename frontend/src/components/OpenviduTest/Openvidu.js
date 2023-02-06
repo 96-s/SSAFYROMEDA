@@ -461,13 +461,13 @@ class Openvidu extends Component {
               />
             </div>
 
-            {this.state.mainStreamManager !== undefined ? (
+            {/* {this.state.mainStreamManager !== undefined ? (
               <div id="main-video">
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
               </div>
-            ) : null}
+            ) : null} */}
             <div id="video-container">
               {this.state.publisher !== undefined ? (
                 <div
@@ -478,6 +478,7 @@ class Openvidu extends Component {
                 >
                   <UserVideoComponent streamManager={this.state.publisher} />
                 </div>
+                // null
               ) : null}
               {this.state.subscribers.map((sub, i) => (
                 <div
