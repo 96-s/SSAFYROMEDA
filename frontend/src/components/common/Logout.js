@@ -17,7 +17,8 @@ const Logout = () => {
 
   const logoutRequesthandle = () => {
     const userNo = user.userNo;
-    dispatch(authActions.logoutRequestStart(userNo));
+    console.log(userNo);
+    // dispatch(authActions.logoutRequestStart(userNo));
   };
 
   // const logoutRequest = () => {

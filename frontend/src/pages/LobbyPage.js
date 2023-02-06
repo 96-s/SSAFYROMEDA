@@ -331,6 +331,12 @@ const LobbyPage = () => {
     setEnterRoomModalOpen(false);
   };
 
+  const temp = localStorage.getItem("persist:root");
+  const temp2 = JSON.parse(temp);
+  const temp3 = JSON.parse(temp2.auth);
+  const token = temp3.token;
+  console.log("지금 토큰은?:", token);
+
   return (
     <>
       <BG>
