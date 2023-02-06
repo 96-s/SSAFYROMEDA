@@ -14,7 +14,9 @@ public class UserService{
     private final JwtProvider jwtProvider;
 
     public User getUser(Long userNo){
-        return userRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+        User user = userRepository.findByUserNo(userNo).orElseThrow(NullPointerException::new);
+        user.updateUserRefreshToken(jwtProvider.createRefreshToken());
+        return userRepository.save(user);
     }
     public User signUpUser(UserSignUpRequest userSignUpRequest) {
         User user=userRepository.findByUserNo(userSignUpRequest.getUserNo()).orElseThrow(NullPointerException::new);
