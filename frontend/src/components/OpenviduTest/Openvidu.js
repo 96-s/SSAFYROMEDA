@@ -16,8 +16,8 @@ class Openvidu extends Component {
     this.userRef = React.createRef();
 
     console.log(this.props);
-    console.log(this.props.userInfo.user.userNickname);
-    console.log(this.props.userInfo.token);
+    // console.log(this.props.userInfo.user.userNickname);
+    // console.log(this.props.userInfo.token);
     // console.log(this.props.userInfo.user);
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
