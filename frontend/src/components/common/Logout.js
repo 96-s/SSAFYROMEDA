@@ -11,12 +11,15 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => ({
-    user: state.auth.user,
-  }));
+  const temp = useSelector((state) => state.auth);
+  console.log("테스트: ", temp);
+
+  // const { user } = useSelector((state) => ({
+  //   user: state.auth.user,
+  // }));
 
   const logoutRequesthandle = () => {
-    const userNo = user.userNo;
+    const userNo = temp.user.userNo;
     console.log(userNo);
     // dispatch(authActions.logoutRequestStart(userNo));
   };
