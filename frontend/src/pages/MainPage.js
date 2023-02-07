@@ -127,6 +127,7 @@ const Rightimg = styled.img`
 const Span = styled.span`
   & > a:hover {
     color: white;
+    
   }
   & > a {
     text-decoration: none;
