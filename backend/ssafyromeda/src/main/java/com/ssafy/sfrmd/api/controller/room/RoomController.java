@@ -63,7 +63,7 @@ public class RoomController {
 
 
     @PostMapping("/connect")
-    public ResponseEntity<?> createConnection(@RequestBody RoomConnectRequest roomConnectRequest)
+    public ResponseEntity<?> connectRoom(@RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         Map<String, Object> params = new HashMap<>();
