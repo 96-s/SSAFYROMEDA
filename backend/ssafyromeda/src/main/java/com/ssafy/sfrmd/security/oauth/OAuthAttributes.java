@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class OAuthAttributes {
+
     private String nameAttributeKey; // OAuth2 로그인 진행 시 키가 되는 필드 값, PK와 같은 의미
     private AuthUserInfo authUserInfo; // 소셜 타입별 로그인 유저 정보(닉네임, 이메일, 프로필 사진 등등)
 
@@ -19,19 +20,22 @@ public class OAuthAttributes {
         this.authUserInfo = authUserInfo;
     }
 
-    public static OAuthAttributes of(String userNameAttributeName, Map<String, Object> attributes){
+    public static OAuthAttributes of(String userNameAttributeName, Map<String, Object> attributes) {
         return ofKakao(userNameAttributeName, attributes);
     }
-    public static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+
+    public static OAuthAttributes ofKakao(String userNameAttributeName,
+        Map<String, Object> attributes) {
         return OAuthAttributes.builder()
             .nameAttributeKey(userNameAttributeName)
             .authUserInfo(new AuthUserInfo(attributes))
             .build();
     }
+
     public User toEntity(AuthUserInfo authUserInfo) {
         return User.builder()
-                .userEmail(authUserInfo.getEmail())
-                .userRole(Role.GUEST)
-                .build();
+            .userEmail(authUserInfo.getEmail())
+            .userRole(Role.GUEST)
+            .build();
     }
 }
