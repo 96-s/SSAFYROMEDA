@@ -17,21 +17,27 @@ import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
 
 const Page = styled.div`
-    display: flex;
-    position: relative;
-    justify-content: center;
+  display: flex;
+  position: relative;
+  justify-content: center;
 `;
 
 const Board = styled.div` 
-    position: relative;
-    justify-content: center;
-    margin auto;
-    border: 1px solid black;
-    aspect-ratio: 1 / 1;
-    height: 85vh;
-    background: url(${MapIMG}) no-repeat;
-    background-size: 100%;
-    color: white;
+  position: relative;
+  justify-content: center;
+  margin auto;
+  border: 1px solid black;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  background: url(${MapIMG}) no-repeat;
+  background-size: 100%;
+  color: white;
+`;
+
+const Modal = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
 const Marker1 = styled.div`
@@ -1338,7 +1344,6 @@ const Timers = styled.div`
 
 
 const Map = ({
-    isRoll,
     sessionIdValue,
     players,
     posList,
@@ -1352,47 +1357,73 @@ const Map = ({
     const [showDiceToggle, setShowDiceToggle] = useState(false);
     const [chanceNum, setChanceNum] = useState(null);
     const [openChanceToggle, setOpenChanceToggle] = useState(false);
+    const [myPos, setMyPos] = useState(0);
+    const [isMoving, setIsMoving] = useState(false);
+    let isRoll = false;
     // var chanceNum = null;
 
+    
+    
+    // 찬스 모달
+    // 모달 버튼 누르면 랜덤 숫자 발생 => 찬스 번호 부여
+    const openChance = () => {
+      const randomNum = Math.floor(Math.random() * 5)
+      setChanceNum(randomNum)
+    };
+    
+    // 찬스 번호 없을 때 찬스 모달 open
+    useEffect(() => {
+      if (chanceNum !== null) {
+        setOpenChanceToggle(true);
+      }
+    }, [chanceNum])
+    
+    
+    const closeChance = () => {
+      setOpenChanceToggle(false);
+    };
+    
     // 주사위 모달
     const openDice = () => {
         setShowDiceToggle(true);
+        isRoll = true;
+        console.log(isRoll);
         console.log("뜨나");
     };
 
+    // 주사위 굴릴 때마다 위치 이동
+    useEffect(() => {
+      // console.log("주사위 값은 " + diceValue);
+      // 주사위 1 나왔을 때
+      if (isRoll === false && diceValue === 1) {
+        setMyPos(myPos+diceValue) 
+      // 주사위 2 이상
+      }
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+        console.log("왜 안뜨노...");
+        // 순서대로 움직이는 거 고쳐야함!!!!
+        var i = 0
+        while (i < diceValue) {
+          setMyPos(myPos => myPos+1)
+          i++;
+        }
+      } 
+      setDiceValue(null);
+      console.log(diceValue);
+    }, [diceValue, isRoll, myPos])
+
     const closeDice = useEffect(() => {
       // console.log(diceValue);
-      if (diceValue !== null) {
+      if (isRoll === false && diceValue !== null) {
         setTimeout(() => {
           setShowDiceToggle(false)
           // setDiceValue(null)
-        }, 3000)
+        }, 1000)
         console.log("닫힌다");
       }
     }, [diceValue])
     // console.log(diceValue);
 
-
-    // 찬스 모달
-    const openChance = () => {
-      const randomNum = Math.floor(Math.random() * 5)
-      setChanceNum(randomNum)
-    };
-
-    useEffect(() => {
-      if (chanceNum !== null) {
-        setOpenChanceToggle(true);
-        }
-    }, [chanceNum])
-    
-
-    const closeChance = () => {
-      setOpenChanceToggle(false);
-    };
-
-    // const moveMarker = useEffect(() => {
-    //   // myPos + diceValue
-    // })
 
     // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
     // useEffect(() => {    
@@ -1415,30 +1446,18 @@ const Map = ({
     //     }
     // })
 
-  
 
-    // useEffect (() => {
-    //   const marker1 = document.getElementById("marker1");
-
-    //   marker1.animate([
-    //     { transform: 'translate(-10%, -100%)' },
-    //     { transform: 'translate(0%, 0%)'}
-    //   ], {
-    //     duration: 1000,
-    //     iterations: 1
-    //   });
-    // });
     
-    let positionList = [];
+    // let positionList = [];
 
-    for (let i = 0; i < 22; i++) {
-      positionList.push(i)
-    }
+    // for (let i = 0; i < 22; i++) {
+    //   positionList.push(i)
+    // }
 
-    let revpositionList = [-21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, -0];
-    // console.log(positionList);
+    // let revpositionList = [-21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, -0];
+    // // console.log(positionList);
 
-    const [nowPos, setNowPos] = useState(0);
+    // const [nowPos, setNowPos] = useState(0);
 
     // var index = 0;
     // useEffect (() => {
@@ -1453,20 +1472,24 @@ const Map = ({
       <Page>
         <Board>
           {/* <Quiz/> */}
-          <span onClick={openChance}>I</span>
+          <Modal>
+            <span onClick={openChance}>I</span>
+            <span onClick={openDice}>I</span>
+          </Modal>
           <ChanceModal
             open={openChanceToggle}
             close={closeChance}
             chanceNum={chanceNum}
             />
-          <span onClick={openDice}>I</span>
           <DiceModal
             open={showDiceToggle}
             close={closeDice}
             setDiceValue={setDiceValue}
+            diceValue={diceValue}
+            isRoll={isRoll}
           ></DiceModal>
           <Timers>
-            <Timer mm="1" ss="0" />
+            {/* <Timer mm="1" ss="0" /> */}
           </Timers>
           {/* {!isRoll & (myTurnNum === turnNum) ? (
             <DiceRoller
@@ -1485,7 +1508,7 @@ const Map = ({
           ) : (
             ""
           )} */}
-          <Marker1 className={`pos${nowPos}`}>
+          <Marker1 className={`pos${myPos}`}>
             <img src={Marker1IMG} alt="marker1" id="marker1"></img>
           </Marker1>
           <Marker2 className={`pos${0}`}>

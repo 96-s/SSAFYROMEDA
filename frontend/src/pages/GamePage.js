@@ -2,6 +2,7 @@ import OurTeamVid from "components/room/OurTeamVid";
 import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
+import { useLocation } from "react-router";
 
 
 const Container = styled.div`
@@ -24,6 +25,8 @@ const Page = styled.div`
 
 
 const GamePage = () => {
+  const { state } = useLocation();
+  console.log(state);
   return (
     <Page>
       <Container>

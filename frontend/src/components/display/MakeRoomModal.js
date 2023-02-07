@@ -13,10 +13,10 @@ const MakeRoomDiv = styled.div`
 
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
-
-  const onClickMoveGamePage = () => {
-    navigate("/game");
-  };
+  
+  const onClickMoveGamePage = (props) => {
+    navigate('/game', {state : props})
+  }
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const {
@@ -65,10 +65,6 @@ const MakeRoomModal = (props) => {
     setIsMade(!isMade);
   };
 
-  // const toggleIsMade = () => {
-  //   ;
-  // }
-
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -76,9 +72,9 @@ const MakeRoomModal = (props) => {
         <section>
           <header>
             {header}
-            {/* <button className="close" onClick={close}>
+            <button className="close" onClick={close}>
               &times;
-            </button> */}
+            </button>
           </header>
           <main>
             <MakeRoomDiv>
@@ -87,7 +83,7 @@ const MakeRoomModal = (props) => {
                   type={"Korean"}
                   className={"is-primary"}
                   text={"초대코드 생성"}
-                  onClick={makeCode}
+                  onClick={getCode}
                 />
               )}
               <div>
@@ -97,12 +93,10 @@ const MakeRoomModal = (props) => {
                 <div>
                   <span>{roomCode}</span>
                   <MyButton
-                    type={"Korean"}
-                    className={"is-primary"}
-                    text={"입장"}
-                    onClick={() => {
-                      onClickMoveGamePage();
-                    }}
+                  type={"Korean"}
+                  className={"is-primary"}
+                  text={"입장"}
+                  onClick={() => {onClickMoveGamePage({roomCode});}}
                   />
                 </div>
               )}

@@ -76,6 +76,7 @@ const HeaderLeftDiv = styled.div`
 
 const MyPageBalloon = styled.div`
   animation: motion 1s linear 0s infinite alternate;
+
   @keyframes motion {
     0% {
       margin-top: 60px;
@@ -116,6 +117,7 @@ const HeaderLeftUserInfo = styled.div`
 
   font-size: 30px;
   color: black;
+  
 `;
 
 ///////////////////             HeadContainer DIV Right
@@ -226,6 +228,14 @@ const SectionUnderOne = styled.section`
   padding: 1% 0px;
   font-size: 20px;
   color: white;
+  .MyButton:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+  .MakeRoomModal:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
 `;
 
 const SectionUnderTwo = styled.section`
@@ -240,6 +250,14 @@ const SectionUnderTwo = styled.section`
   padding: 1% 0px;
   font-size: 20px;
   color: white;
+  .MyButton:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+  .EnterRoomModal:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
 `;
 
 /*******************  FOOTER *******************/

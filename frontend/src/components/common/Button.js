@@ -1,6 +1,10 @@
 import "nes.css/css/nes.min.css";
 import "./Button.css";
 
+
+
+
+
 const MyButton = ({ lang, text, type, onClick }) => {
   // btnType은 필요한 종류에 따라서 바꾸면 됨 (+ css 함께 수정)
   const btnType = [

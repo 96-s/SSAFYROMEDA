@@ -1,6 +1,8 @@
 package com.ssafy.sfrmd.api.controller.room;
 
 import com.ssafy.sfrmd.api.domain.room.Room;
+import com.ssafy.sfrmd.api.domain.room.RoomRedis;
+import com.ssafy.sfrmd.api.domain.room.RoomRedisRepository;
 import com.ssafy.sfrmd.api.domain.user.User;
 import com.ssafy.sfrmd.api.dto.room.RoomConnectRequest;
 import com.ssafy.sfrmd.api.service.room.RoomService;
@@ -19,6 +21,7 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,7 +56,8 @@ public class RoomController {
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("customSessionId", roomService.makeRoomCode());
+        String roomCode = roomService.makeRoomCode();
+        params.put("customSessionId", roomCode);
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
@@ -62,60 +66,32 @@ public class RoomController {
     }
 
 
-    @PostMapping("/connect/{sessionId}")
-    public ResponseEntity<?> createConnection(@PathVariable("sessionId") String sessionId)
-        // @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
+    @PostMapping("/{sessionId}")
+    public ResponseEntity<?> connectRoom(@PathVariable("sessionId") String sessionId, @RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        // roomService.createConnection(roomConnectRequest, sessionId);
+        roomService.connectRoom(roomConnectRequest);
+        //redis에 입장 정보 저장
 
         Map<String, Object> params = new HashMap<>();
-        //params.put("userNo", roomConnectRequest.getUserNo());
-        //params.put("userNickname", roomConnectRequest.getUserNickname());
+        params.put("userNo", roomConnectRequest.getUserNo());
+        params.put("userNickname", roomConnectRequest.getUserNickname());
 
-        Session session = openvidu.getActiveSession(sessionId);
-        if (session == null) {
-            return new ResponseEntity<>(HttpStatus.valueOf(404));
+        Session session = openvidu.getActiveSession(sessionId);//sessionId
+        if (session != null) {
+            ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+            Connection connection = session.createConnection(properties);
+
+            return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("세션 정보 ", HttpStatus.valueOf(400));
         }
-
-        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
-        Connection connection = session.createConnection(properties);
-
-        return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
     }
 
-
-//    @PostMapping
-//    public ResponseEntity<? extends Object> createRoom(){
-//        Room room= roomService.createRoom(1);
-//
-//        if(room.getRoomSeq() != null){
-//            return new ResponseEntity<>(room, HttpStatus.valueOf(200));
-//        }
-//        return new ResponseEntity<>(null, HttpStatus.valueOf(400));
-//    }
-
-//    @PutMapping("/update/{roomCode}")
-//    public ResponseEntity<? extends Object> updateRoom(@PathVariable("roomCode") String roomCode, @RequestParam(required = false) Long userNo){
-//
-//        boolean res = roomService.updateRoom(roomCode, userNo);
-//
-//        if(res){
-//            return new ResponseEntity<>(" 방 업데이트 성공", HttpStatus.valueOf(200));
-//        }
-//        else{
-//            return new ResponseEntity<>(" 방이 존재하지 않음", HttpStatus.valueOf(400));
-//        }
-//    }
-
-//    @DeleteMapping("/{roomCode}")
-//    public ResponseEntity<? extends Object> deleteRoom(@PathVariable("roomCode") String roomCode){
-//        Room deleteRoom = roomService.getRoomByRoomCode(roomCode);
-//        // 삭제하기
-//        if(roomService.deleteRoom(deleteRoom.getRoomNo())){
-//            return new ResponseEntity<>(roomCode+" 방 삭제 성공", HttpStatus.valueOf(200));
-//        } else{
-//            return new ResponseEntity<>(roomCode+" 방 삭제 실패", HttpStatus.valueOf(400));
-//        }
-//    }
+    @DeleteMapping("/{roomCode}")
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomCode") String roomCode){
+        roomService.deleteRoom(roomCode);
+        //redis에서 해당 방 코드 정보 모두 삭제
+        return new ResponseEntity<>("방 삭제 성공", HttpStatus.valueOf(200));
+    }
 }

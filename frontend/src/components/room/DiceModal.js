@@ -1,5 +1,5 @@
 import React from 'react';
-import './modal.css';
+import './Gamemodal.css';
 import DiceRoller from 'components/utils/DiceRoller';
 // import MyButton from "components/common/Button";
 import styled from "styled-components";
@@ -25,7 +25,8 @@ const DiceModal = (props) => {
     whatDiceNum,
     myUserNameValue,
     setWhatDiceNum,
-    setDiceValue } = props;
+    setDiceValue,
+    diceValue } = props;
   // const playerNum = players.length;
   const playerNum = 6;
   // const myTurnNum = players.indexOf(myUserNameValue);
@@ -48,13 +49,14 @@ const DiceModal = (props) => {
                 myTurnNum={myTurnNum}
                 mySessionIdValue={sessionIdValue}
                 setDiceValue={setDiceValue}
+                diceValue={diceValue}
                 ></DiceRoller>
             </Dice>
           </main>
           <footer>
-            <button className="close" onClick={close}>
+            {/* <button className="close" onClick={close}>
               close
-            </button>
+            </button> */}
           </footer>
         </section>
       ) : null}

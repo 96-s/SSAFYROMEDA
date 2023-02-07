@@ -1,5 +1,5 @@
 import React from 'react';
-import './modal.css';
+import './Gamemodal.css';
 import styled from "styled-components";
 import CardFrameIMG from "resources/images/Map/card-frame.png"
 import Chance from './Chance';
@@ -26,10 +26,7 @@ const ChanceModal = (props) => {
     players,
     posList,
     turnNum,
-    whatDiceNum,
     myUserNameValue,
-    setWhatDiceNum,
-    setDiceValue,
     chanceNum
    } = props;
   // const playerNum = players.length;

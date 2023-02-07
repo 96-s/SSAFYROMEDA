@@ -8,10 +8,7 @@ import UserVideoComponent from "./UserVideoComponent";
 
 const SessionIdDiv = styled.div`
   color: white;
-`
-
-const OPENVIDU_SERVER_URL = "";
-const OPENVIDU_SERVER_SECRET = "";
+`;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 const temp = localStorage.getItem("persist:root");
@@ -71,7 +68,7 @@ class Openvidu extends Component {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     this.joinRoom();
     return () => {
-      window.removeEventListener('beforeunload', this.onbeforeunload);
+      window.removeEventListener("beforeunload", this.onbeforeunload);
     };
   }
 
@@ -129,11 +126,17 @@ class Openvidu extends Component {
   deleteSubscriber(streamManager) {
     let subscribers = this.state.subscribers;
     let index = subscribers.indexOf(streamManager, 0);
+    const removeName = JSON.parse(
+      subscribers[index].stream.connection.data
+    ).clientData;
+    console.log("제거할 이름", removeName);
+
     if (index > -1) {
       subscribers.splice(index, 1);
       this.setState({
         subscribers: subscribers,
       });
+      console.error("나간 후 리스트", subscribers);
     }
   }
 
@@ -205,10 +208,10 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "400x300", // The resolution of your video
+                resolution: "251.2x188.4", // 해상도
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: true, // Whether to mirror your local video or not
+                mirror: true, // 거울모드
               });
               // --- 6) Publish your stream ---
 
@@ -312,7 +315,7 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "400x300", // The resolution of your video
+                resolution: "251.2x188.4", // 해상도
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
                 mirror: true, // Whether to mirror your local video or not
@@ -369,7 +372,8 @@ class Openvidu extends Component {
       session: undefined,
       subscribers: [],
       mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      myUserName: this.userNickname,
       mainStreamManager: undefined,
       publisher: undefined,
     });
@@ -415,7 +419,7 @@ class Openvidu extends Component {
 
   render() {
     const mySessionId = this.state.mySessionId;
-    const myUserName = this.state.myUserName;
+    // const myUserName = this.state.myUserName;
 
     return (
       <div className="container">
@@ -464,7 +468,7 @@ class Openvidu extends Component {
           <div id="session">
             <div id="session-header">
               <SessionIdDiv>
-              <h1 id="session-title">Room Code: {mySessionId}</h1>
+                <h1 id="session-title">Room Code: {mySessionId}</h1>
               </SessionIdDiv>
               <input
                 className="btn btn-large btn-danger"
@@ -491,18 +495,17 @@ class Openvidu extends Component {
             ) : null} */}
 
             <div id="video-container">
-              {/* 방장 */}
-              {this.state.publisher !== undefined ? (
-                <div
-                  className="stream-container"
-                  onClick={() =>
-                    this.handleMainVideoStream(this.state.publisher)
-                  }
-                >
-                  <UserVideoComponent streamManager={this.state.publisher} />
-                </div>
-                // null
-              ) : null}
+              {this.state.publisher !== undefined
+                ? // <div
+                  //   className="stream-container"
+                  //   onClick={() =>
+                  //     this.handleMainVideoStream(this.state.publisher)
+                  //   }
+                  // >
+                  //   <UserVideoComponent streamManager={this.state.publisher} />
+                  // </div>
+                  null
+                : null}
               {/* 방 참가자들 */}
               {this.state.subscribers.map((sub, i) => (
                 <div
@@ -565,7 +568,7 @@ class Openvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "connect/" + sessionId,
+      APPLICATION_SERVER_URL + sessionId,
       {},
       {
         withCredentials: true,
