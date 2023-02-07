@@ -60,7 +60,11 @@ public class RoomController {
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
 
-        return new ResponseEntity<>(session.getSessionId(), HttpStatus.valueOf(200));
+        if(session!=null){
+            return new ResponseEntity<>(session.getSessionId(), HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("create 실패", HttpStatus.valueOf(400));
+        }
     }
 
 
