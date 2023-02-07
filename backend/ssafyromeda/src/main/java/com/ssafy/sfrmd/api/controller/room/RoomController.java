@@ -65,29 +65,23 @@ public class RoomController {
 
 
     @PutMapping("/{roomCode}")
-    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
+    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        Map<String, Object> params = new HashMap<>();
-        Session session = null;
-        try {
-            roomService.connectRoom(roomConnectRequest);
-            //redis에 입장 정보 저장
-            params.put("userNo", roomConnectRequest.getUserNo());
-            params.put("userNickname", roomConnectRequest.getUserNickname());
-        } catch (NullPointerException e) {
-            System.out.println("요청 데이터가 비어있습니다..");
-        }
+        roomService.connectRoom(roomConnectRequest.getRoomCode());
 
-        session = openvidu.getActiveSession(roomCode);//sessionId
+        Map<String, Object> params = new HashMap<>();
+        params.put("userNo", roomConnectRequest.getUserNo());
+        params.put("userNickname", roomConnectRequest.getUserNickname());
+
+        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+        Session session = openvidu.getActiveSession(roomCode);
 
         if (session != null) {
-            ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
             Connection connection = session.createConnection(properties);
-
             return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
         } else {
-            return new ResponseEntity<>("세션이 정상적으로 생성되지 않았습니다.", HttpStatus.valueOf(400));
+            return new ResponseEntity<>("connection 실패", HttpStatus.valueOf(400));
         }
     }
 

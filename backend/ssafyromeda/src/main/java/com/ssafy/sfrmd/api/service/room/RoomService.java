@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public Room connectRoom(RoomConnectRequest roomConnectRequest) {
-        Room room=roomRepository.findByRoomCode(roomConnectRequest.getRoomCode()).orElseThrow(NullPointerException::new);
+    public Room connectRoom(String roomCode) {
+        Room room=roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
         room.updateRoomCount();
         return roomRepository.save(room);
     }
