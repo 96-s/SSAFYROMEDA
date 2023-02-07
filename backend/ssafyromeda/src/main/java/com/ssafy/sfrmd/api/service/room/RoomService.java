@@ -37,37 +37,24 @@ public class RoomService {
         return generatedString;
     }
 
-    public void createConnection(RoomConnectRequest roomConnectRequest, String roomCode) {
-        Room room = Room.builder()
-            .roomCode(roomCode)
-            .roomHost(roomConnectRequest.getUserNo())
-            .roomCount(1)
-            .build();
-        log.info("tsetsetsetsetset{}",room);
-        roomRepository.save(room);
+    public Room connectRoom(RoomConnectRequest roomConnectRequest) {
+        Room room=roomRepository.findByRoomCode(roomConnectRequest.getRoomCode()).orElseGet(()->createRoom(roomConnectRequest));
+        room.updateRoomCount();
+        return roomRepository.save(room);
 
         // host 정보 저장(일단 보류)
 //        Player player = new Player();
 //        player.setUserNo(host);
 //        player.setRoomCode(roomCode);
 //        playerRepository.save(player);
-
     }
 
-    public boolean updateRoom(String roomCode, Long userNo){
-        // 방 DB에 인원수 추가
-        try{
-            Room updateRoom=roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
-            updateRoom.updateRoomNo();
-
-            roomRepository.save(updateRoom);
-
-            return true;
-        }catch (Exception e){
-            return false;
-        }
+    public Room createRoom(RoomConnectRequest roomConnectRequest){
+        return roomRepository.save(Room.builder()
+            .roomCode(roomConnectRequest.getRoomCode())
+            .roomHost(roomConnectRequest.getUserNo())
+            .roomCount(0).build());
     }
-
 
     public Room getRoomByRoomCode(String roomCode) {
         return roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
