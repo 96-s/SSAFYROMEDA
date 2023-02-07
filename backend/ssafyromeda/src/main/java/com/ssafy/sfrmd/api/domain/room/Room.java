@@ -17,7 +17,6 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
-@ToString
 // 방 정보
 public class Room {
 
@@ -42,7 +41,7 @@ public class Room {
         this.roomCount = roomCount;
     }
 
-    public void updateRoomNo() {
+    public void updateRoomCount() {
         this.roomCount += 1;
     }
 
