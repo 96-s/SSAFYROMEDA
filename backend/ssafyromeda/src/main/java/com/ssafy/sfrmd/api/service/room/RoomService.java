@@ -32,6 +32,11 @@ public class RoomService {
             .roomCount(0).build());
     }
 
+    public void deleteRoom(String roomCode){
+        roomRepository.delete(roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new));
+    }
+
+
     public String makeRoomCode() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'

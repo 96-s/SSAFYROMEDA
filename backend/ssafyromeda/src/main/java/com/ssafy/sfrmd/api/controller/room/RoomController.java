@@ -83,37 +83,9 @@ public class RoomController {
         return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
     }
 
-//    @PostMapping
-//    public ResponseEntity<? extends Object> createRoom(){
-//        Room room= roomService.createRoom(1);
-//
-//        if(room.getRoomSeq() != null){
-//            return new ResponseEntity<>(room, HttpStatus.valueOf(200));
-//        }
-//        return new ResponseEntity<>(null, HttpStatus.valueOf(400));
-//    }
-
-//    @PutMapping("/update/{roomCode}")
-//    public ResponseEntity<? extends Object> updateRoom(@PathVariable("roomCode") String roomCode, @RequestParam(required = false) Long userNo){
-//
-//        boolean res = roomService.updateRoom(roomCode, userNo);
-//
-//        if(res){
-//            return new ResponseEntity<>(" 방 업데이트 성공", HttpStatus.valueOf(200));
-//        }
-//        else{
-//            return new ResponseEntity<>(" 방이 존재하지 않음", HttpStatus.valueOf(400));
-//        }
-//    }
-
-//    @DeleteMapping("/{roomCode}")
-//    public ResponseEntity<? extends Object> deleteRoom(@PathVariable("roomCode") String roomCode){
-//        Room deleteRoom = roomService.getRoomByRoomCode(roomCode);
-//        // 삭제하기
-//        if(roomService.deleteRoom(deleteRoom.getRoomNo())){
-//            return new ResponseEntity<>(roomCode+" 방 삭제 성공", HttpStatus.valueOf(200));
-//        } else{
-//            return new ResponseEntity<>(roomCode+" 방 삭제 실패", HttpStatus.valueOf(400));
-//        }
-//    }
+    @DeleteMapping("/{roomCode}")
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomCode") String roomCode){
+        roomService.deleteRoom(roomCode);
+        return new ResponseEntity<>("방 삭제 성공", HttpStatus.valueOf(200));
+    }
 }
