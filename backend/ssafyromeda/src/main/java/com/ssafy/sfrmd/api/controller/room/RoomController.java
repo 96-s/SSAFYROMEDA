@@ -47,7 +47,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRoom(@RequestBody RoomCreateRequest roomCreateRequest)
+    public ResponseEntity<?> createRoom(@RequestBody(required = false) RoomCreateRequest roomCreateRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         String roomCode = roomService.createRoom(roomCreateRequest);
@@ -69,7 +69,7 @@ public class RoomController {
 
 
     @PutMapping("/{roomCode}")
-    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody RoomConnectRequest roomConnectRequest)
+    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         roomService.connectRoom(roomCode);
