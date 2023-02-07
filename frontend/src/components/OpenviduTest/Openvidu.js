@@ -211,10 +211,10 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "400x300", // The resolution of your video
+                resolution: "251.2x188.4", // 해상도
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: true, // Whether to mirror your local video or not
+                mirror: true, // 거울모드
               });
               // --- 6) Publish your stream ---
 
@@ -318,7 +318,7 @@ class Openvidu extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "400x300", // The resolution of your video
+                resolution: "251.2x188.4", // 해상도
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
                 mirror: true, // Whether to mirror your local video or not
@@ -375,7 +375,8 @@ class Openvidu extends Component {
       session: undefined,
       subscribers: [],
       mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 10),
+      // myUserName: "Participant" + Math.floor(Math.random() * 10),
+      myUserName: this.userNickname,
       mainStreamManager: undefined,
       publisher: undefined,
     });
