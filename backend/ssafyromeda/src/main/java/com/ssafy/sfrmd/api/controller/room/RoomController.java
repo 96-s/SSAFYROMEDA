@@ -72,7 +72,7 @@ public class RoomController {
     public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        roomService.connectRoom(roomConnectRequest.getRoomCode());
+        roomService.connectRoom(roomCode);
 
         Map<String, Object> params = new HashMap<>();
         params.put("userNo", roomConnectRequest.getUserNo());
