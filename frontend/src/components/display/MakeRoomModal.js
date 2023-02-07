@@ -28,42 +28,10 @@ const MakeRoomModal = (props) => {
     players,
     subscribers,
   } = props;
-  const [isMade, setIsMade] = useState(false);
-
-  // roomCode를 받기 위해 선언
-  const [roomCode, setRoomCode] = useState("");
 
   // store에서 roomCode를 받아온다.
-  const roomCode2 = useSelector((state) => state.auth.roomCode);
-  console.log(roomCode2);
-
-  const makeCode = () => {
-    // const nextTurnNum = Math.floor(Math.random() * 6);
-    // const nextPlayer = players[nextTurnNum];
-
-    // const sendData = {
-    //   session: mySessionIdValue,
-    //   to: [],
-    //   data: JSON.stringify({
-    //     nextTurnNum: nextTurnNum,
-    //     nextPlayer: nextPlayer,
-
-    //   })
-    // };
-    fetch("https://i8d205.p.ssafy.io/api/rooms/", {
-      method: "POST",
-      headers: {
-        // Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
-        "Content-type": "application/json",
-      },
-      // body: JSON.stringify(sendData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setRoomCode(data.sessionId);
-      });
-    setIsMade(!isMade);
-  };
+  const roomCode = useSelector((state) => state.auth.roomCode);
+  console.log(roomCode);
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -78,30 +46,17 @@ const MakeRoomModal = (props) => {
           </header>
           <main>
             <MakeRoomDiv>
-              {!isMade && (
+              <div>
+                <span>{roomCode}</span>
                 <MyButton
                   type={"Korean"}
                   className={"is-primary"}
-                  text={"초대코드 생성"}
-                  // onClick={getCode}
+                  text={"입장"}
+                  onClick={() => {
+                    onClickMoveGamePage({ roomCode });
+                  }}
                 />
-              )}
-              <div>
-                {/* <input className="editNickname" type="text"></input> */}
               </div>
-              {isMade && (
-                <div>
-                  <span>{roomCode}</span>
-                  <MyButton
-                    type={"Korean"}
-                    className={"is-primary"}
-                    text={"입장"}
-                    onClick={() => {
-                      onClickMoveGamePage({ roomCode });
-                    }}
-                  />
-                </div>
-              )}
             </MakeRoomDiv>
           </main>
           <footer>
