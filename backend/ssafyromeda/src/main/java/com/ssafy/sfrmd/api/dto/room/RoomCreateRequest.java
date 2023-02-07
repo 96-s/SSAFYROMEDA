@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class RoomCreateRequest {
-    String userNo;
+    Long userNo;
     String userNickname;
 }

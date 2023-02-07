@@ -25,13 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rooms")
@@ -53,12 +47,15 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRoom(@RequestBody(required = false) RoomCreateRequest roomCreateRequest)
+    public ResponseEntity<?> createRoom(@RequestBody RoomCreateRequest roomCreateRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
+        String roomCode = roomService.createRoom(roomCreateRequest);
+
         Map<String, Object> params = new HashMap<>();
-        String roomCode = roomService.makeRoomCode();
-        params.put("customSessionId", roomCode);
+        params.put("userNo", roomCreateRequest.getUserNo());
+        params.put("userNickname", roomCreateRequest.getUserNickname());
+        params.put("roomCode", roomCode);
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
@@ -67,7 +64,7 @@ public class RoomController {
     }
 
 
-    @PostMapping("/{roomCode}")
+    @PutMapping("/{roomCode}")
     public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
