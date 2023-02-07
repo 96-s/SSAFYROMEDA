@@ -15,7 +15,11 @@ public class HistoryService {
     }
 
     private History createHistory(Long userNo) {
-        return historyRepository.save(new History(userNo, 0, 0, 0));
+        return historyRepository.save(History.builder()
+                .userNo(userNo)
+                .historyPlayCount(0)
+                .historyWinCount(0)
+                .historyLoseCount(0).build());
     }
 
     public History updateHistoryWinCount(Long userNo){
