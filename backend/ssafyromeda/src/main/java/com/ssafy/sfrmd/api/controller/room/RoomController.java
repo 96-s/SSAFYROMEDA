@@ -5,6 +5,7 @@ import com.ssafy.sfrmd.api.domain.room.RoomRedis;
 import com.ssafy.sfrmd.api.domain.room.RoomRedisRepository;
 import com.ssafy.sfrmd.api.domain.user.User;
 import com.ssafy.sfrmd.api.dto.room.RoomConnectRequest;
+import com.ssafy.sfrmd.api.dto.room.RoomCreateRequest;
 import com.ssafy.sfrmd.api.service.room.RoomService;
 import com.ssafy.sfrmd.api.service.user.UserService;
 import io.openvidu.java.client.Connection;
@@ -52,7 +53,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRoom()
+    public ResponseEntity<?> createRoom(@RequestBody(required = false) RoomCreateRequest roomCreateRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         Map<String, Object> params = new HashMap<>();
@@ -66,25 +67,30 @@ public class RoomController {
     }
 
 
-    @PostMapping("/{sessionId}")
-    public ResponseEntity<?> connectRoom(@PathVariable("sessionId") String sessionId, @RequestBody RoomConnectRequest roomConnectRequest)
+    @PostMapping("/{roomCode}")
+    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        roomService.connectRoom(roomConnectRequest);
-        //redis에 입장 정보 저장
-
         Map<String, Object> params = new HashMap<>();
-        params.put("userNo", roomConnectRequest.getUserNo());
-        params.put("userNickname", roomConnectRequest.getUserNickname());
+        Session session = null;
+        try {
+            roomService.connectRoom(roomConnectRequest);
+            //redis에 입장 정보 저장
+            params.put("userNo", roomConnectRequest.getUserNo());
+            params.put("userNickname", roomConnectRequest.getUserNickname());
+        } catch (NullPointerException e) {
+            System.out.println("요청 데이터가 비어있습니다..");
+        }
 
-        Session session = openvidu.getActiveSession(sessionId);//sessionId
+        session = openvidu.getActiveSession(roomCode);//sessionId
+
         if (session != null) {
             ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
             Connection connection = session.createConnection(properties);
 
             return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
-        }else{
-            return new ResponseEntity<>("세션 정보 ", HttpStatus.valueOf(400));
+        } else {
+            return new ResponseEntity<>("세션이 정상적으로 생성되지 않았습니다.", HttpStatus.valueOf(400));
         }
     }
 
