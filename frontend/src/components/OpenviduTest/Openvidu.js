@@ -68,7 +68,7 @@ class Openvidu extends Component {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     this.joinRoom();
     return () => {
-      window.removeEventListener('beforeunload', this.onbeforeunload);
+      window.removeEventListener("beforeunload", this.onbeforeunload);
     };
   }
 
@@ -127,16 +127,16 @@ class Openvidu extends Component {
     let subscribers = this.state.subscribers;
     let index = subscribers.indexOf(streamManager, 0);
     const removeName = JSON.parse(
-      subscribers[index].stream.connection.data,
+      subscribers[index].stream.connection.data
     ).clientData;
-    console.log('제거할 이름', removeName);
+    console.log("제거할 이름", removeName);
 
     if (index > -1) {
       subscribers.splice(index, 1);
       this.setState({
         subscribers: subscribers,
       });
-      console.error('나간 후 리스트', subscribers)
+      console.error("나간 후 리스트", subscribers);
     }
   }
 
@@ -468,7 +468,7 @@ class Openvidu extends Component {
           <div id="session">
             <div id="session-header">
               <SessionIdDiv>
-              <h1 id="session-title">Room Code: {mySessionId}</h1>
+                <h1 id="session-title">Room Code: {mySessionId}</h1>
               </SessionIdDiv>
               <input
                 className="btn btn-large btn-danger"
@@ -495,17 +495,17 @@ class Openvidu extends Component {
             ) : null} */}
 
             <div id="video-container">
-              {this.state.publisher !== undefined ? (
-                // <div
-                //   className="stream-container"
-                //   onClick={() =>
-                //     this.handleMainVideoStream(this.state.publisher)
-                //   }
-                // >
-                //   <UserVideoComponent streamManager={this.state.publisher} />
-                // </div>
-                null
-              ) : null}
+              {this.state.publisher !== undefined
+                ? // <div
+                  //   className="stream-container"
+                  //   onClick={() =>
+                  //     this.handleMainVideoStream(this.state.publisher)
+                  //   }
+                  // >
+                  //   <UserVideoComponent streamManager={this.state.publisher} />
+                  // </div>
+                  null
+                : null}
               {/* 방 참가자들 */}
               {this.state.subscribers.map((sub, i) => (
                 <div
@@ -568,7 +568,7 @@ class Openvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "connect/" + sessionId,
+      APPLICATION_SERVER_URL + sessionId,
       {},
       {
         withCredentials: true,

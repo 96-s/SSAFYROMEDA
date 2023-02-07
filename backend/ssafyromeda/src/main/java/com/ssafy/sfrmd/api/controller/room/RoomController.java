@@ -1,6 +1,8 @@
 package com.ssafy.sfrmd.api.controller.room;
 
 import com.ssafy.sfrmd.api.domain.room.Room;
+import com.ssafy.sfrmd.api.domain.room.RoomRedis;
+import com.ssafy.sfrmd.api.domain.room.RoomRedisRepository;
 import com.ssafy.sfrmd.api.domain.user.User;
 import com.ssafy.sfrmd.api.dto.room.RoomConnectRequest;
 import com.ssafy.sfrmd.api.service.room.RoomService;
@@ -19,6 +21,7 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,7 +56,8 @@ public class RoomController {
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("customSessionId", roomService.makeRoomCode());
+        String roomCode = roomService.makeRoomCode();
+        params.put("customSessionId", roomCode);
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
@@ -62,7 +66,7 @@ public class RoomController {
     }
 
 
-    @PostMapping("/connect/{sessionId}")
+    @PostMapping("/{sessionId}")
     public ResponseEntity<?> connectRoom(@PathVariable("sessionId") String sessionId, @RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
