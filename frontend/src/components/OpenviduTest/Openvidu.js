@@ -129,11 +129,17 @@ class Openvidu extends Component {
   deleteSubscriber(streamManager) {
     let subscribers = this.state.subscribers;
     let index = subscribers.indexOf(streamManager, 0);
+    const removeName = JSON.parse(
+      subscribers[index].stream.connection.data,
+    ).clientData;
+    console.log('제거할 이름', removeName);
+
     if (index > -1) {
       subscribers.splice(index, 1);
       this.setState({
         subscribers: subscribers,
       });
+      console.error('나간 후 리스트', subscribers)
     }
   }
 
@@ -491,17 +497,16 @@ class Openvidu extends Component {
             ) : null} */}
 
             <div id="video-container">
-              {/* 방장 */}
               {this.state.publisher !== undefined ? (
-                <div
-                  className="stream-container"
-                  onClick={() =>
-                    this.handleMainVideoStream(this.state.publisher)
-                  }
-                >
-                  <UserVideoComponent streamManager={this.state.publisher} />
-                </div>
-                // null
+                // <div
+                //   className="stream-container"
+                //   onClick={() =>
+                //     this.handleMainVideoStream(this.state.publisher)
+                //   }
+                // >
+                //   <UserVideoComponent streamManager={this.state.publisher} />
+                // </div>
+                null
               ) : null}
               {/* 방 참가자들 */}
               {this.state.subscribers.map((sub, i) => (
