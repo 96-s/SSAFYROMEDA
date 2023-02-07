@@ -1398,23 +1398,19 @@ const Map = ({
       if (isRoll === false && diceValue === 1) {
         setMyPos(myPos+diceValue) 
       // 주사위 2 이상
-      } else if (diceValue === 2) {
-        // 순서대로 움직이는 거 고쳐야함!!!!
-        for (let i = 0; i <= diceValue; i++) {
-          setTimeout(() => {
-            setMyPos(myPos+i)
-          }, 1000)
-        }
-      } else if (diceValue === 3) {
-        for (let i = 0; i <= diceValue; i++) {
-          setTimeout(() => {
-            setMyPos(myPos+i)
-          }, 1000)
-        }
       }
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+        console.log("왜 안뜨노...");
+        // 순서대로 움직이는 거 고쳐야함!!!!
+        var i = 0
+        while (i < diceValue) {
+          setMyPos(myPos => myPos+1)
+          i++;
+        }
+      } 
       setDiceValue(null);
       console.log(diceValue);
-    }, [diceValue])
+    }, [diceValue, isRoll, myPos])
 
     const closeDice = useEffect(() => {
       // console.log(diceValue);

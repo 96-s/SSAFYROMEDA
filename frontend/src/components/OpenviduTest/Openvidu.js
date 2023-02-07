@@ -8,10 +8,7 @@ import UserVideoComponent from "./UserVideoComponent";
 
 const SessionIdDiv = styled.div`
   color: white;
-`
-
-const OPENVIDU_SERVER_URL = "";
-const OPENVIDU_SERVER_SECRET = "";
+`;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 const temp = localStorage.getItem("persist:root");
@@ -422,7 +419,7 @@ class Openvidu extends Component {
 
   render() {
     const mySessionId = this.state.mySessionId;
-    const myUserName = this.state.myUserName;
+    // const myUserName = this.state.myUserName;
 
     return (
       <div className="container">
