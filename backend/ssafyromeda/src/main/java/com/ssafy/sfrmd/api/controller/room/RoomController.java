@@ -62,30 +62,32 @@ public class RoomController {
     }
 
 
-    @PostMapping("/connect")
-    public ResponseEntity<?> connectRoom(@RequestBody RoomConnectRequest roomConnectRequest)
+    @PostMapping("/connect/{sessionId}")
+    public ResponseEntity<?> connectRoom(@PathVariable("sessionId") String sessionId, @RequestBody RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
         roomService.connectRoom(roomConnectRequest);
+        //redis에 입장 정보 저장
 
         Map<String, Object> params = new HashMap<>();
         params.put("userNo", roomConnectRequest.getUserNo());
         params.put("userNickname", roomConnectRequest.getUserNickname());
 
-        Session session = openvidu.getActiveSession(roomConnectRequest.getRoomCode());//sessionId
-        if (session == null) {
-            return new ResponseEntity<>(HttpStatus.valueOf(400));
+        Session session = openvidu.getActiveSession(sessionId);//sessionId
+        if (session != null) {
+            ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+            Connection connection = session.createConnection(properties);
+
+            return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("세션 정보 ", HttpStatus.valueOf(400));
         }
-
-        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
-        Connection connection = session.createConnection(properties);
-
-        return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
     }
 
     @DeleteMapping("/{roomCode}")
     public ResponseEntity<?> deleteRoom(@PathVariable("roomCode") String roomCode){
         roomService.deleteRoom(roomCode);
+        //redis에서 해당 방 코드 정보 모두 삭제
         return new ResponseEntity<>("방 삭제 성공", HttpStatus.valueOf(200));
     }
 }
