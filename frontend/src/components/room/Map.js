@@ -1405,6 +1405,12 @@ const Map = ({
             setMyPos(myPos+i)
           }, 1000)
         }
+      } else if (diceValue === 3) {
+        for (let i = 0; i <= diceValue; i++) {
+          setTimeout(() => {
+            setMyPos(myPos+i)
+          }, 1000)
+        }
       }
       setDiceValue(null);
       console.log(diceValue);
