@@ -19,6 +19,7 @@ const initialAuthState = {
   isNickname: null, // 닉네임 설정 유무
   token: null, // 토큰 저장
   roomCode: null, // 현재 입장한 게임 방 코드
+  isJoin: null, // 게임 방 입장 유무
 };
 
 const authSlice = createSlice({
@@ -127,6 +128,11 @@ const authSlice = createSlice({
     createGameRoomError(state, action) {
       state.loading = false;
       state.error = action.payload;
+    },
+    // 게임 방 입장 코드 입력 input 변경
+    changeFieldGameRoom(state, action) {
+      const { value } = action.payload;
+      state.joinRoom.roomCode = value;
     },
     // 게임 방 입장 요청
     joinGameRoomStart(state) {
