@@ -1,8 +1,8 @@
 package com.ssafy.sfrmd.api.domain.room;
 
-import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @Getter
