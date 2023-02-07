@@ -1,3 +1,6 @@
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/AuthSlice";
+
 //  CSS Styled
 import styled from "styled-components";
 import "nes.css/css/nes.min.css";
@@ -292,11 +295,44 @@ const SlideButton = styled.div`
 ///////////////////             Function
 
 const LobbyPage = () => {
+  const dispatch = useDispatch();
+
+  // 토큰 테스트
+  const temp = localStorage.getItem("persist:root");
+  let token = "";
+
+  if (temp) {
+    const temp2 = JSON.parse(temp);
+    const temp3 = JSON.parse(temp2.auth);
+    token = temp3.token;
+  }
+
+  console.log("지금 토큰은?: ", token);
+
   const { isPlay, setIsPlay } = useContext(Context);
+
+  const { form, userNo, userNickname } = useSelector((state) => ({
+    form: state.auth.joinRoom,
+    userNo: state.auth.user.userNo,
+    userNickname: state.auth.user.userNickname,
+  }));
 
   const onClickPlayMusicButton = useCallback(() => {
     setIsPlay(!isPlay);
   }, [isPlay, setIsPlay]);
+
+  ///////////////////           게임방 생성 요청
+  const createGameRoomHandle = () => {
+    const user = { userNo, userNickname };
+    dispatch(authActions.createGameRoomStart(user));
+    console.log("방 생성 요청 액션 시작!");
+  };
+  ///////////////////           게임방 입장 요청
+  const joinGameRoomHandle = () => {
+    const user = { userNo, userNickname };
+    const roomCode = 0;
+    dispatch(authActions.joinGameRoomStart({ roomCode, user }));
+  };
 
   ///////////////////             slider setting
   const slideRef = useRef(null);
@@ -396,7 +432,10 @@ const LobbyPage = () => {
               <MyButton
                 lang={"Korean"}
                 text={"　우주선 생성　"}
-                onClick={openMakeRoomModal}
+                onClick={() => {
+                  openMakeRoomModal();
+                  createGameRoomHandle();
+                }}
               />
               {/* //header 부분에 텍스트를 입력한다. */}
               <MakeRoomModal

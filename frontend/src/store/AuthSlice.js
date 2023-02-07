@@ -7,6 +7,10 @@ const initialAuthState = {
     userNickname: "",
     userNo: "",
   },
+  // 게임방 코드 입력
+  joinRoom: {
+    roomCode: "",
+  },
   profileInfo: [],
   loading: false, // 로딩중
   isAuth: null, // 로그인 유무
@@ -14,6 +18,7 @@ const initialAuthState = {
   user: null, // 유저 정보 저장
   isNickname: null, // 닉네임 설정 유무
   token: null, // 토큰 저장
+  roomCode: null, // 현재 입장한 게임 방 코드
 };
 
 const authSlice = createSlice({
@@ -28,7 +33,6 @@ const authSlice = createSlice({
     reset(state) {
       Object.assign(state, initialAuthState);
     },
-
     // 토큰 및 유저번호 저장
     addTokenUserNo(state, action) {
       const { token, userNo } = action.payload;
@@ -55,7 +59,6 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuth = true;
     },
-
     // 로그인하며 회원정보 요청하기
     getUserInfoStart(state) {
       state.loading = true;
@@ -88,7 +91,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
-    // 로그아웃 요청 후 로직
+    // 로그아웃 요청
     logoutRequestStart(state) {
       state.loading = true;
       state.error = null;
@@ -102,15 +105,41 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
-    // GET user game info(프로필용)
-    getUserProfileInfoStart(state) {
+    // // GET user game info(프로필용)
+    // getUserProfileInfoStart(state) {
+    //   state.loading = true;
+    //   state.error = null;
+    // },
+    // // getUserProfile Success
+    // getUserProfileInfoSuccess(state, action) {
+    //   state.loading = false;
+    //   state.profileInfo = action.payload.userGameInfo;
+    // },
+    // 게임 방 생성 요청
+    createGameRoomStart(state) {
       state.loading = true;
       state.error = null;
     },
-    // getUserProfile Success
-    getUserProfileInfoSuccess(state, action) {
+    createGameRoomSuccess(state, action) {
       state.loading = false;
-      state.profileInfo = action.payload.userGameInfo;
+      state.roomCode = action.payload;
+    },
+    createGameRoomError(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    // 게임 방 입장 요청
+    joinGameRoomStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    joinGameRoomSuccess(state, action) {
+      state.loading = false;
+      state.roomCode = action.payload;
+    },
+    joinGameRoomError(state, action) {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
   // 로그아웃을 위해 localStorage 초기화

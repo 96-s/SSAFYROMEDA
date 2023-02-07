@@ -13,7 +13,13 @@ import {
 import { authActions } from "./AuthSlice";
 
 // api import
-import { createNicknameApi, getUserInfoApi, logoutRequestApi } from "./api";
+import {
+  createNicknameApi,
+  getUserInfoApi,
+  logoutRequestApi,
+  createGameRoomApi,
+  joinGameRoomApi,
+} from "./api";
 
 // 닉네임 설정 saga
 function* onCreateNicknameStartAsync({ payload }) {
@@ -68,6 +74,21 @@ function* onLogoutRequestStartAsync({ payload }) {
   }
 }
 
+// 게임 방 생성
+function* onCreateGameRoomStartAsync({ payload }) {
+  const { createGameRoomSuccess, createGameRoomError } = authActions;
+  console.log("게임 방 생성 유저 확인: ", payload);
+  try {
+    const response = yield call(createGameRoomApi, payload);
+    console.log("게임 방 생성 응답: ", response);
+    if (response.status === 200) {
+      yield put(createGameRoomSuccess(response.data));
+    }
+  } catch (error) {
+    yield put(createGameRoomError(error.response.data));
+  }
+}
+
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
 
@@ -86,10 +107,15 @@ function* onLogoutRequest() {
   yield takeLatest(logoutRequestStart, onLogoutRequestStartAsync);
 }
 
+function* onCreateGameRoom() {
+  const { createGameRoomStart } = authActions;
+  yield takeLatest(createGameRoomStart, onCreateGameRoomStartAsync);
+}
+
 // 사가 export
 export const authSagas = [
-  // fork(onKakaoLogin),
   fork(onCreateNickname),
   fork(onGetUserInfo),
   fork(onLogoutRequest),
+  fork(onCreateGameRoom),
 ];
