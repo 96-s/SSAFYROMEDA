@@ -296,21 +296,20 @@ const SlideButton = styled.div`
 const LobbyPage = () => {
   const dispatch = useDispatch();
 
-  // 토큰 테스트
-  // const temp = localStorage.getItem("persist:root");
-  // let token = "";
+  //토큰 테스트
+  const temp = localStorage.getItem("persist:root");
+  let token = "";
 
-  // if (temp) {
-  //   const temp2 = JSON.parse(temp);
-  //   const temp3 = JSON.parse(temp2.auth);
-  //   token = temp3.token;
-  // }
-  // console.log("지금 토큰은?: ", token);
+  if (temp) {
+    const temp2 = JSON.parse(temp);
+    const temp3 = JSON.parse(temp2.auth);
+    token = temp3.token;
+  }
+  console.log("지금 토큰은?: ", token);
 
   const { isPlay, setIsPlay } = useContext(Context);
 
-  const { form, userNo, userNickname } = useSelector((state) => ({
-    form: state.auth.joinRoom,
+  const { userNo, userNickname } = useSelector((state) => ({
     userNo: state.auth.user?.userNo,
     userNickname: state.auth.user?.userNickname,
   }));
@@ -431,8 +430,8 @@ const LobbyPage = () => {
                 lang={"Korean"}
                 text={"　우주선 생성　"}
                 onClick={() => {
-                  openMakeRoomModal();
                   createGameRoomHandle();
+                  openMakeRoomModal();
                 }}
               />
               {/* //header 부분에 텍스트를 입력한다. */}
