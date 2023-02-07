@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+
+import com.ssafy.sfrmd.api.dto.room.RoomCreateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,17 +21,20 @@ import org.springframework.stereotype.Service;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public Room connectRoom(RoomConnectRequest roomConnectRequest) {
-        Room room=roomRepository.findByRoomCode(roomConnectRequest.getRoomCode()).orElseGet(()->createRoom(roomConnectRequest));
+    public Room connectRoom(String roomCode) {
+        Room room=roomRepository.findByRoomCode(roomCode).orElseThrow(NullPointerException::new);
         room.updateRoomCount();
         return roomRepository.save(room);
     }
 
-    public Room createRoom(RoomConnectRequest roomConnectRequest){
-        return roomRepository.save(Room.builder()
-            .roomCode(roomConnectRequest.getRoomCode())
-            .roomHost(roomConnectRequest.getUserNo())
-            .roomCount(0).build());
+    public String createRoom(RoomCreateRequest roomCreateRequest){
+        String roomCode = makeRoomCode();
+        roomRepository.save(Room.builder()
+            .roomCode(roomCode)
+            .roomHost(roomCreateRequest.getUserNo())
+            .roomCount(1).build());
+
+        return roomCode;
     }
 
     public void deleteRoom(String roomCode){

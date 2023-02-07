@@ -25,13 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rooms")
@@ -56,41 +50,42 @@ public class RoomController {
     public ResponseEntity<?> createRoom(@RequestBody(required = false) RoomCreateRequest roomCreateRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
+        String roomCode = roomService.createRoom(roomCreateRequest);
+
         Map<String, Object> params = new HashMap<>();
-        String roomCode = roomService.makeRoomCode();
-        params.put("customSessionId", roomCode);
+        params.put("userNo", roomCreateRequest.getUserNo());
+        params.put("userNickname", roomCreateRequest.getUserNickname());
+        params.put("roomCode", roomCode);
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
 
-        return new ResponseEntity<>(session.getSessionId(), HttpStatus.valueOf(200));
+        if(session!=null){
+            return new ResponseEntity<>(session.getSessionId(), HttpStatus.valueOf(200));
+        }else{
+            return new ResponseEntity<>("create 실패", HttpStatus.valueOf(400));
+        }
     }
 
 
-    @PostMapping("/{roomCode}")
+    @PutMapping("/{roomCode}")
     public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        Map<String, Object> params = new HashMap<>();
-        Session session = null;
-        try {
-            roomService.connectRoom(roomConnectRequest);
-            //redis에 입장 정보 저장
-            params.put("userNo", roomConnectRequest.getUserNo());
-            params.put("userNickname", roomConnectRequest.getUserNickname());
-        } catch (NullPointerException e) {
-            System.out.println("요청 데이터가 비어있습니다..");
-        }
+        roomService.connectRoom(roomCode);
 
-        session = openvidu.getActiveSession(roomCode);//sessionId
+        Map<String, Object> params = new HashMap<>();
+        params.put("userNo", roomConnectRequest.getUserNo());
+        params.put("userNickname", roomConnectRequest.getUserNickname());
+
+        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+        Session session = openvidu.getActiveSession(roomCode);
 
         if (session != null) {
-            ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
             Connection connection = session.createConnection(properties);
-
             return new ResponseEntity<>(connection.getToken(), HttpStatus.valueOf(200));
         } else {
-            return new ResponseEntity<>("세션이 정상적으로 생성되지 않았습니다.", HttpStatus.valueOf(400));
+            return new ResponseEntity<>("connection 실패", HttpStatus.valueOf(400));
         }
     }
 
