@@ -13,10 +13,10 @@ const MakeRoomDiv = styled.div`
 
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
-  
+
   const onClickMoveGamePage = (props) => {
-    navigate('/game', {state : props})
-  }
+    navigate("/game", { state: props });
+  };
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const {
@@ -83,7 +83,7 @@ const MakeRoomModal = (props) => {
                   type={"Korean"}
                   className={"is-primary"}
                   text={"초대코드 생성"}
-                  onClick={getCode}
+                  // onClick={getCode}
                 />
               )}
               <div>
@@ -93,10 +93,12 @@ const MakeRoomModal = (props) => {
                 <div>
                   <span>{roomCode}</span>
                   <MyButton
-                  type={"Korean"}
-                  className={"is-primary"}
-                  text={"입장"}
-                  onClick={() => {onClickMoveGamePage({roomCode});}}
+                    type={"Korean"}
+                    className={"is-primary"}
+                    text={"입장"}
+                    onClick={() => {
+                      onClickMoveGamePage({ roomCode });
+                    }}
                   />
                 </div>
               )}

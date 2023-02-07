@@ -1,21 +1,22 @@
-import React from 'react';
-import 'components/common/modal.css';
+import React from "react";
+import "components/common/modal.css";
 import MyButton from "components/common/Button";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/AuthSlice";
 // import { useState } from 'react';
 
 const MakeRoomDiv = styled.div`
   flex: auto;
 `;
 
-
 const EnterRoomModal = (props) => {
   const navigate = useNavigate();
-  
+
   const onClickMoveGamePage = () => {
-    navigate('/game')
-  }
+    navigate("/game");
+  };
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
   // const [isMade, setIsMade] = useState(false);
@@ -47,13 +48,12 @@ const EnterRoomModal = (props) => {
           </header>
           <main>
             <MakeRoomDiv>
-                <span>초대코드를 입력해주세요.</span>
+              <span>초대코드를 입력해주세요.</span>
               <div>
                 <input className="inviteCode" type="text"></input>
               </div>
               <div>
-
-                <span>{'초대코드'}</span>
+                <span>{"초대코드"}</span>
                 <MyButton
                   type={"Korean"}
                   className={"is-primary"}
@@ -66,8 +66,8 @@ const EnterRoomModal = (props) => {
                     //   `${myGamePlanList[count].maxCapacity}`,
                     //   `${myGamePlanList[count].host}`,
                     // );
-                  // }
-                }
+                    // }
+                  }
                 />
               </div>
             </MakeRoomDiv>

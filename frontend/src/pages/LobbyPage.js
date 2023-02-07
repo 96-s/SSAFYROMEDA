@@ -117,7 +117,6 @@ const HeaderLeftUserInfo = styled.div`
 
   font-size: 30px;
   color: black;
-  
 `;
 
 ///////////////////             HeadContainer DIV Right
@@ -298,23 +297,22 @@ const LobbyPage = () => {
   const dispatch = useDispatch();
 
   // 토큰 테스트
-  const temp = localStorage.getItem("persist:root");
-  let token = "";
+  // const temp = localStorage.getItem("persist:root");
+  // let token = "";
 
-  if (temp) {
-    const temp2 = JSON.parse(temp);
-    const temp3 = JSON.parse(temp2.auth);
-    token = temp3.token;
-  }
-
-  console.log("지금 토큰은?: ", token);
+  // if (temp) {
+  //   const temp2 = JSON.parse(temp);
+  //   const temp3 = JSON.parse(temp2.auth);
+  //   token = temp3.token;
+  // }
+  // console.log("지금 토큰은?: ", token);
 
   const { isPlay, setIsPlay } = useContext(Context);
 
   const { form, userNo, userNickname } = useSelector((state) => ({
     form: state.auth.joinRoom,
-    userNo: state.auth.user.userNo,
-    userNickname: state.auth.user.userNickname,
+    userNo: state.auth.user?.userNo,
+    userNickname: state.auth.user?.userNickname,
   }));
 
   const onClickPlayMusicButton = useCallback(() => {
