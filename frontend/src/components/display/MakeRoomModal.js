@@ -13,8 +13,8 @@ const MakeRoomDiv = styled.div`
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
   
-  const onClickMoveGamePage = () => {
-    navigate('/game')
+  const onClickMoveGamePage = (props) => {
+    navigate('/game', {state : props})
   }
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -39,7 +39,8 @@ const MakeRoomModal = (props) => {
         withCredentials: true,
         headers: {
           "Content-Type" : "application/json",
-          Authorization : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm5vIjozLCJyb2xlIjoiVVNFUiIsImV4cCI6MTY3NTY5NzA1OX0.JP1Nt-vy2rV4S4JtqtqQtzIqYnVp-6nplFtrxyoTiZ3UGoJ9diMGx8Fg8CHDPKh_tZQiHYrHm5b1_qZpkvRjmQ",
+          //로그인 새로 할때마다 Authorization 코드 바꿔야함
+          Authorization : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm5vIjozLCJyb2xlIjoiVVNFUiIsImV4cCI6MTY3NTczNzAyNn0.m2A6biofgBExozRUe6IxX2LvAnv3GPvrXhGVCEAddDaHKPSdfKpmkse0kZ39628ZxMQws9JpwkMHVmQU6xAEKw",
         },
       }
     );
@@ -79,7 +80,7 @@ const MakeRoomModal = (props) => {
                   type={"Korean"}
                   className={"is-primary"}
                   text={"입장"}
-                  onClick={() => {onClickMoveGamePage();}}
+                  onClick={() => {onClickMoveGamePage({roomCode});}}
                   />
                 </div>
               }
