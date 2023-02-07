@@ -21,8 +21,15 @@ spring:
         database: mysql
 
     redis:
-        host: i8d205.p.ssafy.io # change 127.0.0.1
+        lettuce:
+            pool:
+                max-active: 10
+                max-idle: 10
+                min-idle: 2
         port: 6379
+        host: i8d205.p.ssafy.io
+        password: ${redis-password}
+
 
 ## jwt
 #springboot:
