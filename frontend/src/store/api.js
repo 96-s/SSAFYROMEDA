@@ -48,6 +48,26 @@ export const logoutRequestApi = async (userno) =>
     }
   );
 
+// 방 생성 요청
+export const createGameRoomApi = async (user) =>
+  await customAxios.post("rooms", user, {
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+// 방 입장 요청
+export const joinGameRoomApi = async (roomCode, user) =>
+  await customAxios.post(`rooms/${roomCode}`, user, {
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 // headers
 // headers: {
 //   "Content-Type": "application/json;charset=UTF-8",

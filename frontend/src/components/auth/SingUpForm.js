@@ -48,7 +48,6 @@ const SignUpForm = () => {
     form: state.auth.register,
     isNickname: state.auth.isNickname,
     authError: state.auth.error,
-    test: state.auth.test,
   }));
 
   const temp = useSelector((state) => state.auth);

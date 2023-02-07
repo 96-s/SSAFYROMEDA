@@ -1,10 +1,11 @@
-import React from 'react';
-import 'components/common/modal.css';
+import React from "react";
+import "components/common/modal.css";
 import MyButton from "components/common/Button";
 import styled from "styled-components";
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const MakeRoomDiv = styled.div`
   flex: auto;
@@ -12,27 +13,31 @@ const MakeRoomDiv = styled.div`
 
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
-  
+
   const onClickMoveGamePage = () => {
-    navigate('/game')
-  }
+    navigate("/game");
+  };
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const {
     open,
-    close, 
+    close,
     header,
     mySessionIdValue,
     publisher,
     players,
-    subscribers, } = props;
+    subscribers,
+  } = props;
   const [isMade, setIsMade] = useState(false);
-  
+
   // roomCode를 받기 위해 선언
   const [roomCode, setRoomCode] = useState("");
 
-  const makeCode = () => {
+  // store에서 roomCode를 받아온다.
+  const roomCode2 = useSelector((state) => state.auth.roomCode);
+  console.log(roomCode2);
 
+  const makeCode = () => {
     // const nextTurnNum = Math.floor(Math.random() * 6);
     // const nextPlayer = players[nextTurnNum];
 
@@ -43,23 +48,22 @@ const MakeRoomModal = (props) => {
     //     nextTurnNum: nextTurnNum,
     //     nextPlayer: nextPlayer,
 
-
     //   })
     // };
-    fetch('https://i8d205.p.ssafy.io/api/rooms/', {
-      method: 'POST',
+    fetch("https://i8d205.p.ssafy.io/api/rooms/", {
+      method: "POST",
       headers: {
         // Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
-        'Content-type': 'application/json',
-      }
+        "Content-type": "application/json",
+      },
       // body: JSON.stringify(sendData),
-    }).then(response => response.json())
-    .then(data => {
-      setRoomCode(data.sessionId);
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRoomCode(data.sessionId);
+      });
     setIsMade(!isMade);
-
-  }
+  };
 
   // const toggleIsMade = () => {
   //   ;
@@ -78,29 +82,30 @@ const MakeRoomModal = (props) => {
           </header>
           <main>
             <MakeRoomDiv>
-              {!isMade &&
+              {!isMade && (
                 <MyButton
                   type={"Korean"}
                   className={"is-primary"}
                   text={"초대코드 생성"}
                   onClick={makeCode}
                 />
-              }
+              )}
               <div>
                 {/* <input className="editNickname" type="text"></input> */}
               </div>
-              {isMade && 
+              {isMade && (
                 <div>
-
                   <span>{roomCode}</span>
                   <MyButton
-                  type={"Korean"}
-                  className={"is-primary"}
-                  text={"입장"}
-                  onClick={() => {onClickMoveGamePage();}}
+                    type={"Korean"}
+                    className={"is-primary"}
+                    text={"입장"}
+                    onClick={() => {
+                      onClickMoveGamePage();
+                    }}
                   />
                 </div>
-              }
+              )}
             </MakeRoomDiv>
           </main>
           <footer>
