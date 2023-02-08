@@ -55,8 +55,14 @@ const SignUpForm = () => {
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
-    let { value } = e.target;
-    dispatch(authActions.changeField({ value })); // value: 입력되는 문자
+    let { name, value } = e.target;
+    dispatch(
+      authActions.changeField({
+        form: "register",
+        key: name,
+        value,
+      })
+    ); // value: 입력되는 문자
   };
 
   // 2. form 등록 이벤트 핸들러
@@ -122,7 +128,7 @@ const SignUpForm = () => {
           <InputDiv>
             <input
               className="nes-input is-dark"
-              name="nickname"
+              name="userNickname"
               placeholder="닉네임을 입력하세요"
               onChange={onChange}
             />

@@ -324,12 +324,6 @@ const LobbyPage = () => {
     dispatch(authActions.createGameRoomStart(user));
     console.log("방 생성 요청 액션 시작!");
   };
-  ///////////////////           게임방 입장 요청
-  const joinGameRoomHandle = () => {
-    const user = { userNo, userNickname };
-    const roomCode = 0;
-    dispatch(authActions.joinGameRoomStart({ roomCode, user }));
-  };
 
   ///////////////////             slider setting
   const slideRef = useRef(null);
