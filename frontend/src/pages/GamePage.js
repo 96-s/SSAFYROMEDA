@@ -232,7 +232,6 @@ const GamePage = () => {
           );
         });
     });
-
   }, []);
 
   return (
