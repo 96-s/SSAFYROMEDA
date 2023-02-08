@@ -31,7 +31,6 @@ const TitleText = styled.h1`
   font-size: 6rem;
   letter-spacing: 1rem;
   color: white;
-
   margin-bottom: 60px;
 `;
 

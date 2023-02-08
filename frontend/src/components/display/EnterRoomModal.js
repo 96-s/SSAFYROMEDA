@@ -15,13 +15,19 @@ const InputDiv = styled.div`
   width: 300px;
   float: left;
 `;
-
+const Header = styled.div`
+  color: black;
+  margin: 20px 0px 10px 0px;
+  
+`;
 const ErrorMsg = styled.div`
   color: red;
   font-size: 1rem;
   margin-top: 10px;
 `;
-
+const Span=styled.span`
+  color:black;
+`;
 const EnterRoomModal = (props) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -104,15 +110,15 @@ const EnterRoomModal = (props) => {
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>
+          <Header>
             {header}
             {/* <button className="close" onClick={close}>
               &times;
             </button> */}
-          </header>
+          </Header>
           <main>
             <MakeRoomDiv>
-              <span>초대코드를 입력해주세요.</span>
+              <Span>초대코드를 입력해주세요.</Span>
               <form onSubmit={onSubmit} onKeyDown={(e) => onCheckEnter(e)}>
                 <InputDiv>
                   <input
