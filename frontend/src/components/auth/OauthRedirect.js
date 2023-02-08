@@ -31,6 +31,7 @@ const OauthRedirect = () => {
     } else if (userRole === "GUEST") {
       // 유저가 guest라면, 닉네임 등록 페이지로 이동
       navigate("/signup");
+      window.location.reload();
     }
   }, [userNo]);
 

@@ -36,7 +36,7 @@ const MakeRoomModal = (props) => {
 
   // store에서 roomCode를 받아온다.
   const roomCode = useSelector((state) => state.auth.roomCode);
-  console.log(roomCode);
+  console.log("룸코드는?:", roomCode);
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
