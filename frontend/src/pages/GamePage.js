@@ -52,6 +52,62 @@ const GamePage = () => {
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
 
+  // 게임 관련 변수들
+  const [isGameStart, setIsGameStart] = useState(false);
+  const [isGameDone, setIsGameDone] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+
+  // 게임 진행 관련 변수
+  const [players, setPlayers] = useState([]); // 플레이어들
+  const [turnNum, setTurnNum] = useState(0); // 몇 번째 사람 차례인지(이번 턴 인 사람)
+  const [nextPlayer, setNextPlayer] = useState(''); // 다음 사람(handlemainStreamer에 사용)
+  const [posList, setPosList] = useState([0, 0, 0, 0, 0, 0]); // 6명 max라 생각하고 각자의 포지션
+  const [minigameType, setMinigameType] = useState(undefined);
+  // const [minigameDone, setMinigameDone] = useState(false); // 미니게임이 끝났는지
+  const [isRoll, setIsRoll] = useState(false); // 굴렸는지
+
+  // useEffect(() => {
+  //   // 창 닫을때 session 떠나게 해줌
+  //   window.addEventListener('beforeunload', onbeforeunload);
+  //   joinSession();
+  //   return () => {
+  //     window.removeEventListener('beforeunload', onbeforeunload);
+  //   };
+  // }, []);
+
+  // const onbeforeunload = (e) => {
+  //   leaveSession();
+  // };
+
+  // const handleMainVideoStream = (stream) => {
+  //   if (mainStreamManager !== stream) {
+  //     setMainStreamManager(stream);
+  //   }
+  // };
+
+  // const deleteSubscriber = (streamManager) => {
+  //   let targetSubscribers = subscribers;
+  //   let index = targetSubscribers.indexOf(streamManager, 0);
+  //   const removeName = JSON.parse(
+  //     targetSubscribers[index].stream.connection.data,
+  //   ).clientData;
+  //   console.error('제거할 이름', removeName);
+
+  //   if (index > -1) {
+  //     targetSubscribers.splice(index, 1);
+  //     setSubscribers(targetSubscribers);
+  //   }
+  //   let tempPlayers = targetSubscribers.map(
+  //     (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+  //   );
+  //   console.error('나간 후 리스트', tempPlayers);
+  //   // 자기 자신 없으면 넣어야함
+  //   if (tempPlayers.includes(myUserName) === false) {
+  //     tempPlayers.push(myUserName);
+  //   }
+  //   setPlayers(tempPlayers.sort());
+  // };
+
   const getToken = async() => {
     const response = await axios.post(
       APPLICATION_SERVER_URL,
