@@ -11,7 +11,6 @@ const TestPage2 = () => {
 
   return (
     <div>
-      <h1>OpenviduPage2</h1>
       <OpenviduTest2
         // sessionNickname={sessionNickname}
         // sessionRoomId={sessionRoomId}
