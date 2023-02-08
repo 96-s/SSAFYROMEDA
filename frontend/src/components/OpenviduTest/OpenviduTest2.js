@@ -22,20 +22,20 @@ if (temp) {
 
 const OpenviduTest2 = () => {
 
-    const { state } = useLocation();
-    const { userNickname, userNo } = useSelector(state => state.auth.user)
+  const { state } = useLocation();
+  const { userNickname, userNo } = useSelector(state => state.auth.user)
 
-    const [session, setSession] = useState(undefined);
-    const [mySessionId, setMySessionId] = useState("");
-    const [mainStreamManager, setMainStreamManager] = useState(undefined);
-    const [publisher, setPublisher] = useState(undefined);
-    const [subscribers, setSubscribers] = useState([]);
-    const [isMike, setMike] = useState(true);
-    const [isCamera, setIsCamera] = useState(true);
-    const [isSpeaker, setIsSpeaker] = useState(true);
-    const [isChat, setIsChat] = useState(true);
-    const [myUserName, setMyUserName] = useState("");
-    const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
+  const [session, setSession] = useState(undefined);
+  const [mySessionId, setMySessionId] = useState("");
+  const [mainStreamManager, setMainStreamManager] = useState(undefined);
+  const [publisher, setPublisher] = useState(undefined);
+  const [subscribers, setSubscribers] = useState([]);
+  const [isMike, setMike] = useState(true);
+  const [isCamera, setIsCamera] = useState(true);
+  const [isSpeaker, setIsSpeaker] = useState(true);
+  const [isChat, setIsChat] = useState(true);
+  const [myUserName, setMyUserName] = useState("");
+  const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", this.onbeforeunload);
@@ -412,9 +412,6 @@ const OpenviduTest2 = () => {
       console.error(e);
     }
   }
-    // const myUserName = this.state.myUserName;
-    // const mySessionId = this.state.mySessionId;
-
     return (
         <div className="container">
         {this.state.session === undefined ? (
@@ -517,34 +514,14 @@ const OpenviduTest2 = () => {
     );
   }
 
-  /**
-   * --------------------------------------------
-   * GETTING A TOKEN FROM YOUR APPLICATION SERVER
-   * --------------------------------------------
-   * The methods below request the creation of a Session and a Token to
-   * your application server. This keeps your OpenVidu deployment secure.
-   *
-   * In this sample code, there is no user control at all. Anybody could
-   * access your application server endpoints! In a real production
-   * environment, your application server must identify the user to allow
-   * access to the endpoints.
-   *
-   * Visit https://docs.openvidu.io/en/stable/application-server to learn
-   * more about the integration of OpenVidu in your application server.
-   */
-export default OpenviduTest2;
-
+export default connect(mapStateToProps, mapDispatchToProps)(OpenviduTest2);
 
 // 리덕스 state에 있는 값 사용할 때
-// const mapStateToProps = (state) => ({
-//   userInfo: state.auth,
-// });
+const mapStateToProps = (state) => ({
+  userInfo: state.auth,
+});
 
 // // 리덕스 slice의 actions 사용할 때
-// const mapDispatchToProps = (dispatch) => {
-//   return {};
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Openvidu);
-
-// export default Openvidu;
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
