@@ -45,6 +45,8 @@ class Openvidu extends Component {
       isCamera: true,
       isSpeaker: true,
       isChat: false,
+      t1Pos: 0,
+      t2Pos: 0,
     };
 
     this.initRoom = this.initRoom.bind(this);
@@ -554,8 +556,8 @@ class Openvidu extends Component {
       APPLICATION_SERVER_URL,
       //더미 데이터
       {
-        userNo : 1,
-        userNickname : this.state.userNickname,
+        userNo: 1,
+        userNickname: this.state.userNickname,
       },
       {
         withCredentials: true,
@@ -574,8 +576,8 @@ class Openvidu extends Component {
       APPLICATION_SERVER_URL + sessionId,
       //더미 데이터
       {
-        userNo : 1,
-        userNickname : this.state.userNickname,
+        userNo: 1,
+        userNickname: this.state.userNickname,
       },
       {
         withCredentials: true,
@@ -587,6 +589,30 @@ class Openvidu extends Component {
     );
     console.log("토큰 만듬");
     return response.data; // The token
+  }
+
+  // 각 팀 말의 포지션 업데이트
+  async sendPos(subscribers) {
+    const response = await axios.post(
+      "https://i8d205.p.ssafy.io/openvidu/api/signal",
+      {
+        session: this.state.mySessionId,
+        to: this.state.subscribers,
+        type: "MY_TYPE",
+        data: {
+          t1Pos: this.state.t1Pos,
+          t2Pos: this.state.t2Pos,
+        },
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        },
+      }
+    );
+    console.log("위치 전송함");
   }
 }
 

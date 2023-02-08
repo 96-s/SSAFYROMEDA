@@ -89,6 +89,22 @@ function* onCreateGameRoomStartAsync({ payload }) {
   }
 }
 
+// 게임 방 입장
+function* onJoinGameRoomStartAsync({ payload }) {
+  const { joinGameRoomSuccess, joinGameRoomError } = authActions;
+  const { roomCode, user } = payload;
+  console.log("게임 방 입장 유저 확인: ", roomCode, user);
+  try {
+    const response = yield call(joinGameRoomApi, roomCode, user);
+    console.log("게임 방 입장 응답: ", response);
+    if (response.status === 200) {
+      yield put(joinGameRoomSuccess(response.data));
+    }
+  } catch (error) {
+    yield put(joinGameRoomError(error.response.data));
+  }
+}
+
 // 사가들을 작동시킬 saga 작성
 // loginUserStart 라는 액션 함수가 실행되면 onLoginUserStartAsync 사가가 작동한다.
 
@@ -112,10 +128,16 @@ function* onCreateGameRoom() {
   yield takeLatest(createGameRoomStart, onCreateGameRoomStartAsync);
 }
 
+function* onJoinGameRoom() {
+  const { joinGameRoomStart } = authActions;
+  yield takeLatest(joinGameRoomStart, onJoinGameRoomStartAsync);
+}
+
 // 사가 export
 export const authSagas = [
   fork(onCreateNickname),
   fork(onGetUserInfo),
   fork(onLogoutRequest),
   fork(onCreateGameRoom),
+  fork(onJoinGameRoom),
 ];

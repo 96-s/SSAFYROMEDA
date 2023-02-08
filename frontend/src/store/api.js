@@ -1,12 +1,7 @@
 // Axios
-import axios from "axios";
 import { customAxios } from "./customAxios";
 
-// const temp = localStorage.getItem("persist:root");
-// const temp2 = JSON.parse(temp);
-// const temp3 = JSON.parse(temp2.auth);
-// const token = temp3.token;
-
+// localStorage에서 토큰 가져오기
 const temp = localStorage.getItem("persist:root");
 let token = "";
 
@@ -60,7 +55,7 @@ export const createGameRoomApi = async (user) =>
 
 // 방 입장 요청
 export const joinGameRoomApi = async (roomCode, user) =>
-  await customAxios.post(`rooms/${roomCode}`, user, {
+  await customAxios.put(`rooms/${roomCode}`, user, {
     withCredentials: true,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",

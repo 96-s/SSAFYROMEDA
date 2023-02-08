@@ -28,8 +28,8 @@ const authSlice = createSlice({
   reducers: {
     // 닉네임 form 업데이트
     changeField(state, action) {
-      const { value } = action.payload;
-      state.register.userNickname = value;
+      const { form, key, value } = action.payload;
+      state[form][key] = value;
     },
     reset(state) {
       Object.assign(state, initialAuthState);
@@ -130,18 +130,18 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     // 게임 방 입장 코드 입력 input 변경
-    changeFieldGameRoom(state, action) {
-      const { value } = action.payload;
-      state.joinRoom.roomCode = value;
-    },
+    // changeFieldGameRoom(state, action) {
+    //   const { value } = action.payload;
+    //   state.joinRoom.roomCode = value;
+    // },
     // 게임 방 입장 요청
     joinGameRoomStart(state) {
       state.loading = true;
       state.error = null;
     },
-    joinGameRoomSuccess(state, action) {
+    joinGameRoomSuccess(state) {
       state.loading = false;
-      state.roomCode = action.payload;
+      state.isJoin = true;
     },
     joinGameRoomError(state, action) {
       state.loading = false;

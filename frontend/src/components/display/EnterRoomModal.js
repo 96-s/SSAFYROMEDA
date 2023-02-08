@@ -11,14 +11,27 @@ const MakeRoomDiv = styled.div`
   flex: auto;
 `;
 
+const InputDiv = styled.div`
+  width: 300px;
+  float: left;
+`;
+const Header = styled.div`
+  color: black;
+  margin: 20px 0px 10px 0px;
+  
+`;
+const ErrorMsg = styled.div`
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
+`;
+const Span=styled.span`
+  color:black;
+`;
 const EnterRoomModal = (props) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const onClickMoveGamePage = () => {
-    navigate("/game");
-  };
 
   const { form, userNo, userNickname, joinError, isJoin } = useSelector(
     (state) => ({
@@ -35,12 +48,23 @@ const EnterRoomModal = (props) => {
 
   // 1. input 변경 이벤트 핸들러
   const onChange = (e) => {
-    let { value } = e.target;
-    dispatch(authActions.changeFieldGameRoom({ value })); // value: 입력되는 문자
+    let { name, value } = e.target;
+    dispatch(
+      authActions.changeField({
+        form: "joinRoom",
+        key: name,
+        value,
+      })
+    ); // value: 입력되는 문자
   };
 
+  // 2. form 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    dispatch(authActions.joinGameRoomStart({}));
+    const { roomCode } = form;
+    e.preventDefault();
+    const user = { userNo, userNickname };
+    dispatch(authActions.joinGameRoomStart({ user, roomCode }));
+    console.log("방 입장 요청 액션 시작!");
   };
 
   const onCheckEnter = (e) => {
@@ -59,7 +83,7 @@ const EnterRoomModal = (props) => {
     if (isJoin) {
       console.log("방 입장 성공");
       // 게임방으로 입장
-      // navigate("/게임방");
+      navigate("/game");
     }
   }, [joinError, dispatch, navigate]);
 
@@ -86,45 +110,33 @@ const EnterRoomModal = (props) => {
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>
+          <Header>
             {header}
             {/* <button className="close" onClick={close}>
               &times;
             </button> */}
-          </header>
+          </Header>
           <main>
             <MakeRoomDiv>
-              <span>초대코드를 입력해주세요.</span>
-              <div>
-                <input
-                  className="inviteCode"
-                  type="text"
-                  onChange={onChange}
-                ></input>
-              </div>
-              <div>
-                <span>{"초대코드"}</span>
+              <Span>초대코드를 입력해주세요.</Span>
+              <form onSubmit={onSubmit} onKeyDown={(e) => onCheckEnter(e)}>
+                <InputDiv>
+                  <input
+                    className="nes-input is-dark"
+                    name="roomCode"
+                    placeholder="방 코드를 입력하세요"
+                    onChange={onChange}
+                  />
+                </InputDiv>
                 <MyButton
-                  type={"Korean"}
-                  className={"is-primary"}
+                  lang={"Korean"}
+                  type={"is-primary"}
                   text={"입장"}
-                  onClick={() => {
-                    onSubmit();
-                    onClickMoveGamePage();
-                  }}
-                  // onClick={
-                  //   // ()=> {
-                  //   onClickMoveGamePage();
-                  //   // onClickJoinGame(
-                  //   //   `${myGamePlanList[count].roomCode}`,
-                  //   //   `${myGamePlanList[count].maxCapacity}`,
-                  //   //   `${myGamePlanList[count].host}`,
-                  //   // );
-                  //   // }
-                  // }
+                  onClick={onSubmit}
                 />
-              </div>
+              </form>
             </MakeRoomDiv>
+            <ErrorMsg>{error}</ErrorMsg>
           </main>
           <footer>
             <button className="close" onClick={close}>
