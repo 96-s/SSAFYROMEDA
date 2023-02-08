@@ -266,8 +266,9 @@ const OpenviduTest2 = () => {
     });
   }
 
-  const joinRoom = () => {
-    const ov=new OpenVidu();
+  const joinRoom = async () => {
+    const tempOv=new OpenVidu();
+    setOv(tempOv);
 
     ov.setAdvancedConfiguration({
       publisherSpeakingEventsOptions: {
@@ -277,10 +278,11 @@ const OpenviduTest2 = () => {
     });
 
     console.log("방에 들어갑니다.");
-    let mySession=ov.initSession();
+    const tempSession = await tempOv.initSession();
     
-    setSession(mySession);
+    setSession(tempSession);
     console.log("세션 생성 후");
+    var mySession = tempSession;
     console.log(mySession);
 
     mySession.on("streamCreated", (event) => {
