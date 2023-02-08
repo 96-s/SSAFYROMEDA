@@ -509,7 +509,7 @@ class Openvidu extends Component {
               {this.state.subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
-                  className="stream-container"
+                  className="stream-cvuontainer"
                   onClick={() => this.handleMainVideoStream(sub)}
                 >
                   <span>{sub.id}</span>
