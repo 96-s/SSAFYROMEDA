@@ -71,7 +71,7 @@ const GamePage = () => {
     console.log(response);
     const mySessionId=response.data;
 
-    const res = await axios.post(
+    const res = await axios.put(
       APPLICATION_SERVER_URL + mySessionId,
       {},
       {
