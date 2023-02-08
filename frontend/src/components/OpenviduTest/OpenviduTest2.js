@@ -132,6 +132,7 @@ const OpenviduTest2 = () => {
     
     console.log("세션만듬");
     const mySessionId = response.data;
+    setMySessionId(mySessionId)
     console.log(`session id : ${mySessionId}`);
 
     const res = await axios.put(
@@ -416,6 +417,7 @@ const OpenviduTest2 = () => {
       console.error(e);
     }
   }
+
 
   console.log(mySessionId);
     return (
