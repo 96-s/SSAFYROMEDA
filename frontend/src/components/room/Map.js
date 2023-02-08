@@ -1300,7 +1300,7 @@ const Timers = styled.div`
 // `
 
 const Map = ({
-  sessionIdValue,
+  sessionId,
   players,
   posList,
   turnNum,
@@ -1312,7 +1312,8 @@ const Map = ({
   const [showDiceToggle, setShowDiceToggle] = useState(false);
   const [chanceNum, setChanceNum] = useState(null);
   const [openChanceToggle, setOpenChanceToggle] = useState(false);
-  const [myPos, setMyPos] = useState(0);
+  const [team1Pos, setTeam1Pos] = useState(0);
+  const [team2Pos, setTeam2Pos] = useState(0);
   // const [isMoving, setIsMoving] = useState(false);
   let isRoll = false;
   // var chanceNum = null;
@@ -1348,7 +1349,7 @@ const Map = ({
     console.log("주사위 값은 " + diceValue);
     // 주사위 1 나왔을 때
     if (isRoll === false && diceValue === 1) {
-      setMyPos(myPos + diceValue);
+      setTeam1Pos(team1Pos + diceValue);
     }
     // 주사위 2 이상
     if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
@@ -1359,13 +1360,11 @@ const Map = ({
         i++;
         console.log("왜 안됨");
         setTimeout(() => {
-          setMyPos((myPos) => myPos + 1);
+          setTeam1Pos((team1Pos) => team1Pos + 1);
         }, 2000 * i);
       }
     }
     setDiceValue(null);
-    console.log(diceValue);
-    console.log(myPos);
   }, [diceValue]);
 
   const closeDice = useEffect(() => {
@@ -1380,46 +1379,6 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
-  // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
-  // useEffect(() => {
-  //     if (whatDiceNum===0) {
-  //       return
-  //     }
-  //     // setShowDiceToggle(true);
-
-  //     setTimeout(() => {
-  //       setShowDiceToggle(false);
-  //       setWhatDiceNum(0);
-  //     }, 6000);
-  //     console.log("꺼진다");
-  //   }, [whatDiceNum]);
-
-  // 주사위 굴려지고 닫히면 말 이동
-  // useEffect(() => {
-  //     if (setShowDiceToggle === false) {
-
-  //     }
-  // })
-
-  // let positionList = [];
-
-  // for (let i = 0; i < 22; i++) {
-  //   positionList.push(i)
-  // }
-
-  // let revpositionList = [-21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, -0];
-  // // console.log(positionList);
-
-  // const [nowPos, setNowPos] = useState(0);
-
-  // var index = 0;
-  // useEffect (() => {
-  //   setInterval(() => {
-  //     setNowPos(revpositionList[index++]);
-  //     if (index === revpositionList.length)
-  //       index = 0
-  //   }, 2000)
-  // }, nowPos);
 
   return (
     <Page>
@@ -1459,10 +1418,10 @@ const Map = ({
           ) : (
             ""
           )} */}
-        <Marker1 className={`pos${myPos}`}>
+        <Marker1 className={`pos${team1Pos}`}>
           <img src={Marker1IMG} alt="marker1" id="marker1"></img>
         </Marker1>
-        <Marker2 className={`pos${13}`}>
+        <Marker2 className={`pos${team2Pos}`}>
           <img src={Marker2IMG} alt="marker2"></img>
         </Marker2>
       </Board>
