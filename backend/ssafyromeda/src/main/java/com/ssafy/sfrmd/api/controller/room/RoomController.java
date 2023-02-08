@@ -55,7 +55,7 @@ public class RoomController {
         Map<String, Object> params = new HashMap<>();
         params.put("userNo", roomCreateRequest.getUserNo());
         params.put("userNickname", roomCreateRequest.getUserNickname());
-        params.put("roomCode", roomCode);
+        params.put("customSessionId", roomCode);
 
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
