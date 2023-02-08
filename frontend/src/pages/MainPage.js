@@ -44,7 +44,7 @@ const BG = styled.div`
 const Titlediv = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 40px;
+  height: 50%;
 `;
 const Title = styled.img`
   position: absolute;
@@ -88,11 +88,12 @@ const Container = styled.div`
   //길이 임의 포지션에서 줄일 때
   // min-width: 1706px;
   width: 100vw;
-
+  
   display: flex;
   position: relative;
-  transform: translateY(35%);
+  transform: translateY(-100%);
   margin: auto;
+  bottom:-15%;
 `;
 
 ///////////////////             Section(Left)
@@ -100,14 +101,18 @@ const Leftdiv = styled.div`
   width: 100%;
   height: 100%;
 `;
-const Leftimg = styled.img``;
+const Leftimg = styled.img`
+  width: 100%;
+  height: 100%;
+  
+`;
 
 ///////////////////             Section(Middle)
 const MiddelDiv = styled.div`
   width: 100%;
   height: 100%;
   min-width: 500px;
-  margin: auto;
+
   margin-top: 18%;
   text-align: center;
   font-size: 50px;
@@ -120,14 +125,13 @@ const RightDiv = styled.div`
   height: 100%;
 `;
 const Rightimg = styled.img`
-  height: 498px;
-  position: absolute;
-  right: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 15%;
 `;
 const Span = styled.span`
   & > a:hover {
     color: white;
-    
   }
   & > a {
     text-decoration: none;
@@ -136,7 +140,10 @@ const Span = styled.span`
     color: yellow;
   }
 `;
-
+const Ddd=styled.div`
+width: 100%;
+height: 30%;
+`;
 ///////////////////             Section(Input)
 const Input = styled.input``;
 
@@ -158,6 +165,7 @@ const MainPage = () => {
           <br />
           <Insertcoin src={insertcoin} />
         </Titlediv>
+        <Ddd></Ddd>
         <Container>
           <Leftdiv>
             <Leftimg src={person}></Leftimg>

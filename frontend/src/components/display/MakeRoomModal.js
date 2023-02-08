@@ -11,10 +11,21 @@ const MakeRoomDiv = styled.div`
   flex: auto;
 `;
 
+const Header = styled.div`
+  color: black;
+  margin: 20px 0px 10px 0px;
+`;
+const Main = styled.main`
+  display: flex;
+  padding: 5%;
+  border-bottom: 1px solid #dee2e6;
+  border-top: 1px solid #dee2e6;
+  justify-content: center;
+`;
 const RoomcodeDiv = styled.div`
   color: black;
   display: center;
-`
+`;
 
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
@@ -43,8 +54,8 @@ const MakeRoomModal = (props) => {
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>{header}</header>
-          <main>
+          <Header>{header}</Header>
+          <Main>
             <MakeRoomDiv>
               <div>
                 <RoomcodeDiv>
@@ -60,7 +71,7 @@ const MakeRoomModal = (props) => {
                 />
               </div>
             </MakeRoomDiv>
-          </main>
+          </Main>
           <footer>
             <button className="close" onClick={close}>
               close
