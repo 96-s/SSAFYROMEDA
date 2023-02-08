@@ -47,6 +47,9 @@ class Openvidu extends Component {
       isChat: false,
       t1Pos: 0,
       t2Pos: 0,
+      throwUser: 0,
+      myGameNo: 0,
+      isDice: false,
     };
 
     this.initRoom = this.initRoom.bind(this);
@@ -190,6 +193,32 @@ class Openvidu extends Component {
         // On every asynchronous exception...
         mySession.on("exception", (exception) => {
           console.warn(exception);
+        });
+
+        // 게임 관련 로직 모음
+        mySession.on("TURN_UPDATE", (data) => {
+          const { nextT1Pos, nextT2Pos, beforeGameNo } = JSON.parse(data.data);
+          console.log(
+            "팀1 다음 포지션 : " +
+              nextT1Pos +
+              ", 팀2 다음 포지션 : " +
+              nextT2Pos +
+              ", 이전에 던진 유저 고유넘버 : " +
+              beforeGameNo
+          );
+
+          // 각 팀 포지션 업데이트
+          this.state.t1Pos = nextT1Pos;
+          this.state.t1Pos = nextT2Pos;
+
+          // 주사위 던짐 여부 테스트
+          if ((beforeGameNo + 1) % 6 == this.state.gameNo) {
+            this.state.isDice = true;
+            console.log("당신은 다음 턴에 주사위를 던집니다.");
+          } else {
+            this.state.isDice = false;
+            console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
+          }
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -598,10 +627,11 @@ class Openvidu extends Component {
       {
         session: this.state.mySessionId,
         to: this.state.subscribers,
-        type: "MY_TYPE",
+        type: "TURN_UPDATE",
         data: {
           t1Pos: this.state.t1Pos,
           t2Pos: this.state.t2Pos,
+          throwUser: this.state.throwUser,
         },
       },
       {
@@ -613,6 +643,7 @@ class Openvidu extends Component {
       }
     );
     console.log("위치 전송함");
+    return response.data;
   }
 }
 
