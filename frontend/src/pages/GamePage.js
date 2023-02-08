@@ -73,7 +73,10 @@ const GamePage = () => {
 
     const res = await axios.put(
       APPLICATION_SERVER_URL + mySessionId,
-      {},
+      {
+        userNo : userNo,
+        userNickname : userNickname,
+      },
       {
         withCredentials: true,
         headers: {
