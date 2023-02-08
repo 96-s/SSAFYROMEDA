@@ -41,6 +41,8 @@ const GamePage = () => {
   const { state } = useLocation();
   const { userNickname, userNo } = useSelector(state => state.auth.user)
 
+  const [ov, setOv] = useState(null);
+  const [mySessionId, setMySessionId] = useState("");
   const [session, setSession] = useState(null);
   const [sessionId, setSessionId] = useState(null);
   const [mainStreamManager, setMainStreamManager] = useState(null);
@@ -85,28 +87,28 @@ const GamePage = () => {
   //   }
   // };
 
-  // const deleteSubscriber = (streamManager) => {
-  //   let targetSubscribers = subscribers;
-  //   let index = targetSubscribers.indexOf(streamManager, 0);
-  //   const removeName = JSON.parse(
-  //     targetSubscribers[index].stream.connection.data,
-  //   ).clientData;
-  //   console.error('제거할 이름', removeName);
+  const deleteSubscriber = (streamManager) => {
+    let targetSubscribers = subscribers;
+    let index = targetSubscribers.indexOf(streamManager, 0);
+    const removeName = JSON.parse(
+      targetSubscribers[index].stream.connection.data,
+    ).clientData;
+    console.error('제거할 이름', removeName);
 
-  //   if (index > -1) {
-  //     targetSubscribers.splice(index, 1);
-  //     setSubscribers(targetSubscribers);
-  //   }
-  //   let tempPlayers = targetSubscribers.map(
-  //     (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
-  //   );
-  //   console.error('나간 후 리스트', tempPlayers);
-  //   // 자기 자신 없으면 넣어야함
-  //   if (tempPlayers.includes(myUserName) === false) {
-  //     tempPlayers.push(myUserName);
-  //   }
-  //   setPlayers(tempPlayers.sort());
-  // };
+    if (index > -1) {
+      targetSubscribers.splice(index, 1);
+      setSubscribers(targetSubscribers);
+    }
+    let tempPlayers = targetSubscribers.map(
+      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+    );
+    console.error('나간 후 리스트', tempPlayers);
+    // 자기 자신 없으면 넣어야함
+    if (tempPlayers.includes(myUserName) === false) {
+      tempPlayers.push(myUserName);
+    }
+    setPlayers(tempPlayers.sort());
+  };
 
   const getToken = async() => {
     const response = await axios.post(
@@ -148,7 +150,7 @@ const GamePage = () => {
     return res.data;    
   }
 
-  useEffect(() => {
+  const joinSession = async () => {
     const OV = new OpenVidu();
 
     OV.setAdvancedConfiguration({
@@ -178,7 +180,7 @@ const GamePage = () => {
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
     mySession.on("streamDestroyed", (event) => {
       // Remove the stream from 'subscribers' array
-      this.deleteSubscriber(event.stream.streamManager);
+      deleteSubscriber(event.stream.streamManager);
     });
 
     // On every asynchronous exception...
@@ -190,15 +192,22 @@ const GamePage = () => {
       mySession
         .connect(token, { clientData :  "user1"})
         .then(async () => {
+          // Obtain the current video device in use
+          var devices = await ov.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+
+
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
           let publisher = await this.OV.initPublisherAsync(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: undefined, // The source of video. If undefined default webcam
+            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
-            frameRate: 30, // The frame rate of your video
+            frameRate: 30, // 비디오 프레임
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
             mirror: true, // 거울모드
           });
@@ -207,11 +216,7 @@ const GamePage = () => {
           console.log("퍼블리시 후");
           console.log(this.state);
 
-          // Obtain the current video device in use
-          var devices = await this.OV.getDevices();
-          var videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
+          
           var currentVideoDeviceId = publisher.stream
             .getMediaStream()
             .getVideoTracks()[0]
@@ -232,7 +237,28 @@ const GamePage = () => {
           );
         });
     });
-  }, []);
+
+  };
+
+  // 방 나갈 때 필요한 아이(하위요소로 PROPS 필요함)
+  const leaveSession = () => {
+    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+
+    const mySession = session;
+
+    if (mySession) {
+      mySession.disconnect();
+    }
+
+    // Empty all properties...
+    setOv(null);
+    setSession(undefined);
+    setSubscribers([]);
+    setMySessionId('');
+    setMyUserName('');
+    setMainStreamManager(undefined);
+    setPublisher(undefined);
+  };
 
   return (
     <Page>

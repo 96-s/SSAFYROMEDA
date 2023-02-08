@@ -3,7 +3,7 @@ import "./App.css";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useEffect, useState } from "react";
 
-import GamePage from "pages/GamePage";
+import GamePage from "pages/GamePageTest";
 import ExplanationPage from "pages/ExplanationPage";
 import MainPage from "pages/MainPage";
 import LobbyPage from "pages/LobbyPage";

@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
-import DiceModal from './DiceModal';
-import ChanceModal from './ChanceModal';
-import Quiz from './quiz'
-
+import DiceModal from "./DiceModal";
+import ChanceModal from "./ChanceModal";
+import Quiz from "./quiz";
 
 // import Dice1 from "resources/images/Map/dice1.png";
 // import Dice2 from "resources/images/Map/dice2.png";
 // import Dice3 from "resources/images/Map/dice3.png";
 
-
-import MapIMG from "resources/images/Map/MapIMG.gif"
+import MapIMG from "resources/images/Map/MapIMG.gif";
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
 
@@ -22,7 +20,7 @@ const Page = styled.div`
   justify-content: center;
 `;
 
-const Board = styled.div` 
+const Board = styled.div`
   position: relative;
   justify-content: center;
   margin: auto;
@@ -52,7 +50,7 @@ const Marker1 = styled.div`
     top: 0.8%;
     left: 4%;
   }
-    
+
   &.pos1 {
     top: 13.5%;
     left: 8.6%;
@@ -345,9 +343,7 @@ const Marker1 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-
-  역방향
-  &.pos-0 {
+  역방향 &.pos-0 {
     top: 0.8%;
     left: 4%;
     @keyframes moveToLeft-0 {
@@ -360,7 +356,7 @@ const Marker1 = styled.div`
     }
     animation: moveToLeft-0 2s ease;
   }
-    
+
   &.pos-1 {
     top: 13.5%;
     left: 8.6%;
@@ -645,7 +641,6 @@ const Marker1 = styled.div`
   }
 `;
 
-
 const Marker2 = styled.div`
   display: flex;
   width: 11vmin;
@@ -659,7 +654,7 @@ const Marker2 = styled.div`
     top: 0.8%;
     left: 4%;
   }
-    
+
   &.pos1 {
     top: 13.5%;
     left: 8.6%;
@@ -952,9 +947,7 @@ const Marker2 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-
-  역방향
-  &.pos-0 {
+  역방향 &.pos-0 {
     top: 0.8%;
     left: 4%;
     @keyframes moveToLeft-0 {
@@ -967,7 +960,7 @@ const Marker2 = styled.div`
     }
     animation: moveToLeft-0 2s ease;
   }
-    
+
   &.pos-1 {
     top: 13.5%;
     left: 8.6%;
@@ -1253,10 +1246,10 @@ const Marker2 = styled.div`
 `;
 
 const Timers = styled.div`
-    display: flex;
-    positon: absolute;
-    justify-content: center;
-`
+  display: flex;
+  positon: absolute;
+  justify-content: center;
+`;
 
 // const ShowDiceModal = styled.div`
 //     display: flex;
@@ -1272,7 +1265,7 @@ const Timers = styled.div`
 //               transform: scale(1);
 //           }
 //         }
-//         animation: leaves-1 2.5s ease-in-out;    
+//         animation: leaves-1 2.5s ease-in-out;
 //         background: url(${Dice1}) no-repeat center;
 //         background-size: 10vmin 10vmin;
 //     }
@@ -1285,7 +1278,7 @@ const Timers = styled.div`
 //               transform: scale(1);
 //           }
 //         }
-//         animation: leaves-1 2.5s ease-in-out;    
+//         animation: leaves-1 2.5s ease-in-out;
 //         background: url(${Dice2}) no-repeat center;
 //         background-size: 10vmin 10vmin;
 //     }
@@ -1298,169 +1291,156 @@ const Timers = styled.div`
 //               transform: scale(1);
 //           }
 //         }
-//         animation: leaves-1 2.5s ease-in-out;    
+//         animation: leaves-1 2.5s ease-in-out;
 //         background: url(${Dice3}) no-repeat center;
 //         background-size: 10vmin 10vmin;
 //     }
 // `
 
-
-
-
-
 const Map = ({
-    sessionIdValue,
-    players,
-    posList,
-    turnNum,
-    whatDiceNum,
-    myUserNameValue,
-    setWhatDiceNum
-
+  sessionIdValue,
+  players,
+  posList,
+  turnNum,
+  whatDiceNum,
+  myUserNameValue,
+  setWhatDiceNum,
 }) => {
-    const [diceValue, setDiceValue] =  useState(null)
-    const [showDiceToggle, setShowDiceToggle] = useState(false);
-    const [chanceNum, setChanceNum] = useState(null);
-    const [openChanceToggle, setOpenChanceToggle] = useState(false);
-    const [myPos, setMyPos] = useState(0);
-    // const [isMoving, setIsMoving] = useState(false);
-    let isRoll = false;
-    // var chanceNum = null;
+  const [diceValue, setDiceValue] = useState(null);
+  const [showDiceToggle, setShowDiceToggle] = useState(false);
+  const [chanceNum, setChanceNum] = useState(null);
+  const [openChanceToggle, setOpenChanceToggle] = useState(false);
+  const [myPos, setMyPos] = useState(0);
+  // const [isMoving, setIsMoving] = useState(false);
+  let isRoll = false;
+  // var chanceNum = null;
 
-    
-    
-    // 찬스 모달
-    // 모달 버튼 누르면 랜덤 숫자 발생 => 찬스 번호 부여
-    const openChance = () => {
-      const randomNum = Math.floor(Math.random() * 5)
-      setChanceNum(randomNum)
-    };
-    
-    // 찬스 번호 없을 때 찬스 모달 open
-    useEffect(() => {
-      if (chanceNum !== null) {
-        setOpenChanceToggle(true);
-      }
-    }, [chanceNum])
-    
-    
-    const closeChance = () => {
-      setOpenChanceToggle(false);
-    };
-    
-    // 주사위 모달
-    const openDice = () => {
-        setShowDiceToggle(true);
-        isRoll = true;
-        console.log(isRoll);
-        console.log("뜨나");
-    };
+  // 찬스 모달
+  // 모달 버튼 누르면 랜덤 숫자 발생 => 찬스 번호 부여
+  const openChance = () => {
+    const randomNum = Math.floor(Math.random() * 5);
+    setChanceNum(randomNum);
+  };
 
-    // 주사위 굴릴 때마다 위치 이동
-    useEffect(() => {
-      console.log("주사위 값은 " + diceValue);
-      // 주사위 1 나왔을 때
-      if (isRoll === false && diceValue === 1) {
-        setMyPos(myPos+diceValue) 
-      }
-      // 주사위 2 이상
-      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-        console.log("왜 안뜨노...");
-        // 순서대로 움직이는 거 고쳐야함!!!!
-        var i = 0
-        while (i < diceValue) {
-          i++;
-          setTimeout(() => {
-            setMyPos(myPos => myPos+1)
-          }, 1000);
-        }
-      } 
-      setDiceValue(null);
-      console.log(diceValue);
-      console.log(myPos);
-    }, [diceValue])
+  // 찬스 번호 없을 때 찬스 모달 open
+  useEffect(() => {
+    if (chanceNum !== null) {
+      setOpenChanceToggle(true);
+    }
+  }, [chanceNum]);
 
+  const closeChance = () => {
+    setOpenChanceToggle(false);
+  };
 
-    const closeDice = useEffect(() => {
-      // console.log(diceValue);
-      if (isRoll === false && diceValue !== null) {
+  // 주사위 모달
+  const openDice = () => {
+    setShowDiceToggle(true);
+    isRoll = true;
+    console.log(isRoll);
+    console.log("뜨나");
+  };
+
+  // 주사위 굴릴 때마다 위치 이동
+  useEffect(() => {
+    console.log("주사위 값은 " + diceValue);
+    // 주사위 1 나왔을 때
+    if (isRoll === false && diceValue === 1) {
+      setMyPos(myPos + diceValue);
+    }
+    // 주사위 2 이상
+    if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+      console.log("왜 안뜨노...");
+      // 순서대로 움직이는 거 고쳐야함!!!!
+      var i = 0;
+      while (i < diceValue) {
+        i++;
+        console.log("왜 안됨");
         setTimeout(() => {
-          setShowDiceToggle(false)
-          // setDiceValue(null)
-        }, 1000)
-        console.log("닫힌다");
+          setMyPos((myPos) => myPos + 1);
+        }, 2000 * i);
       }
-    }, [diceValue])
+    }
+    setDiceValue(null);
+    console.log(diceValue);
+    console.log(myPos);
+  }, [diceValue]);
+
+  const closeDice = useEffect(() => {
     // console.log(diceValue);
+    if (isRoll === false && diceValue !== null) {
+      setTimeout(() => {
+        setShowDiceToggle(false);
+        // setDiceValue(null)
+      }, 1000);
+      console.log("닫힌다");
+    }
+  }, [diceValue]);
+  // console.log(diceValue);
 
+  // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
+  // useEffect(() => {
+  //     if (whatDiceNum===0) {
+  //       return
+  //     }
+  //     // setShowDiceToggle(true);
 
-    // 렌더링될 때마다 주사위 토글 true 됨 --> 고쳐라
-    // useEffect(() => {    
-    //     if (whatDiceNum===0) {
-    //       return
-    //     }
-    //     // setShowDiceToggle(true);
-        
-    //     setTimeout(() => {
-    //       setShowDiceToggle(false);
-    //       setWhatDiceNum(0);
-    //     }, 6000);
-    //     console.log("꺼진다");
-    //   }, [whatDiceNum]);
+  //     setTimeout(() => {
+  //       setShowDiceToggle(false);
+  //       setWhatDiceNum(0);
+  //     }, 6000);
+  //     console.log("꺼진다");
+  //   }, [whatDiceNum]);
 
-    // 주사위 굴려지고 닫히면 말 이동
-    // useEffect(() => {
-    //     if (setShowDiceToggle === false) {
+  // 주사위 굴려지고 닫히면 말 이동
+  // useEffect(() => {
+  //     if (setShowDiceToggle === false) {
 
-    //     }
-    // })
+  //     }
+  // })
 
+  // let positionList = [];
 
-    
-    // let positionList = [];
+  // for (let i = 0; i < 22; i++) {
+  //   positionList.push(i)
+  // }
 
-    // for (let i = 0; i < 22; i++) {
-    //   positionList.push(i)
-    // }
+  // let revpositionList = [-21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, -0];
+  // // console.log(positionList);
 
-    // let revpositionList = [-21, -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, -0];
-    // // console.log(positionList);
+  // const [nowPos, setNowPos] = useState(0);
 
-    // const [nowPos, setNowPos] = useState(0);
+  // var index = 0;
+  // useEffect (() => {
+  //   setInterval(() => {
+  //     setNowPos(revpositionList[index++]);
+  //     if (index === revpositionList.length)
+  //       index = 0
+  //   }, 2000)
+  // }, nowPos);
 
-    // var index = 0;
-    // useEffect (() => {
-    //   setInterval(() => {
-    //     setNowPos(revpositionList[index++]);
-    //     if (index === revpositionList.length)
-    //       index = 0
-    //   }, 2000)
-    // }, nowPos);
-
-    return (
-      <Page>
-        <Board>
-          {/* <Quiz/> */}
-          <Modal>
-            <span onClick={openChance}>I</span>
-            <span onClick={openDice}>I</span>
-          </Modal>
-          <ChanceModal
-            open={openChanceToggle}
-            close={closeChance}
-            chanceNum={chanceNum}
-            />
-          <DiceModal
-            open={showDiceToggle}
-            close={closeDice}
-            setDiceValue={setDiceValue}
-            diceValue={diceValue}
-            isRoll={isRoll}
-          ></DiceModal>
-          <Timers>
-            {/* <Timer mm="1" ss="0" /> */}
-          </Timers>
-          {/* {!isRoll & (myTurnNum === turnNum) ? (
+  return (
+    <Page>
+      <Board>
+        {/* <Quiz/> */}
+        <Modal>
+          <span onClick={openChance}>I</span>
+          <span onClick={openDice}>I</span>
+        </Modal>
+        <ChanceModal
+          open={openChanceToggle}
+          close={closeChance}
+          chanceNum={chanceNum}
+        />
+        <DiceModal
+          open={showDiceToggle}
+          close={closeDice}
+          setDiceValue={setDiceValue}
+          diceValue={diceValue}
+          isRoll={isRoll}
+        ></DiceModal>
+        <Timers>{/* <Timer mm="1" ss="0" /> */}</Timers>
+        {/* {!isRoll & (myTurnNum === turnNum) ? (
             <DiceRoller
               players={players}
               isRoll={isRoll}
@@ -1472,21 +1452,20 @@ const Map = ({
           ) : (
             ""
           )} */}
-          {/* {showDiceToggle ? (
+        {/* {showDiceToggle ? (
             <ShowDiceModal className={`dice-${whatDiceNum}`}></ShowDiceModal>
           ) : (
             ""
           )} */}
-          <Marker1 className={`pos${myPos}`}>
-            <img src={Marker1IMG} alt="marker1" id="marker1"></img>
-          </Marker1>
-          <Marker2 className={`pos${13}`}>
-            <img src={Marker2IMG} alt="marker2"></img>
-          </Marker2>
-        </Board>
-      </Page>
-    );
-    
+        <Marker1 className={`pos${myPos}`}>
+          <img src={Marker1IMG} alt="marker1" id="marker1"></img>
+        </Marker1>
+        <Marker2 className={`pos${13}`}>
+          <img src={Marker2IMG} alt="marker2"></img>
+        </Marker2>
+      </Board>
+    </Page>
+  );
 };
 
 export default Map;
