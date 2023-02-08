@@ -331,7 +331,7 @@ const LobbyPage = (
 
   ///////////////////             slider setting
   const slideRef = useRef(null);
-  const [currentImgOrder, setcCurrentImgOrder] = useState(0);
+  const [currentImgOrder, setCurrentImgOrder] = useState(0);
   const IMG_WIDTH = 100;
   const slideRange = currentImgOrder * IMG_WIDTH;
 
