@@ -45,6 +45,11 @@ class Openvidu extends Component {
       isCamera: true,
       isSpeaker: true,
       isChat: false,
+      t1Pos: 0,
+      t2Pos: 0,
+      throwUser: 0,
+      myGameNo: 0,
+      isDice: false,
     };
 
     this.initRoom = this.initRoom.bind(this);
@@ -188,6 +193,32 @@ class Openvidu extends Component {
         // On every asynchronous exception...
         mySession.on("exception", (exception) => {
           console.warn(exception);
+        });
+
+        // 게임 관련 로직 모음
+        mySession.on("TURN_UPDATE", (data) => {
+          const { nextT1Pos, nextT2Pos, beforeGameNo } = JSON.parse(data.data);
+          console.log(
+            "팀1 다음 포지션 : " +
+              nextT1Pos +
+              ", 팀2 다음 포지션 : " +
+              nextT2Pos +
+              ", 이전에 던진 유저 고유넘버 : " +
+              beforeGameNo
+          );
+
+          // 각 팀 포지션 업데이트
+          this.state.t1Pos = nextT1Pos;
+          this.state.t1Pos = nextT2Pos;
+
+          // 주사위 던짐 여부 테스트
+          if ((beforeGameNo + 1) % 6 == this.state.gameNo) {
+            this.state.isDice = true;
+            console.log("당신은 다음 턴에 주사위를 던집니다.");
+          } else {
+            this.state.isDice = false;
+            console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
+          }
         });
 
         // --- 4) Connect to the session with a valid user token ---
@@ -509,7 +540,7 @@ class Openvidu extends Component {
               {this.state.subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
-                  className="stream-container"
+                  className="stream-cvuontainer"
                   onClick={() => this.handleMainVideoStream(sub)}
                 >
                   <span>{sub.id}</span>
@@ -554,8 +585,8 @@ class Openvidu extends Component {
       APPLICATION_SERVER_URL,
       //더미 데이터
       {
-        userNo : 1,
-        userNickname : this.state.userNickname,
+        userNo: 1,
+        userNickname: this.state.userNickname,
       },
       {
         withCredentials: true,
@@ -574,8 +605,8 @@ class Openvidu extends Component {
       APPLICATION_SERVER_URL + sessionId,
       //더미 데이터
       {
-        userNo : 1,
-        userNickname : this.state.userNickname,
+        userNo: 1,
+        userNickname: this.state.userNickname,
       },
       {
         withCredentials: true,
@@ -587,6 +618,32 @@ class Openvidu extends Component {
     );
     console.log("토큰 만듬");
     return response.data; // The token
+  }
+
+  // 각 팀 말의 포지션 업데이트
+  async sendPos(subscribers) {
+    const response = await axios.post(
+      "https://i8d205.p.ssafy.io/openvidu/api/signal",
+      {
+        session: this.state.mySessionId,
+        to: this.state.subscribers,
+        type: "TURN_UPDATE",
+        data: {
+          t1Pos: this.state.t1Pos,
+          t2Pos: this.state.t2Pos,
+          throwUser: this.state.throwUser,
+        },
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        },
+      }
+    );
+    console.log("위치 전송함");
+    return response.data;
   }
 }
 
