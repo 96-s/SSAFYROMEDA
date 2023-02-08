@@ -486,26 +486,25 @@ class Openvidu extends Component {
               />
             </div>
 
-            {/* {this.state.mainStreamManager !== undefined ? (
+            {this.state.mainStreamManager !== undefined ? (
               <div id="main-video">
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
               </div>
-            ) : null} */}
+            ) : null}
 
             <div id="video-container">
-              {this.state.publisher !== undefined
-                ? // <div
-                  //   className="stream-container"
-                  //   onClick={() =>
-                  //     this.handleMainVideoStream(this.state.publisher)
-                  //   }
-                  // >
-                  //   <UserVideoComponent streamManager={this.state.publisher} />
-                  // </div>
-                  null
-                : null}
+              {/* {this.state.publisher !== undefined ? 
+              <div
+                className="stream-container"
+                onClick={() =>
+                  this.handleMainVideoStream(this.state.publisher)
+                }
+              >
+                <UserVideoComponent streamManager={this.state.publisher} />
+              </div>
+                : null} */}
               {/* 방 참가자들 */}
               {this.state.subscribers.map((sub, i) => (
                 <div
@@ -553,7 +552,11 @@ class Openvidu extends Component {
     console.log(token);
     const response = await axios.post(
       APPLICATION_SERVER_URL,
-      {},
+      //더미 데이터
+      {
+        userNo : 1,
+        userNickname : this.state.userNickname,
+      },
       {
         withCredentials: true,
         headers: {
@@ -567,9 +570,13 @@ class Openvidu extends Component {
   }
 
   async createToken(sessionId) {
-    const response = await axios.post(
+    const response = await axios.put(
       APPLICATION_SERVER_URL + sessionId,
-      {},
+      //더미 데이터
+      {
+        userNo : 1,
+        userNickname : this.state.userNickname,
+      },
       {
         withCredentials: true,
         headers: {
