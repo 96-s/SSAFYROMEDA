@@ -1,14 +1,17 @@
 import OurTeamVid from "components/room/OurTeamVid";
 import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
+import UserVideoComponent from "./UserVideoComponent";
+
 import styled from "styled-components";
+import axios from 'axios';
+import React from 'react';
+
 import { useLocation } from "react-router";
 import { useEffect } from "react";
 import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import axios from 'axios';
-
 
 const Container = styled.div`
   display: flex;
@@ -45,12 +48,28 @@ const GamePage = () => {
   const [sessionId, setSessionId] = useState(null);
   const [mainStreamManager, setMainStreamManager] = useState(null);
   const [publisher, setPublisher] = useState(null);
-  const [subscribers, setSubscribers] = useState(null);
+  const [subscribers, setSubscribers] = useState([]);
   const [isMike, setMike] = useState(true);
   const [isCamera, setIsCamera] = useState(true);
   const [isSpeaker, setIsSpeaker] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
+  // const [ov, setOv] = useState(null);
+
+  const userRef=React.createRef();
+
+  const componentDidMount = () => {
+    window.addEventListener("beforeunload", this.onbeforeunload);
+    // 스터디방에서 화상회의 입장 -> props로 roomId로 받으면 세션id 업뎃 user 정보 전역변수 가져옴 -> 상태값 업뎃
+  }
+
+  const componentWillUnmount = () => {
+    window.removeEventListener("beforeunload", this.onbeforeunload);
+    this.joinRoom();
+    return () => {
+      window.removeEventListener("beforeunload", this.onbeforeunload);
+    };
+  }
 
   // 게임 관련 변수들
   const [isGameStart, setIsGameStart] = useState(false);
@@ -148,19 +167,25 @@ const GamePage = () => {
     return res.data;    
   }
 
-  useEffect(() => {
-    const OV = new OpenVidu();
+  const handleMainVideoStream = (stream) => {
+    if (mainStreamManager !== stream) {
+      setMainStreamManager(stream);
+    }
+  }
 
-    OV.setAdvancedConfiguration({
+  useEffect(() => {
+    const ov=new OpenVidu();
+
+    ov.setAdvancedConfiguration({
       publisherSpeakingEventsOptions: {
         interval: 50,
         threshold: -75,
       },
     });
 
-    // setSession(OV.initSession());
+    setSession(ov.initSession());
 
-    const mySession=OV.initSession();
+    const mySession=ov.initSession();
     console.log("세션 생성 후");
     console.log(mySession);
 
@@ -192,7 +217,7 @@ const GamePage = () => {
         .then(async () => {
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
-          let publisher = await this.OV.initPublisherAsync(undefined, {
+          let publisher = await ov.initPublisherAsync(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
             videoSource: undefined, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
@@ -205,10 +230,9 @@ const GamePage = () => {
 
           mySession.publish(publisher);
           console.log("퍼블리시 후");
-          console.log(this.state);
 
           // Obtain the current video device in use
-          var devices = await this.OV.getDevices();
+          var devices = await ov.getDevices();
           var videoDevices = devices.filter(
             (device) => device.kind === "videoinput"
           );
@@ -232,16 +256,45 @@ const GamePage = () => {
           );
         });
     });
+    
   }, []);
 
   return (
-    <Page>
-      <Container>
-        <OurTeamVid/>
-        <Map/>
-        <TheirTeamVid/>
-      </Container>
-    </Page>
+    <div id = "session">
+      <div id="main-video">
+        <UserVideoComponent streamManager={mainStreamManager}/>
+      </div>
+      <div id="video-container">
+        {/* {this.state.publisher !== undefined ? 
+        <div
+          className="stream-container"
+          onClick={() =>
+            this.handleMainVideoStream(this.state.publisher)
+          }
+        >
+          <UserVideoComponent streamManager={this.state.publisher} />
+        </div>
+          : null} */}
+        {/* 방 참가자들 */}
+        {subscribers.map((sub, i) => (
+          <div
+            key={sub.id}
+            className="stream-cvuontainer"
+            onClick={() => handleMainVideoStream(sub)}
+          >
+            <span>{sub.id}</span>
+            <UserVideoComponent streamManager={sub} />
+          </div>
+        ))}
+      </div>
+    </div>
+    // <Page>
+    //   <Container>
+    //     <OurTeamVid/>
+    //     <Map/>
+    //     <TheirTeamVid/>
+    //   </Container>
+    // </Page>
   );
 };
 
