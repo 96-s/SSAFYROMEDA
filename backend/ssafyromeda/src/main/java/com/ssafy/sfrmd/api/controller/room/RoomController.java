@@ -68,18 +68,18 @@ public class RoomController {
     }
 
 
-    @PutMapping("/{sessionId}")
-    public ResponseEntity<?> connectRoom(@PathVariable("sessionId") String sessionId, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
+    @PutMapping("/{roomCode}")
+    public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
-        roomService.connectRoom(roomConnectRequest.getRoomCode());
+        roomService.connectRoom(roomCode);
 
         Map<String, Object> params = new HashMap<>();
         params.put("userNo", roomConnectRequest.getUserNo());
         params.put("userNickname", roomConnectRequest.getUserNickname());
 
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
-        Session session = openvidu.getActiveSession(sessionId);
+        Session session = openvidu.getActiveSession(roomCode);
 
         if (session != null) {
             Connection connection = session.createConnection(properties);
