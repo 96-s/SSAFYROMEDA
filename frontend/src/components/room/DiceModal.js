@@ -18,7 +18,7 @@ const DiceModal = (props) => {
     close, 
     // header,
     isRoll,
-    sessionIdValue,
+    sessionId,
     players,
     posList,
     turnNum,
@@ -47,7 +47,7 @@ const DiceModal = (props) => {
                 posList={posList}
                 playerNum={playerNum}
                 myTurnNum={myTurnNum}
-                mySessionIdValue={sessionIdValue}
+                sessionId={sessionId}
                 setDiceValue={setDiceValue}
                 diceValue={diceValue}
                 ></DiceRoller>
