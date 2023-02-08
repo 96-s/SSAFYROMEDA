@@ -1,7 +1,11 @@
 import { OpenVidu } from "openvidu-browser";
 import { connect } from "react-redux";
+import React from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
-import React, { Component } from "react";
 // import './App.css';
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
@@ -25,57 +29,55 @@ const OpenviduTest2 = () => {
   const { state } = useLocation();
   const { userNickname, userNo } = useSelector(state => state.auth.user)
 
+  const [ov, setOv] = useState(null);
   const [session, setSession] = useState(undefined);
   const [mySessionId, setMySessionId] = useState("");
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(undefined);
   const [subscribers, setSubscribers] = useState([]);
-  const [isMike, setMike] = useState(true);
+  const [isMike, setIsMike] = useState(true);
   const [isCamera, setIsCamera] = useState(true);
   const [isSpeaker, setIsSpeaker] = useState(true);
   const [isChat, setIsChat] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
 
+
   const componentDidMount = () => {
-    window.addEventListener("beforeunload", this.onbeforeunload);
+    window.addEventListener("beforeunload", onbeforeunload);
     // 스터디방에서 화상회의 입장 -> props로 roomId로 받으면 세션id 업뎃 user 정보 전역변수 가져옴 -> 상태값 업뎃
   }
 
   const componentWillUnmount = () => {
-    window.removeEventListener("beforeunload", this.onbeforeunload);
-    this.joinRoom();
+    window.removeEventListener("beforeunload", onbeforeunload);
+    joinRoom();
     return () => {
-      window.removeEventListener("beforeunload", this.onbeforeunload);
+      window.removeEventListener("beforeunload", onbeforeunload);
     };
   }
 
   const onbeforeunload = (event) => {
-    this.leaveSession();
+    leaveSession();
   }
 
   const handleToggle = (kind) => {
     if (publisher) {
       switch (kind) {
         case "camera":
-          this.setState({ isCamera: !isCamera }, () => {
-            console.log(publisher);
-            publisher.publishVideo(isCamera);
-          });
+          setIsCamera(!isCamera);
+          console.log(publisher);
+          publisher.publishVideo(isCamera);
           break;
 
         case "speaker":
-          this.setState({ isSpeaker: !isSpeaker }, () => {
-            subscribers.forEach((s) =>
-              s.subscribeToAudio(isSpeaker)
-            );
-          });
+          setIsSpeaker(!isSpeaker);
+          subscribers.forEach((s) =>
+            s.subscribeToAudio(isSpeaker))
           break;
 
         case "mike":
-          this.setState({ isMike: !isMike }, () => {
-            publisher.publishAudio(isMike);
-          });
+          setIsMike(!isMike);
+          publisher.publishVideo(isMike);
           break;
       }
     }
@@ -127,9 +129,10 @@ const OpenviduTest2 = () => {
         },
       }
     );
-
-    console.log(response);
-    const mySessionId=response.data;
+    
+    console.log("세션만듬");
+    const mySessionId = response.data;
+    console.log(`session id : ${mySessionId}`);
 
     const res = await axios.put(
       APPLICATION_SERVER_URL + mySessionId,
@@ -185,27 +188,30 @@ const OpenviduTest2 = () => {
       },
     });
 
-    setSession(OV.initSession());
-
     const mySession=ov.initSession();
+    setSession(mySession);
+    
     console.log("세션 생성 후");
     console.log(mySession);
 
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
+      console.log("stream created!!");
       let subscriber = mySession.subscribe(event.stream, undefined);
-      var subscribers = this.state.subscribers;
-      subscribers.push(subscriber);
+      console.log(subscriber);
+      console.log(subscribers);
+      var Subscribers = subscribers;
+      Subscribers.push(subscriber);
 
       // Update the state with the new subscribers
-      setSubscribers(subscribers);
+      setSubscribers(Subscribers);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
     mySession.on("streamDestroyed", (event) => {
       // Remove the stream from 'subscribers' array
-      this.deleteSubscriber(event.stream.streamManager);
+      deleteSubscriber(event.stream.streamManager);
     });
 
     // On every asynchronous exception...
@@ -245,7 +251,6 @@ const OpenviduTest2 = () => {
           var currentVideoDevice = videoDevices.find(
             (device) => device.deviceId === currentVideoDeviceId
           );
-
           setCurrentVideoDevice(currentVideoDevice);
           setMainStreamManager(publisher);
           setPublisher(publisher);
@@ -271,9 +276,9 @@ const OpenviduTest2 = () => {
     });
 
     console.log("방에 들어갑니다.");
-    setSession(ov.initSession());
-
-    const mySession=ov.initSession();
+    let mySession=ov.initSession();
+    
+    setSession(mySession);
     console.log("세션 생성 후");
     console.log(mySession);
 
@@ -281,17 +286,18 @@ const OpenviduTest2 = () => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
       let subscriber = mySession.subscribe(event.stream, undefined);
-      var subscribers = this.state.subscribers;
-      subscribers.push(subscriber);
+      console.log(`subscriber : ${subscriber}`);
+      var Subscribers = subscribers;
+      Subscribers.push(subscriber);
 
       // Update the state with the new subscribers
-      setSubscribers(subscribers);
+      setSubscribers(Subscribers);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
     mySession.on("streamDestroyed", (event) => {
       // Remove the stream from 'subscribers' array
-      this.deleteSubscriber(event.stream.streamManager);
+      deleteSubscriber(event.stream.streamManager);
     });
 
     // On every asynchronous exception...
@@ -312,7 +318,7 @@ const OpenviduTest2 = () => {
 
             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
             // element: we will manage it on our own) and with the desired properties
-            let publisher = await this.OV.initPublisherAsync(undefined, {
+            let publisher = await ov.initPublisherAsync(undefined, {
                 audioSource: undefined, // The source of audio. If undefined default microphone
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
@@ -359,18 +365,18 @@ const OpenviduTest2 = () => {
   const leaveSession = () => {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
-    const mySession = this.state.session;
+    const mySession = session;
 
     if (mySession) {
       mySession.disconnect();
     }
 
     // Empty all properties...
-    ov = null;
+    setOv(null);
     setSession(undefined);
     setSubscribers([]);
-    setMySessionId("SessionA");
-    setMyUserName(userNickname);
+    setMySessionId("");
+    setMyUserName("");
     setMainStreamManager(undefined);
     setPublisher(undefined);
   }
@@ -384,13 +390,13 @@ const OpenviduTest2 = () => {
 
       if (videoDevices && videoDevices.length > 1) {
         var newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+          (device) => device.deviceId !== currentVideoDevice.deviceId
         );
 
         if (newVideoDevice.length > 0) {
           // Creating a new publisher with specific videoSource
           // In mobile devices the default and first camera is the front one
-          var newPublisher = this.OV.initPublisher(undefined, {
+          var newPublisher = ov.initPublisher(undefined, {
             videoSource: newVideoDevice[0].deviceId,
             publishAudio: true,
             publishVideo: true,
@@ -398,130 +404,119 @@ const OpenviduTest2 = () => {
           });
 
           //newPublisher.once("accessAllowed", () => {
-          await this.state.session.unpublish(this.state.mainStreamManager);
+          await session.unpublish(mainStreamManager);
 
-          await this.state.session.publish(newPublisher);
-          this.setState({
-            currentVideoDevice: newVideoDevice[0],
-            mainStreamManager: newPublisher,
-            publisher: newPublisher,
-          });
+          await session.publish(newPublisher);
+          setCurrentVideoDevice(newVideoDevice);
+          setMainStreamManager(newPublisher);
+          setPublisher(newPublisher);
         }
       }
     } catch (e) {
       console.error(e);
     }
   }
+
+  console.log(mySessionId);
     return (
-        <div className="container">
-        {this.state.session === undefined ? (
-            <div id="join">
+      <div className="container">
+        {session === undefined ? (
+          <div id="join">
             <div id="join-dialog" className="jumbotron vertical-center">
                 <SessionIdDiv>
                 <h1> Join a video session </h1>
                 </SessionIdDiv>
-                <form className="form-group" onSubmit={this.initRoom}>
-                <p className="text-center">
-                    <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="INIT"
-                    />
-                </p>
+                <form className="form-group" onSubmit={initRoom}>
+                  <p className="text-center">
+                      <input
+                      className="btn btn-lg btn-success"
+                      name="commit"
+                      type="submit"
+                      value="INIT"
+                      />
+                  </p>
                 </form>
-                <form className="form-group" onSubmit={this.joinRoom}>
-                <p>
-                    <label> Code: </label>
-                    <input
-                    className="form-control"
-                    type="text"
-                    id="sessionId"
-                    value={mySessionId}
-                    onChange={this.handleChangeSessionId}
-                    required
-                    />
-                </p>
-                <p className="text-center">
-                    <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                    />
-                </p>
+                <form className="form-group" onSubmit={joinRoom}>
+                  <p>
+                      <label> Code: </label>
+                      <input
+                      className="form-control"
+                      type="text"
+                      id="sessionId"
+                      value={mySessionId}
+                      onChange={handleChangeSessionId}
+                      required
+                      />
+                  </p>
+                  <p className="text-center">
+                      <input
+                      className="btn btn-lg btn-success"
+                      name="commit"
+                      type="submit"
+                      value="JOIN"
+                      />
+                  </p>
                 </form>
             </div>
-            </div>
+          </div>
         ) : null}
 
-        {this.state.session !== undefined ? (
-            <div id="session">
+        {session !== undefined ? (
+          <div id="session">
             <div id="session-header">
-                <SessionIdDiv>
+              <SessionIdDiv>
                 <h1 id="session-title">Room Code: {mySessionId}</h1>
-                </SessionIdDiv>
+              </SessionIdDiv>
                 <input
                 className="btn btn-large btn-danger"
                 type="button"
                 id="buttonLeaveSession"
-                onClick={this.leaveSession}
+                onClick={leaveSession}
                 value="Leave session"
                 />
                 <input
                 className="btn btn-large btn-success"
                 type="button"
                 id="buttonSwitchCamera"
-                onClick={this.switchCamera}
+                onClick={switchCamera}
                 value="Switch Camera"
                 />
             </div>
 
-            {this.state.mainStreamManager !== undefined ? (
+            {mainStreamManager !== undefined ? (
                 <div id="main-video">
                 <UserVideoComponent
-                    streamManager={this.state.mainStreamManager}
+                    streamManager={mainStreamManager}
                 />
                 </div>
             ) : null}
 
             <div id="video-container">
-                {/* {this.state.publisher !== undefined ? 
+                {/* {publisher !== undefined ? 
                 <div
                 className="stream-container"
                 onClick={() =>
-                    this.handleMainVideoStream(this.state.publisher)
+                    handleMainVideoStream(publisher)
                 }
                 >
-                <UserVideoComponent streamManager={this.state.publisher} />
+                <UserVideoComponent streamManager={publisher} />
                 </div>
                 : null} */}
                 {/* 방 참가자들 */}
-                {this.state.subscribers.map((sub, i) => (
+                {subscribers.map((sub, i) => (
                 <div
-                    key={sub.id}
-                    className="stream-cvuontainer"
-                    onClick={() => this.handleMainVideoStream(sub)}
+                  key={sub.id}
+                  className="stream-cvuontainer"
+                  onClick={() => handleMainVideoStream(sub)}
                 >
-                    <span>{sub.id}</span>
-                    <UserVideoComponent streamManager={sub} />
+                  <span>{sub.id}</span>
+                  <UserVideoComponent streamManager={sub} />
                 </div>
                 ))}
             </div>
-            </div>
+          </div>
         ) : null}
-        </div>
+      </div>
     );
-  }
-
-export default connect(mapStateToProps, mapDispatchToProps)(OpenviduTest2);
-
-// 리덕스 state에 있는 값 사용할 때
-const mapStateToProps = (state) => ({
-  userInfo: state.auth,
-});
-
-// // 리덕스 slice의 actions 사용할 때
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
+}
+export default OpenviduTest2;

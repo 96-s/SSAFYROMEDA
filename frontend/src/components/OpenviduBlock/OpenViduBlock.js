@@ -270,6 +270,7 @@ const OpenViduBlock = ({}) => {
         )
         .then((response) => {
           console.log("CREATE_SESSION", response);
+          setMySessionId(response.data)
           resolve(response.data);
         })
         .catch((response) => {
@@ -384,10 +385,8 @@ const OpenViduBlock = ({}) => {
   const mySessionIdValue = mySessionId;
   const myUserNameValue = myUserName;
 
-  console.log(session);
-  console.log(mySessionId);
-  console.log(userNickname);
-
+  console.log("mySessionId는" + mySessionId);
+  
   return (
     <OpenViduContainer className={isGameStart ? "" : "waitingRoom"}>
       {mySessionId === undefined ? (

@@ -1,5 +1,5 @@
 
-import Openvidu from "components/OpenviduTest/Openvidu";
+import OpenviduTest2 from "components/OpenviduTest/OpenviduTest2";
 import { useLocation } from "react-router-dom";
 
 const TestPage2 = () => {
@@ -12,7 +12,7 @@ const TestPage2 = () => {
   return (
     <div>
       <h1>OpenviduPage2</h1>
-      <Openvidu
+      <OpenviduTest2
         // sessionNickname={sessionNickname}
         // sessionRoomId={sessionRoomId}
         // sessionCapacity={sessionCapacity}
