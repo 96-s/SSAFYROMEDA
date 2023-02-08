@@ -1362,8 +1362,8 @@ const Map = ({
       // 주사위 1 나왔을 때
       if (isRoll === false && diceValue === 1) {
         setMyPos(myPos+diceValue) 
-      // 주사위 2 이상
       }
+      // 주사위 2 이상
       if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
         console.log("왜 안뜨노...");
         // 순서대로 움직이는 거 고쳐야함!!!!
@@ -1379,6 +1379,7 @@ const Map = ({
       console.log(diceValue);
       console.log(myPos);
     }, [diceValue])
+
 
     const closeDice = useEffect(() => {
       // console.log(diceValue);
