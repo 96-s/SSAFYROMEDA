@@ -11,6 +11,11 @@ const MakeRoomDiv = styled.div`
   flex: auto;
 `;
 
+const RoomcodeDiv = styled.div`
+  color: black;
+  display: center;
+`
+
 const MakeRoomModal = (props) => {
   const navigate = useNavigate();
 
@@ -38,16 +43,13 @@ const MakeRoomModal = (props) => {
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>
-            {header}
-            <button className="close" onClick={close}>
-              &times;
-            </button>
-          </header>
+          <header>{header}</header>
           <main>
             <MakeRoomDiv>
               <div>
-                <span>{roomCode}</span>
+                <RoomcodeDiv>
+                  <span className="nes-text is-primary">{roomCode}</span>
+                </RoomcodeDiv>
                 <MyButton
                   type={"Korean"}
                   className={"is-primary"}

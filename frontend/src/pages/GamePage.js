@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { useEffect } from "react";
 import { OpenVidu } from "openvidu-browser";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from 'axios';
 
 
@@ -38,6 +39,7 @@ if (temp) {
 
 const GamePage = () => {
   const { state } = useLocation();
+  const { userNickname, userNo } = useSelector(state => state.auth.user)
 
   const [session, setSession] = useState(null);
   const [sessionId, setSessionId] = useState(null);
@@ -54,8 +56,8 @@ const GamePage = () => {
     const response = await axios.post(
       APPLICATION_SERVER_URL,
       {
-        userNo : 1,
-        userNickname : "abc",
+        userNo : userNo,
+        userNickname : userNickname,
       },
       {
         withCredentials: true,
