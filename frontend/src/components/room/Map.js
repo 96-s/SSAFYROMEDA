@@ -343,7 +343,8 @@ const Marker1 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  역방향 &.pos-0 {
+  // 역방향 
+  &.pos-0 {
     top: 0.8%;
     left: 4%;
     @keyframes moveToLeft-0 {
@@ -649,7 +650,6 @@ const Marker2 = styled.div`
   z-index: 5;
 
   // 정방향
-  // 정방향
   &.pos0 {
     top: 0.8%;
     left: 4%;
@@ -947,7 +947,9 @@ const Marker2 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  역방향 &.pos-0 {
+  // 역방향 
+  
+  &.pos-0 {
     top: 0.8%;
     left: 4%;
     @keyframes moveToLeft-0 {
