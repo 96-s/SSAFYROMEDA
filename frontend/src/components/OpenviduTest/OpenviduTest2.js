@@ -9,6 +9,7 @@ import axios from "axios";
 // import './App.css';
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
+import LobbyPage from "pages/LobbyPage";
 
 const SessionIdDiv = styled.div`
   color: white;
@@ -425,44 +426,49 @@ const OpenviduTest2 = () => {
     return (
       <div className="container">
         {session === undefined ? (
-          <div id="join">
-            <div id="join-dialog" className="jumbotron vertical-center">
-                <SessionIdDiv>
-                <h1> Join a video session </h1>
-                </SessionIdDiv>
-                <form className="form-group" onSubmit={initRoom}>
-                  <p className="text-center">
-                      <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="INIT"
-                      />
-                  </p>
-                </form>
-                <form className="form-group" onSubmit={joinRoom}>
-                  <p>
-                      <label> Code: </label>
-                      <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={handleChangeSessionId}
-                      required
-                      />
-                  </p>
-                  <p className="text-center">
-                      <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="JOIN"
-                      />
-                  </p>
-                </form>
-            </div>
-          </div>
+          // <div id="join">
+          //   <div id="join-dialog" className="jumbotron vertical-center">
+          //       <SessionIdDiv>
+          //       <h1> Join a video session </h1>
+          //       </SessionIdDiv>
+          //       <form className="form-group" onSubmit={initRoom}>
+          //         <p className="text-center">
+          //             <input
+          //             className="btn btn-lg btn-success"
+          //             name="commit"
+          //             type="submit"
+          //             value="INIT"
+          //             />
+          //         </p>
+          //       </form>
+          //       <form className="form-group" onSubmit={joinRoom}>
+          //         <p>
+          //             <label> Code: </label>
+          //             <input
+          //             className="form-control"
+          //             type="text"
+          //             id="sessionId"
+          //             value={mySessionId}
+          //             onChange={handleChangeSessionId}
+          //             required
+          //             />
+          //         </p>
+          //         <p className="text-center">
+          //             <input
+          //             className="btn btn-lg btn-success"
+          //             name="commit"
+          //             type="submit"
+          //             value="JOIN"
+          //             />
+          //         </p>
+          //       </form>
+          //   </div>
+          // </div>
+          <LobbyPage
+            initRoom={initRoom}
+            joinRoom={joinRoom}
+            sessionId={mySessionId}
+          />
         ) : null}
 
         {session !== undefined ? (

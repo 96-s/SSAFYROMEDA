@@ -293,7 +293,11 @@ const SlideButton = styled.div`
 
 ///////////////////             Function
 
-const LobbyPage = () => {
+const LobbyPage = (
+  joinRoom,
+  initRoom,
+  sessionId,
+) => {
   const dispatch = useDispatch();
 
   //토큰 테스트
@@ -420,30 +424,36 @@ const LobbyPage = () => {
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
           <ButtonBox>
             <SectionUnderOne>
-              <MyButton
-                lang={"Korean"}
-                text={"　우주선 생성　"}
-                onClick={() => {
-                  createGameRoomHandle();
-                  openMakeRoomModal();
-                }}
-              />
+              <form className="form-group" onSubmit={()=>(initRoom)}>
+                <MyButton
+                  lang={"Korean"}
+                  text={"　우주선 생성　"}
+                  onClick={() => {
+                    createGameRoomHandle();
+                    openMakeRoomModal();
+                  }}
+                />
+              </form>
               {/* //header 부분에 텍스트를 입력한다. */}
               <MakeRoomModal
                 open={MakeRoomModalOpen}
                 close={closeMakeRoomModal}
+                joinRoom={joinRoom}
+                sessionId={sessionId}
                 header="우주선 생성"
               >
                 임시
               </MakeRoomModal>
             </SectionUnderOne>
             <SectionUnderTwo>
-              <MyButton
+              <form className="form-group" onSubmit={()=>(joinRoom)}>
+                <MyButton
                 lang={"Korean"}
                 text={"　우주선 탑승　"}
                 type={"is-warning"}
                 onClick={openEnterRoomModal}
               />
+              </form>
               <EnterRoomModal
                 open={EnterRoomModalOpen}
                 close={closeEnterRoomModal}
