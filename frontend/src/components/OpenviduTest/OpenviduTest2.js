@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import LobbyPage from "pages/LobbyPage";
 
 import axios from "axios";
 import styled from "styled-components";
@@ -167,7 +168,7 @@ const OpenviduTest2 = () => {
     return res.data;
   };
 
-  const initRoom = () => {
+  const initRoom = async () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
@@ -214,27 +215,31 @@ const OpenviduTest2 = () => {
       mySession
         .connect(token, { clientData: userNickname })
         .then(async () => {
-          var devices = await tempOv.getDevices();
-          var videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
-
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
           let tempPublisher = tempOv.initPublisher(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+            videoSource: undefined, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: false, // 거울모드
+            mirror: true, // 거울모드
           });
-
+          var devices = await tempOv.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
           mySession.publish(tempPublisher);
           console.log("퍼블리시 후");
-
+          var currentVideoDeviceId = publisher.stream
+            .getMediaStream()
+            .getVideoTracks()[0]
+            .getSettings().deviceId;
+          var currentVideoDevice = videoDevices.find(
+            (device) => device.deviceId === currentVideoDeviceId
+          );
           // Obtain the current video device in use
           setCurrentVideoDevice(currentVideoDevice);
           setMainStreamManager(tempPublisher);
@@ -250,7 +255,7 @@ const OpenviduTest2 = () => {
     });
   };
 
-  const joinRoom = () => {
+  const joinRoom = async () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
@@ -268,8 +273,21 @@ const OpenviduTest2 = () => {
       var tempSubscribers = subscribers;
       // 리액트에서 배열을 다른 변수에 바로 대입하는것은 참조되기 때문에 state가 즉각 변하지 않음
 
+      const addUserName = JSON.parse(
+        tempSubscriber.stream.connection.data
+      ).clientData;
+      console.error("이름은", addUserName);
       tempSubscribers.push(tempSubscriber);
+      let tempPlayers = tempSubscribers.map(
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
+      );
 
+      // 자기 자신 없으면 넣어야함
+      if (tempPlayers.includes(myUserName) === false) {
+        tempPlayers.push(myUserName);
+      }
+
+      console.error("한명더들어왔어요!", tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
@@ -290,23 +308,20 @@ const OpenviduTest2 = () => {
     // --- 4) Connect to the session with a valid user token ---
 
     // Get a token from the OpenVidu deployment
-    getToken(mySessionId).then((token) => {
+
+    getToken().then((token) => {
       // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
       // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
       mySession
         .connect(token, { clientData: myUserName })
         .then(async () => {
-          var devices = await tempOv.getDevices();
-          var videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
           // --- 5) Get your own camera stream ---
 
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
           let tempPublisher = await tempOv.initPublisher(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
+            videoSource: undefined, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
@@ -317,9 +332,13 @@ const OpenviduTest2 = () => {
 
           // --- 6) Publish your stream ---
           mySession.publish(tempPublisher);
-
+          var devices = await tempOv.getDevices();
+          var currentVideoDevice = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
           // Set the main video in the page to display our webcam and store our Publisher
-          setCurrentVideoDevice(videoDevices[0]);
+          setCurrentVideoDevice(currentVideoDevice);
+
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
@@ -477,9 +496,10 @@ const OpenviduTest2 = () => {
                 </div>
                 : null} */}
             {/* 방 참가자들 */}
-            {subscribers.map((sub) => (
+
+            {subscribers.map((sub, i) => (
               <div
-                key={sub}
+                key={sub.id}
                 className="stream-cvuontainer"
                 onClick={() => handleMainVideoStream(sub)}
               >
