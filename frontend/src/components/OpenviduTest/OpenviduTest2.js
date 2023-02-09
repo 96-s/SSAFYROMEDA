@@ -509,7 +509,7 @@ const OpenviduTest2 = () => {
                 {subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
-                  className="stream-container"
+                  className="stream-cvuontainer"
                   onClick={() => handleMainVideoStream(sub)}
                 >
                   <span>{sub.id}</span>
