@@ -23,17 +23,29 @@ const MiddleBox = styled.div`
     margin-bottom: 2vh;
 `;
 
-const OurTeamVid = () => {
+const StreamComponent = styled.div`
+    display: flex;
+    // height: 300px;
+    // aspect-ratio: 4 / 3;
+`;
+
+const OurTeamVid = ({
+  mainStreamManager,
+  subscribers
+}) => {
     return (
       <Page>
         <Video>
           <Box>1</Box>
+            <StreamComponent></StreamComponent>
           <Nickname>닉네임: 가가가가</Nickname>
             <MiddleBox>
+              <StreamComponent></StreamComponent>
             <Box>2</Box>
             <Nickname>닉네임: 가가가가</Nickname>
             </MiddleBox>
           <Box>3</Box>
+            <StreamComponent></StreamComponent>
           <Nickname>닉네임: 가가가가</Nickname>
         </Video>
       </Page>
