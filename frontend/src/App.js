@@ -19,6 +19,8 @@ import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
 import GameRoomPage from "pages/GameRoomPage";
 
+import OpenviduUiTest from "pages/UiTest";
+
 // import { Provider } from "react-redux";
 
 // 스크롤바 없애기 누가 만들어주세요..
@@ -65,6 +67,7 @@ function App() {
           <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
+          <Route path="/openviduuitest" element={<OpenviduUiTest />} />
         </Routes>
       </div>
     </div>
