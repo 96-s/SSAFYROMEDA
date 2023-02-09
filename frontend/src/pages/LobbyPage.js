@@ -426,6 +426,7 @@ const LobbyPage = ({
           <ButtonBox>
             <SectionUnderOne>
               {/* <form className="form-group" onSubmit={()=>(initRoom)}>
+
                 <MyButton
                   lang={"Korean"}
                   text={"　우주선 생성　"}

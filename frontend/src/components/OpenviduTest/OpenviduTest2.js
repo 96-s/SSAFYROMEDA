@@ -1,10 +1,10 @@
 import { OpenVidu } from "openvidu-browser";
 import { connect } from "react-redux";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import LobbyPage from "pages/LobbyPage";
 
 import axios from "axios";
@@ -127,10 +127,13 @@ const OpenviduTest2 = () => {
 
     const mySessionId = response.data;
     setMySessionId(mySessionId);
-    console.log(`session id : ${mySessionId}`);
 
+    console.log(`session id : ${mySessionId}`);
+  };
+
+  const createToken = async (sessionId) => {
     const res = await axios.put(
-      APPLICATION_SERVER_URL + mySessionId,
+      APPLICATION_SERVER_URL + sessionId,
       {
         userNo: userNo,
         userNickname: userNickname,
@@ -180,6 +183,7 @@ const OpenviduTest2 = () => {
     });
 
     const tempSession = tempOv.initSession();
+
     setSession(tempSession);
 
     var mySession = tempSession;
@@ -233,6 +237,7 @@ const OpenviduTest2 = () => {
           );
           mySession.publish(tempPublisher);
           console.log("퍼블리시 후");
+
           var currentVideoDeviceId = publisher.stream
             .getMediaStream()
             .getVideoTracks()[0]
@@ -240,6 +245,7 @@ const OpenviduTest2 = () => {
           var currentVideoDevice = videoDevices.find(
             (device) => device.deviceId === currentVideoDeviceId
           );
+
           // Obtain the current video device in use
           setCurrentVideoDevice(currentVideoDevice);
           setMainStreamManager(tempPublisher);

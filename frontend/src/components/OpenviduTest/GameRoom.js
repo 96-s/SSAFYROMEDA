@@ -1,8 +1,6 @@
 import { OpenVidu } from "openvidu-browser";
-import { connect } from "react-redux";
 import React from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -37,7 +35,7 @@ const GameRoom = () => {
   const [isMike, setIsMike] = useState(true);
   const [isCamera, setIsCamera] = useState(true);
   const [isSpeaker, setIsSpeaker] = useState(true);
-  const [myUserName, setMyUserName] = useState((state) => state.auth.user); // 내 유저 닉네임
+  const [myUserName, setMyUserName] = useState(null); // 내 유저 닉네임
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
 
   // 게임 관련 변수
@@ -57,7 +55,6 @@ const GameRoom = () => {
   useEffect(() => {
     // 유저가 방에 처음 들어왔을 때 상태를 다시 세팅한다.
     window.addEventListener("beforeunload", onbeforeunload);
-    joinRoom();
     window.removeEventListener("beforeunload", onbeforeunload); // 안전 장치 (추후 제거 예정)
     return () => {
       window.removeEventListener("beforeunload", onbeforeunload);
@@ -84,7 +81,7 @@ const GameRoom = () => {
           break;
 
         case "mike":
-          thisSetIsMike(!isMike);
+          setIsMike(!isMike);
           publisher.publishAudio(isMike);
           break;
       }
@@ -105,42 +102,139 @@ const GameRoom = () => {
     }
 
     // 모든 속성을 비웁니다.
-    ov = null;
-
+    setOv(null);
     setSession(undefined);
     setSubscribers([]);
-    setSessionId(SessionA);
+    setMySessionId(null);
     // myUserName: "Participant" + Math.floor(Math.random() * 10),
     setMyUserName(userNickname);
     setMainStreamManager(undefined);
     setPublisher(undefined);
   };
 
-  handleMainVideoStream(stream) {
-    if (this.state.mainStreamManager !== stream) {
-      this.setState({
-        mainStreamManager: stream,
-      });
+  const handleMainVideoStream = (stream) => {
+    if (mainStreamManager !== stream) {
+      setMainStreamManager(stream);
     }
-  }
+  };
 
-  const deleteSubscriber = (streamManager) =>  {
+  const deleteSubscriber = (streamManager) => {
     let mySubscribers = subscribers;
     let index = mySubscribers.indexOf(streamManager, 0);
     const removeName = JSON.parse(
-        mySubscribers[index].stream.connection.data
+      mySubscribers[index].stream.connection.data
     ).clientData;
     console.log("제거할 이름", removeName);
 
     if (index > -1) {
-        mySubscribers.splice(index, 1);
+      mySubscribers.splice(index, 1);
 
-        setSubscribers: mySubscribers,
+      setSubscribers(mySubscribers);
 
       console.error("나간 후 리스트", mySubscribers);
     }
-  }
+  };
+
   const joinRoom = () => {
+    let newOv = new OpenVidu();
+    setOv(newOv);
+
+    ov.setAdvancedConfiguration({
+      publisherSpeakingEventsOptions: {
+        interval: 50,
+        threshold: -75,
+      },
+    });
+
+    console.log("방에 들어갑니다.");
+    setSession(ov.initSession());
+
+    let mySession = session;
+
+    // --- 3) Specify the actions when events take place in the session ---
+
+    // Session 객체가 각각 새로운 stream에 대해 구독 후, subscribers 상태값 업뎃
+    mySession.on("streamCreated", (event) => {
+      // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
+      // 요소 삽입X
+      let subscriber = mySession.subscribe(event.stream, undefined);
+      // console.log(`전 ` + subscribers);
+      var mySubscribers = subscribers;
+      mySubscribers.push(subscriber);
+
+      // Update the state with the new subscribers
+      setSubscribers(mySubscribers);
+      console.log(`후 ` + subscribers);
+    });
+
+    // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
+    mySession.on("streamDestroyed", (event) => {
+      // Remove the stream from 'subscribers' array
+      deleteSubscriber(event.stream.streamManager);
+    });
+
+    // On every asynchronous exception...
+    mySession.on("exception", (exception) => {
+      console.warn(exception);
+    });
+
+    // --- 4) Connect to the session with a valid user token ---
+
+    // Get a token from the OpenVidu deployment
+    guest(mySessionId).then((token) => {
+      // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
+      // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+      mySession
+        .connect(token, { clientData: myUserName })
+        .then(async () => {
+          // --- 5) Get your own camera stream ---
+
+          // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
+          // element: we will manage it on our own) and with the desired properties
+          let publisher = await ov.initPublisherAsync(undefined, {
+            audioSource: undefined, // The source of audio. If undefined default microphone
+            videoSource: undefined, // The source of video. If undefined default webcam
+            publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+            publishVideo: true, // Whether you want to start publishing with your video enabled or not
+            resolution: "251.2x188.4", // 해상도
+            frameRate: 30, // The frame rate of your video
+            insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+            mirror: true, // Whether to mirror your local video or not
+          });
+
+          // --- 6) Publish your stream ---
+
+          mySession.publish(publisher);
+
+          // Obtain the current video device in use
+          var devices = await ov.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+          var currentVideoDeviceId = publisher.stream
+            .getMediaStream()
+            .getVideoTracks()[0]
+            .getSettings().deviceId;
+          var currentVideoDevice = videoDevices.find(
+            (device) => device.deviceId === currentVideoDeviceId
+          );
+
+          // Set the main video in the page to display our webcam and store our Publisher
+          setCurrentVideoDevice(currentVideoDevice);
+          setMainStreamManager(publisher);
+          setPublisher(publisher);
+        })
+        .catch((error) => {
+          console.log(
+            "There was an error connecting to the session:",
+            error.code,
+            error.message
+          );
+        });
+    });
+  };
+
+  const initRoom = () => {
     ov = new OpenVidu();
 
     ov.setAdvancedConfiguration({
@@ -185,7 +279,7 @@ const GameRoom = () => {
     // --- 4) Connect to the session with a valid user token ---
 
     // Get a token from the OpenVidu deployment
-    getToken(mySessionId).then((token) => {
+    host().then((token) => {
       // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
       // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
       mySession
@@ -275,22 +369,49 @@ const GameRoom = () => {
     }
   };
 
-  const getToken = async () => {
+  const host = async () => {
+    const sessionId = await createSession();
+    mySessionId = sessionId;
+    return await createToken(sessionId);
+  };
+
+  const guest = async () => {
     return await createToken(mySessionId);
   };
 
-  const createToken = async (sessionId) => {
-    const response = await axios.put(
-      APPLICATION_SERVER_URL + sessionId,
+  const createSession = async () => {
+    const response = await axios.post(
+      APPLICATION_SERVER_URL,
+      //더미 데이터
       {
-        userNo: userNo,
-        userNickname: userNickname,
+        userNo: 1,
+        userNickname: this.state.userNickname,
       },
       {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    console.log("세션 만듬");
+    return response.data; // The sessionId
+  };
+
+  const createToken = async (sessionId) => {
+    const response = await axios.put(
+      APPLICATION_SERVER_URL + sessionId,
+      //더미 데이터
+      {
+        userNo: 1,
+        userNickname: this.state.userNickname,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
@@ -306,7 +427,7 @@ const GameRoom = () => {
             <SessionIdDiv>
               <h1> Join a video session </h1>
             </SessionIdDiv>
-            <form className="form-group" onSubmit={this.initRoom}>
+            <form className="form-group" onSubmit={initRoom}>
               <p className="text-center">
                 <input
                   className="btn btn-lg btn-success"
@@ -339,9 +460,7 @@ const GameRoom = () => {
             </form>
           </div>
         </div>
-      ) : null}
-
-      {this.state.session !== undefined ? (
+      ) : (
         <div id="session">
           <div id="session-header">
             <SessionIdDiv>
@@ -351,7 +470,7 @@ const GameRoom = () => {
               className="btn btn-large btn-danger"
               type="button"
               id="buttonLeaveSession"
-              onClick={this.leaveSession}
+              onClick={leaveSession}
               value="Leave session"
             />
             <input
@@ -363,27 +482,25 @@ const GameRoom = () => {
             />
           </div>
 
-          {this.state.mainStreamManager !== undefined ? (
+          {mainStreamManager !== undefined ? (
             <div id="main-video">
-              <UserVideoComponent
-                streamManager={this.state.mainStreamManager}
-              />
+              <UserVideoComponent streamManager={mainStreamManager} />
             </div>
           ) : null}
 
           <div id="video-container">
             {/* {this.state.publisher !== undefined ? 
-        <div
-          className="stream-container"
-          onClick={() =>
-            this.handleMainVideoStream(this.state.publisher)
-          }
-        >
-          <UserVideoComponent streamManager={this.state.publisher} />
-        </div>
-          : null} */}
+    <div
+      className="stream-container"
+      onClick={() =>
+        this.handleMainVideoStream(this.state.publisher)
+      }
+    >
+      <UserVideoComponent streamManager={this.state.publisher} />
+    </div>
+      : null} */}
             {/* 방 참가자들 */}
-            {this.state.subscribers.map((sub, i) => (
+            {subscribers.map((sub, i) => (
               <div
                 key={sub.id}
                 className="stream-cvuontainer"
@@ -395,7 +512,7 @@ const GameRoom = () => {
             ))}
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
