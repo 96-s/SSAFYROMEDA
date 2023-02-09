@@ -1,6 +1,4 @@
-import OpenViduSession from "components/room/OpenviduSession";
-import WaitingRoom from "components/room/WaitingRoom";
-import ResultComponent from "components/room/ResultComponent";
+
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { OpenVidu } from "openvidu-browser";
