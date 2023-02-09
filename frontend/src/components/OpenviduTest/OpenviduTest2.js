@@ -1,7 +1,7 @@
 import { OpenVidu } from "openvidu-browser";
 import { connect } from "react-redux";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -39,7 +39,6 @@ const OpenviduTest2 = () => {
   const [isMike, setIsMike] = useState(true);
   const [isCamera, setIsCamera] = useState(true);
   const [isSpeaker, setIsSpeaker] = useState(true);
-  const [isChat, setIsChat] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice]=useState(null);
 
@@ -49,13 +48,13 @@ const OpenviduTest2 = () => {
     // 스터디방에서 화상회의 입장 -> props로 roomId로 받으면 세션id 업뎃 user 정보 전역변수 가져옴 -> 상태값 업뎃
   }
 
-  const componentWillUnmount = () => {
+  useEffect (() => {
     window.removeEventListener("beforeunload", onbeforeunload);
     joinRoom();
     return () => {
       window.removeEventListener("beforeunload", onbeforeunload);
     };
-  }
+  }, []);
 
   const onbeforeunload = (event) => {
     leaveSession();
