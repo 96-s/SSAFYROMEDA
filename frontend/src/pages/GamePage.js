@@ -18,13 +18,36 @@ const Page = styled.div`
 `
 
 
-const GamePage = () => {
+const GamePage = ({
+  ov,
+  session,
+  mySessionId,
+  mainStreamManager,
+  publish,
+  subscribers,
+  isMike,
+  isCamera,
+  isSpeaker,
+  myUserName,
+  currentVideoDevice,
+  initRoom,
+  joinRoom,
+  leaveSession,
+  deleteSubsciber
+}) => {
+
   return (
     <Page>
       <Container>
-        <OurTeamVid/>
+        <OurTeamVid
+          mainStreamManager={mainStreamManager}
+          subscribers={subscribers}
+        />
         <Map/>
-        <TheirTeamVid/>
+        <TheirTeamVid
+          mainStreamManager={mainStreamManager}
+          subscribers={subscribers}
+        />
       </Container>
     </Page>
   );

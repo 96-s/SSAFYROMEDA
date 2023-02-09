@@ -30,6 +30,7 @@ if (temp) {
 }
 
 const OpenviduTest2 = () => {
+  //강제 re-rendering 함수
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
@@ -46,7 +47,7 @@ const OpenviduTest2 = () => {
   const [isSpeaker, setIsSpeaker] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
-
+  
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -101,21 +102,6 @@ const OpenviduTest2 = () => {
     }
   };
 
-  const deleteSubscriber = (streamManager) => {
-    let targetSubscribers = subscribers;
-    let index = targetSubscribers.indexOf(streamManager, 0);
-    const removeName = JSON.parse(
-      targetSubscribers[index].stream.connection.data
-    ).clientData;
-    console.log("제거할 이름", removeName);
-
-    if (index > -1) {
-      targetSubscribers.splice(index, 1);
-      setSubscribers(targetSubscribers);
-      console.error("나간 후 리스트", subscribers);
-    }
-  };
-
   const getTokenWithSid = async () => {
     const response = await axios.post(
       APPLICATION_SERVER_URL,
@@ -135,32 +121,6 @@ const OpenviduTest2 = () => {
     const mySessionId = response.data;
     setMySessionId(mySessionId);
 
-    console.log(`session id : ${mySessionId}`);
-  };
-
-  const createToken = async (sessionId) => {
-    const res = await axios.put(
-      APPLICATION_SERVER_URL + sessionId,
-      {
-        userNo: userNo,
-        userNickname: userNickname,
-      },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    console.log("토큰 만듬");
-    console.log(res);
-
-    return res.data;
-  };
-
-  const getToken = async (sessionId) => {
     const res = await axios.put(
       APPLICATION_SERVER_URL + mySessionId,
       {
@@ -178,6 +138,24 @@ const OpenviduTest2 = () => {
     return res.data;
   };
 
+  const getToken = async (sessionId) => {
+    const response = await axios.put(
+      APPLICATION_SERVER_URL + mySessionId,
+      {
+        userNo: userNo,
+        userNickname: userNickname,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  };
+
   const initRoom = async () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
@@ -186,11 +164,6 @@ const OpenviduTest2 = () => {
     setSession(tempSession);
 
     var mySession = tempSession;
-
-    console.log("tempSession");
-    console.log(tempSession);
-    console.log("mySession");
-    console.log(mySession);
 
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
@@ -204,7 +177,7 @@ const OpenviduTest2 = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      console.log(subscribers.length);
+      console.log(subscribers);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -233,7 +206,7 @@ const OpenviduTest2 = () => {
             videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
-            resolution: "251.2x188.4", // 해상도
+            resolution: "240x180.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
             mirror: false, // 거울모드
@@ -245,6 +218,7 @@ const OpenviduTest2 = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
+          console.log(tempPublisher);
         })
         .catch((error) => {
           console.log(
@@ -297,7 +271,7 @@ const OpenviduTest2 = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      console.log("현재 (join)subscribers 길이" + subscribers.length);
+      console.log(subscribers);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -334,7 +308,7 @@ const OpenviduTest2 = () => {
             videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
-            resolution: "251.2x188.4", // 해상도
+            resolution: "240x180.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
             mirror: false, // Whether to mirror your local video or not
@@ -347,6 +321,7 @@ const OpenviduTest2 = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
+          console.log(tempPublisher);
         })
         .catch((error) => {
           console.log(
@@ -358,6 +333,21 @@ const OpenviduTest2 = () => {
     });
   };
 
+  const deleteSubscriber = (streamManager) => {
+    let targetSubscribers = subscribers;
+    let index = targetSubscribers.indexOf(streamManager, 0);
+    const removeName = JSON.parse(
+      targetSubscribers[index].stream.connection.data
+    ).clientData;
+    console.log("제거할 이름", removeName);
+
+    if (index > -1) {
+      targetSubscribers.splice(index, 1);
+      setSubscribers(targetSubscribers);
+      console.error("나간 후 리스트", subscribers);
+    }
+  };
+
   const leaveSession = () => {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
@@ -367,6 +357,8 @@ const OpenviduTest2 = () => {
       mySession.disconnect();
     }
 
+    console.log(ov);
+    console.log(subscribers);
     // Empty all properties...
     setOv(null);
     setSession(undefined);
@@ -406,14 +398,13 @@ const OpenviduTest2 = () => {
           setCurrentVideoDevice(newVideoDevice);
           setMainStreamManager(newPublisher);
           setPublisher(newPublisher);
+          console.log(publisher);
         }
       }
     } catch (e) {
       console.error(e);
     }
   };
-
-  console.log(mySessionId);
   return (
     <div className="container">
       {session === undefined ? (
@@ -506,7 +497,7 @@ const OpenviduTest2 = () => {
               <div
                 key={sub.id}
                 className="stream-cvuontainer"
-                onClick={() => handleMainVideoStream(sub)}
+                // onClick={() => handleMainVideoStream(sub)}
               >
                 <span>{sub.id}</span>
                 <UserVideoComponent streamManager={sub} />
