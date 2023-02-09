@@ -293,12 +293,11 @@ const SlideButton = styled.div`
 
 ///////////////////             Function
 
-const LobbyPage = ({
+const LobbyPage = (
   joinRoom,
   initRoom,
   sessionId,
-  handleChangeSessionId,
-}) => {
+) => {
   const dispatch = useDispatch();
 
   //토큰 테스트
@@ -425,7 +424,7 @@ const LobbyPage = ({
           {/* 여기다가 우주선 탑승, 생성 에 관련된 링크 달면돼 */}
           <ButtonBox>
             <SectionUnderOne>
-              {/* <form className="form-group" onSubmit={()=>(initRoom)}>
+              <form className="form-group" onSubmit={()=>(initRoom)}>
                 <MyButton
                   lang={"Korean"}
                   text={"　우주선 생성　"}
@@ -434,16 +433,6 @@ const LobbyPage = ({
                     openMakeRoomModal();
                   }}
                 />
-              </form> */}
-              <form className="form-group" onSubmit={initRoom}>
-                <p className="text-center">
-                  <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="INIT"
-                  />
-                </p>
               </form>
               {/* //header 부분에 텍스트를 입력한다. */}
               <MakeRoomModal
@@ -457,34 +446,13 @@ const LobbyPage = ({
               </MakeRoomModal>
             </SectionUnderOne>
             <SectionUnderTwo>
-              {/* <form className="form-group" onSubmit={()=>(joinRoom)}>
+              <form className="form-group" onSubmit={()=>(joinRoom)}>
                 <MyButton
                 lang={"Korean"}
                 text={"　우주선 탑승　"}
                 type={"is-warning"}
                 onClick={openEnterRoomModal}
               />
-              </form> */}
-              <form className="form-group" onSubmit={joinRoom}>
-                <p>
-                  <label> Code: </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="sessionId"
-                    value={sessionId}
-                    onChange={handleChangeSessionId}
-                    required
-                  />
-                </p>
-                <p className="text-center">
-                  <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                  />
-                </p>
               </form>
               <EnterRoomModal
                 open={EnterRoomModalOpen}
