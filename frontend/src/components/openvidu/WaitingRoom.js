@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
-import ReactAudioPlayer from "../utils/reactAudioPlayer";
+// import ReactAudioPlayer from "../utils/reactAudioPlayer";
 import { useState } from "react";
+
+const WaitingRoomBlock = styled.div`
+`;
 
 const WaitingUserVideoContainer = styled.div`
   width: 25vw;
@@ -111,15 +114,15 @@ const WaitingRoom = ({
 
   return (
     <WaitingRoomBlock>
-      <ReactAudioPlayer
+      {/* <ReactAudioPlayer
         urlSound={waitingRoomSound}
         isLoop={true}
         isPlaying={true}
         volumeNum={0.1}
-      ></ReactAudioPlayer>
-      <OpenViduSessionHeader>{mySessionIdValue}번 방</OpenViduSessionHeader>
+      ></ReactAudioPlayer> */}
+      {/* <OpenViduSessionHeader>{mySessionIdValue}번 방</OpenViduSessionHeader> */}
       {/* <ManualBox className={`manual-${manualNum}`}></ManualBox> */}
-      {sessionHost === myUserNameValue ? (
+      {/* {sessionHost === myUserNameValue ? (
         playerNum === Number(sessionCapacity) ? (
           <GameStartBtn onClick={() => onClickStartGame()}>
             게임시작
@@ -131,7 +134,7 @@ const WaitingRoom = ({
         )
       ) : (
         ""
-      )}
+      )} */}
 
       {publisher !== undefined ? (
         <WaitingUserVideoContainer className={`pos${0}`}>
