@@ -6,11 +6,11 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import LobbyPage from "pages/LobbyPage";
+import Map from "components/room/Map";
 
 import axios from "axios";
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
-import Map from "components/room/Map";
 
 const SessionIdDiv = styled.div`
   color: white;
@@ -173,14 +173,7 @@ const OpenviduTest2 = () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
-    ov.setAdvancedConfiguration({
-      publisherSpeakingEventsOptions: {
-        interval: 50,
-        threshold: -75,
-      },
-    });
-
-    const tempSession = tempOv.initSession();
+    const tempSession = await tempOv.initSession();
     setSession(tempSession);
 
     var mySession = tempSession;
@@ -189,7 +182,6 @@ const OpenviduTest2 = () => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
       console.log("stream created!!");
-      console.log(`추가 전 : ` + subscribers.forEach((a) => console.log(a)));
       var tempSubscriber = mySession.subscribe(event.stream, undefined);
       var tempSubscribers = subscribers;
 
@@ -197,7 +189,6 @@ const OpenviduTest2 = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
       console.log(subscribers.length);
     });
 
@@ -224,7 +215,7 @@ const OpenviduTest2 = () => {
           // element: we will manage it on our own) and with the desired properties
           let tempPublisher = tempOv.initPublisher(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: videoDevices[0], // The source of video. If undefined default webcam
+            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
@@ -234,8 +225,6 @@ const OpenviduTest2 = () => {
           });
 
           mySession.publish(tempPublisher);
-          
-          
 
           // Obtain the current video device in use
           setCurrentVideoDevice(videoDevices[0]);
@@ -256,7 +245,7 @@ const OpenviduTest2 = () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
-    const tempSession = tempOv.initSession();
+    const tempSession = await tempOv.initSession();
     setSession(tempSession);
 
     var mySession = tempSession;
@@ -264,8 +253,6 @@ const OpenviduTest2 = () => {
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
-      console.log("stream created!!");
-      console.log(`추가 전 : ` + subscribers.forEach((a) => console.log(a)));
       var tempSubscriber = mySession.subscribe(event.stream, undefined); // 새로운 참여자
       var tempSubscribers = subscribers;
       // 리액트에서 배열을 다른 변수에 바로 대입하는것은 참조되기 때문에 state가 즉각 변하지 않음
@@ -289,7 +276,6 @@ const OpenviduTest2 = () => {
       // console.error('한명더들어왔어요!', tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
       console.log(subscribers.length);
     });
 
@@ -307,7 +293,6 @@ const OpenviduTest2 = () => {
     // --- 4) Connect to the session with a valid user token ---
 
     // Get a token from the OpenVidu deployment
-
     getToken().then((token) => {
       // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
       // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
@@ -318,7 +303,7 @@ const OpenviduTest2 = () => {
           var videoDevices = devices.filter(
             (device) => device.kind === 'videoinput',
           );
-
+          
           // --- 5) Get your own camera stream ---
 
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
@@ -331,31 +316,14 @@ const OpenviduTest2 = () => {
             resolution: "251.2x188.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: true, // Whether to mirror your local video or not
+            mirror: false, // Whether to mirror your local video or not
           });
 
           // --- 6) Publish your stream ---
-          // var devices = await tempOv.getDevices();
-          // var videoDevices = devices.filter(
-          //   (device) => device.kind === "videoinput"
-          // );
           mySession.publish(tempPublisher);
-          console.log("퍼블리시 후");
 
-          var devices = await tempOv.getDevices();
-          var currentVideoDevice = devices.filter(
-            (device) => device.kind === 'videoinput',
-          );
-          // var currentVideoDeviceId = publisher.stream
-          //   .getMediaStream()
-          //   .getVideoTracks()[0]
-          //   .getSettings().deviceId;
-          // var currentVideoDevice = videoDevices.find(
-          //   (device) => device.deviceId === currentVideoDeviceId
-          // );
-          // Obtain the current video device in use
-          setCurrentVideoDevice(currentVideoDevice);
-
+          // Set the main video in the page to display our webcam and store our Publisher
+          setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
@@ -466,12 +434,12 @@ const OpenviduTest2 = () => {
         //     </form>
         //   </div>
         // </div>
-        <LobbyPage
-          initRoom={initRoom}
-          joinRoom={joinRoom}
-          sessionId={mySessionId}
-          handleChangeSessionId={handleChangeSessionId}
-        />
+      <LobbyPage
+        initRoom={initRoom}
+        joinRoom={joinRoom}
+        sessionId={mySessionId}
+        handleChangeSessionId={handleChangeSessionId}
+      />
       ) : 
       null}
 
@@ -515,7 +483,6 @@ const OpenviduTest2 = () => {
                 </div>
                 : null} */}
             {/* 방 참가자들 */}
-
             {subscribers.map((sub, i) => (
               <div
                 key={sub.id}
