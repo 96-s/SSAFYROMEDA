@@ -17,6 +17,7 @@ import TestPage2 from "pages/TestPage2"; // 함수형 openvidu
 import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
+import GameRoomPage from "pages/GameRoomPage";
 
 // import { Provider } from "react-redux";
 
@@ -61,6 +62,7 @@ function App() {
           <Route path="/openvidu" element={<OpenviduPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/test2" element={<TestPage2 />} />
+          <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
         </Routes>

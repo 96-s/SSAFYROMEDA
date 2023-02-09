@@ -2,9 +2,12 @@ import { OpenVidu } from "openvidu-browser";
 import { connect } from "react-redux";
 import React, { useCallback } from "react";
 import { useState } from "react";
-import { UNSAFE_enhanceManualRouteObjects, useLocation } from "react-router-dom";
+import {
+  UNSAFE_enhanceManualRouteObjects,
+  useLocation,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import LobbyPage from "pages/LobbyPage";
 
 import axios from "axios";
@@ -27,7 +30,6 @@ if (temp) {
 }
 
 const OpenviduTest2 = () => {
-
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
@@ -87,11 +89,11 @@ const OpenviduTest2 = () => {
     setMySessionId(e.target.value);
   };
 
-    // handleChangeUserName(e) {
-    //   this.setState({
-    //     myUserName: e.target.value,
-    //   });
-    // }
+  // handleChangeUserName(e) {
+  //   this.setState({
+  //     myUserName: e.target.value,
+  //   });
+  // }
 
   const handleMainVideoStream = (stream) => {
     if (mainStreamManager !== stream) {
@@ -132,10 +134,13 @@ const OpenviduTest2 = () => {
 
     const mySessionId = response.data;
     setMySessionId(mySessionId);
-    console.log(`session id : ${mySessionId}`);
 
+    console.log(`session id : ${mySessionId}`);
+  };
+
+  const createToken = async (sessionId) => {
     const res = await axios.put(
-      APPLICATION_SERVER_URL + mySessionId,
+      APPLICATION_SERVER_URL + sessionId,
       {
         userNo: userNo,
         userNickname: userNickname,
@@ -198,7 +203,7 @@ const OpenviduTest2 = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      forceUpdate();// 스트림 생성될때마다 강제 랜더링
+      forceUpdate(); // 스트림 생성될때마다 강제 랜더링
       console.log(subscribers.length);
     });
 
@@ -276,9 +281,9 @@ const OpenviduTest2 = () => {
       //   tempSubscriber.stream.connection.data,
       // ).clientData;
       // console.error('이름은', addUserName);
-      
+
       tempSubscribers.push(tempSubscriber);
-      
+
       // let tempPlayers = tempSubscribers.map(
       //   (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
       // );
@@ -292,7 +297,7 @@ const OpenviduTest2 = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      console.log("현재 (join)subscribers 길이"+subscribers.length);
+      console.log("현재 (join)subscribers 길이" + subscribers.length);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -317,9 +322,9 @@ const OpenviduTest2 = () => {
         .then(async () => {
           var devices = await tempOv.getDevices();
           var videoDevices = devices.filter(
-            (device) => device.kind === 'videoinput',
+            (device) => device.kind === "videoinput"
           );
-          
+
           // --- 5) Get your own camera stream ---
 
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
@@ -410,7 +415,6 @@ const OpenviduTest2 = () => {
 
   console.log(mySessionId);
   return (
-
     <div className="container">
       {session === undefined ? (
         <div id="join">
