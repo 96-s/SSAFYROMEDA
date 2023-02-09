@@ -173,7 +173,14 @@ const OpenviduTest2 = () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
-    const tempSession = await tempOv.initSession();
+    ov.setAdvancedConfiguration({
+      publisherSpeakingEventsOptions: {
+        interval: 50,
+        threshold: -75,
+      },
+    });
+
+    const tempSession = tempOv.initSession();
     setSession(tempSession);
 
     var mySession = tempSession;
@@ -182,6 +189,7 @@ const OpenviduTest2 = () => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
       console.log("stream created!!");
+      console.log(`추가 전 : ` + subscribers.forEach((a) => console.log(a)));
       var tempSubscriber = mySession.subscribe(event.stream, undefined);
       var tempSubscribers = subscribers;
 
@@ -189,6 +197,7 @@ const OpenviduTest2 = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
+      console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
       console.log(subscribers.length);
     });
 
@@ -247,7 +256,7 @@ const OpenviduTest2 = () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
-    const tempSession = await tempOv.initSession();
+    const tempSession = tempOv.initSession();
     setSession(tempSession);
 
     var mySession = tempSession;
@@ -255,6 +264,8 @@ const OpenviduTest2 = () => {
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
+      console.log("stream created!!");
+      console.log(`추가 전 : ` + subscribers.forEach((a) => console.log(a)));
       var tempSubscriber = mySession.subscribe(event.stream, undefined); // 새로운 참여자
       var tempSubscribers = subscribers;
       // 리액트에서 배열을 다른 변수에 바로 대입하는것은 참조되기 때문에 state가 즉각 변하지 않음
@@ -278,6 +289,7 @@ const OpenviduTest2 = () => {
       // console.error('한명더들어왔어요!', tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
+      console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
       console.log(subscribers.length);
     });
 
@@ -295,6 +307,7 @@ const OpenviduTest2 = () => {
     // --- 4) Connect to the session with a valid user token ---
 
     // Get a token from the OpenVidu deployment
+
     getToken().then((token) => {
       // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
       // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
@@ -342,6 +355,7 @@ const OpenviduTest2 = () => {
           // );
           // Obtain the current video device in use
           setCurrentVideoDevice(currentVideoDevice);
+
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
@@ -501,6 +515,7 @@ const OpenviduTest2 = () => {
                 </div>
                 : null} */}
             {/* 방 참가자들 */}
+
             {subscribers.map((sub, i) => (
               <div
                 key={sub.id}

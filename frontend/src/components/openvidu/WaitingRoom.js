@@ -38,79 +38,79 @@ const WaitingUserVideoContainer = styled.div`
   }
 `;
 
-const WaitingRoom = ({
-  sessionHost,
-  sessionCapacity,
-  nextPlayer,
-  setNextPlayer,
-  isRoll,
-  setIsRoll,
-  isVote,
-  setIsVote,
-  vote,
-  setVote,
-  handleMainVideoStream,
-  switchCamera,
-  leaveSession,
-  mySessionIdValue,
-  myUserNameValue,
-  mainStreamManager,
-  publisher,
-  players,
-  subscribers,
-  session,
-  turnNum,
-  setTurnNum,
-  posList,
-  setPosList,
-  minigameType,
-  setMinigameType,
-}) => {
-  // const [posNum, setPosNum] = useState(1);
-  // 게임 진행 관련 변수들
-  // console.warn("퍼블리셔는?",publisher);
-  //const playerNum = players.length; // 몇 명에서 하는지
-  const playerNum = 6; // 몇 명에서 하는지
-  const teamNum = 2; // 몇 팀에서 하는지
-  //const myTurnNum = players.indexOf(myUserNameValue);
-  //const [manualNum, setManualNum] = useState(1);
+// const WaitingRoom = ({
+//   sessionHost,
+//   sessionCapacity,
+//   nextPlayer,
+//   setNextPlayer,
+//   isRoll,
+//   setIsRoll,
+//   isVote,
+//   setIsVote,
+//   vote,
+//   setVote,
+//   handleMainVideoStream,
+//   switchCamera,
+//   leaveSession,
+//   mySessionIdValue,
+//   myUserNameValue,
+//   mainStreamManager,
+//   publisher,
+//   players,
+//   subscribers,
+//   session,
+//   turnNum,
+//   setTurnNum,
+//   posList,
+//   setPosList,
+//   minigameType,
+//   setMinigameType,
+// }) => {
+//   // const [posNum, setPosNum] = useState(1);
+//   // 게임 진행 관련 변수들
+//   // console.warn("퍼블리셔는?",publisher);
+//   //const playerNum = players.length; // 몇 명에서 하는지
+//   const playerNum = 6; // 몇 명에서 하는지
+//   const teamNum = 2; // 몇 팀에서 하는지
+//   //const myTurnNum = players.indexOf(myUserNameValue);
+//   //const [manualNum, setManualNum] = useState(1);
 
-  // useInterval(() => {
-  //   setManualNum((manualNum+1)%3 + 1);
-  // }, 10000);
+//   // useInterval(() => {
+//   //   setManualNum((manualNum+1)%3 + 1);
+//   // }, 10000);
 
-  // 게임 시작
-  const onClickStartGame = () => {
-    // 데이터 정리
-    //const nextTurnNum = Math.floor(Math.random() * playerNum);
-    const nextTurnNum = 1;
-    const nextNextPlayer = players[nextTurnNum];
-    const nextPosList = new Array(teamNum).fill(0);
-    const nextIsRoll = false;
+//   // 게임 시작
+//   const onClickStartGame = () => {
+//     // 데이터 정리
+//     //const nextTurnNum = Math.floor(Math.random() * playerNum);
+//     const nextTurnNum = 1;
+//     const nextNextPlayer = players[nextTurnNum];
+//     const nextPosList = new Array(teamNum).fill(0);
+//     const nextIsRoll = false;
 
-    // emit
-    const sendData = {
-      session: mySessionIdValue,
-      to: [], // all user
-      data: JSON.stringify({
-        nextTurnNum: nextTurnNum,
-        nextNextPlayer: nextNextPlayer,
-        nextPosList: nextPosList,
-        nextIsRoll: nextIsRoll,
-        nextIsGameStart: true,
-      }),
-      type: "GAME_STATE_START",
-    };
-    // console.log(JSON.stringify(sendData));
-    fetch("https://i7e101.p.ssafy.io:4443/openvidu/api/signal", {
-      method: "POST",
-      headers: {
-        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(sendData),
-    });
-  };
+//     // emit
+//     const sendData = {
+//       session: mySessionIdValue,
+//       to: [], // all user
+//       data: JSON.stringify({
+//         nextTurnNum: nextTurnNum,
+//         nextNextPlayer: nextNextPlayer,
+//         nextPosList: nextPosList,
+//         nextIsRoll: nextIsRoll,
+//         nextIsGameStart: true,
+//       }),
+//       type: "GAME_STATE_START",
+//     };
+//     // console.log(JSON.stringify(sendData));
+//     fetch("https://i7e101.p.ssafy.io:4443/openvidu/api/signal", {
+//       method: "POST",
+//       headers: {
+//         Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+//         "Content-type": "application/json",
+//       },
+//       body: JSON.stringify(sendData),
+//     });
+//   };
 
   return (
     <WaitingRoomBlock>
@@ -136,31 +136,31 @@ const WaitingRoom = ({
         ""
       )} */}
 
-      {publisher !== undefined ? (
-        <WaitingUserVideoContainer className={`pos${0}`}>
-          {/* onClick={() => handleMainVideoStream(publisher)} */}
-          <UserVideoComponent
-            streamManager={publisher}
-            mainStreamer={"publisher"}
-            status={"waiting"}
-          />
-        </WaitingUserVideoContainer>
-      ) : null}
-      {subscribers.map((sub, i) => (
-        <WaitingUserVideoContainer
-          className={`pos${i + 1}`}
-          key={`waiting${i}`}
-        >
-          {/* onClick={() => handleMainVideoStream(sub) */}
-          <UserVideoComponent
-            streamManager={sub}
-            mainStreamer={"sub"}
-            status={"waiting"}
-          />
-        </WaitingUserVideoContainer>
-      ))}
-    </WaitingRoomBlock>
-  );
-};
+//       {publisher !== undefined ? (
+//         <WaitingUserVideoContainer className={`pos${0}`}>
+//           {/* onClick={() => handleMainVideoStream(publisher)} */}
+//           <UserVideoComponent
+//             streamManager={publisher}
+//             mainStreamer={"publisher"}
+//             status={"waiting"}
+//           />
+//         </WaitingUserVideoContainer>
+//       ) : null}
+//       {subscribers.map((sub, i) => (
+//         <WaitingUserVideoContainer
+//           className={`pos${i + 1}`}
+//           key={`waiting${i}`}
+//         >
+//           {/* onClick={() => handleMainVideoStream(sub) */}
+//           <UserVideoComponent
+//             streamManager={sub}
+//             mainStreamer={"sub"}
+//             status={"waiting"}
+//           />
+//         </WaitingUserVideoContainer>
+//       ))}
+//     </WaitingRoomBlock>
+//   );
+// };
 
-export default WaitingRoom;
+// export default WaitingRoom;
