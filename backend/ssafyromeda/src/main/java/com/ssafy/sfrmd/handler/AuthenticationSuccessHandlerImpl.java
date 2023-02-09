@@ -31,8 +31,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
             //userNo, userRole이 담긴 토큰 생성
             String accessToken = jwtProvider.createAccessToken(user);
             //토큰 전송
-            // response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
-            response.sendRedirect("http://localhost:3000/oauthRedirect?token="+accessToken);
+            response.sendRedirect("https://i8d205.p.ssafy.io/oauthRedirect?token="+accessToken);
+            // response.sendRedirect("http://localhost:3000/oauthRedirect?token="+accessToken);
         } catch (Exception e) {
             throw e;
         }
