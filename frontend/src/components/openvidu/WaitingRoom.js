@@ -1,39 +1,42 @@
-// import React, { useEffect } from "react";
-// import styled from "styled-components";
-// import UserVideoComponent from "./UserVideoComponent";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import UserVideoComponent from "./UserVideoComponent";
 // import ReactAudioPlayer from "../utils/reactAudioPlayer";
-// import { useState } from "react";
+import { useState } from "react";
 
-// const WaitingUserVideoContainer = styled.div`
-//   width: 25vw;
-//   height: 25vh;
-//   cursor: pointer;
-//   position: absolute;
-//   &.pos0 {
-//     top: 10vh;
-//     left: 2vw;
-//   }
-//   &.pos1 {
-//     top: 40vh;
-//     left: 2vw;
-//   }
-//   &.pos2 {
-//     top: 70vh;
-//     left: 2vw;
-//   }
-//   &.pos3 {
-//     top: 10vh;
-//     right: 2vw;
-//   }
-//   &.pos4 {
-//     top: 40vh;
-//     right: 2vw;
-//   }
-//   &.pos5 {
-//     top: 70vh;
-//     right: 2vw;
-//   }
-// `;
+const WaitingRoomBlock = styled.div`
+`;
+
+const WaitingUserVideoContainer = styled.div`
+  width: 25vw;
+  height: 25vh;
+  cursor: pointer;
+  position: absolute;
+  &.pos0 {
+    top: 10vh;
+    left: 2vw;
+  }
+  &.pos1 {
+    top: 40vh;
+    left: 2vw;
+  }
+  &.pos2 {
+    top: 70vh;
+    left: 2vw;
+  }
+  &.pos3 {
+    top: 10vh;
+    right: 2vw;
+  }
+  &.pos4 {
+    top: 40vh;
+    right: 2vw;
+  }
+  &.pos5 {
+    top: 70vh;
+    right: 2vw;
+  }
+`;
 
 // const WaitingRoom = ({
 //   sessionHost,
@@ -109,29 +112,29 @@
 //     });
 //   };
 
-//   return (
-//     <WaitingRoomBlock>
-//       <ReactAudioPlayer
-//         urlSound={waitingRoomSound}
-//         isLoop={true}
-//         isPlaying={true}
-//         volumeNum={0.1}
-//       ></ReactAudioPlayer>
-//       <OpenViduSessionHeader>{mySessionIdValue}번 방</OpenViduSessionHeader>
-//       {/* <ManualBox className={`manual-${manualNum}`}></ManualBox> */}
-//       {sessionHost === myUserNameValue ? (
-//         playerNum === Number(sessionCapacity) ? (
-//           <GameStartBtn onClick={() => onClickStartGame()}>
-//             게임시작
-//           </GameStartBtn>
-//         ) : (
-//           <GameStartBtn className="waitingBtn">
-//             대기중 ({playerNum == 0 ? 1 : playerNum}/{sessionCapacity}명)
-//           </GameStartBtn>
-//         )
-//       ) : (
-//         ""
-//       )}
+  return (
+    <WaitingRoomBlock>
+      {/* <ReactAudioPlayer
+        urlSound={waitingRoomSound}
+        isLoop={true}
+        isPlaying={true}
+        volumeNum={0.1}
+      ></ReactAudioPlayer> */}
+      {/* <OpenViduSessionHeader>{mySessionIdValue}번 방</OpenViduSessionHeader> */}
+      {/* <ManualBox className={`manual-${manualNum}`}></ManualBox> */}
+      {/* {sessionHost === myUserNameValue ? (
+        playerNum === Number(sessionCapacity) ? (
+          <GameStartBtn onClick={() => onClickStartGame()}>
+            게임시작
+          </GameStartBtn>
+        ) : (
+          <GameStartBtn className="waitingBtn">
+            대기중 ({playerNum == 0 ? 1 : playerNum}/{sessionCapacity}명)
+          </GameStartBtn>
+        )
+      ) : (
+        ""
+      )} */}
 
 //       {publisher !== undefined ? (
 //         <WaitingUserVideoContainer className={`pos${0}`}>

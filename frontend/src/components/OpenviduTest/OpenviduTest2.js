@@ -10,6 +10,7 @@ import LobbyPage from "pages/LobbyPage";
 import axios from "axios";
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
+import Map from "components/room/Map";
 
 const SessionIdDiv = styled.div`
   color: white;
@@ -215,33 +216,29 @@ const OpenviduTest2 = () => {
       mySession
         .connect(token, { clientData: userNickname })
         .then(async () => {
+          var devices = await tempOv.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
           let tempPublisher = tempOv.initPublisher(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: undefined, // The source of video. If undefined default webcam
+            videoSource: videoDevices[0], // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: true, // 거울모드
+            mirror: false, // 거울모드
           });
-          var devices = await tempOv.getDevices();
-          var videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
+
           mySession.publish(tempPublisher);
-          console.log("퍼블리시 후");
-          var currentVideoDeviceId = publisher.stream
-            .getMediaStream()
-            .getVideoTracks()[0]
-            .getSettings().deviceId;
-          var currentVideoDevice = videoDevices.find(
-            (device) => device.deviceId === currentVideoDeviceId
-          );
+          
+          
+
           // Obtain the current video device in use
-          setCurrentVideoDevice(currentVideoDevice);
+          setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
@@ -273,21 +270,23 @@ const OpenviduTest2 = () => {
       var tempSubscribers = subscribers;
       // 리액트에서 배열을 다른 변수에 바로 대입하는것은 참조되기 때문에 state가 즉각 변하지 않음
 
-      const addUserName = JSON.parse(
-        tempSubscriber.stream.connection.data
-      ).clientData;
-      console.error("이름은", addUserName);
+      // const addUserName = JSON.parse(
+      //   tempSubscriber.stream.connection.data,
+      // ).clientData;
+      // console.error('이름은', addUserName);
+      
       tempSubscribers.push(tempSubscriber);
-      let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
-      );
+      
+      // let tempPlayers = tempSubscribers.map(
+      //   (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      // );
 
       // 자기 자신 없으면 넣어야함
-      if (tempPlayers.includes(myUserName) === false) {
-        tempPlayers.push(myUserName);
-      }
+      // if (tempPlayers.includes(myUserName) === false) {
+      //   tempPlayers.push(myUserName);
+      // }
 
-      console.error("한명더들어왔어요!", tempPlayers);
+      // console.error('한명더들어왔어요!', tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       console.log(`추가 후 : ` + subscribers.forEach((a) => console.log(a)));
@@ -315,28 +314,46 @@ const OpenviduTest2 = () => {
       mySession
         .connect(token, { clientData: myUserName })
         .then(async () => {
+          var devices = await tempOv.getDevices();
+          var videoDevices = devices.filter(
+            (device) => device.kind === 'videoinput',
+          );
+
           // --- 5) Get your own camera stream ---
 
           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
           // element: we will manage it on our own) and with the desired properties
-          let tempPublisher = await tempOv.initPublisher(undefined, {
+          let tempPublisher = await tempOv.initPublisherAsync(undefined, {
             audioSource: undefined, // The source of audio. If undefined default microphone
-            videoSource: undefined, // The source of video. If undefined default webcam
+            videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
             publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
             publishVideo: true, // Whether you want to start publishing with your video enabled or not
             resolution: "251.2x188.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: false, // Whether to mirror your local video or not
+            mirror: true, // Whether to mirror your local video or not
           });
 
           // --- 6) Publish your stream ---
+          // var devices = await tempOv.getDevices();
+          // var videoDevices = devices.filter(
+          //   (device) => device.kind === "videoinput"
+          // );
           mySession.publish(tempPublisher);
+          console.log("퍼블리시 후");
+
           var devices = await tempOv.getDevices();
           var currentVideoDevice = devices.filter(
-            (device) => device.kind === "videoinput"
+            (device) => device.kind === 'videoinput',
           );
-          // Set the main video in the page to display our webcam and store our Publisher
+          // var currentVideoDeviceId = publisher.stream
+          //   .getMediaStream()
+          //   .getVideoTracks()[0]
+          //   .getSettings().deviceId;
+          // var currentVideoDevice = videoDevices.find(
+          //   (device) => device.deviceId === currentVideoDeviceId
+          // );
+          // Obtain the current video device in use
           setCurrentVideoDevice(currentVideoDevice);
 
           setMainStreamManager(tempPublisher);
@@ -411,49 +428,51 @@ const OpenviduTest2 = () => {
   return (
     <div className="container">
       {session === undefined ? (
-        <div id="join">
-          <div id="join-dialog" className="jumbotron vertical-center">
-            <SessionIdDiv>
-              <h1> Join a video session </h1>
-            </SessionIdDiv>
-            <form className="form-group" onSubmit={initRoom}>
-              <p className="text-center">
-                <input
-                  className="btn btn-lg btn-success"
-                  name="commit"
-                  type="submit"
-                  value="INIT"
-                />
-              </p>
-            </form>
-            <form className="form-group" onSubmit={joinRoom}>
-              <p>
-                <label> Code: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="sessionId"
-                  value={mySessionId}
-                  onChange={handleChangeSessionId}
-                  required
-                />
-              </p>
-              <p className="text-center">
-                <input
-                  className="btn btn-lg btn-success"
-                  name="commit"
-                  type="submit"
-                  value="JOIN"
-                />
-              </p>
-            </form>
-          </div>
-        </div>
-      ) : // <LobbyPage
-      //   initRoom={initRoom}
-      //   joinRoom={joinRoom}
-      //   sessionId={mySessionId}
-      // />
+        // <div id="join">
+        //   <div id="join-dialog" className="jumbotron vertical-center">
+        //     <SessionIdDiv>
+        //       <h1> Join a video session </h1>
+        //     </SessionIdDiv>
+        //     <form className="form-group" onSubmit={initRoom}>
+        //       <p className="text-center">
+        //         <input
+        //           className="btn btn-lg btn-success"
+        //           name="commit"
+        //           type="submit"
+        //           value="INIT"
+        //         />
+        //       </p>
+        //     </form>
+        //     <form className="form-group" onSubmit={joinRoom}>
+        //       <p>
+        //         <label> Code: </label>
+        //         <input
+        //           className="form-control"
+        //           type="text"
+        //           id="sessionId"
+        //           value={mySessionId}
+        //           onChange={handleChangeSessionId}
+        //           required
+        //         />
+        //       </p>
+        //       <p className="text-center">
+        //         <input
+        //           className="btn btn-lg btn-success"
+        //           name="commit"
+        //           type="submit"
+        //           value="JOIN"
+        //         />
+        //       </p>
+        //     </form>
+        //   </div>
+        // </div>
+        <LobbyPage
+          initRoom={initRoom}
+          joinRoom={joinRoom}
+          sessionId={mySessionId}
+          handleChangeSessionId={handleChangeSessionId}
+        />
+      ) : 
       null}
 
       {session !== undefined ? (
@@ -507,6 +526,7 @@ const OpenviduTest2 = () => {
                 <UserVideoComponent streamManager={sub} />
               </div>
             ))}
+            <Map/>
           </div>
         </div>
       ) : null}
