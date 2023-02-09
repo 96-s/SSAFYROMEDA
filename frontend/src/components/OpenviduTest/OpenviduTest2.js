@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import LobbyPage from "pages/LobbyPage";
 
 import axios from "axios";
 import styled from "styled-components";
@@ -25,7 +26,6 @@ if (temp) {
 }
 
 const OpenviduTest2 = () => {
-
   const { userNickname, userNo } = useSelector(state => state.auth.user)
 
   const [ov, setOv] = useState(null);
@@ -223,7 +223,7 @@ const OpenviduTest2 = () => {
             resolution: "251.2x188.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: false, // 거울모드
+            mirror: true, // 거울모드
           });
 
           mySession.publish(tempPublisher);
@@ -260,8 +260,21 @@ const OpenviduTest2 = () => {
       var tempSubscribers = subscribers;
       // 리액트에서 배열을 다른 변수에 바로 대입하는것은 참조되기 때문에 state가 즉각 변하지 않음
 
+      const addUserName = JSON.parse(
+        tempSubscriber.stream.connection.data,
+      ).clientData;
+      console.error('이름은', addUserName);
       tempSubscribers.push(tempSubscriber);
+      let tempPlayers = tempSubscribers.map(
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      );
 
+      // 자기 자신 없으면 넣어야함
+      if (tempPlayers.includes(myUserName) === false) {
+        tempPlayers.push(myUserName);
+      }
+
+      console.error('한명더들어왔어요!', tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       console.log(subscribers.length);
@@ -303,7 +316,7 @@ const OpenviduTest2 = () => {
                 resolution: "251.2x188.4", // 해상도
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                mirror: true, // Whether to mirror your local video or not
             });
 
             // --- 6) Publish your stream ---
@@ -384,49 +397,50 @@ const OpenviduTest2 = () => {
     return (
       <div className="container">
         {session === undefined ? (
-          <div id="join">
-            <div id="join-dialog" className="jumbotron vertical-center">
-                <SessionIdDiv>
-                <h1> Join a video session </h1>
-                </SessionIdDiv>
-                <form className="form-group" onSubmit={initRoom}>
-                  <p className="text-center">
-                      <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="INIT"
-                      />
-                  </p>
-                </form>
-                <form className="form-group" onSubmit={joinRoom}>
-                  <p>
-                      <label> Code: </label>
-                      <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={handleChangeSessionId}
-                      required
-                      />
-                  </p>
-                  <p className="text-center">
-                      <input
-                      className="btn btn-lg btn-success"
-                      name="commit"
-                      type="submit"
-                      value="JOIN"
-                      />
-                  </p>
-                </form>
-            </div>
-          </div>
-          // <LobbyPage
-          //   initRoom={initRoom}
-          //   joinRoom={joinRoom}
-          //   sessionId={mySessionId}
-          // />
+          // <div id="join">
+          //   <div id="join-dialog" className="jumbotron vertical-center">
+          //       <SessionIdDiv>
+          //       <h1> Join a video session </h1>
+          //       </SessionIdDiv>
+          //       <form className="form-group" onSubmit={initRoom}>
+          //         <p className="text-center">
+          //             <input
+          //             className="btn btn-lg btn-success"
+          //             name="commit"
+          //             type="submit"
+          //             value="INIT"
+          //             />
+          //         </p>
+          //       </form>
+          //       <form className="form-group" onSubmit={joinRoom}>
+          //         <p>
+          //             <label> Code: </label>
+          //             <input
+          //             className="form-control"
+          //             type="text"
+          //             id="sessionId"
+          //             value={mySessionId}
+          //             onChange={handleChangeSessionId}
+          //             required
+          //             />
+          //         </p>
+          //         <p className="text-center">
+          //             <input
+          //             className="btn btn-lg btn-success"
+          //             name="commit"
+          //             type="submit"
+          //             value="JOIN"
+          //             />
+          //         </p>
+          //       </form>
+          //   </div>
+          // </div>
+          <LobbyPage
+            initRoom={initRoom}
+            joinRoom={joinRoom}
+            sessionId={mySessionId}
+            handleChangeSessionId={handleChangeSessionId}
+          />
         ) : null}
 
         {session !== undefined ? (
@@ -474,7 +488,7 @@ const OpenviduTest2 = () => {
                 {subscribers.map((sub, i) => (
                 <div
                   key={sub.id}
-                  className="stream-cvuontainer"
+                  className="stream-container"
                   onClick={() => handleMainVideoStream(sub)}
                 >
                   <span>{sub.id}</span>
