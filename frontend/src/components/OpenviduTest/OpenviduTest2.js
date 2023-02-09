@@ -1,16 +1,16 @@
 import { OpenVidu } from "openvidu-browser";
 import { connect } from "react-redux";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { UNSAFE_enhanceManualRouteObjects, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import LobbyPage from "pages/LobbyPage";
-import Map from "components/room/Map";
 
 import axios from "axios";
 import styled from "styled-components";
 import UserVideoComponent from "./UserVideoComponent";
+import { setUseProxies } from "immer";
 
 const SessionIdDiv = styled.div`
   color: white;
@@ -27,6 +27,10 @@ if (temp) {
 }
 
 const OpenviduTest2 = () => {
+
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
   const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   const [ov, setOv] = useState(null);
@@ -83,11 +87,11 @@ const OpenviduTest2 = () => {
     setMySessionId(e.target.value);
   };
 
-  //   handleChangeUserName(e) {
-  //     this.setState({
-  //       myUserName: e.target.value,
-  //     });
-  //   }
+    // handleChangeUserName(e) {
+    //   this.setState({
+    //     myUserName: e.target.value,
+    //   });
+    // }
 
   const handleMainVideoStream = (stream) => {
     if (mainStreamManager !== stream) {
@@ -178,6 +182,11 @@ const OpenviduTest2 = () => {
 
     var mySession = tempSession;
 
+    console.log("tempSession");
+    console.log(tempSession);
+    console.log("mySession");
+    console.log(mySession);
+
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
@@ -189,6 +198,7 @@ const OpenviduTest2 = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
+      forceUpdate();// 스트림 생성될때마다 강제 랜더링
       console.log(subscribers.length);
     });
 
@@ -250,6 +260,11 @@ const OpenviduTest2 = () => {
 
     var mySession = tempSession;
 
+    console.log("tempSession 2");
+    console.log(tempSession);
+    console.log("mySession 2");
+    console.log(mySession);
+
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X
@@ -276,7 +291,8 @@ const OpenviduTest2 = () => {
       // console.error('한명더들어왔어요!', tempPlayers);
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      console.log(subscribers.length);
+      forceUpdate(); // 스트림 생성될때마다 강제 랜더링
+      console.log("현재 (join)subscribers 길이"+subscribers.length);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -394,53 +410,52 @@ const OpenviduTest2 = () => {
 
   console.log(mySessionId);
   return (
+
     <div className="container">
       {session === undefined ? (
-        // <div id="join">
-        //   <div id="join-dialog" className="jumbotron vertical-center">
-        //     <SessionIdDiv>
-        //       <h1> Join a video session </h1>
-        //     </SessionIdDiv>
-        //     <form className="form-group" onSubmit={initRoom}>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="INIT"
-        //         />
-        //       </p>
-        //     </form>
-        //     <form className="form-group" onSubmit={joinRoom}>
-        //       <p>
-        //         <label> Code: </label>
-        //         <input
-        //           className="form-control"
-        //           type="text"
-        //           id="sessionId"
-        //           value={mySessionId}
-        //           onChange={handleChangeSessionId}
-        //           required
-        //         />
-        //       </p>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="JOIN"
-        //         />
-        //       </p>
-        //     </form>
-        //   </div>
-        // </div>
-      <LobbyPage
-        initRoom={initRoom}
-        joinRoom={joinRoom}
-        sessionId={mySessionId}
-        handleChangeSessionId={handleChangeSessionId}
-      />
-      ) : 
+        <div id="join">
+          <div id="join-dialog" className="jumbotron vertical-center">
+            <SessionIdDiv>
+              <h1> Join a video session </h1>
+            </SessionIdDiv>
+            <form className="form-group" onSubmit={initRoom}>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="INIT"
+                />
+              </p>
+            </form>
+            <form className="form-group" onSubmit={joinRoom}>
+              <p>
+                <label> Code: </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="sessionId"
+                  value={mySessionId}
+                  onChange={handleChangeSessionId}
+                  required
+                />
+              </p>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="JOIN"
+                />
+              </p>
+            </form>
+          </div>
+        </div>
+      ) : // <LobbyPage
+      //   initRoom={initRoom}
+      //   joinRoom={joinRoom}
+      //   sessionId={mySessionId}
+      // />
       null}
 
       {session !== undefined ? (
@@ -483,7 +498,7 @@ const OpenviduTest2 = () => {
                 </div>
                 : null} */}
             {/* 방 참가자들 */}
-            {subscribers.map((sub, i) => (
+            {subscribers.map((sub) => (
               <div
                 key={sub.id}
                 className="stream-cvuontainer"
@@ -493,11 +508,19 @@ const OpenviduTest2 = () => {
                 <UserVideoComponent streamManager={sub} />
               </div>
             ))}
-            <Map/>
           </div>
         </div>
       ) : null}
     </div>
   );
 };
+// const mapStateToProps = (state) => ({
+//   userInfo: state.auth,
+// });
+
+// // 리덕스 slice의 actions 사용할 때
+// const mapDispatchToProps = (dispatch) => {
+//   return {};
+// };
+
 export default OpenviduTest2;
