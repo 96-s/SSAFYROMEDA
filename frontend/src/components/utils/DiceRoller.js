@@ -24,14 +24,14 @@ const DiceRoller = ({
 
     const onRollHandler = (value) => {
 
-        const teamPos = posList[teamNum];
+        // const teamPos = posList[teamNum];
 
         if (value > 3) {
             value = value - 3;
         }
         setDiceValue(value);
-        const tempPosNum = (teamPos + value) % 21
-
+        // const tempPosNum = (teamPos + value) % 21
+        // console.log(diceValue);
         // emit 데이터 준비
         let nextPosList = [...posList];
         // let teamNum = null;
@@ -41,7 +41,7 @@ const DiceRoller = ({
         // } else {
         //     teamNum = 1 
         // }
-        nextPosList[teamNum] = tempPosNum;
+        // nextPosList[teamNum] = tempPosNum;
 
         // 시간값 이용(줌글)
         let nowDate = new Date();
