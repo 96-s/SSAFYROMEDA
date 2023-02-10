@@ -20,6 +20,7 @@ import DialogTest from "components/common/DialogTest";
 import GameRoomPage from "pages/GameRoomPage";
 
 import OpenviduUiTest from "pages/UiTest";
+import UiTest from "pages/UiTest";
 
 // import { Provider } from "react-redux";
 
@@ -67,7 +68,7 @@ function App() {
           <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
-          <Route path="/openviduuitest" element={<OpenviduUiTest />} />
+          <Route path="/test3" element={<UiTest />} />
         </Routes>
       </div>
     </div>
