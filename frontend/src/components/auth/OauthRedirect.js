@@ -27,7 +27,7 @@ const OauthRedirect = () => {
     if (userRole === "USER") {
       // 유저가 이미 가입되어있다면, 곧바로 회원정보 요청
       dispatch(authActions.getUserInfoStart(userNo));
-      navigate("/test2");
+      navigate("/test3");
     } else if (userRole === "GUEST") {
       // 유저가 guest라면, 닉네임 등록 페이지로 이동
       navigate("/signup");
