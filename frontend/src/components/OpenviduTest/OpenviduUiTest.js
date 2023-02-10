@@ -11,6 +11,8 @@ import axios from "axios";
 import styled from "styled-components";
 
 const SessionIdDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
   color: white;
 `;
 
@@ -455,12 +457,12 @@ const OpenviduUiTest = () => {
         <div>
           <SessionIdDiv>
             <h1 id="session-title">Room Code : {mySessionId}</h1>
-            <input
+            {/* <input
               type="button"
               id="buttonLeaveSession"
               onClick={leaveSession}
               value="Leave session"
-            />
+            /> */}
             <MyButton
               lang={"English"}
               text={"Leave session"}
