@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import OpenViduVideoComponent from 'components/openvidu/OpenViduVideoComponent';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import OpenViduVideoComponent from './OvVideo';
 // import './UserVideo.css';
 
 const StreamComponent = styled.div`
