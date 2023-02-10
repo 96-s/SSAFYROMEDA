@@ -208,9 +208,9 @@ const OpenviduUiTest = () => {
 
           mySession.publish(tempPublisher);
 
-          var tempSubscribers=subscribers;
-          tempSubscribers.unshift(tempPublisher);
-          setSubscribers(tempSubscribers);
+          // var tempSubscribers=subscribers;
+          // tempSubscribers.unshift(tempPublisher);
+          // setSubscribers(tempSubscribers);
 
           // Obtain the current video device in use
           setCurrentVideoDevice(videoDevices[0]);
@@ -311,9 +311,9 @@ const OpenviduUiTest = () => {
           // --- 6) Publish your stream ---
           mySession.publish(tempPublisher);
 
-          var tempSubscribers=subscribers;
-          tempSubscribers.unshift(tempPublisher);
-          setSubscribers(tempSubscribers);
+          // var tempSubscribers=subscribers;
+          // tempSubscribers.unshift(tempPublisher);
+          // setSubscribers(tempSubscribers);
 
           // Set the main video in the page to display our webcam and store our Publisher
           setCurrentVideoDevice(videoDevices[0]);
