@@ -1,5 +1,5 @@
 import GamePage from "pages/GamePage";
-import UserVideoComponent from "./UserVideoComponent"
+import UserVideoComponent from "./UserVideoComponent";
 import LobbyPage from "pages/LobbyPage";
 
 import { OpenVidu } from "openvidu-browser";
@@ -444,11 +444,11 @@ const OpenviduUiTest = () => {
         //   </div>
         // </div>
         <LobbyPage
-        initRoom={initRoom}
-        joinRoom={joinRoom}
-        sessionId={mySessionId}
-        handleChangeSessionId={handleChangeSessionId}
-      />
+          initRoom={initRoom}
+          joinRoom={joinRoom}
+          sessionId={mySessionId}
+          handleChangeSessionId={handleChangeSessionId}
+        />
       ) : null}
 
       {session !== undefined ? (
@@ -456,11 +456,6 @@ const OpenviduUiTest = () => {
           <SessionIdDiv>
             <h1 id="session-title">Room Code : {mySessionId}</h1>
           </SessionIdDiv>
-          {mainStreamManager !== undefined ? (
-            <div id="main-video">
-              <UserVideoComponent streamManager={mainStreamManager} />
-            </div>
-          ) : null}
           <GamePage
             ov={ov}
             session={session}
