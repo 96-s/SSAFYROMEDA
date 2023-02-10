@@ -233,11 +233,6 @@ const OpenviduUiTest = () => {
 
     var mySession = tempSession;
 
-    console.log("tempSession 2");
-    console.log(tempSession);
-    console.log("mySession 2");
-    console.log(mySession);
-
     mySession.on("streamCreated", (event) => {
       // OpenVidu -> Session -> UserVideoComponent를 사용하기 때문에 2번째 인자로 HTML
       // 요소 삽입X

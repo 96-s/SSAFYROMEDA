@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
 
 const Box = styled.div`
     border: 1px solid black;
@@ -23,30 +24,45 @@ const MiddleBox = styled.div`
     margin-bottom: 2vh;
 `;
 
-const StreamComponent = styled.div`
-    display: flex;
-    // height: 300px;
-    // aspect-ratio: 4 / 3;
-`;
-
 const OurTeamVid = ({
   mainStreamManager,
-  subscribers
+  subscribers,
+  publisher
 }) => {
     return (
       <Page>
         <Video>
-          <Box>1</Box>
-            <StreamComponent></StreamComponent>
+          <Box>
+            {mainStreamManager !== undefined ? (
+              <UserVideoComponent 
+                streamManager={mainStreamManager}
+              />
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[0]} />
+            </div>
+          </Box>
           <Nickname>닉네임: 가가가가</Nickname>
-            <MiddleBox>
-              <StreamComponent></StreamComponent>
-            <Box>2</Box>
+          <MiddleBox>
+            <Box>
+            {mainStreamManager !== undefined ? (
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[1]} />
+            </div>
+            </Box>
             <Nickname>닉네임: 가가가가</Nickname>
-            </MiddleBox>
-          <Box>3</Box>
-            <StreamComponent></StreamComponent>
-          <Nickname>닉네임: 가가가가</Nickname>
+          </MiddleBox>
+          <Box>
+          {mainStreamManager !== undefined ? (
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[2]} />
+            </div>
+          </Box>
+            <Nickname>닉네임: 가가가가</Nickname>
         </Video>
       </Page>
     );

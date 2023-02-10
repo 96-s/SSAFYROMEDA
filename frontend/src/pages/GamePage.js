@@ -23,7 +23,7 @@ const GamePage = ({
   session,
   mySessionId,
   mainStreamManager,
-  publish,
+  publisher,
   subscribers,
   isMike,
   isCamera,
@@ -40,13 +40,15 @@ const GamePage = ({
     <Page>
       <Container>
         <OurTeamVid
-          mainStreamManager={mainStreamManager}
+          streamManager={mainStreamManager}
           subscribers={subscribers}
+          publisher={publisher}
         />
         <Map/>
         <TheirTeamVid
-          mainStreamManager={mainStreamManager}
+          streamManager={mainStreamManager}
           subscribers={subscribers}
+          publisher={publisher}
         />
       </Container>
     </Page>
