@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
 
 const Box = styled.div`
     border: 1px solid black;

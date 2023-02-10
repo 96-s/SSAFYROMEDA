@@ -446,7 +446,8 @@ const OpenviduTest2 = () => {
             </form>
           </div>
         </div>
-      ) : // <LobbyPage
+      ) : 
+      // <LobbyPage
       //   initRoom={initRoom}
       //   joinRoom={joinRoom}
       //   sessionId={mySessionId}
