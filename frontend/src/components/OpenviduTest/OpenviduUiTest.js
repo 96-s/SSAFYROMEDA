@@ -1,6 +1,6 @@
 import GamePage from "pages/GamePage";
-import UserVideoComponent from "./UserVideoComponent";
 import LobbyPage from "pages/LobbyPage";
+import MyButton from "components/common/Button";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -460,6 +460,12 @@ const OpenviduUiTest = () => {
               id="buttonLeaveSession"
               onClick={leaveSession}
               value="Leave session"
+            />
+            <MyButton
+              lang={"English"}
+              text={"Leave session"}
+              onClick={leaveSession}
+              type={"is-warning"}
             />
           </SessionIdDiv>
           <GamePage
