@@ -455,6 +455,12 @@ const OpenviduUiTest = () => {
         <div>
           <SessionIdDiv>
             <h1 id="session-title">Room Code : {mySessionId}</h1>
+            <input
+              type="button"
+              id="buttonLeaveSession"
+              onClick={leaveSession}
+              value="Leave session"
+            />
           </SessionIdDiv>
           <GamePage
             ov={ov}
