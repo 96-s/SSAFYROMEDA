@@ -14,7 +14,6 @@ import ResultPage from "pages/ResultPage";
 import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
-import GameRoomPage from "pages/GameRoomPage";
 
 import UiTest from "pages/UiTest";
 
@@ -58,7 +57,6 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="/result" element={<ResultPage />} />
-          <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
           <Route path="/test3" element={<UiTest />} />
