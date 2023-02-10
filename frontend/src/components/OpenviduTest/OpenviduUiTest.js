@@ -41,7 +41,7 @@ const OpenviduUiTest = () => {
   const [isSpeaker, setIsSpeaker] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
-  
+
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -216,7 +216,6 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-
         })
         .catch((error) => {
           console.log(
@@ -319,7 +318,6 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          
         })
         .catch((error) => {
           console.log(
@@ -451,7 +449,11 @@ const OpenviduUiTest = () => {
           <SessionIdDiv>
             <h1 id="session-title">Room Code : {mySessionId}</h1>
           </SessionIdDiv>
-
+          {mainStreamManager !== undefined ? (
+            <div id="main-video">
+              <UserVideoComponent streamManager={mainStreamManager} />
+            </div>
+          ) : null}
           <GamePage
             ov={ov}
             session={session}
@@ -469,7 +471,7 @@ const OpenviduUiTest = () => {
             leaveSession={leaveSession}
           />
         </div>
-        ) : null}
+      ) : null}
     </div>
     // <div className="container">
     //   {session === undefined ? (
@@ -547,7 +549,7 @@ const OpenviduUiTest = () => {
     //       ) : null}
 
     //       <div id="video-container">
-    //         {/* {publisher !== undefined ? 
+    //         {/* {publisher !== undefined ?
     //             <div
     //             className="stream-container"
     //             onClick={() =>
