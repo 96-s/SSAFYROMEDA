@@ -17,7 +17,6 @@ const Page = styled.div`
   width: 100%;
 `
 
-
 const GamePage = ({
   ov,
   session,
@@ -33,8 +32,12 @@ const GamePage = ({
   initRoom,
   joinRoom,
   leaveSession,
-  deleteSubsciber
+  deleteSubsciber,
+  userNickname,
+  userNo,
 }) => {
+  console.log(userNickname);
+  console.log(userNo);
 
   return (
     <Page>
