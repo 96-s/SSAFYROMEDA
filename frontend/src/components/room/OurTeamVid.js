@@ -32,11 +32,6 @@ const OurTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
           {mainStreamManager !== undefined ? (
             <UserVideoComponent streamManager={mainStreamManager} />
           ) : null}
-        </Box>
-        <Box>
-          {mainStreamManager !== undefined ? (
-            <UserVideoComponent streamManager={mainStreamManager} />
-          ) : null}
           <div>
             <UserVideoComponent streamManager={publisher} />
           </div>
