@@ -31,7 +31,7 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
             <UserVideoComponent streamManager={mainStreamManager} />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={publisher} />
+            <UserVideoComponent streamManager={subscribers[3]} />
           </div>
         </Box>
         <Nickname>닉네임: 가가가가</Nickname>
@@ -41,7 +41,7 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
               <UserVideoComponent streamManager={mainStreamManager} />
             ) : null}
             <div>
-              <UserVideoComponent streamManager={subscribers[2]} />
+              <UserVideoComponent streamManager={subscribers[4]} />
             </div>
           </Box>
           <Nickname>닉네임: 가가가가</Nickname>
@@ -51,7 +51,7 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
             <UserVideoComponent streamManager={mainStreamManager} />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[3]} />
+            <UserVideoComponent streamManager={subscribers[5]} />
           </div>
         </Box>
         <Nickname>닉네임: 가가가가</Nickname>
