@@ -12,7 +12,6 @@ import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
 import TestPage from "pages/TestPage";
-import TestPage2 from "pages/TestPage2"; // 함수형 openvidu
 // import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
@@ -64,7 +63,6 @@ function App() {
           <Route path="/result" element={<ResultPage />} />
           <Route path="/openvidu" element={<OpenviduPage />} />
           <Route path="/test" element={<TestPage />} />
-          <Route path="/test2" element={<TestPage2 />} />
           <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
