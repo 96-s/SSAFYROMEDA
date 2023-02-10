@@ -38,20 +38,9 @@ const OurTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
             <UserVideoComponent streamManager={mainStreamManager} />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[0]} />
+            <UserVideoComponent streamManager={publisher} />
           </div>
         </Box>
-        <Nickname>닉네임: 가가가가</Nickname>
-        <MiddleBox>
-          <Box>
-            {mainStreamManager !== undefined ? (
-              <UserVideoComponent streamManager={mainStreamManager} />
-            ) : null}
-            <div>
-              <UserVideoComponent streamManager={publisher} />
-            </div>
-          </Box>
-        </MiddleBox>
         <Nickname>닉네임: 가가가가</Nickname>
         <MiddleBox>
           <Box>
