@@ -48,23 +48,33 @@ const OurTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
               <UserVideoComponent streamManager={mainStreamManager} />
             ) : null}
             <div>
-              <UserVideoComponent streamManager={subscribers[1]} />
+              <UserVideoComponent streamManager={publisher} />
             </div>
           </Box>
           <Nickname>닉네임: 가가가가</Nickname>
-        </MiddleBox>
-        <Box>
+          <MiddleBox>
+            <Box>
+            {mainStreamManager !== undefined ? (
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[0]} />
+            </div>
+            </Box>
+            <Nickname>닉네임: 가가가가</Nickname>
+          </MiddleBox>
+          <Box>
           {mainStreamManager !== undefined ? (
-            <UserVideoComponent streamManager={mainStreamManager} />
-          ) : null}
-          <div>
-            <UserVideoComponent streamManager={subscribers[2]} />
-          </div>
-        </Box>
-        <Nickname>닉네임: 가가가가</Nickname>
-      </Video>
-    </Page>
-  );
-};
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[1]} />
+            </div>
+          </Box>
+            <Nickname>닉네임: 가가가가</Nickname>
+        </Video>
+      </Page>
+    );
+}
 
 export default OurTeamVid;
