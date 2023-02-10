@@ -6,9 +6,9 @@ const Box = styled.div`
   height: 25vh;
   aspect-ratio: 4 / 3;
 `;
-const Nickname = styled.div`
-  text-align: center;
-`;
+// const Nickname = styled.div`
+//   text-align: center;
+// `;
 const Page = styled.div`
   margin: auto;
 `;
@@ -34,7 +34,6 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
             <UserVideoComponent streamManager={subscribers[3]} />
           </div>
         </Box>
-        <Nickname>닉네임: 가가가가</Nickname>
         <MiddleBox>
           <Box>
             {mainStreamManager !== undefined ? (
@@ -44,7 +43,6 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
               <UserVideoComponent streamManager={subscribers[4]} />
             </div>
           </Box>
-          <Nickname>닉네임: 가가가가</Nickname>
         </MiddleBox>
         <Box>
           {mainStreamManager !== undefined ? (
@@ -54,7 +52,6 @@ const TheirTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
             <UserVideoComponent streamManager={subscribers[5]} />
           </div>
         </Box>
-        <Nickname>닉네임: 가가가가</Nickname>
       </Video>
     </Page>
   );
