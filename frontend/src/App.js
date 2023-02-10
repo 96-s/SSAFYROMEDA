@@ -8,17 +8,14 @@ import ExplanationPage from "pages/ExplanationPage";
 import MainPage from "pages/MainPage";
 import LobbyPage from "pages/LobbyPage";
 import LoginPage from "pages/LoginPage";
-import OpenviduPage from "pages/OpenviduPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
-import TestPage from "pages/TestPage";
 // import KakaoRedirect from "components/auth/KakaoRedirect";
 import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
 import GameRoomPage from "pages/GameRoomPage";
 
-import OpenviduUiTest from "pages/UiTest";
 import UiTest from "pages/UiTest";
 
 // import { Provider } from "react-redux";
@@ -61,8 +58,6 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="/result" element={<ResultPage />} />
-          <Route path="/openvidu" element={<OpenviduPage />} />
-          <Route path="/test" element={<TestPage />} />
           <Route path="/gameroom" element={<GameRoomPage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
