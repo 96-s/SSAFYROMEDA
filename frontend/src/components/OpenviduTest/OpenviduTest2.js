@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import {
+  UNSAFE_enhanceManualRouteObjects,
   useLocation,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -47,23 +48,6 @@ const OpenviduTest2 = () => {
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   
-    // -----------게임관련 변수들----------------------------------
-  // 게임의 phase 분리시키는 변수들
-  const [isGameStart, setIsGameStart] = useState(false);
-  const [isGameDone, setIsGameDone] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false);
-  // 게임 진행 관련 변수
-  const [players, setPlayers] = useState([]); // 플레이어들
-  const [turnNum, setTurnNum] = useState(0); // 몇 번째 사람 차례인지(이번 턴 인 사람)
-  const [nextPlayer, setNextPlayer] = useState(''); // 다음 사람(handlemainStreamer에 사용)
-  const [posList, setPosList] = useState([0, 0, 0, 0, 0, 0]); // 6명 max라 생각하고 각자의 포지션
-  const [minigameType, setMinigameType] = useState(undefined);
-  // const [minigameDone, setMinigameDone] = useState(false); // 미니게임이 끝났는지
-  const [isRoll, setIsRoll] = useState(false); // 굴렸는지
-  // 주사위 몇 나왔는지 알려주기 위한 변수
-  const [whatDiceNum, setWhatDiceNum] = useState(0);
-
-
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -225,7 +209,7 @@ const OpenviduTest2 = () => {
             resolution: "240x180.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: true, // 거울모드
+            mirror: false, // 거울모드
           });
 
           mySession.publish(tempPublisher);
@@ -301,63 +285,6 @@ const OpenviduTest2 = () => {
       console.warn(exception);
     });
 
-    // 맵 동기화
-    mySession.on('GAME_STATE_START', (data) => {
-      console.warn('게임 시작');
-      const {
-        nextTurnNum,
-        nextNextPlayer,
-        nextPosList,
-        nextIsRoll,
-        nextIsGameStart,
-      } = JSON.parse(data.data);
-      setTurnNum(nextTurnNum);
-      setNextPlayer(nextNextPlayer);
-      setPosList(nextPosList);
-      setIsRoll(nextIsRoll);
-      setIsGameStart(nextIsGameStart);
-    });
-
-    // 주사위 동기화
-    mySession.on('GAME_STATE_CHANGED', (data) => {
-      console.warn('주사위 굴림', players);
-      const { isRoll, nextPosList, nextMinigameType, nextwhatDiceNum } = JSON.parse(data.data);
-      console.warn(nextwhatDiceNum)
-      setMinigameType(nextMinigameType)
-      setPosList(nextPosList)
-      setIsRoll(isRoll)
-      setWhatDiceNum(nextwhatDiceNum)
-    });
-
-    // 미니게임 결과 동기화
-    mySession.on('MINIGAME_STATE_CHANGED', (data) => {
-      console.warn('미니게임 끝남');
-      const { isSuccess, nextTurn, nextIsRoll, nextUserName, nextPosList } = JSON.parse(
-        data.data,
-      );
-      setNextPlayer(nextUserName);
-      setTurnNum(nextTurn);
-      if (isSuccess) {
-        setPosList(nextPosList);
-      }
-      setIsRoll(nextIsRoll);
-    });
-
-    // 전체 게임 종료
-    mySession.on('GAME_STATE_DONE', (data) => {
-      console.warn('보드게임종료..');
-      const { nextIsGameDone, nextPosList } = JSON.parse(data.data);
-      setPosList(nextPosList);
-      setIsGameDone(nextIsGameDone);
-    });
-
-    // 게임 종료 알림
-    mySession.on('GAME_OVER', (data) => {
-      console.warn('게임이 최종 종료됐습니다.');
-      const {nextIsGameOver} = JSON.parse(data.data);           
-      setIsGameOver(nextIsGameOver);
-    });
-
     // --- 4) Connect to the session with a valid user token ---
 
     // Get a token from the OpenVidu deployment
@@ -384,7 +311,7 @@ const OpenviduTest2 = () => {
             resolution: "240x180.4", // 해상도
             frameRate: 30, // The frame rate of your video
             insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-            mirror: true, // Whether to mirror your local video or not
+            mirror: false, // Whether to mirror your local video or not
           });
 
           // --- 6) Publish your stream ---
@@ -481,51 +408,49 @@ const OpenviduTest2 = () => {
   return (
     <div className="container">
       {session === undefined ? (
-        // <div id="join">
-        //   <div id="join-dialog" className="jumbotron vertical-center">
-        //     <SessionIdDiv>
-        //       <h1> Join a video session </h1>
-        //     </SessionIdDiv>
-        //     <form className="form-group" onSubmit={initRoom}>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="INIT"
-        //         />
-        //       </p>
-        //     </form>
-        //     <form className="form-group" onSubmit={joinRoom}>
-        //       <p>
-        //         <label> Code: </label>
-        //         <input
-        //           className="form-control"
-        //           type="text"
-        //           id="sessionId"
-        //           value={mySessionId}
-        //           onChange={handleChangeSessionId}
-        //           required
-        //         />
-        //       </p>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="JOIN"
-        //         />
-        //       </p>
-        //     </form>
-        //   </div>
-        // </div>
-      <LobbyPage
-        initRoom={initRoom}
-        joinRoom={joinRoom}
-        sessionId={mySessionId}
-        handleChangeSessionId={handleChangeSessionId}
-      />
-      ) : 
+        <div id="join">
+          <div id="join-dialog" className="jumbotron vertical-center">
+            <SessionIdDiv>
+              <h1> Join a video session </h1>
+            </SessionIdDiv>
+            <form className="form-group" onSubmit={initRoom}>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="INIT"
+                />
+              </p>
+            </form>
+            <form className="form-group" onSubmit={joinRoom}>
+              <p>
+                <label> Code: </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="sessionId"
+                  value={mySessionId}
+                  onChange={handleChangeSessionId}
+                  required
+                />
+              </p>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="JOIN"
+                />
+              </p>
+            </form>
+          </div>
+        </div>
+      ) : // <LobbyPage
+      //   initRoom={initRoom}
+      //   joinRoom={joinRoom}
+      //   sessionId={mySessionId}
+      // />
       null}
 
       {session !== undefined ? (

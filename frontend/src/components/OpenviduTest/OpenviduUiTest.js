@@ -1,6 +1,5 @@
 import GamePage from "pages/GamePage";
 import UserVideoComponent from "./UserVideoComponent";
-import LobbyPage from "pages/LobbyPage";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -42,7 +41,7 @@ const OpenviduUiTest = () => {
   const [isSpeaker, setIsSpeaker] = useState(true);
   const [myUserName, setMyUserName] = useState("");
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
-  
+
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -213,7 +212,6 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-
         })
         .catch((error) => {
           console.log(
@@ -312,7 +310,6 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          
         })
         .catch((error) => {
           console.log(
@@ -399,50 +396,44 @@ const OpenviduUiTest = () => {
   return (
     <div className="container">
       {session === undefined ? (
-        // <div id="join">
-        //   <div id="join-dialog" className="jumbotron vertical-center">
-        //     <SessionIdDiv>
-        //       <h1> Join a video session </h1>
-        //     </SessionIdDiv>
-        //     <form className="form-group" onSubmit={initRoom}>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="INIT"
-        //         />
-        //       </p>
-        //     </form>
-        //     <form className="form-group" onSubmit={joinRoom}>
-        //       <p>
-        //         <label> Code: </label>
-        //         <input
-        //           className="form-control"
-        //           type="text"
-        //           id="sessionId"
-        //           value={mySessionId}
-        //           onChange={handleChangeSessionId}
-        //           required
-        //         />
-        //       </p>
-        //       <p className="text-center">
-        //         <input
-        //           className="btn btn-lg btn-success"
-        //           name="commit"
-        //           type="submit"
-        //           value="JOIN"
-        //         />
-        //       </p>
-        //     </form>
-        //   </div>
-        // </div>
-        <LobbyPage
-        initRoom={initRoom}
-        joinRoom={joinRoom}
-        sessionId={mySessionId}
-        handleChangeSessionId={handleChangeSessionId}
-      />
+        <div id="join">
+          <div id="join-dialog" className="jumbotron vertical-center">
+            <SessionIdDiv>
+              <h1> Join a video session </h1>
+            </SessionIdDiv>
+            <form className="form-group" onSubmit={initRoom}>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="INIT"
+                />
+              </p>
+            </form>
+            <form className="form-group" onSubmit={joinRoom}>
+              <p>
+                <label> Code: </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="sessionId"
+                  value={mySessionId}
+                  onChange={handleChangeSessionId}
+                  required
+                />
+              </p>
+              <p className="text-center">
+                <input
+                  className="btn btn-lg btn-success"
+                  name="commit"
+                  type="submit"
+                  value="JOIN"
+                />
+              </p>
+            </form>
+          </div>
+        </div>
       ) : null}
 
       {session !== undefined ? (
@@ -450,7 +441,11 @@ const OpenviduUiTest = () => {
           <SessionIdDiv>
             <h1 id="session-title">Room Code : {mySessionId}</h1>
           </SessionIdDiv>
-
+          {mainStreamManager !== undefined ? (
+            <div id="main-video">
+              <UserVideoComponent streamManager={mainStreamManager} />
+            </div>
+          ) : null}
           <GamePage
             ov={ov}
             session={session}
@@ -468,7 +463,7 @@ const OpenviduUiTest = () => {
             leaveSession={leaveSession}
           />
         </div>
-        ) : null}
+      ) : null}
     </div>
     // <div className="container">
     //   {session === undefined ? (
@@ -546,7 +541,7 @@ const OpenviduUiTest = () => {
     //       ) : null}
 
     //       <div id="video-container">
-    //         {/* {publisher !== undefined ? 
+    //         {/* {publisher !== undefined ?
     //             <div
     //             className="stream-container"
     //             onClick={() =>
