@@ -264,33 +264,6 @@ const SectionUnderTwo = styled.section`
 const Footer = styled.footer``;
 
 /*******************  SLIDER *******************/
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-`;
-
-const SlideWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
-const SlideImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-const SlideButton = styled.div`
-  float: right;
-  background-color: none;
-  button {
-    background: navajowhite;
-  }
-  img {
-    height: 30px;
-    width: 40px;
-  }
-`;
 
 ///////////////////             Function
 
@@ -336,22 +309,6 @@ const LobbyPage = ({
   const [currentImgOrder, setCurrentImgOrder] = useState(0);
   const IMG_WIDTH = 100;
   const slideRange = currentImgOrder * IMG_WIDTH;
-
-  // useEffect(() => {
-  //   slideRef.current.style.transition = "all 0.5s ease-in-out";
-  //   slideRef.current.style.transform = `translateX(-${slideRange}%)`;
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentImgOrder]);
-
-  // const moveToNextSlide = () => {
-  //   if (currentImgOrder === 2) return;
-  //   setcCurrentImgOrder(currentImgOrder + 1);
-  // };
-
-  // const moveToPrevSlide = () => {
-  //   if (currentImgOrder === 0) return;
-  //   setcCurrentImgOrder(currentImgOrder - 1);
-  // };
 
   const navigate = useNavigate();
 
@@ -437,15 +394,13 @@ const LobbyPage = ({
                   }}
                 />
               </form> */}
-              <form className="form-group" onSubmit={initRoom}>
-                <p className="text-center">
-                  <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="INIT"
-                  />
-                </p>
+              <form className="form-group">
+                <MyButton
+                  lang={"Korean"}
+                  text={"ㅤ우주선 생성ㅤ"}
+                  type={"is-warning"}
+                  onClick={initRoom}
+                />
               </form>
               {/* //header 부분에 텍스트를 입력한다. */}
               <MakeRoomModal
@@ -467,6 +422,29 @@ const LobbyPage = ({
                 onClick={openEnterRoomModal}
               />
               </form> */}
+              {/* join 기존 코드 남겨둠 */}
+              {/* <form className="form-group" onSubmit={joinRoom}>
+                <p>
+                  <label> Code: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="sessionId"
+                    value={sessionId}
+                    onChange={handleChangeSessionId}
+                    required
+                  />
+                </p>
+                <p className="text-center">
+                  <input
+                    className="btn btn-lg btn-success"
+                    name="commit"
+                    type="submit"
+                    value="JOIN"
+                  />
+                </p>
+              </form> */}
+
               <form className="form-group" onSubmit={joinRoom}>
                 <p>
                   <label> Code: </label>
