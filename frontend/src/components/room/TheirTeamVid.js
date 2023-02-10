@@ -22,18 +22,45 @@ const MiddleBox = styled.div`
 `;
 
 
-const TheirTeamVid = () => {
+const TheirTeamVid = ({
+    mainStreamManager,
+    subscribers,
+    publisher
+  }) => {
     return (
-      <Page>
+        <Page>
         <Video>
-          <Box>1</Box>
-              <Nickname>닉네임: 가가가가</Nickname>
+          <Box>
+            {mainStreamManager !== undefined ? (
+              <UserVideoComponent 
+                streamManager={mainStreamManager}
+              />
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={publisher} />
+            </div>
+          </Box>
+          <Nickname>닉네임: 가가가가</Nickname>
           <MiddleBox>
-            <Box>2</Box>
+            <Box>
+            {mainStreamManager !== undefined ? (
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[2]} />
+            </div>
+            </Box>
             <Nickname>닉네임: 가가가가</Nickname>
           </MiddleBox>
-          <Box>3</Box>
-              <Nickname>닉네임: 가가가가</Nickname>
+          <Box>
+          {mainStreamManager !== undefined ? (
+              <UserVideoComponent streamManager={mainStreamManager}/>
+            ) : null}
+            <div>
+              <UserVideoComponent streamManager={subscribers[3]} />
+            </div>
+          </Box>
+            <Nickname>닉네임: 가가가가</Nickname>
         </Video>
       </Page>
     );
