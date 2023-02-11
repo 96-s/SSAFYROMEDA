@@ -15,21 +15,7 @@ const Nickname = styled.div`
     text-align: center;
 `;
 
-const  UserVideoComponent =  ({streamManager}) => {
-
-    const [userNickname, setUserNickname] = useState("default");
-    console.warn(streamManager);
-    // const getNicknameTag = (streamManager) => {
-    //   const nickname = JSON.parse(
-    //     streamManager.stream.connection.data
-    //   ).clientData;
-    //   // console.warn("안녕닉네임", nickname);
-    //   setUserNickname(nickname);
-    // };
-  
-    // useEffect(() => {
-    //   getNicknameTag(streamManager);    
-    // }, []);
+const  UserVideoComponent =  ({streamManager, userNickname, userNo}) => {
 
     return (
         <div>
@@ -39,7 +25,6 @@ const  UserVideoComponent =  ({streamManager}) => {
                         <OpenViduVideoComponent 
                             streamManager={streamManager}
                         />
-                        {/* <Nickname><p>{this.getNicknameTag()}</p></Nickname> */}
                         <Nickname><p>{userNickname}</p></Nickname>
                     </div>
                 </StreamComponent>
