@@ -1,3 +1,6 @@
+import VideoController from "./VideoController";
+import { useState } from "react";
+
 const GameManager = () =>{
 
     //비디오 관련 변수

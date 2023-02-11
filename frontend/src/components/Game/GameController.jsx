@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const GameController = ({
   mySessionId,
   subscribers, // 자신을 제외한 게임 내 참여자(구독자), array
