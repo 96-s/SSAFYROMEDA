@@ -21,13 +21,7 @@ const GameController = ({
     }
     /* --------------게임 스타트 애니메이션 여기 삽입(setTimeOut(?))------------------ */
     checkDiceTurn();
-  };
-
-  // 게임을 초기 상태로 돌리는 함수
-  const GameReset = () => {
-    t1Pos = 0; // 1팀 위치 초기화
-    t2Pos = 0; // 2팀 위치 초기화
-    throwUser = 0; // 첫 번째 사람 주사위 던지게 세팅
+    sendPos(subscribers); // Event or UseEffect 를 통해 조건 발동 예정
   };
 
   const checkDiceTurn = (event) => {};
@@ -42,7 +36,9 @@ const GameController = ({
         to: subscribers,
         type: "GAME_RESET",
         data: {
-          reset: true,
+          t1Pos: 0, // 1팀 위치 초기화
+          t2Pos: 0, // 2팀 위치 초기화
+          throwUser: 0, // 첫 번째 사람 주사위 던지게 세팅
         },
       },
       {
@@ -61,8 +57,8 @@ const GameController = ({
     const response = await axios.post(
       "https://i8d205.p.ssafy.io/openvidu/api/signal",
       {
-        session: this.state.mySessionId,
-        to: this.state.subscribers,
+        session: mySessionId,
+        to: subscribers,
         type: "TURN_UPDATE",
         data: {
           t1Pos: this.state.t1Pos,
