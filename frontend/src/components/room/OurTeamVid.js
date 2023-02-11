@@ -22,34 +22,59 @@ const MiddleBox = styled.div`
   margin-bottom: 2vh;
 `;
 
-const OurTeamVid = ({ mainStreamManager, subscribers, publisher }) => {
+const OurTeamVid = ({ 
+  mainStreamManager, subscribers, publisher, userNickname, userNo}) => {
   return (
     <Page>
       <Video>
         <Box>
           {mainStreamManager !== undefined ? (
-            <UserVideoComponent streamManager={mainStreamManager} />
+            <UserVideoComponent 
+              streamManager={mainStreamManager}
+              userNickname={userNickname}
+              userNo={userNo}
+            />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={publisher} />
+            <UserVideoComponent 
+              streamManager={publisher}
+              userNickname={userNickname}
+              userNo={userNo}
+            />
           </div>
         </Box>
         <MiddleBox>
           <Box>
             {mainStreamManager !== undefined ? (
-              <UserVideoComponent streamManager={mainStreamManager} />
+              <UserVideoComponent
+                streamManager={mainStreamManager} 
+                userNickname={userNickname}
+                userNo={userNo}
+              />
             ) : null}
             <div>
-              <UserVideoComponent streamManager={subscribers[0]} />
+              <UserVideoComponent 
+                streamManager={subscribers[0]}
+                userNickname={userNickname}
+                userNo={userNo}
+              />
             </div>
           </Box>
         </MiddleBox>
         <Box>
           {mainStreamManager !== undefined ? (
-            <UserVideoComponent streamManager={mainStreamManager} />
+            <UserVideoComponent
+              streamManager={mainStreamManager}
+              userNickname={userNickname}
+              userNo={userNo}
+            />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[1]} />
+            <UserVideoComponent
+              streamManager={subscribers[1]}
+              userNickname={userNickname}
+              userNo={userNo}
+            />
           </div>
         </Box>
       </Video>

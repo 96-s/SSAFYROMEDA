@@ -36,8 +36,6 @@ const GamePage = ({
   userNickname,
   userNo,
 }) => {
-  console.log(userNickname);
-  console.log(userNo);
 
   return (
     <Page>
@@ -46,12 +44,16 @@ const GamePage = ({
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
         />
         <Map/>
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
         />
       </Container>
     </Page>

@@ -253,6 +253,7 @@ const OpenviduUiTest = () => {
       // console.error('이름은', addUserName);
 
       tempSubscribers.push(tempSubscriber);
+      console.log(userNickname);
 
       // let tempPlayers = tempSubscribers.map(
       //   (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
@@ -486,6 +487,8 @@ const OpenviduUiTest = () => {
             initRoom={initRoom}
             joinRoom={joinRoom}
             leaveSession={leaveSession}
+            userNickname={userNickname}
+            userNo={userNo}
           />
         </div>
       ) : null}
