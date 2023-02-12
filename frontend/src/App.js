@@ -16,6 +16,7 @@ import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
 
 import UiTest from "pages/UiTest";
+import DesignTestPage from "pages/DesignTestPage";
 
 // import { Provider } from "react-redux";
 
@@ -60,6 +61,8 @@ function App() {
 
           <Route path="/dialogtest" element={<DialogTest />} />
           <Route path="/test3" element={<UiTest />} />
+
+          <Route path="/designtest" element={<DesignTestPage />} />
         </Routes>
       </div>
     </div>
