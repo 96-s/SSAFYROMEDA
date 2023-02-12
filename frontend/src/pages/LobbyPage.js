@@ -447,7 +447,7 @@ const LobbyPage = ({
 
               <form className="form-group" onSubmit={joinRoom}>
                 <p>
-                  <label> Code: </label>
+                  <label> 우주선 입장 코드: </label>
                   <input
                     className="form-control"
                     type="text"
