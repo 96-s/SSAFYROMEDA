@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 //IMAGE Components
 // import background from "resources/images/back.PNG";
 import bg from "resources/images/bg.png";
+import LoginBGM from '../resources/sounds/ssafyromeda_soundpack/99_sub.wav';
+
 
 const BackGround = styled.div`
   background: url(${bg}) no-repeat center;
@@ -63,6 +65,15 @@ const LoginPage = () => {
     dispatch(authActions.reset());
   }, [dispatch]);
 
+  const soundEffect = () => {
+    playSound(LoginBGM);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  };
+
   return (
     <>
       <BackGround>
@@ -70,7 +81,7 @@ const LoginPage = () => {
           <TitleText>LOGIN</TitleText>
           <ButtonBox>
             <LoginText>카카오로 시작하기</LoginText>
-            <Login />
+            <Login onClick={soundEffect}/>
           </ButtonBox>
         </TitleContainer>
       </BackGround>

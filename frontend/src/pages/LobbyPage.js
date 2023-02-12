@@ -43,6 +43,9 @@ import sdoff from "resources/images/soundoff_icon.png";
 import astronaut from "resources/images/astronaut2.png";
 // import logout from "resources/images/logout_icon.png";
 
+// soundEffect
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+
 ///////////////////             BODY
 const BG = styled.div`
   background: url(${background}) no-repeat center;
@@ -345,6 +348,16 @@ const LobbyPage = ({
     setEnterRoomModalOpen(false);
   };
 
+  // 브금
+  const soundEffect = () => {
+    playSound(buttonClick);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  };
+
   return (
     <>
       <BG>
@@ -352,7 +365,10 @@ const LobbyPage = ({
           <HeaderLeftUserInfo>
             <MyPageBalloon
               className="nes-balloon from-right nes-pointer"
-              onClick={openModal}
+              onClick={() => {
+                openModal();
+                soundEffect();
+              }}
             >
               <span>나의 탈출일지</span>
             </MyPageBalloon>
@@ -403,7 +419,10 @@ const LobbyPage = ({
                   lang={"Korean"}
                   text={"ㅤ우주선 생성ㅤ"}
                   type={"is-warning"}
-                  onClick={initRoom}
+                  onClick={() => {
+                    initRoom();
+                    soundEffect();
+                  }}
                 />
               </form>
               {/* //header 부분에 텍스트를 입력한다. */}
@@ -469,6 +488,7 @@ const LobbyPage = ({
                       type="submit"
                       value="JOIN"
                       placeholder="코드를 입력해주세요."
+                      onclick={soundEffect}
                     />
                   </CodeInputBox>
                 </p>

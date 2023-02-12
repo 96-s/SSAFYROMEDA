@@ -15,6 +15,9 @@ import notperson from "resources/images/notperson.png";
 //Sound
 import MusicContainer from "../store/audio";
 import Sound from "components/common/sound.js";
+import ReactAudioPlayer from "react-audio-player";
+import MainPageSound from '../resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav';
+import typing from '../resources/sounds/ssafyromeda_soundpack/02_typing.wav';
 ///////////////////             BODY
 const BG = styled.div`
   background: url(${background}) no-repeat center;
@@ -155,9 +158,26 @@ const MainPage = () => {
     setInputStatus(inputStatus);
   };
 
+  const soundEffect = () => {
+    playSound(typing);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  };
+
+
   return (
     <>
       <BG>
+        <ReactAudioPlayer
+          urlsound={MainPageSound}
+          isLoop={true}
+          isPlaying={true}
+          volumneNum={0.3}
+        >
+        </ReactAudioPlayer>
         <Titlediv>
           <Title src={title} />
           <br />
@@ -180,7 +200,7 @@ const MainPage = () => {
                 onChange={handleClickRadioButton}
               />
 
-              <Span>
+              <Span onClick={soundEffect}>
                 <Link to="/explanation">GAME START</Link>
 
                 {/* <Link to="/signup">회원가입 하기</Link> */}
