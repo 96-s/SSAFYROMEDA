@@ -24,7 +24,6 @@ const SessionidDiv = styled.div`
   display: flex;
 `;
 
-
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 const temp = localStorage.getItem("persist:root");
 let token = "";
@@ -415,21 +414,19 @@ const OpenviduUiTest = () => {
     }
   };
 
-    // 브금
-    const soundEffect = () => {
-      playSound(buttonClick);
-    };
+  // 브금
+  const soundEffect = () => {
+    playSound(buttonClick);
+  };
 
-    const lobbySoundEffect = () => {
-      playSound(lobbyBGM);
-    }
-  
-    function playSound(soundName) {
-      var audio = new Audio(soundName);
-      audio.play();
-    };
+  const lobbySoundEffect = () => {
+    playSound(lobbyBGM);
+  };
 
-
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  }
 
   return (
     <div className="container">

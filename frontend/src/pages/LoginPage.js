@@ -65,9 +65,6 @@ const LoginPage = () => {
     dispatch(authActions.reset());
   }, [dispatch]);
 
-  const soundEffect = () => {
-    playSound(LoginBGM);
-  };
 
   function playSound(soundName) {
     var audio = new Audio(soundName);
@@ -81,7 +78,7 @@ const LoginPage = () => {
           <TitleText>LOGIN</TitleText>
           <ButtonBox>
             <LoginText>카카오로 시작하기</LoginText>
-            <Login onClick={soundEffect}/>
+            <Login onClick={playSound(LoginBGM)}/>
           </ButtonBox>
         </TitleContainer>
       </BackGround>

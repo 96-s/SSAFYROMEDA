@@ -480,7 +480,7 @@ const LobbyPage = ({
                     required
                   />
                 </p>
-                <p className="text-center">
+                <div className="text-center">
                   <CodeInputBox>
                     <input
                       className="btn btn-lg btn-success"
@@ -488,10 +488,10 @@ const LobbyPage = ({
                       type="submit"
                       value="JOIN"
                       placeholder="코드를 입력해주세요."
-                      onclick={soundEffect}
+                      onClick={soundEffect}
                     />
                   </CodeInputBox>
-                </p>
+                </div>
               </form>
               <EnterRoomModal
                 open={EnterRoomModalOpen}
