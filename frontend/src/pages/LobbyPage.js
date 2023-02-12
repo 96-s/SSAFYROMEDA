@@ -260,6 +260,10 @@ const SectionUnderTwo = styled.section`
   }
 `;
 
+const CodeInputBox = styled.div`
+  width: 50px;
+`;
+
 /*******************  FOOTER *******************/
 const Footer = styled.footer``;
 
@@ -458,12 +462,15 @@ const LobbyPage = ({
                   />
                 </p>
                 <p className="text-center">
-                  <input
-                    className="btn btn-lg btn-success"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                  />
+                  <CodeInputBox>
+                    <input
+                      className="btn btn-lg btn-success"
+                      name="commit"
+                      type="submit"
+                      value="JOIN"
+                      placeholder="코드를 입력해주세요."
+                    />
+                  </CodeInputBox>
                 </p>
               </form>
               <EnterRoomModal

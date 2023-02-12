@@ -9,6 +9,7 @@ const Dice = styled.div`
     display: flex;
     justify-content: center;
     padding: 20px;
+    align-items: center;
 `
 
 const DiceModal = (props) => {

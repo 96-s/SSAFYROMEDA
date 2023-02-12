@@ -6,15 +6,21 @@ import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import axios from "axios";
 import styled from "styled-components";
 
-const SessionIdDiv = styled.div`
+const SessionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   color: white;
 `;
+
+const SessionidDiv = styled.div`
+  display: flex;
+`;
+
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 const temp = localStorage.getItem("persist:root");
@@ -406,6 +412,8 @@ const OpenviduUiTest = () => {
     }
   };
 
+
+
   return (
     <div className="container">
       {session === undefined ? (
@@ -457,21 +465,28 @@ const OpenviduUiTest = () => {
 
       {session !== undefined ? (
         <div>
-          <SessionIdDiv>
-            <h1 id="session-title">Room Code : {mySessionId}</h1>
-            {/* <input
-              type="button"
-              id="buttonLeaveSession"
-              onClick={leaveSession}
-              value="Leave session"
-            /> */}
+          <SessionHeaderDiv>
+            <div>
+              <SessionidDiv>
+                <h1 id="session-title">Room Code : {mySessionId}</h1>
+                <span>ㅤ</span>
+                <CopyToClipboard text={mySessionId}>
+                  <MyButton
+                    lang={"Korean"}
+                    text={"복사하기"}
+                    // onClick={copyRoomCode}
+                    type={"is-primary"}
+                  />
+                </CopyToClipboard>
+              </SessionidDiv>
+            </div>
             <MyButton
               lang={"English"}
               text={"Leave session"}
               onClick={leaveSession}
               type={"is-warning"}
             />
-          </SessionIdDiv>
+          </SessionHeaderDiv>
           <GamePage
             ov={ov}
             session={session}
