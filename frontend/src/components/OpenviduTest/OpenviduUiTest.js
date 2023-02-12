@@ -6,15 +6,24 @@ import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import axios from "axios";
 import styled from "styled-components";
 
-const SessionIdDiv = styled.div`
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+
+const SessionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   color: white;
 `;
+
+const SessionidDiv = styled.div`
+  display: flex;
+`;
+
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/"; //process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 const temp = localStorage.getItem("persist:root");
@@ -32,7 +41,7 @@ const OpenviduUiTest = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   const [ov, setOv] = useState(null);
   const [session, setSession] = useState(undefined);
@@ -406,6 +415,22 @@ const OpenviduUiTest = () => {
     }
   };
 
+    // 브금
+    const soundEffect = () => {
+      playSound(buttonClick);
+    };
+
+    const lobbySoundEffect = () => {
+      playSound(lobbyBGM);
+    }
+  
+    function playSound(soundName) {
+      var audio = new Audio(soundName);
+      audio.play();
+    };
+
+
+
   return (
     <div className="container">
       {session === undefined ? (
@@ -457,21 +482,32 @@ const OpenviduUiTest = () => {
 
       {session !== undefined ? (
         <div>
-          <SessionIdDiv>
-            <h1 id="session-title">Room Code : {mySessionId}</h1>
-            {/* <input
-              type="button"
-              id="buttonLeaveSession"
-              onClick={leaveSession}
-              value="Leave session"
-            /> */}
+          <SessionHeaderDiv>
+            <div>
+              <SessionidDiv>
+                <h1 id="session-title">Room Code : {mySessionId}</h1>
+                <span>ㅤ</span>
+                <CopyToClipboard text={mySessionId}>
+                  <MyButton
+                    lang={"Korean"}
+                    text={"복사하기"}
+                    onClick={soundEffect}
+                    type={"is-primary"}
+                  />
+                </CopyToClipboard>
+              </SessionidDiv>
+            </div>
             <MyButton
-              lang={"English"}
-              text={"Leave session"}
-              onClick={leaveSession}
+              lang={"Korean"}
+              text={"나가기"}
+              onClick={() => {
+                leaveSession();
+                soundEffect();
+                lobbySoundEffect();
+              }}
               type={"is-warning"}
             />
-          </SessionIdDiv>
+          </SessionHeaderDiv>
           <GamePage
             ov={ov}
             session={session}

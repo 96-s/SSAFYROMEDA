@@ -3,6 +3,8 @@ import TypingText from "components/utils/Typing";
 import MyButton from "components/common/Button";
 import { useNavigate } from "react-router";
 import Explanation_IMG from "resources/images/Explanation_IMG.png";
+import Lobby from '../resources/sounds/ssafyromeda_soundpack/03_lobbybgm.wav';
+
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +45,15 @@ const ExplanationPage = () => {
     navigate("/login");
   };
 
+  const soundEffect = () => {
+    playSound(Lobby);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  };
+
   return (
     <Page>
       <Container>
@@ -58,7 +69,10 @@ const ExplanationPage = () => {
           lang={"Korean"}
           text={"　탈출하기　"}
           type={"is-primary"}
-          onClick={toLobby}
+          onClick={() => {
+            toLobby();
+            soundEffect();
+            }}
         />
       </ButtonDiv>
     </Page>
