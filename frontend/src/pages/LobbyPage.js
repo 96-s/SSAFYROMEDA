@@ -357,7 +357,7 @@ const LobbyPage = ({
               className="nes-dialog is-rounded"
               open={modalOpen}
               close={closeModal}
-              header="Modal heading"
+              header="My Info"
             >
               {/* <main> {props.children} </main>에 내용이 입력된다. 리액트 함수형 */}
               모달 창 나의 정보를 입력해보자잇!!!!!!!!!!!!!

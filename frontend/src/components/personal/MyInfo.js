@@ -2,7 +2,12 @@ import MyButton from "components/common/Button";
 import NicknameModal from "components/personal/NicknameModal";
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-// import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+const ContentDiv = styled.div`
+  font-size: 20px;
+  text-align: left;
+`;
 
 
 
@@ -29,20 +34,21 @@ const MyInfo = () => {
   return (
     <div>
       <ul>
-        <li>아이디: {userId}</li>
-        <div className="nickname">
-          <li>닉네임: {userNickname}</li>
-          <span>　</span>
-          <MyButton
-            type={"Korean"}
-            className={"is-primary"}
-            text={"수정"}
-            onClick={openModal}
-          />
-          <NicknameModal open={modalOpen} close={closeModal} header="닉네임 수정">
-
-          </NicknameModal>
-        </div>
+        <ContentDiv>
+          <li>아이디: {userId}</li>
+          <div className="nickname">
+            <li>닉네임: {userNickname}</li>
+            <span>　</span>
+            <MyButton
+              lang={"Korean"}
+              type={"is-primary"}
+              text={"수정"}
+              onClick={openModal}
+              />
+            <NicknameModal open={modalOpen} close={closeModal} header="닉네임 수정">
+            </NicknameModal>
+          </div>
+        </ContentDiv>
       </ul>
     </div>
   );
