@@ -1,5 +1,5 @@
-import MyButton from "components/common/Button";
-import NicknameModal from "components/personal/NicknameModal";
+// import MyButton from "components/common/Button";
+// import NicknameModal from "components/personal/NicknameModal";
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -7,6 +7,9 @@ import styled from "styled-components";
 const ContentDiv = styled.div`
   font-size: 20px;
   text-align: left;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
 `;
 
 
@@ -36,18 +39,14 @@ const MyInfo = () => {
       <ul>
         <ContentDiv>
           <li>아이디: {userId}</li>
-          <div className="nickname">
-            <li>닉네임: {userNickname}</li>
-            <span>　</span>
-            <MyButton
+          <li>닉네임: {userNickname}</li>
+            {/* <MyButton
               lang={"Korean"}
               type={"is-primary"}
               text={"수정"}
               onClick={openModal}
-              />
-            <NicknameModal open={modalOpen} close={closeModal} header="닉네임 수정">
-            </NicknameModal>
-          </div>
+              /> */}
+            {/* <NicknameModal open={modalOpen} close={closeModal} header="닉네임 수정"></NicknameModal> */}
         </ContentDiv>
       </ul>
     </div>
