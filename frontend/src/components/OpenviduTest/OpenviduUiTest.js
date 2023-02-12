@@ -1,5 +1,6 @@
 import GamePage from "pages/GamePage";
 import LobbyPage from "pages/LobbyPage";
+import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/Button";
 
 import { OpenVidu } from "openvidu-browser";
@@ -469,7 +470,7 @@ const OpenviduUiTest = () => {
         //     </form>
         //   </div>
         // </div>
-        <LobbyPage
+        <DesignTestPage
           initRoom={initRoom}
           joinRoom={joinRoom}
           sessionId={mySessionId}
