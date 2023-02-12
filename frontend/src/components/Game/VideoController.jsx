@@ -27,88 +27,86 @@ if (temp) {
 }
 
 const VideoController = ({
-        ov,
-        session,
-        mySessionId,
-        streamManager,
-        publisher,
-        subscribers,
-        isMike,
-        isCamera,
-        isSpeaker,
-        currentVideoDevice,    
-    }) => {
+  ov,
+  session,
+  mySessionId,
+  streamManager,
+  publisher,
+  subscribers,
+  isMike,
+  isCamera,
+  isSpeaker,
+  currentVideoDevice,
+}) => {
+  //강제 re-rendering 함수
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
-    //강제 re-rendering 함수
-    const [, updateState] = useState();
-    const forceUpdate = useCallback(() => updateState({}), []);
+  // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
+  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
 
-    // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-    const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const handleChangeSessionId = (e) => {
+    setMySessionId(e.target.value);
+  };
 
-    const handleChangeSessionId = (e) => {
-        setMySessionId(e.target.value);
-    };
-
-    // //openviduDeployment로 부터 token 가져오기 sessionid 받아서 token 생성
-    const getTokenWithSid = async () => {
-        const response = await axios.post(
-        APPLICATION_SERVER_URL,
-        {
-            userNo: userNo,
-            userNickname: userNickname,
+  // //openviduDeployment로 부터 token 가져오기 sessionid 받아서 token 생성
+  const getTokenWithSid = async () => {
+    const response = await axios.post(
+      APPLICATION_SERVER_URL,
+      {
+        userNo: userNo,
+        userNickname: userNickname,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-            withCredentials: true,
-            headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            },
-        }
-        );
+      }
+    );
 
-        const mySessionId = response.data;
-        setMySessionId(mySessionId);
+    const mySessionId = response.data;
+    setMySessionId(mySessionId);
 
-        const res = await axios.put(
-        APPLICATION_SERVER_URL + mySessionId,
-        {
-            userNo: userNo,
-            userNickname: userNickname,
+    const res = await axios.put(
+      APPLICATION_SERVER_URL + mySessionId,
+      {
+        userNo: userNo,
+        userNickname: userNickname,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-            withCredentials: true,
-            headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            },
-        }
-        );
-        return res.data;
-    };
+      }
+    );
+    return res.data;
+  };
 
-    //openvidudployment로 부터 token 가져오기
-    const getToken = async (sessionId) => {
-        const response = await axios.put(
-        APPLICATION_SERVER_URL + mySessionId,
-        {
-            userNo: userNo,
-            userNickname: userNickname,
+  //openvidudployment로 부터 token 가져오기
+  const getToken = async (sessionId) => {
+    const response = await axios.put(
+      APPLICATION_SERVER_URL + mySessionId,
+      {
+        userNo: userNo,
+        userNickname: userNickname,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        {
-            withCredentials: true,
-            headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            },
-        }
-        );
-        return response.data;
-    };
+      }
+    );
+    return response.data;
+  };
 
-    // 방 생성
-    const initRoom = async () => {
-    
+  // 방 생성
+  const initRoom = async () => {
     const tempOv = new OpenVidu();
     setOv(tempOv);
 
@@ -153,7 +151,7 @@ const VideoController = ({
           let tempPublisher = tempOv.initPublisher(undefined, {
             audioSource: undefined,
             videoSource: videoDevices[0].deviceId,
-            publishAudio: true, 
+            publishAudio: true,
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
@@ -205,7 +203,6 @@ const VideoController = ({
     });
 
     getToken().then((token) => {
-
       mySession
         .connect(token, { clientData: myUserName })
         .then(async () => {
@@ -252,10 +249,9 @@ const VideoController = ({
       setSubscribers(targetSubscribers);
     }
   };
-  
+
   //현재 방에서 나가기
   const leaveSession = () => {
-    
     const mySession = session;
 
     if (mySession) {

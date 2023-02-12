@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/AuthSlice";
 
-
 //  CSS Styled
 import styled from "styled-components";
 import "nes.css/css/nes.min.css";

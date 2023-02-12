@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 import styled from "styled-components";
+import DesignTestPage from "pages/DesignTestPage";
 
 const SessionIdDiv = styled.div`
   display: flex;
@@ -446,7 +447,7 @@ const OpenviduUiTest = () => {
         //     </form>
         //   </div>
         // </div>
-        <LobbyPage
+        <DesignTestPage
           initRoom={initRoom}
           joinRoom={joinRoom}
           sessionId={mySessionId}
