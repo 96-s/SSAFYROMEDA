@@ -419,10 +419,12 @@ const LobbyPage = ({
                   lang={"Korean"}
                   text={"ㅤ우주선 생성ㅤ"}
                   type={"is-warning"}
-                  onClick={() => {
-                    initRoom();
-                    soundEffect();
-                  }}
+                  onClick={initRoom
+                  //   () => {
+                  //   initRoom();
+                  //   soundEffect();
+                  // }
+                }
                 />
               </form>
               {/* //header 부분에 텍스트를 입력한다. */}
@@ -488,7 +490,7 @@ const LobbyPage = ({
                       type="submit"
                       value="JOIN"
                       placeholder="코드를 입력해주세요."
-                      onClick={soundEffect}
+                      // onClick={soundEffect}
                     />
                   </CodeInputBox>
                 </div>
