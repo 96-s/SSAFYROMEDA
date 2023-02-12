@@ -11,6 +11,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import axios from "axios";
 import styled from "styled-components";
 
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+
 const SessionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -412,6 +415,20 @@ const OpenviduUiTest = () => {
     }
   };
 
+    // 브금
+    const soundEffect = () => {
+      playSound(buttonClick);
+    };
+
+    const lobbySoundEffect = () => {
+      playSound(lobbyBGM);
+    }
+  
+    function playSound(soundName) {
+      var audio = new Audio(soundName);
+      audio.play();
+    };
+
 
 
   return (
@@ -474,7 +491,7 @@ const OpenviduUiTest = () => {
                   <MyButton
                     lang={"Korean"}
                     text={"복사하기"}
-                    // onClick={copyRoomCode}
+                    onClick={soundEffect}
                     type={"is-primary"}
                   />
                 </CopyToClipboard>
@@ -483,7 +500,11 @@ const OpenviduUiTest = () => {
             <MyButton
               lang={"Korean"}
               text={"나가기"}
-              onClick={leaveSession}
+              onClick={() => {
+                leaveSession();
+                soundEffect();
+                lobbySoundEffect();
+              }}
               type={"is-warning"}
             />
           </SessionHeaderDiv>

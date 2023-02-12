@@ -384,8 +384,8 @@ const LobbyPage = ({
             </Modal>
           </HeaderLeftUserInfo>
           <HeaderRightDiv>
-            <MusicContainer>
-              <Sound />
+            <MusicContainer onClick={soundEffect}>
+              <Sound/>
             </MusicContainer>
             <HeaderRightPlayOut>
               <Logout />
