@@ -68,6 +68,7 @@ const GameManager = () => {
   const [nextThrowUser, setNextThrowUser] = useState(0);
   // 내가 주사위 던지는지 여부
   const [isDiceThrow, setIsDiceThrow] = useState(false);
+  const [diceTurn, setDiceTurn] = useState(true);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
   const [team1Members, setTeam1Members] = useState([]);
@@ -76,7 +77,8 @@ const GameManager = () => {
   const [gameTurn, setGameTurn] = useState(true);
   const [isDice, setIsDice] = useState(false);
   const [gameNo, setGameNo] = useState(0);
-
+  const [isGameStarted, setIsGameStarted] = useState(undefined);
+  const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -182,11 +184,10 @@ const GameManager = () => {
 
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if(team1Members.length < 3){
+      if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
-      }
-      else{
+      } else {
         team2Members.push(tempSubscriber);
         setMyTeam(2);
       }
@@ -198,7 +199,6 @@ const GameManager = () => {
       console.log(myTeam);
       console.log(team1Members);
       console.log(team2Members);
-
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -216,38 +216,51 @@ const GameManager = () => {
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
     mySession.on("GAME_RESET", (data) => {
-      const { reset } = JSON.parse(data.data);
-      console.log(`reset? : ${reset}`);
+      const { start } = JSON.parse(data.data);
+      console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
       setT1Pos(0);
       setT2Pos(0);
       setNextThrowUser(0);
+      setIsGameStarted(true);
     });
 
-    mySession.on("TURN_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, beforeGameNo } = JSON.parse(data.data);
+    mySession.on("DICE_TURN", (data) => {
+      const { diceTurn } = JSON.parse(data.data);
+      console.log(`diceTurn? : ${diceTurn}`);
+
+      setDiceTurn(true);
+    });
+
+    mySession.on("POS_UPDATE", (data) => {
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+        data.data
+      );
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
           ", 팀2 다음 포지션 : " +
           nextT2Pos +
-          ", 이전에 던진 유저 고유넘버 : " +
-          beforeGameNo
+          ", 다음에 던지는 사람 : " +
+          nextThrowUser
       );
 
       // 각 팀 포지션 업데이트
       setT1Pos(nextT1Pos);
       setT2Pos(nextT2Pos);
+      // 다음 주사위 유저 지정
+      setNextThrowUser(nextThrowUser);
+      // 주사위 턴 종료
+      setDiceTurn(false);
+    });
 
-      // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 === myGameNo) {
-        setIsDiceThrow(true);
-        console.log("당신은 다음 턴에 주사위를 던집니다.");
-      } else {
-        setIsDiceThrow(false);
-        console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
-      }
+    mySession.on("NEXTGAME_UPDATE", (data) => {
+      const { nextGame } = JSON.parse(data.data);
+      console.log(`nextGame? : ${nextGame}`);
+
+      // 미니 게임 세팅
+      setNextMiniGameNum(nextGame);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -279,11 +292,10 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if(team1Members.length < 3){
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
             setMyTeam(1);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
             setMyTeam(2);
           }
@@ -322,11 +334,10 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if(team1Members.length < 3){
+      if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
-      }
-      else{
+      } else {
         team2Members.push(tempSubscriber);
         setMyTeam(2);
       }
@@ -370,11 +381,10 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if(team1Members.length < 3){
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
             setMyTeam(1);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
             setMyTeam(2);
           }
@@ -383,7 +393,6 @@ const GameManager = () => {
           console.log(myTeam);
           console.log(team1Members);
           console.log(team2Members);
-
         })
         .catch((error) => {
           console.log(
@@ -456,7 +465,6 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionIdDiv>
-                
                 <h1 id="session-title">Room Code : {mySessionId}</h1>
                 <span>ㅤ</span>
 
@@ -508,6 +516,10 @@ const GameManager = () => {
             myTeam={myTeam}
             team1Members={team1Members}
             team2Members={team2Members}
+            isGameStarted={isGameStarted}
+            setIsGameStarted={setIsGameStarted}
+            nextMiniGameNum={nextMiniGameNum}
+            setNextMiniGameNum={setNextMiniGameNum}
           />
         </div>
       ) : null}

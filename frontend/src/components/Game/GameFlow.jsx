@@ -65,16 +65,17 @@ const GameFlow = ({
   setMiniGame4,
   miniGame5,
   setMiniGame5,
+  isGameStarted,
+  setIsGameStarted,
 }) => {
   const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
-  const [isGameStarted, SetIsGameStarted] = useState(false);
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
-      SetIsGameStarted(true);
+      setIsGameStarted(true);
       sendGameStartSignal(subscribers); // setStartAnimationPlaying(true); 쏘기
       posReset(); // 내 포지션도 리셋
     }
@@ -100,7 +101,6 @@ const GameFlow = ({
   useEffect(() => {
     if (!startAnimationPlaying) {
       console.warn("게임 시작 애니메이션 종료!");
-      // SetIsGameStarted(true);
       checkDiceTurn();
     }
   }, [startAnimationPlaying]);
@@ -189,8 +189,8 @@ const GameFlow = ({
   useEffect(() => {
     if (isHostPlayer && nextMiniGameNum > 0) {
       sendNextMiniGame(subscribers);
-      setMiniGameSelectTurn(true);
     }
+    setMiniGameSelectTurn(true);
   }, [nextMiniGameNum]);
 
   // 미니 게임 턴이 되었을 때
@@ -215,6 +215,9 @@ const GameFlow = ({
       }
     }
   }, [miniGameSelectTurn]);
+
+  const successMiniGame = () => {};
+  const failMiniGame = () => {};
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = async (subscribers) => {
@@ -330,17 +333,24 @@ const GameFlow = ({
           userNickname={userNickname}
           userNo={userNo}
         />
-        { isHostPlayer !== false ? (isGameStarted !== false ? (<Map/>)
-          : (
+        {isHostPlayer !== undefined ? (
+          isGameStarted !== false ? (
+            <Map />
+          ) : (
+            <GameStartButton>
+              <MyButton
+                lang={"Korean"}
+                text={"게임 시작"}
+                type={"is-success"}
+                onClick={GameStart}
+              />
+            </GameStartButton>
+          )
+        ) : (
           <GameStartButton>
-            <MyButton
-                  lang={"Korean"}
-                  text={"게임 시작"}
-                  type={"is-success"}
-                  onClick={GameStart}
-                />
+            <span>준비 중</span>
           </GameStartButton>
-        )) : <GameStartButton><span>준비 중</span></GameStartButton>}
+        )}
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
@@ -351,5 +361,5 @@ const GameFlow = ({
       </Container>
     </Page>
   );
-} 
+};
 export default GameFlow;
