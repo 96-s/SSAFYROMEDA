@@ -179,6 +179,21 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
 
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
+
+      if(team1Members.length < 3){
+        team1Members.push(tempSubscriber);
+        setMyTeam(1);
+      }
+      else{
+        team2Members.push(tempSubscriber);
+        setMyTeam(2);
+      }
+
+      console.log("initRoom() streamCreated");
+      console.log(myTeam);
+      console.log(team1Members);
+      console.log(team2Members);
+
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -259,11 +274,19 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if (team1Members.length < 3) {
+          if(team1Members.length < 3){
             team1Members.push(tempPublisher);
-          } else {
-            team2Members.push(tempPublisher);
+            setMyTeam(1);
           }
+          else{
+            team2Members.push(tempPublisher);
+            setMyTeam(2);
+          }
+
+          console.log("initRoom() getTokenWithSid()");
+          console.log(myTeam);
+          console.log(team1Members);
+          console.log(team2Members);
         })
         .catch((error) => {
           console.log(
@@ -293,11 +316,18 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if (team1Members.length < 3) {
+      if(team1Members.length < 3){
         team1Members.push(tempSubscriber);
-      } else {
-        team2Members.push(tempSubscriber);
+        setMyTeam(1);
       }
+      else{
+        team2Members.push(tempSubscriber);
+        setMyTeam(2);
+      }
+      console.log("joinRoom() streamCreated");
+      console.log(myTeam);
+      console.log(team1Members);
+      console.log(team2Members);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -334,11 +364,20 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if (team1Members.length < 3) {
+          if(team1Members.length < 3){
             team1Members.push(tempPublisher);
-          } else {
-            team2Members.push(tempPublisher);
+            setMyTeam(1);
           }
+          else{
+            team2Members.push(tempPublisher);
+            setMyTeam(2);
+          }
+
+          console.log("joinRoom() getToken()");
+          console.log(myTeam);
+          console.log(team1Members);
+          console.log(team2Members);
+
         })
         .catch((error) => {
           console.log(
@@ -459,6 +498,9 @@ const GameManager = () => {
             setIsDiceThrow={setIsDiceThrow}
             setGameTurn={setGameTurn}
             gameTurn={gameTurn}
+            myTeam={myTeam}
+            team1Members={team1Members}
+            team2Members={team2Members}
           />
         </div>
       ) : null}

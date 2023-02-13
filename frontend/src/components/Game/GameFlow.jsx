@@ -351,5 +351,5 @@ const GameFlow = ({
       </Container>
     </Page>
   );
-};
+} 
 export default GameFlow;
