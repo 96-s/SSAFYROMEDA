@@ -333,6 +333,7 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
+
         })
         .catch((error) => {
           console.log(
