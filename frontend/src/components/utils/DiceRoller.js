@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Dice1 from "resources/images/Map/dice1.png";
 import Dice2 from "resources/images/Map/dice2.png";
 import Dice3 from "resources/images/Map/dice3.png";
+import DiceSound from "resources/sounds/ssafyromeda_soundpack/14_dice.wav";
 
 const DiceRollerBlock = styled.div`
 
@@ -132,6 +133,17 @@ const DiceRoller = ({
 
     const faces = [Dice1, Dice2, Dice3, Dice1, Dice2, Dice3];
 
+    // 브금
+    const soundEffect = () => {
+        playSound(DiceSound);
+    };
+
+
+    function playSound(soundName) {
+        var audio = new Audio(soundName);
+        audio.play();
+    }
+
     return (
         <DiceRollerBlock>
             <Dice
@@ -140,6 +152,7 @@ const DiceRoller = ({
                 rollingTime={700}
                 onRoll={(value) => {
                     onRollHandler(value);
+                    soundEffect();
                 }}
                 faces={faces}
             />

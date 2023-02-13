@@ -183,8 +183,31 @@ const DesignTestPage = ({
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
             <form className="form-group">
-              <LabelDiv>방 만들기</LabelDiv>
-              <HoverDiv>
+              <MyButton
+                lang={"Korean"}
+                text={"ㅤ우주선 생성ㅤ"}
+                type={"is-warning"}
+                onClick={() => {
+                  initRoom();
+                  soundEffect();
+                }}
+              />
+            </form>
+
+            <InputContainer>
+              <form className="form-group">
+                <LabelDiv>
+                   우주선 입장 코드: 
+                </LabelDiv>
+                <input
+                  className="nes-input"
+                  type="text"
+                  id="sessionId"
+                  value={sessionId}
+                  onChange={handleChangeSessionId}
+                  required
+                />
+
                 <MyButton
                   lang={"Korean"}
                   text={"ㅤ우주선 생성ㅤ"}
