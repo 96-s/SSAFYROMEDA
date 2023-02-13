@@ -222,25 +222,46 @@ const GameFlow = ({
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = async (subscribers) => {
     console.log("게임 리셋!");
-    const response = await axios.post(
-      "https://i8d205.p.ssafy.io/openvidu/api/signal",
-      {
-        session: mySessionId,
-        to: subscribers,
-        type: "GAME_RESET",
-        data: {
-          start: true,
-        },
+
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        t1Pos: t1Pos,
+        t2Pos: t2Pos,
+        nextThrowUser: nextThrowUser,
+        isGameStarted: isGameStarted,
+      }),
+      type: 'GAME_RESET',
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
+        'Content-type': 'application/json',
       },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        },
-      }
-    );
-    return response.data;
+      body: JSON.stringify(sendData),
+    });    
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "GAME_RESET",
+    //     data: JSON.stringify({
+    //       isGameStarted: isGameStarted,
+    //     }),
+    //   },
+    //   {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // return response.data;
   };
 
   const sendDiceTurnSignal = async (subscribers) => {
