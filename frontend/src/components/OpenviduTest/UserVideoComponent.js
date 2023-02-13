@@ -15,7 +15,9 @@ const Nickname = styled.div`
     text-align: center;
 `;
 
-const  UserVideoComponent =  ({streamManager, userNickname, userNo}) => {
+const  UserVideoComponent =  ({streamManager}) => {
+    
+    useEffect(() => {console.log(streamManager)}, [streamManager]);
 
     return (
         <div>
@@ -25,7 +27,7 @@ const  UserVideoComponent =  ({streamManager, userNickname, userNo}) => {
                         <OpenViduVideoComponent 
                             streamManager={streamManager}
                         />
-                        <Nickname><p>{userNickname}</p></Nickname>
+                        <Nickname><p>{JSON.parse(streamManager.stream.connection.data).clientData}</p></Nickname>
                     </div>
                 </StreamComponent>
             ) : null}

@@ -330,8 +330,7 @@ const GameFlow = ({
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
-          userNickname={userNickname}
-          userNo={userNo}
+          team1Members={team1Members}
         />
         {isGameStarted === false ? (
           isHostPlayer !== false ? (
@@ -355,8 +354,7 @@ const GameFlow = ({
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
-          userNickname={userNickname}
-          userNo={userNo}
+          team2Members={team2Members}
         />
       </Container>
     </Page>
