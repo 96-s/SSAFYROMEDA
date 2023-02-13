@@ -333,10 +333,8 @@ const GameFlow = ({
           userNickname={userNickname}
           userNo={userNo}
         />
-        {isHostPlayer !== false ? (
-          isGameStarted !== false ? (
-            <Map />
-          ) : (
+        {isGameStarted === false ? (
+          isHostPlayer !== false ? (
             <GameStartButton>
               <MyButton
                 lang={"Korean"}
@@ -345,11 +343,13 @@ const GameFlow = ({
                 onClick={GameStart}
               />
             </GameStartButton>
+          ) : (
+            <GameStartButton>
+              <span>준비 중</span>
+            </GameStartButton>
           )
         ) : (
-          <GameStartButton>
-            <span>준비 중</span>
-          </GameStartButton>
+          <Map />
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}
