@@ -357,6 +357,61 @@ const GameManager = () => {
       console.warn(exception);
     });
 
+    // 게임 로직 경계선
+    /* ------------------------------------------------------------------------------------------------------------------------ */
+
+    mySession.on("GAME_RESET", (data) => {
+      const { start } = JSON.parse(data.data);
+      console.log(`start? : ${start}`);
+
+      // 각 게임 정보 초기화
+      setT1Pos(0);
+      setT2Pos(0);
+      setNextThrowUser(0);
+      setIsGameStarted(true);
+    });
+
+    mySession.on("DICE_TURN", (data) => {
+      const { diceTurn } = JSON.parse(data.data);
+      console.log(`diceTurn? : ${diceTurn}`);
+
+      setDiceTurn(true);
+    });
+
+    mySession.on("POS_UPDATE", (data) => {
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+        data.data
+      );
+      console.log(
+        "팀1 다음 포지션 : " +
+          nextT1Pos +
+          ", 팀2 다음 포지션 : " +
+          nextT2Pos +
+          ", 다음에 던지는 사람 : " +
+          nextThrowUser
+      );
+
+      // 각 팀 포지션 업데이트
+      setT1Pos(nextT1Pos);
+      setT2Pos(nextT2Pos);
+      // 다음 주사위 유저 지정
+      setNextThrowUser(nextThrowUser);
+      // 주사위 턴 종료
+      setDiceTurn(false);
+    });
+
+    mySession.on("NEXTGAME_UPDATE", (data) => {
+      
+      const { nextGame } = JSON.parse(data.data);
+      console.log(`nextGame? : ${nextGame}`);
+
+      // 미니 게임 세팅
+      setNextMiniGameNum(nextGame);
+    });
+
+    /* ------------------------------------------------------------------------------------------------------------------------ */
+    // 게임 로직 경계선
+
     getToken().then((token) => {
       mySession
         .connect(token, { clientData: userNickname })
@@ -394,6 +449,7 @@ const GameManager = () => {
           console.log(myTeam);
           console.log(team1Members);
           console.log(team2Members);
+          console.log(userNickname);
         })
         .catch((error) => {
           console.log(
