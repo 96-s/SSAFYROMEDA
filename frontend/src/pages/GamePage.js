@@ -20,11 +20,7 @@ const Page = styled.div`
 `;
 
 const GameStartButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1 / 1;
-  height: 85vh;
+  
 `;
 
 const GamePage = ({
@@ -45,6 +41,8 @@ const GamePage = ({
   deleteSubsciber,
   userNickname,
   userNo,
+  team1Members,
+  team2Members,
 }) => {
   
   const [ isGameStarted, SetIsGameStarted ] = useState(undefined);
@@ -52,7 +50,7 @@ const GamePage = ({
   const GameStart = () => {
     SetIsGameStarted(true);
   };
-
+  
   return (
     <Page>
       <Container>
@@ -62,8 +60,9 @@ const GamePage = ({
           publisher={publisher}
           userNickname={userNickname}
           userNo={userNo}
+          team1Members={team1Members}
         />
-        {isGameStarted !== undefined ? (<Map/>)
+        { isGameStarted !== false ? (<Map/>)
           : (
           <GameStartButton>
             <MyButton
@@ -73,13 +72,15 @@ const GamePage = ({
                   onClick={GameStart}
                 />
           </GameStartButton>
-          )}
+          )
+        }
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
           userNickname={userNickname}
           userNo={userNo}
+          team2Members={team2Members}
         />
       </Container>
     </Page>
