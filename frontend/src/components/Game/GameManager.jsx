@@ -77,7 +77,7 @@ const GameManager = () => {
   const [gameTurn, setGameTurn] = useState(true);
   const [isDice, setIsDice] = useState(false);
   const [gameNo, setGameNo] = useState(0);
-  const [isGameStarted, setIsGameStarted] = useState(undefined);
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
 
