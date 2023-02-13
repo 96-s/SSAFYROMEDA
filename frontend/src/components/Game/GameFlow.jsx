@@ -340,7 +340,7 @@ const GameFlow = ({
                   onClick={GameStart}
                 />
           </GameStartButton>
-        )}
+        )) : <GameStartButton><span>준비 중</span></GameStartButton>}
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
@@ -351,5 +351,5 @@ const GameFlow = ({
       </Container>
     </Page>
   );
-};
+} 
 export default GameFlow;
