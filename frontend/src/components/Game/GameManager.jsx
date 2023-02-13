@@ -1,7 +1,7 @@
 // import GamePage from "pages/GamePage";
 import GameFlow from "./GameFlow";
 import DesignTestPage from "pages/DesignTestPage";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -43,7 +43,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -60,6 +60,8 @@ const GameManager = () => {
   // 게임 관련 변수
   const [t1Pos, setT1Pos] = useState(0);
   const [t2Pos, setT2Pos] = useState(0);
+  // 방장인지 아닌지
+  const [isHostPlayer, setIsHostPlayer] = useState(false);
   // 게임 내 고유 번호
   const [myGameNo, setMyGameNo] = useState(0);
   // 주사위 던지는 유저
@@ -76,6 +78,7 @@ const GameManager = () => {
   const [isDice, setIsDice] = useState(false);
   const [gameNo, setGameNo] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(undefined);
+  const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -189,6 +192,9 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
+      // setIsHostPlayer(true);
+      // console.log(isHostPlayer);
+
       console.log("initRoom() streamCreated");
       console.log(myTeam);
       console.log(team1Members);
@@ -298,6 +304,7 @@ const GameManager = () => {
           console.log(myTeam);
           console.log(team1Members);
           console.log(team2Members);
+          setIsHostPlayer(true);
         })
         .catch((error) => {
           console.log(
@@ -499,6 +506,7 @@ const GameManager = () => {
             leaveSession={leaveSession}
             userNickname={userNickname}
             userNo={userNo}
+            isHostPlayer={isHostPlayer}
             setT1Pos={setT1Pos}
             setT2Pos={setT2Pos}
             isDiceThrow={isDiceThrow}
@@ -510,6 +518,8 @@ const GameManager = () => {
             team2Members={team2Members}
             isGameStarted={isGameStarted}
             setIsGameStarted={setIsGameStarted}
+            nextMiniGameNum={nextMiniGameNum}
+            setNextMiniGameNum={setNextMiniGameNum}
           />
         </div>
       ) : null}

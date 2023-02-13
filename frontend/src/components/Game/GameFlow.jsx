@@ -5,7 +5,7 @@ import OurTeamVid from "components/room/OurTeamVid";
 import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 const Container = styled.div`
   display: flex;
@@ -101,7 +101,6 @@ const GameFlow = ({
   useEffect(() => {
     if (!startAnimationPlaying) {
       console.warn("게임 시작 애니메이션 종료!");
-      setIsGameStarted(true);
       checkDiceTurn();
     }
   }, [startAnimationPlaying]);
@@ -321,8 +320,8 @@ const GameFlow = ({
   const GameStart = () => {
     gameFlowStart();
   };
-  console.log(isHostPlayer);
-  console.log(isGameStarted);
+  console.log("나는 방장" + isHostPlayer);
+  console.log("게임 시작함?" + isGameStarted);
 
   return (
     <Page>
