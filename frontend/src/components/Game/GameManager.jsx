@@ -221,7 +221,7 @@ const GameManager = () => {
       setT2Pos(nextT2Pos);
 
       // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 == myGameNo) {
+      if ((beforeGameNo + 1) % 6 === myGameNo) {
         setIsDiceThrow(true);
         console.log("당신은 다음 턴에 주사위를 던집니다.");
       } else {
