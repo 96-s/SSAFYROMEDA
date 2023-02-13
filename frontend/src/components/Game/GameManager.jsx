@@ -223,14 +223,20 @@ const GameManager = () => {
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
     mySession.on("GAME_RESET", (data) => {
-      const { start } = JSON.parse(data.data);
-      console.log(`start? : ${start}`);
+      // const { start } = JSON.parse(data.data);
+      const {
+        t1Pos,
+        t2Pos,
+        nextThrowUser,
+        isGameStarted,
+      } = JSON.parse(data.data)
+      // console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
-      setT1Pos(0);
-      setT2Pos(0);
-      setNextThrowUser(0);
-      setIsGameStarted(true);
+      setT1Pos(t1Pos);
+      setT2Pos(t2Pos);
+      setNextThrowUser(nextThrowUser);
+      setIsGameStarted(isGameStarted);
     });
 
     mySession.on("DICE_TURN", (data) => {
