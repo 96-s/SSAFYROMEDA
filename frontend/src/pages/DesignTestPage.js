@@ -121,6 +121,10 @@ const LogoutButton = styled.div`
   margin-left: 15px;
 `;
 
+const LabelDiv = styled.h3`
+  color: white;
+`;
+
 const DesignTestPage = ({
   joinRoom,
   initRoom,
@@ -165,7 +169,7 @@ const DesignTestPage = ({
 
             <InputContainer>
               <form className="form-group">
-                <label> 우주선 입장 코드: </label>
+                <LabelDiv>우주선 입장 코드:</LabelDiv>
                 <input
                   className="nes-input"
                   type="text"
@@ -193,7 +197,7 @@ const DesignTestPage = ({
             soundEffect();
           }}
         >
-          지발..
+          내 정보
         </MyPageBalloon>
         <Modal
           className="nes-dialog is-rounded"
