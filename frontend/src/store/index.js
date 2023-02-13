@@ -7,7 +7,6 @@ import { authSagas } from "./AuthSagas";
 
 // 관리할 슬라이스 import
 import authReducer from "./AuthSlice";
-import gameReducer from "./GameSlice";
 
 //  Redux-Persist
 import { persistReducer } from "redux-persist";
@@ -17,7 +16,6 @@ import persistStore from "redux-persist/es/persistStore";
 // Reducers 통합
 const rootReducers = combineReducers({
   auth: authReducer,
-  game: gameReducer,
 });
 
 // 새로운 persist 선언
