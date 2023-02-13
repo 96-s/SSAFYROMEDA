@@ -333,7 +333,7 @@ const GameFlow = ({
           userNickname={userNickname}
           userNo={userNo}
         />
-        {isHostPlayer !== undefined ? (
+        {isHostPlayer !== false ? (
           isGameStarted !== false ? (
             <Map />
           ) : (
