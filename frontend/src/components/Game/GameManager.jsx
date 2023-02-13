@@ -1,5 +1,5 @@
-import GamePage from "pages/GamePage";
-import LobbyPage from "pages/LobbyPage";
+// import GamePage from "pages/GamePage";
+import GameFlow from "./GameFlow";
 import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/MyButton";
 
@@ -21,8 +21,10 @@ const SessionHeaderDiv = styled.div`
   color: white;
 `;
 
-const SessionidDiv = styled.div`
+const SessionIdDiv = styled.div`
   display: flex;
+  justify-content: space-between;
+  color: white;
 `;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
@@ -58,21 +60,57 @@ const GameManager = () => {
   // 게임 관련 변수
   const [t1Pos, setT1Pos] = useState(0);
   const [t2Pos, setT2Pos] = useState(0);
+  // 방장인지 아닌지
+  const [isHostPlayer, setIsHostPlayer] = useState(false);
   // 게임 내 고유 번호
   const [myGameNo, setMyGameNo] = useState(0);
   // 주사위 던지는 유저
   const [nextThrowUser, setNextThrowUser] = useState(0);
   // 내가 주사위 던지는지 여부
   const [isDiceThrow, setIsDiceThrow] = useState(false);
+  const [diceTurn, setDiceTurn] = useState(true);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
-  const [team1Members, setTeam1Members]=useState([]);
-  const [team2Members, setTeam2Members]=useState([]);
+  const [team1Members, setTeam1Members] = useState([]);
+  const [team2Members, setTeam2Members] = useState([]);
   // 이번 턴에 게임 진행하는 여부
   const [gameTurn, setGameTurn] = useState(true);
+  const [isDice, setIsDice] = useState(false);
+  const [gameNo, setGameNo] = useState(0);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
+  const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
+  // 미니게임 여부
+  const [miniGame1, setMiniGame1] = useState(false);
+  const [miniGame2, setMiniGame2] = useState(false);
+  const [miniGame3, setMiniGame3] = useState(false);
+  const [miniGame4, setMiniGame4] = useState(false);
+  const [miniGame5, setMiniGame5] = useState(false);
+
+  const componentDidMount = () => {
+    window.addEventListener("beforeunload", onbeforeunload);
+  };
+
+  const componentWillUnmount = () => {
+    window.removeEventListener("beforeunload", onbeforeunload);
+    joinRoom();
+    return () => {
+      window.removeEventListener("beforeunload", onbeforeunload);
+    };
+  };
+
+  const onbeforeunload = (event) => {
+    leaveSession();
+  };
 
   const handleChangeSessionId = (e) => {
     setMySessionId(e.target.value);
+  };
+
+  const handleMainVideoStream = (stream) => {
+    if (streamManager !== stream) {
+      setStreamManager(stream);
+    }
   };
 
   // //openviduDeployment로 부터 token 가져오기 sessionid 받아서 token 생성
@@ -150,8 +188,24 @@ const GameManager = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      
+
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
+
+      if (team1Members.length < 3) {
+        team1Members.push(tempSubscriber);
+        setMyTeam(1);
+      } else {
+        team2Members.push(tempSubscriber);
+        setMyTeam(2);
+      }
+
+      // setIsHostPlayer(true);
+      // console.log(isHostPlayer);
+
+      console.log("initRoom() streamCreated");
+      console.log(myTeam);
+      console.log(team1Members);
+      console.log(team2Members);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -169,38 +223,51 @@ const GameManager = () => {
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
     mySession.on("GAME_RESET", (data) => {
-      const { reset } = JSON.parse(data.data);
-      console.log(`reset? : ${reset}`);
+      const { start } = JSON.parse(data.data);
+      console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
       setT1Pos(0);
       setT2Pos(0);
       setNextThrowUser(0);
+      setIsGameStarted(true);
     });
 
-    mySession.on("TURN_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, beforeGameNo } = JSON.parse(data.data);
+    mySession.on("DICE_TURN", (data) => {
+      const { diceTurn } = JSON.parse(data.data);
+      console.log(`diceTurn? : ${diceTurn}`);
+
+      setDiceTurn(true);
+    });
+
+    mySession.on("POS_UPDATE", (data) => {
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+        data.data
+      );
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
           ", 팀2 다음 포지션 : " +
           nextT2Pos +
-          ", 이전에 던진 유저 고유넘버 : " +
-          beforeGameNo
+          ", 다음에 던지는 사람 : " +
+          nextThrowUser
       );
 
       // 각 팀 포지션 업데이트
       setT1Pos(nextT1Pos);
       setT2Pos(nextT2Pos);
+      // 다음 주사위 유저 지정
+      setNextThrowUser(nextThrowUser);
+      // 주사위 턴 종료
+      setDiceTurn(false);
+    });
 
-      // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 == myGameNo) {
-        setIsDiceThrow(true);
-        console.log("당신은 다음 턴에 주사위를 던집니다.");
-      } else {
-        setIsDiceThrow(false);
-        console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
-      }
+    mySession.on("NEXTGAME_UPDATE", (data) => {
+      const { nextGame } = JSON.parse(data.data);
+      console.log(`nextGame? : ${nextGame}`);
+
+      // 미니 게임 세팅
+      setNextMiniGameNum(nextGame);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -231,13 +298,20 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          
-          if(team1Members.length < 3){
+
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+            setMyTeam(1);
+          } else {
             team2Members.push(tempPublisher);
+            setMyTeam(2);
           }
+
+          console.log("initRoom() getTokenWithSid()");
+          console.log(myTeam);
+          console.log(team1Members);
+          console.log(team2Members);
+          setIsHostPlayer(true);
         })
         .catch((error) => {
           console.log(
@@ -267,12 +341,17 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if(team1Members.length < 3){
+      if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
-      }
-      else{
+        setMyTeam(1);
+      } else {
         team2Members.push(tempSubscriber);
+        setMyTeam(2);
       }
+      console.log("joinRoom() streamCreated");
+      console.log(myTeam);
+      console.log(team1Members);
+      console.log(team2Members);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -309,12 +388,18 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if(team1Members.length < 3){
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+            setMyTeam(1);
+          } else {
             team2Members.push(tempPublisher);
+            setMyTeam(2);
           }
+
+          console.log("joinRoom() getToken()");
+          console.log(myTeam);
+          console.log(team1Members);
+          console.log(team2Members);
         })
         .catch((error) => {
           console.log(
@@ -373,7 +458,6 @@ const GameManager = () => {
 
   return (
     <div className="container">
-      
       {session === undefined ? (
         <DesignTestPage
           initRoom={initRoom}
@@ -387,11 +471,10 @@ const GameManager = () => {
         <div>
           <SessionHeaderDiv>
             <div>
-              <SessionidDiv>
-                
+              <SessionIdDiv>
                 <h1 id="session-title">Room Code : {mySessionId}</h1>
                 <span>ㅤ</span>
-              
+
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}
@@ -400,7 +483,7 @@ const GameManager = () => {
                     type={"is-primary"}
                   />
                 </CopyToClipboard>
-              </SessionidDiv>
+              </SessionIdDiv>
             </div>
             <MyButton
               lang={"Korean"}
@@ -413,7 +496,7 @@ const GameManager = () => {
               type={"is-warning"}
             />
           </SessionHeaderDiv>
-          <GamePage
+          <GameFlow
             ov={ov}
             session={session}
             mySessionId={mySessionId}
@@ -430,6 +513,34 @@ const GameManager = () => {
             leaveSession={leaveSession}
             userNickname={userNickname}
             userNo={userNo}
+            isHostPlayer={isHostPlayer}
+            setT1Pos={setT1Pos}
+            setT2Pos={setT2Pos}
+            isDiceThrow={isDiceThrow}
+            setIsDiceThrow={setIsDiceThrow}
+            setGameTurn={setGameTurn}
+            gameTurn={gameTurn}
+            myTeam={myTeam}
+            team1Members={team1Members}
+            team2Members={team2Members}
+            isGameStarted={isGameStarted}
+            setIsGameStarted={setIsGameStarted}
+            nextMiniGameNum={nextMiniGameNum}
+            setNextMiniGameNum={setNextMiniGameNum}
+            miniGameSelectTurn={miniGameSelectTurn}
+            setMiniGameSelectTurn={setMiniGameSelectTurn}
+            nextThrowUser={nextThrowUser}
+            setNextThrowUser={setNextThrowUser}
+            miniGame1={miniGame1}
+            miniGame2={miniGame2}
+            miniGame3={miniGame3}
+            miniGame4={miniGame4}
+            miniGame5={miniGame5}
+            setMiniGame1={setMiniGame1}
+            setMiniGame2={setMiniGame2}
+            setMiniGame3={setMiniGame3}
+            setMiniGame4={setMiniGame4}
+            setMiniGame5={setMiniGame5}
           />
         </div>
       ) : null}

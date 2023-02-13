@@ -183,17 +183,19 @@ const DesignTestPage = ({
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
             <form className="form-group">
-              <LabelDiv>방 만들기</LabelDiv>
+            <LabelDiv>방 만들기</LabelDiv>
               <HoverDiv>
-                <MyButton
-                  lang={"Korean"}
-                  text={"ㅤ우주선 생성ㅤ"}
-                  type={"is-warning"}
-                  onClick={initRoom}
-                />
+              <MyButton
+                lang={"Korean"}
+                text={"ㅤ우주선 생성ㅤ"}
+                type={"is-warning"}
+                onClick={() => {
+                  initRoom();
+                  soundEffect();
+                }}
+              />
               </HoverDiv>
             </form>
-
             <form className="form-group">
               <LabelDiv>우주선 입장 코드</LabelDiv>
               <InputContainer>

@@ -1,23 +1,52 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import OurTeamVid from "components/room/OurTeamVid";
+import Map from "components/room/Map";
+import TheirTeamVid from "components/room/TheirTeamVid";
+import styled from "styled-components";
+import MyButton from "components/common/MyButton";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 20px;
+`;
+
+const Page = styled.div`
+  height: 100%;
+  width: 100%;
+`;
+
+const GameStartButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  color: white;
+`;
 
 const GameFlow = ({
+  mainStreamManager,
+  publisher,
   mySessionId,
   subscribers, // 자신을 제외한 게임 내 참여자(구독자), array
-  t1Pos, // 팀 1 현재 위치, int
   setT1Pos,
-  t2Pos, // 팀 2 현재 위치, int
   setT2Pos,
+  t1Pos, // 팀 1 현재 위치, int
+  t2Pos, // 팀 2 현재 위치, int
   myGameNo, // 게임 내 고유 번호, int
   isHostPlayer, // 방장인지 아닌지, bool
-  nextThrowUser, // 주사위 던지는 유저, int
   setNextThrowUser,
-  isDiceThrow, // 내가 주사위 던지는지 여부, bool
-  setIsDiceThrow,
-  diceTurn,
-  setDiceTurn,
+  nextThrowUser, // 주사위 던지는 유저, int
+  setIsDiceThrow, // 내가 주사위 던지는지 여부, bool
+  isDiceThrow,
   myTeam, // 내 팀 ??
+  userNickname,
+  userNo,
   gameTurn, // 이번 턴에 게임 진행하는 여부, bool
   setGameTurn,
   team1Members, // 우리 팀원들 (자신 제외), array
@@ -36,13 +65,17 @@ const GameFlow = ({
   setMiniGame4,
   miniGame5,
   setMiniGame5,
+  isGameStarted,
+  setIsGameStarted,
 }) => {
-  const { startAnimationPlaying, setStartAnimationPlaying } = useState(false);
-  const { diceResult, setDiceResult } = useState(0);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
+  const [diceTurn, setDiceTurn] = useState(false);
+  const [diceResult, setDiceResult] = useState(0);
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
+      setIsGameStarted(true);
       sendGameStartSignal(subscribers); // setStartAnimationPlaying(true); 쏘기
       posReset(); // 내 포지션도 리셋
     }
@@ -156,8 +189,8 @@ const GameFlow = ({
   useEffect(() => {
     if (isHostPlayer && nextMiniGameNum > 0) {
       sendNextMiniGame(subscribers);
-      setMiniGameSelectTurn(true);
     }
+    setMiniGameSelectTurn(true);
   }, [nextMiniGameNum]);
 
   // 미니 게임 턴이 되었을 때
@@ -182,6 +215,9 @@ const GameFlow = ({
       }
     }
   }, [miniGameSelectTurn]);
+
+  const successMiniGame = () => {};
+  const failMiniGame = () => {};
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = async (subscribers) => {
@@ -280,5 +316,50 @@ const GameFlow = ({
     console.log("위치 전송함");
     return response.data;
   };
+
+  const GameStart = () => {
+    gameFlowStart();
+  };
+  console.log("나는 방장" + isHostPlayer);
+  console.log("게임 시작함?" + isGameStarted);
+
+  return (
+    <Page>
+      <Container>
+        <OurTeamVid
+          streamManager={mainStreamManager}
+          subscribers={subscribers}
+          publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
+        />
+        {isGameStarted === false ? (
+          isHostPlayer !== false ? (
+            <GameStartButton>
+              <MyButton
+                lang={"Korean"}
+                text={"게임 시작"}
+                type={"is-success"}
+                onClick={GameStart}
+              />
+            </GameStartButton>
+          ) : (
+            <GameStartButton>
+              <span>준비 중</span>
+            </GameStartButton>
+          )
+        ) : (
+          <Map />
+        )}
+        <TheirTeamVid
+          streamManager={mainStreamManager}
+          subscribers={subscribers}
+          publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
+        />
+      </Container>
+    </Page>
+  );
 };
 export default GameFlow;
