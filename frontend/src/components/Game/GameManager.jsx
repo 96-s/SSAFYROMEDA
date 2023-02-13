@@ -1,4 +1,4 @@
-import VideoController from "./VideoController";
+import GameController from "./GameController";
 import { useState } from "react";
 
 const GameManager = () => {
@@ -25,6 +25,8 @@ const GameManager = () => {
   const [isDiceThrow, setIsDiceThrow] = useState(false);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
+  const [team1Members, setTeam1Members]=useState([]);
+  const [team2Members, setTeam2Members]=useState([]);
   // 이번 턴에 게임 진행하는 여부
   const [gameTurn, setGameTurn] = useState(true);
 
@@ -41,6 +43,17 @@ const GameManager = () => {
       isCamera={isCamera}
       isSpeaker={isSpeaker}
       currentVideoDevice={currentVideoDevice}
+      setOv={setOv}
+      setSession={setSession}
+      setMySessionId={setMySessionId}
+      setStreamManager={setStreamManager}
+      setPublisher={setPublisher}
+      setSubscribers={setSubscribers}
+      setIsMike={setIsMike}
+      setIsCamera={setIsCamera}
+      setIsSpeaker={setIsSpeaker}
+      setCurrentVideoDevice={setCurrentVideoDevice}
+
       //게임 관련 변수
       t1Pos={t1Pos}
       setT1Pos={setT1Pos}
@@ -53,7 +66,12 @@ const GameManager = () => {
       isDiceThrow={isDiceThrow}
       setIsDiceThrow={setIsDiceThrow}
       myTeam={myTeam}
+      setMyTeam={setMyTeam}
       gameTurn={gameTurn}
+      team1Members={team1Members}
+      setTeam1Members={setTeam1Members}
+      team2Members={team2Members}
+      setTeam2Members={setTeam2Members}
     />
   );
 };

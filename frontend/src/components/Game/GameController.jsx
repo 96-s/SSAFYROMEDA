@@ -27,6 +27,7 @@ if (temp) {
 }
 
 const GameController = ({
+  // 비디오 관련
   ov,
   session,
   mySessionId,
@@ -37,7 +38,18 @@ const GameController = ({
   isCamera,
   isSpeaker,
   currentVideoDevice,
+  setOv,
+  setSession,
+  setMySessionId,
+  setStreamManager,
+  setPublisher,
+  setSubscribers,
+  setIsMike,
+  setIsCamera,
+  setIsSpeaker,
+  setCurrentVideoDevice,
 
+  // 미니게임 관련
   t1Pos,
   setT1Pos,
   t2Pos,
@@ -178,11 +190,11 @@ const GameController = ({
       setT2Pos(nextT2Pos);
 
       // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 == gameNo) {
-        setIsDice(true);
+      if ((beforeGameNo + 1) % 6 == myGameNo) {
+        setIsDiceThrow(true);
         console.log("당신은 다음 턴에 주사위를 던집니다.");
       } else {
-        setIsDice(false);
+        setIsDiceThrow(false);
         console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
       }
     });
@@ -213,7 +225,7 @@ const GameController = ({
           mySession.publish(tempPublisher);
 
           setCurrentVideoDevice(videoDevices[0]);
-          setMainStreamManager(tempPublisher);
+          setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
         .catch((error) => {
@@ -256,7 +268,7 @@ const GameController = ({
 
     getToken().then((token) => {
       mySession
-        .connect(token, { clientData: myUserName })
+        .connect(token, { clientData: userNickname })
         .then(async () => {
           var devices = await tempOv.getDevices();
           var videoDevices = devices.filter(
@@ -276,7 +288,7 @@ const GameController = ({
 
           mySession.publish(tempPublisher);
           setCurrentVideoDevice(videoDevices[0]);
-          setMainStreamManager(tempPublisher);
+          setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
         .catch((error) => {
@@ -315,8 +327,8 @@ const GameController = ({
     setSession(undefined);
     setSubscribers([]);
     setMySessionId("");
-    setMyUserName("");
-    setMainStreamManager(undefined);
+    // setMyUserName("");
+    setStreamManager(undefined);
     setPublisher(undefined);
   };
 
@@ -346,13 +358,13 @@ const GameController = ({
             ov={ov}
             session={session}
             mySessionId={mySessionId}
-            mainStreamManager={mainStreamManager}
+            streamManager={streamManager}
             publisher={publisher}
             subscribers={subscribers}
             isMike={isMike}
             isCamera={isCamera}
             isSpeaker={isSpeaker}
-            myUserName={myUserName}
+            // myUserName={myUserName}
             currentVideoDevice={currentVideoDevice}
             initRoom={initRoom}
             joinRoom={joinRoom}
