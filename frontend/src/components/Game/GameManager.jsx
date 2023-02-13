@@ -79,6 +79,7 @@ const GameManager = () => {
   const [gameNo, setGameNo] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(undefined);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
+  const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -520,6 +521,8 @@ const GameManager = () => {
             setIsGameStarted={setIsGameStarted}
             nextMiniGameNum={nextMiniGameNum}
             setNextMiniGameNum={setNextMiniGameNum}
+            miniGameSelectTurn={miniGameSelectTurn}
+            setMiniGameSelectTurn={setMiniGameSelectTurn}
           />
         </div>
       ) : null}
