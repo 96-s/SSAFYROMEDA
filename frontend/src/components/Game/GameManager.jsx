@@ -68,8 +68,8 @@ const GameManager = () => {
   const [isDiceThrow, setIsDiceThrow] = useState(false);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
-  const [team1Members, setTeam1Members]=useState([]);
-  const [team2Members, setTeam2Members]=useState([]);
+  const [team1Members, setTeam1Members] = useState([]);
+  const [team2Members, setTeam2Members] = useState([]);
   // 이번 턴에 게임 진행하는 여부
   const [gameTurn, setGameTurn] = useState(true);
   const [isDice, setIsDice] = useState(false);
@@ -177,7 +177,7 @@ const GameManager = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      
+
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
     });
 
@@ -258,11 +258,10 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          
-          if(team1Members.length < 3){
+
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
           }
         })
@@ -294,10 +293,9 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if(team1Members.length < 3){
+      if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
-      }
-      else{
+      } else {
         team2Members.push(tempSubscriber);
       }
     });
@@ -336,10 +334,9 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if(team1Members.length < 3){
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
           }
         })
@@ -417,7 +414,7 @@ const GameManager = () => {
                 
                 <h1 id="session-title">Room Code : {mySessionId}</h1>
                 <span>ㅤ</span>
-              
+
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}

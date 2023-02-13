@@ -29,7 +29,6 @@ const GameStartButton = styled.div`
   color: white;
 `;
 
-
 const GameFlow = ({
   mainStreamManager,
   publisher,
@@ -67,10 +66,10 @@ const GameFlow = ({
   miniGame5,
   setMiniGame5,
 }) => {
-  const [ startAnimationPlaying, setStartAnimationPlaying ] = useState(false);
-  const [ diceTurn, setDiceTurn ] = useState(false);
-  const [ diceResult, setDiceResult ] = useState(0);
-  const [ isGameStarted, SetIsGameStarted ] = useState(false);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
+  const [diceTurn, setDiceTurn] = useState(false);
+  const [diceResult, setDiceResult] = useState(0);
+  const [isGameStarted, SetIsGameStarted] = useState(undefined);
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
@@ -341,9 +340,7 @@ const GameFlow = ({
                   onClick={GameStart}
                 />
           </GameStartButton>
-          )
-        ) : (isGameStarted !== undefined ? <Map/> : 
-        <GameStartButton><span>준비 중</span></GameStartButton>)}
+        )}
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
