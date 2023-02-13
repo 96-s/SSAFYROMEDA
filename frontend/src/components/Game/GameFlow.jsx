@@ -237,7 +237,7 @@ const GameFlow = ({
       type: 'GAME_RESET',
     };
     // console.log(JSON.stringify(sendData));
-    fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
+    fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
       method: 'POST',
       headers: {
         Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
