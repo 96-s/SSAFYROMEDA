@@ -1,24 +1,61 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import OurTeamVid from "components/room/OurTeamVid";
+import Map from "components/room/Map";
+import TheirTeamVid from "components/room/TheirTeamVid";
+import styled from "styled-components";
+import MyButton from "components/common/Button";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 20px;
+`;
+
+const Page = styled.div`
+  height: 100%;
+  width: 100%;
+`;
+
+const GameStartButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  color: white;
+`;
+
 
 const GameFlow = ({
+  mainStreamManager,
+  publisher,
   mySessionId,
   subscribers, // 자신을 제외한 게임 내 참여자(구독자), array
+  setT1Pos,
+  setT2Pos,
   t1Pos, // 팀 1 현재 위치, int
   t2Pos, // 팀 2 현재 위치, int
   myGameNo, // 게임 내 고유 번호, int
   isHostPlayer, // 방장인지 아닌지, bool
   nextThrowUser, // 주사위 던지는 유저, int
   setIsDiceThrow, // 내가 주사위 던지는지 여부, bool
+  isDiceThrow,
   myTeam, // 내 팀 ??
+  userNickname,
+  userNo,
   gameTurn, // 이번 턴에 게임 진행하는 여부, bool
   team1Members, // 우리 팀원들 (자신 제외), array
   team2Members, // 상대 팀원들, array
 }) => {
-  const { startAnimationPlaying, setStartAnimationPlaying } = useState(false);
-  const { diceTurn, setDiceTurn } = useState(false);
-  const { diceResult, setDiceResult } = useState(0);
+  const [ startAnimationPlaying, setStartAnimationPlaying ] = useState(false);
+  const [ diceTurn, setDiceTurn ] = useState(false);
+  const [ diceResult, setDiceResult ] = useState(0);
+  const [ isGameStarted, SetIsGameStarted ] = useState(undefined);
+
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
@@ -35,6 +72,7 @@ const GameFlow = ({
       /* --------------게임 스타트 애니메이션 여기 삽입(setTimeOut(?)) (setStartAnimationPlaying(true); 처리)------------------ / ----help */
     } else if (!startAnimationPlaying) {
       console.warn("게임 시작 애니메이션 종료!");
+      SetIsGameStarted(true);
       checkDiceTurn();
     }
   }, [startAnimationPlaying]);
@@ -155,5 +193,43 @@ const GameFlow = ({
     console.log("위치 전송함");
     return response.data;
   };
+
+  const GameStart = () => {
+    SetIsGameStarted(true);
+  };
+
+  return (
+    <Page>
+      <Container>
+        <OurTeamVid
+          streamManager={mainStreamManager}
+          subscribers={subscribers}
+          publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
+        />
+        { isHostPlayer !== undefined ? (isGameStarted !== undefined ? (<Map/>)
+          : (
+          <GameStartButton>
+            <MyButton
+                  lang={"Korean"}
+                  text={"게임 시작"}
+                  type={"is-success"}
+                  onClick={gameFlowStart}
+                />
+          </GameStartButton>
+          )
+        ) : (isGameStarted !== undefined ? <Map/> : 
+        <GameStartButton><span>준비 중</span></GameStartButton>)}
+        <TheirTeamVid
+          streamManager={mainStreamManager}
+          subscribers={subscribers}
+          publisher={publisher}
+          userNickname={userNickname}
+          userNo={userNo}
+        />
+      </Container>
+    </Page>
+  );
 };
 export default GameFlow;

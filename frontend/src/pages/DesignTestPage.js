@@ -155,7 +155,10 @@ const DesignTestPage = ({
                 lang={"Korean"}
                 text={"ㅤ우주선 생성ㅤ"}
                 type={"is-warning"}
-                onClick={initRoom}
+                onClick={() => {
+                  initRoom();
+                  soundEffect();
+                }}
               />
             </form>
 

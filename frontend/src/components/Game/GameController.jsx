@@ -1,14 +1,25 @@
-import GamePage from "pages/GamePage";
-import LobbyPage from "pages/LobbyPage";
+// import GamePage from "pages/GamePage";
+import GameFlow from "./GameFlow";
+import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/Button";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import axios from "axios";
 import styled from "styled-components";
+
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+
+const SessionHeaderDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: white;
+`;
 
 const SessionIdDiv = styled.div`
   display: flex;
@@ -27,28 +38,36 @@ if (temp) {
 }
 
 const GameController = ({
-  ov,
-  session,
-  mySessionId,
-  streamManager,
-  publisher,
-  subscribers,
-  isMike,
-  isCamera,
-  isSpeaker,
-  currentVideoDevice,
-
-  t1Pos,
-  setT1Pos,
-  t2Pos,
-  setT2Pos,
-  myGameNo,
-  setMyGameNo,
-  nextThrowUser,
-  setNextThrowUser,
-  isDiceThrow,
-  setIsDiceThrow,
 }) => {
+
+    //비디오 관련 변수
+  const [ov, setOv] = useState(null);
+  const [session, setSession] = useState(undefined);
+  const [mySessionId, setMySessionId] = useState("");
+  const [streamManager, setStreamManager] = useState(undefined);
+  const [publisher, setPublisher] = useState(undefined);
+  const [subscribers, setSubscribers] = useState([]);
+  const [isMike, setIsMike] = useState(true);
+  const [isCamera, setIsCamera] = useState(true);
+  const [isSpeaker, setIsSpeaker] = useState(true);
+  const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
+
+  // 게임 관련 변수
+  const [t1Pos, setT1Pos] = useState(0);
+  const [t2Pos, setT2Pos] = useState(0);
+  // 게임 내 고유 번호
+  const [myGameNo, setMyGameNo] = useState(0);
+  // 주사위 던지는 유저
+  const [nextThrowUser, setNextThrowUser] = useState(0);
+  // 내가 주사위 던지는지 여부
+  const [isDiceThrow, setIsDiceThrow] = useState(false);
+  // 내 팀
+  const [myTeam, setMyTeam] = useState(1);
+  // 이번 턴에 게임 진행하는 여부
+  const [gameTurn, setGameTurn] = useState(true);
+  const [isDice, setIsDice] = useState(false);
+  const [gameNo, setGameNo] = useState(0);
+
   //강제 re-rendering 함수
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
@@ -56,9 +75,32 @@ const GameController = ({
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
   const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
 
+  const componentDidMount = () => {
+    window.addEventListener("beforeunload", onbeforeunload);
+  };
+
+  const componentWillUnmount = () => {
+    window.removeEventListener("beforeunload", onbeforeunload);
+    joinRoom();
+    return () => {
+      window.removeEventListener("beforeunload", onbeforeunload);
+    };
+  };
+
+  const onbeforeunload = (event) => {
+    leaveSession();
+  };
+
   const handleChangeSessionId = (e) => {
     setMySessionId(e.target.value);
   };
+
+  const handleMainVideoStream = (stream) => {
+    if (streamManager !== stream) {
+      setStreamManager(stream);
+    }
+  };
+
 
   // //openviduDeployment로 부터 token 가져오기 sessionid 받아서 token 생성
   const getTokenWithSid = async () => {
@@ -178,7 +220,7 @@ const GameController = ({
       setT2Pos(nextT2Pos);
 
       // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 == gameNo) {
+      if ((beforeGameNo + 1) % 6 === gameNo) {
         setIsDice(true);
         console.log("당신은 다음 턴에 주사위를 던집니다.");
       } else {
@@ -207,13 +249,14 @@ const GameController = ({
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
+            // insertMode: "APPEND",
             mirror: false,
           });
 
           mySession.publish(tempPublisher);
 
           setCurrentVideoDevice(videoDevices[0]);
-          setMainStreamManager(tempPublisher);
+          setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
         .catch((error) => {
@@ -256,7 +299,7 @@ const GameController = ({
 
     getToken().then((token) => {
       mySession
-        .connect(token, { clientData: myUserName })
+        .connect(token, { clientData: userNickname })
         .then(async () => {
           var devices = await tempOv.getDevices();
           var videoDevices = devices.filter(
@@ -276,7 +319,7 @@ const GameController = ({
 
           mySession.publish(tempPublisher);
           setCurrentVideoDevice(videoDevices[0]);
-          setMainStreamManager(tempPublisher);
+          setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
         })
         .catch((error) => {
@@ -295,10 +338,12 @@ const GameController = ({
     const removeName = JSON.parse(
       targetSubscribers[index].stream.connection.data
     ).clientData;
+    console.log("제거할 이름", removeName);
 
     if (index > -1) {
       targetSubscribers.splice(index, 1);
       setSubscribers(targetSubscribers);
+      console.error("나간 후 리스트", subscribers);
     }
   };
 
@@ -315,15 +360,29 @@ const GameController = ({
     setSession(undefined);
     setSubscribers([]);
     setMySessionId("");
-    setMyUserName("");
-    setMainStreamManager(undefined);
+    // setMyUserName("");
+    setStreamManager(undefined);
     setPublisher(undefined);
   };
+
+  // 브금
+  const soundEffect = () => {
+    playSound(buttonClick);
+  };
+
+  const lobbySoundEffect = () => {
+    playSound(lobbyBGM);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  }
 
   return (
     <div className="container">
       {session === undefined ? (
-        <LobbyPage
+        <DesignTestPage
           initRoom={initRoom}
           joinRoom={joinRoom}
           sessionId={mySessionId}
@@ -333,32 +392,55 @@ const GameController = ({
 
       {session !== undefined ? (
         <div>
-          <SessionIdDiv>
-            <h1 id="session-title">Room Code : {mySessionId}</h1>
+          <SessionHeaderDiv>
+            <div>
+            <SessionIdDiv>
+                <h1 id="session-title">Room Code : {mySessionId}</h1>
+                <span>ㅤ</span>
+                  <CopyToClipboard text={mySessionId}>
+                    <MyButton
+                      lang={"Korean"}
+                      text={"복사하기"}
+                      onClick={soundEffect}
+                      type={"is-primary"}
+                    />
+                  </CopyToClipboard>
+                </SessionIdDiv>
+            </div>
             <MyButton
               lang={"English"}
               text={"Leave session"}
-              onClick={leaveSession}
+              onClick={
+                () => {
+                  leaveSession();
+                  soundEffect();
+                  lobbySoundEffect();
+                }
+              }
               type={"is-warning"}
-            />
-          </SessionIdDiv>
-          <GamePage
+            />  
+          </SessionHeaderDiv>
+          <GameFlow
             ov={ov}
             session={session}
             mySessionId={mySessionId}
-            mainStreamManager={mainStreamManager}
+            streamManager={streamManager}
             publisher={publisher}
             subscribers={subscribers}
             isMike={isMike}
             isCamera={isCamera}
             isSpeaker={isSpeaker}
-            myUserName={myUserName}
+            // myUserName={myUserName}
             currentVideoDevice={currentVideoDevice}
             initRoom={initRoom}
             joinRoom={joinRoom}
             leaveSession={leaveSession}
             userNickname={userNickname}
             userNo={userNo}
+            setT1Pos={setT1Pos}
+            setT2Pos={setT2Pos}
+            isDiceThrow={isDiceThrow}
+            setIsDiceThrow={setIsDiceThrow}
           />
         </div>
       ) : null}
