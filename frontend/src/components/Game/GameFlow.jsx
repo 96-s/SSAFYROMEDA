@@ -69,7 +69,7 @@ const GameFlow = ({
   const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
-  const [isGameStarted, SetIsGameStarted] = useState(undefined);
+  const [isGameStarted, SetIsGameStarted] = useState(false);
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
@@ -100,7 +100,7 @@ const GameFlow = ({
   useEffect(() => {
     if (!startAnimationPlaying) {
       console.warn("게임 시작 애니메이션 종료!");
-      SetIsGameStarted(true);
+      // SetIsGameStarted(true);
       checkDiceTurn();
     }
   }, [startAnimationPlaying]);

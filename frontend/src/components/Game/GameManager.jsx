@@ -60,6 +60,8 @@ const GameManager = () => {
   // 게임 관련 변수
   const [t1Pos, setT1Pos] = useState(0);
   const [t2Pos, setT2Pos] = useState(0);
+  // 방장인지 아닌지
+  const [isHostPlayer, setIsHostPlayer] = useState(false);
   // 게임 내 고유 번호
   const [myGameNo, setMyGameNo] = useState(0);
   // 주사위 던지는 유저
@@ -189,6 +191,9 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
+      // setIsHostPlayer(true);
+      // console.log(isHostPlayer);
+
       console.log("initRoom() streamCreated");
       console.log(myTeam);
       console.log(team1Members);
@@ -287,6 +292,7 @@ const GameManager = () => {
           console.log(myTeam);
           console.log(team1Members);
           console.log(team2Members);
+          setIsHostPlayer(true);
         })
         .catch((error) => {
           console.log(
@@ -492,6 +498,7 @@ const GameManager = () => {
             leaveSession={leaveSession}
             userNickname={userNickname}
             userNo={userNo}
+            isHostPlayer={isHostPlayer}
             setT1Pos={setT1Pos}
             setT2Pos={setT2Pos}
             isDiceThrow={isDiceThrow}
