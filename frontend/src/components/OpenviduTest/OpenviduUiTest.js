@@ -489,7 +489,7 @@ const OpenviduUiTest = () => {
                   <MyButton
                     lang={"Korean"}
                     text={"복사하기"}
-                    // onClick={soundEffect}
+                    onClick={soundEffect}
                     type={"is-primary"}
                   />
                 </CopyToClipboard>
@@ -498,12 +498,12 @@ const OpenviduUiTest = () => {
             <MyButton
               lang={"Korean"}
               text={"나가기"}
-              onClick={leaveSession
-              //   () => {
-              //   leaveSession();
-              //   soundEffect();
-              //   lobbySoundEffect();
-              // }
+              onClick={
+                () => {
+                leaveSession();
+                soundEffect();
+                lobbySoundEffect();
+              }
             }
               type={"is-warning"}
             />
