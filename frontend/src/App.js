@@ -17,6 +17,7 @@ import DialogTest from "components/common/DialogTest";
 
 import UiTest from "pages/UiTest";
 import DesignTestPage from "pages/DesignTestPage";
+import GameStartAnimation from "components/utils/GameStartAnimation";
 
 // import { Provider } from "react-redux";
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/test3" element={<UiTest />} />
 
           <Route path="/designtest" element={<DesignTestPage />} />
+          <Route path="/gamestartani" element={<GameStartAnimation />} />
         </Routes>
       </div>
     </div>
