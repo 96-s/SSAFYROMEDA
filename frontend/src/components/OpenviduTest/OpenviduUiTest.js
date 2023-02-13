@@ -1,3 +1,5 @@
+//******************************************************8 */
+// GameManager.jsx에서 작업하시오!!!!!!!!!!!!!!!!!!!!!!1
 import GamePage from "pages/GamePage";
 import LobbyPage from "pages/LobbyPage";
 import DesignTestPage from "pages/DesignTestPage";
