@@ -38,11 +38,10 @@ const GameFlow = ({
   setT1Pos,
   setT2Pos,
   t1Pos, // 팀 1 현재 위치, int
-  setT1Pos,
   t2Pos, // 팀 2 현재 위치, int
-  setT2Pos,
   myGameNo, // 게임 내 고유 번호, int
   isHostPlayer, // 방장인지 아닌지, bool
+  setNextThrowUser,
   nextThrowUser, // 주사위 던지는 유저, int
   setIsDiceThrow, // 내가 주사위 던지는지 여부, bool
   isDiceThrow,
@@ -71,12 +70,12 @@ const GameFlow = ({
   const [ startAnimationPlaying, setStartAnimationPlaying ] = useState(false);
   const [ diceTurn, setDiceTurn ] = useState(false);
   const [ diceResult, setDiceResult ] = useState(0);
-  const [ isGameStarted, SetIsGameStarted ] = useState(undefined);
-
+  const [ isGameStarted, SetIsGameStarted ] = useState(false);
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
+      SetIsGameStarted(true);
       sendGameStartSignal(subscribers); // setStartAnimationPlaying(true); 쏘기
       posReset(); // 내 포지션도 리셋
     }
@@ -317,8 +316,10 @@ const GameFlow = ({
   };
 
   const GameStart = () => {
-    SetIsGameStarted(true);
+    gameFlowStart();
   };
+  console.log(isHostPlayer);
+  console.log(isGameStarted);
 
   return (
     <Page>
@@ -330,14 +331,14 @@ const GameFlow = ({
           userNickname={userNickname}
           userNo={userNo}
         />
-        { isHostPlayer !== undefined ? (isGameStarted !== undefined ? (<Map/>)
+        { isHostPlayer !== undefined ? (isGameStarted !== false ? (<Map/>)
           : (
           <GameStartButton>
             <MyButton
                   lang={"Korean"}
                   text={"게임 시작"}
                   type={"is-success"}
-                  onClick={gameFlowStart}
+                  onClick={GameStart}
                 />
           </GameStartButton>
           )
