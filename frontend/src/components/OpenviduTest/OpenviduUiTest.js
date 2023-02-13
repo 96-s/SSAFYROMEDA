@@ -498,11 +498,13 @@ const OpenviduUiTest = () => {
             <MyButton
               lang={"Korean"}
               text={"나가기"}
-              onClick={() => {
+              onClick={
+                () => {
                 leaveSession();
                 soundEffect();
                 lobbySoundEffect();
-              }}
+              }
+            }
               type={"is-warning"}
             />
           </SessionHeaderDiv>

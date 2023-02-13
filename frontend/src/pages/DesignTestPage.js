@@ -1,9 +1,15 @@
+import { useState } from "react";
+
 import backgroundImg from "../resources/images/lobby_background4.png";
 import alienImg from "../resources/images/alienImg.png";
 import astroImg from "../resources/images/astroImgOriginal.png";
 import styled from "styled-components";
 
 import MyButton from "components/common/Button";
+import Modal from "components/display/Modal";
+
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+
 
 const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
@@ -86,7 +92,7 @@ const BoxContainer = styled.div`
   text-align: center;
 `;
 
-const StartText = styled.div`
+const StartText = styled.h1`
   color: white;
   font-size: 40px;
 `;
@@ -114,6 +120,26 @@ const DesignTestPage = ({
   sessionId,
   handleChangeSessionId,
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const soundEffect = () => {
+    playSound(buttonClick);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  };
+
+
   return (
     <div>
       <Background>
@@ -131,7 +157,7 @@ const DesignTestPage = ({
 
             <InputContainer>
               <form className="form-group">
-                <label>Your name</label>
+                <label> 우주선 입장 코드: </label>
                 <input
                   className="nes-input"
                   type="text"
@@ -151,9 +177,20 @@ const DesignTestPage = ({
             </InputContainer>
           </ButtonBox>
         </BoxContainer>
-        <MyPageBalloon className="nes-balloon from-right nes-pointer">
+        <MyPageBalloon className="nes-balloon from-right nes-pointer"
+          onClick={() => {
+            openModal();
+            soundEffect();
+          }}>
           지발..
         </MyPageBalloon>
+        <Modal
+          className="nes-dialog is-rounded"
+          open={modalOpen}
+          close={closeModal}
+          header="My Info"
+        >
+        </Modal>
         <CharacterContainer>
           <Alien src={alienImg} />
           <Astronauts src={astroImg} />
