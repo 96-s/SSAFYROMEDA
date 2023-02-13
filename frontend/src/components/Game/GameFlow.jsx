@@ -220,7 +220,7 @@ const GameFlow = ({
   const failMiniGame = () => {};
 
   // 게임 시작 전, 후 상태 초기화를 위해
-  const sendGameStartSignal = async (subscribers) => {
+  const sendGameStartSignal = () => {
     console.log("게임 리셋!");
 
     const sendData = {
