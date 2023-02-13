@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TypingText from "components/utils/Typing";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import { useNavigate } from "react-router";
 import Explanation_IMG from "resources/images/Explanation_IMG.png";
 import Lobby from '../resources/sounds/ssafyromeda_soundpack/03_lobbybgm.wav';

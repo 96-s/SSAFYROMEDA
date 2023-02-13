@@ -28,7 +28,7 @@ import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
 import Logout from "components/common/Logout";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 //SLIDE LIBRARY
 

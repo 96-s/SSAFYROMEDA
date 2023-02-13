@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "components/common/modal.css";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
