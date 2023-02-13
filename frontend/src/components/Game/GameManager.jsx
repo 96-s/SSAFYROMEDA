@@ -1,20 +1,28 @@
 import GamePage from "pages/GamePage";
 import LobbyPage from "pages/LobbyPage";
+import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/MyButton";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import axios from "axios";
 import styled from "styled-components";
-// import { set } from "immer/dist/internal";
 
-const SessionIdDiv = styled.div`
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+
+const SessionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   color: white;
+`;
+
+const SessionidDiv = styled.div`
+  display: flex;
 `;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
@@ -349,10 +357,25 @@ const GameManager = () => {
     setPublisher(undefined);
   };
 
+  // 브금
+  const soundEffect = () => {
+    playSound(buttonClick);
+  };
+
+  const lobbySoundEffect = () => {
+    playSound(lobbyBGM);
+  };
+
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  }
+
   return (
     <div className="container">
+      
       {session === undefined ? (
-        <LobbyPage
+        <DesignTestPage
           initRoom={initRoom}
           joinRoom={joinRoom}
           sessionId={mySessionId}
@@ -362,15 +385,34 @@ const GameManager = () => {
 
       {session !== undefined ? (
         <div>
-          <SessionIdDiv>
-            <h1 id="session-title">Room Code : {mySessionId}</h1>
+          <SessionHeaderDiv>
+            <div>
+              <SessionidDiv>
+                
+                <h1 id="session-title">Room Code : {mySessionId}</h1>
+                <span>ㅤ</span>
+              
+                <CopyToClipboard text={mySessionId}>
+                  <MyButton
+                    lang={"Korean"}
+                    text={"복사하기"}
+                    onClick={soundEffect}
+                    type={"is-primary"}
+                  />
+                </CopyToClipboard>
+              </SessionidDiv>
+            </div>
             <MyButton
-              lang={"English"}
-              text={"Leave session"}
-              onClick={leaveSession}
+              lang={"Korean"}
+              text={"나가기"}
+              onClick={() => {
+                leaveSession();
+                soundEffect();
+                lobbySoundEffect();
+              }}
               type={"is-warning"}
             />
-          </SessionIdDiv>
+          </SessionHeaderDiv>
           <GamePage
             ov={ov}
             session={session}
