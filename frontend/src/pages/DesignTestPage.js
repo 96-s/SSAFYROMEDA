@@ -5,11 +5,11 @@ import alienImg from "../resources/images/alienImg.png";
 import astroImg from "../resources/images/astroImgOriginal.png";
 import styled from "styled-components";
 
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import Modal from "components/display/Modal";
+import Logout from "components/common/Logout";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
-
 
 const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
@@ -67,19 +67,28 @@ const MyPageBalloon = styled.div`
   position: absolute;
 
   margin-left: 200px;
-  margin-top: 200px;
+  margin-top: 180px;
+
+  :hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
 
   animation: ballon 1s linear 0s infinite alternate;
 
   @keyframes ballon {
     0% {
-      margin-top: 170px;
+      margin-top: 160px;
     }
 
     100% {
-      margin-top: 200px;
+      margin-top: 180px;
     }
   }
+`;
+
+const MyPageFont = styled.div`
+  font-size: 20px;
 `;
 
 const BoxContainer = styled.div`
@@ -112,11 +121,33 @@ const ButtonBox = styled.div`
 
 const InputContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
+  height: 50px;
+`;
+
+const CodeInputContainer = styled.div`
+  width: 180px;
+`;
+
+const LogoutButton = styled.div`
+  position: absolute;
+
+  margin-top: 10px;
+  margin-left: 15px;
 `;
 
 const LabelDiv = styled.h3`
   color: white;
 `;
+
+const HoverDiv = styled.div`
+  .MyButton:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+`;
+
+/////////////////////////////////////////////////////////////
 
 const DesignTestPage = ({
   joinRoom,
@@ -125,7 +156,6 @@ const DesignTestPage = ({
   handleChangeSessionId,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
 
   const openModal = () => {
     setModalOpen(true);
@@ -141,12 +171,14 @@ const DesignTestPage = ({
   function playSound(soundName) {
     var audio = new Audio(soundName);
     audio.play();
-  };
-
+  }
 
   return (
     <div>
       <Background>
+        <LogoutButton>
+          <Logout />
+        </LogoutButton>
         <BoxContainer>
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
@@ -178,28 +210,55 @@ const DesignTestPage = ({
 
                 <MyButton
                   lang={"Korean"}
-                  text={"입장"}
-                  type={"is-success"}
-                  onClick={joinRoom}
+                  text={"ㅤ우주선 생성ㅤ"}
+                  type={"is-warning"}
+                  onClick={initRoom}
                 />
-              </form>
-            </InputContainer>
+              </HoverDiv>
+            </form>
+
+            <form className="form-group">
+              <LabelDiv>우주선 입장 코드</LabelDiv>
+              <InputContainer>
+                <CodeInputContainer>
+                  <input
+                    className="nes-input"
+                    type="text"
+                    id="sessionId"
+                    value={sessionId}
+                    onChange={handleChangeSessionId}
+                    required
+                  />
+                </CodeInputContainer>
+
+                <HoverDiv>
+                  <MyButton
+                    lang={"Korean"}
+                    text={"입장"}
+                    type={"is-success"}
+                    onClick={joinRoom}
+                  />
+                </HoverDiv>
+              </InputContainer>
+            </form>
           </ButtonBox>
         </BoxContainer>
-        <MyPageBalloon className="nes-balloon from-right nes-pointer"
+
+        <MyPageBalloon
+          className="nes-balloon from-right nes-pointer"
           onClick={() => {
             openModal();
             soundEffect();
-          }}>
-          내 정보
+          }}
+        >
+          <MyPageFont>나의 정보</MyPageFont>
         </MyPageBalloon>
         <Modal
           className="nes-dialog is-rounded"
           open={modalOpen}
           close={closeModal}
           header="My Info"
-        >
-        </Modal>
+        ></Modal>
         <CharacterContainer>
           <Alien src={alienImg} />
           <Astronauts src={astroImg} />

@@ -1,6 +1,8 @@
+//******************************************************8 */
+// GameManager.jsx에서 작업하시오!!!!!!!!!!!!!!!!!!!!!!1
 import GamePage from "pages/GamePage";
 import DesignTestPage from "pages/DesignTestPage";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -14,6 +16,7 @@ import styled from "styled-components";
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
 
+import Predict from "./Prediction";
 const SessionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -331,6 +334,7 @@ const OpenviduUiTest = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setMainStreamManager(tempPublisher);
           setPublisher(tempPublisher);
+
         })
         .catch((error) => {
           console.log(
@@ -430,6 +434,7 @@ const OpenviduUiTest = () => {
 
   return (
     <div className="container">
+      
       {session === undefined ? (
         // <div id="join">
         //   <div id="join-dialog" className="jumbotron vertical-center">
@@ -482,8 +487,10 @@ const OpenviduUiTest = () => {
           <SessionHeaderDiv>
             <div>
               <SessionidDiv>
+                
                 <h1 id="session-title">Room Code : {mySessionId}</h1>
                 <span>ㅤ</span>
+              
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}
@@ -493,17 +500,16 @@ const OpenviduUiTest = () => {
                   />
                 </CopyToClipboard>
               </SessionidDiv>
+              <Predict></Predict>
             </div>
             <MyButton
               lang={"Korean"}
               text={"나가기"}
-              onClick={
-                () => {
+              onClick={() => {
                 leaveSession();
                 soundEffect();
                 lobbySoundEffect();
-              }
-            }
+              }}
               type={"is-warning"}
             />
           </SessionHeaderDiv>

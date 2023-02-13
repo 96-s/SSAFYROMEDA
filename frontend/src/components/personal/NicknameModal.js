@@ -1,6 +1,6 @@
 import React from 'react';
 import 'components/common/modal.css';
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import styled from "styled-components";
 
 const ChangeNicknameDiv = styled.div`
