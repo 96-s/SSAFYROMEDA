@@ -1,7 +1,7 @@
 // import GamePage from "pages/GamePage";
 import GameFlow from "./GameFlow";
 import DesignTestPage from "pages/DesignTestPage";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";

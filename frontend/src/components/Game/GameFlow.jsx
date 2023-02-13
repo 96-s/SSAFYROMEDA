@@ -5,7 +5,7 @@ import OurTeamVid from "components/room/OurTeamVid";
 import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 
 const Container = styled.div`
   display: flex;
