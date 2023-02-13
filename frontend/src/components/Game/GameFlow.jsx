@@ -317,8 +317,8 @@ const GameFlow = ({
   const GameStart = () => {
     gameFlowStart();
   };
-  console.log(isHostPlayer);
-  console.log(isGameStarted);
+  console.log("나는 방장" + isHostPlayer);
+  console.log("게임 시작함?" + isGameStarted);
 
   return (
     <Page>
@@ -330,7 +330,7 @@ const GameFlow = ({
           userNickname={userNickname}
           userNo={userNo}
         />
-        { isHostPlayer !== undefined ? (isGameStarted !== false ? (<Map/>)
+        { isHostPlayer !== false ? (isGameStarted !== false ? (<Map/>)
           : (
           <GameStartButton>
             <MyButton
