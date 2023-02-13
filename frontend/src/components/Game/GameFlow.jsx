@@ -76,7 +76,9 @@ const GameFlow = ({
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
       setIsGameStarted(true);
-      sendGameStartSignal(subscribers); // setStartAnimationPlaying(true); 쏘기
+      setTimeout(() => {
+        sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
+      }, 1000)
       posReset(); // 내 포지션도 리셋
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
@@ -230,7 +232,7 @@ const GameFlow = ({
         t1Pos: t1Pos,
         t2Pos: t2Pos,
         nextThrowUser: nextThrowUser,
-        isGameStarted: isGameStarted,
+        isGameStarted: true,
       }),
       type: 'GAME_RESET',
     };
