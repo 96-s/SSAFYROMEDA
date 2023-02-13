@@ -68,8 +68,8 @@ const GameManager = () => {
   const [isDiceThrow, setIsDiceThrow] = useState(false);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
-  const [team1Members, setTeam1Members]=useState([]);
-  const [team2Members, setTeam2Members]=useState([]);
+  const [team1Members, setTeam1Members] = useState([]);
+  const [team2Members, setTeam2Members] = useState([]);
   // 이번 턴에 게임 진행하는 여부
   const [gameTurn, setGameTurn] = useState(true);
   const [isDice, setIsDice] = useState(false);
@@ -107,7 +107,6 @@ const GameManager = () => {
       setStreamManager(stream);
     }
   };
-
 
   // //openviduDeployment로 부터 token 가져오기 sessionid 받아서 token 생성
   const getTokenWithSid = async () => {
@@ -211,8 +210,15 @@ const GameManager = () => {
       setNextThrowUser(0);
     });
 
-    mySession.on("TURN_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, beforeGameNo } = JSON.parse(data.data);
+    mySession.on("DICE_TURN", (data) => {
+      const { diceTurn } = JSON.parse(data.data);
+      setDiceTurn(diceTurn);
+    });
+
+    mySession.on("POS_UPDATE", (data) => {
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+        data.data
+      );
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
@@ -225,15 +231,14 @@ const GameManager = () => {
       // 각 팀 포지션 업데이트
       setT1Pos(nextT1Pos);
       setT2Pos(nextT2Pos);
+      setNextThrowUser(nextThrowUser);
+      setDiceTurn(diceTurn);
+    });
 
-      // 주사위 던짐 여부 테스트
-      if ((beforeGameNo + 1) % 6 === gameNo) {
-        setIsDice(true);
-        console.log("당신은 다음 턴에 주사위를 던집니다.");
-      } else {
-        setIsDice(false);
-        console.log("당신은 다음 턴에 주사위를 던지지 않습니다.");
-      }
+    mySession.on("NEXTGAME_UPDATE", (data) => {
+      const { nextGame } = JSON.parse(data.data);
+      setNextMiniGameNum(nextGame);
+      setMiniGameSelectTurn(true);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -465,7 +470,7 @@ const GameManager = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-      
+
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
     });
 
@@ -546,11 +551,10 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          
-          if(team1Members.length < 3){
+
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
           }
         })
@@ -582,10 +586,9 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if(team1Members.length < 3){
+      if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
-      }
-      else{
+      } else {
         team2Members.push(tempSubscriber);
       }
     });
@@ -624,10 +627,9 @@ const GameManager = () => {
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
 
-          if(team1Members.length < 3){
+          if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
-          }
-          else{
+          } else {
             team2Members.push(tempPublisher);
           }
         })
@@ -702,10 +704,9 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionidDiv>
-                
                 <h1 id="session-title">Room Code : {mySessionId}</h1>
                 <span>ㅤ</span>
-              
+
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}
