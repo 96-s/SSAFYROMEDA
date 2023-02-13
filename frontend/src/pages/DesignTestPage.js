@@ -7,9 +7,9 @@ import styled from "styled-components";
 
 import MyButton from "components/common/Button";
 import Modal from "components/display/Modal";
+import Logout from "components/common/Logout";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
-
 
 const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
@@ -114,6 +114,13 @@ const InputContainer = styled.div`
   display: flex;
 `;
 
+const LogoutButton = styled.div`
+  position: absolute;
+
+  margin-top: 10px;
+  margin-left: 15px;
+`;
+
 const DesignTestPage = ({
   joinRoom,
   initRoom,
@@ -121,7 +128,6 @@ const DesignTestPage = ({
   handleChangeSessionId,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
 
   const openModal = () => {
     setModalOpen(true);
@@ -137,12 +143,14 @@ const DesignTestPage = ({
   function playSound(soundName) {
     var audio = new Audio(soundName);
     audio.play();
-  };
-
+  }
 
   return (
     <div>
       <Background>
+        <LogoutButton>
+          <Logout />
+        </LogoutButton>
         <BoxContainer>
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
@@ -177,11 +185,14 @@ const DesignTestPage = ({
             </InputContainer>
           </ButtonBox>
         </BoxContainer>
-        <MyPageBalloon className="nes-balloon from-right nes-pointer"
+
+        <MyPageBalloon
+          className="nes-balloon from-right nes-pointer"
           onClick={() => {
             openModal();
             soundEffect();
-          }}>
+          }}
+        >
           지발..
         </MyPageBalloon>
         <Modal
@@ -189,8 +200,7 @@ const DesignTestPage = ({
           open={modalOpen}
           close={closeModal}
           header="My Info"
-        >
-        </Modal>
+        ></Modal>
         <CharacterContainer>
           <Alien src={alienImg} />
           <Astronauts src={astroImg} />
