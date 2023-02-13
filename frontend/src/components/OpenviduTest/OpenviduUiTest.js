@@ -41,7 +41,7 @@ const OpenviduUiTest = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state.auth.user);
+  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
 
   const [ov, setOv] = useState(null);
   const [session, setSession] = useState(undefined);
