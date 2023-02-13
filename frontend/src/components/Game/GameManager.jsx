@@ -523,6 +523,8 @@ const GameManager = () => {
             setNextMiniGameNum={setNextMiniGameNum}
             miniGameSelectTurn={miniGameSelectTurn}
             setMiniGameSelectTurn={setMiniGameSelectTurn}
+            nextThrowUser={nextThrowUser}
+            setNextThrowUser={setNextThrowUser}
           />
         </div>
       ) : null}
