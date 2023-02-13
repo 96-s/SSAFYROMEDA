@@ -21,8 +21,8 @@ const Logout = () => {
 
   // 로그아웃 되었다는 알림창 필요
   const purge = async () => {
-    await persistor.purge();
     await navigate("/");
+    await persistor.purge();
   };
 
   return (
