@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import styled from "styled-components";
 
 const InputContainer = styled.div`

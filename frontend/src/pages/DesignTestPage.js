@@ -5,7 +5,7 @@ import alienImg from "../resources/images/alienImg.png";
 import astroImg from "../resources/images/astroImgOriginal.png";
 import styled from "styled-components";
 
-import MyButton from "components/common/Button";
+import MyButton from "components/common/MyButton";
 import Modal from "components/display/Modal";
 import Logout from "components/common/Logout";
 
