@@ -22,12 +22,9 @@ const MiddleBox = styled.div`
   margin-bottom: 6vh;
 `;
 
-const OurTeamVid = ({
-  streamManager,
-  subscribers,
-  publisher,
-  team1Members,
-}) => {
+const OurTeamVid = ({ 
+  streamManager, subscribers, publisher, team1Members}) => {
+  
   console.log("team1 : ");
   console.log(team1Members);
 
@@ -36,28 +33,40 @@ const OurTeamVid = ({
       <Video>
         <Box>
           {streamManager !== undefined ? (
-            <UserVideoComponent streamManager={streamManager} />
+            <UserVideoComponent 
+              streamManager={streamManager}
+            />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={publisher} />
+            <UserVideoComponent 
+              streamManager={publisher}
+            />
           </div>
         </Box>
         <MiddleBox>
           <Box>
             {streamManager !== undefined ? (
-              <UserVideoComponent streamManager={streamManager} />
+              <UserVideoComponent
+                streamManager={streamManager}
+              />
             ) : null}
             <div>
-              <UserVideoComponent streamManager={subscribers[0]} />
+              <UserVideoComponent 
+                streamManager={subscribers[0]}
+              />
             </div>
           </Box>
         </MiddleBox>
         <Box>
           {streamManager !== undefined ? (
-            <UserVideoComponent streamManager={streamManager} />
+            <UserVideoComponent
+              streamManager={streamManager}
+            />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[1]} />
+            <UserVideoComponent
+              streamManager={subscribers[1]}
+            />
           </div>
         </Box>
       </Video>

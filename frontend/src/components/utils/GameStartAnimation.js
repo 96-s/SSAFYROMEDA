@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import gameStartBGM from "resources/sounds/ssafyromeda_soundpack/10_minigameclear.wav";
+import { useEffect } from "react";
+
 const H1Container = styled.h1`
   height: 100px;
 `;
@@ -33,6 +36,15 @@ const SpanContainer = styled.div`
 `;
 
 const GameStartAnimation = () => {
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  }
+
+  useEffect(() => {
+    playSound(gameStartBGM);
+  }, []);
+
   return (
     <div>
       <H1Container>
