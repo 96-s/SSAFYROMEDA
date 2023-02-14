@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
+import { useState, useCallback, useEffect } from "react";
 
 const Box = styled.div`
   border: 1px solid black;
@@ -24,6 +25,11 @@ const MiddleBox = styled.div`
 
 const TheirTeamVid = ({ streamManager, subscribers, publisher, team2Members }) => {
 
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+  
+  useEffect(() => {forceUpdate()}, [publisher, subscribers.length]);
+
   console.log("team2 : ");
   console.log(team2Members);
 
@@ -35,7 +41,7 @@ const TheirTeamVid = ({ streamManager, subscribers, publisher, team2Members }) =
             <UserVideoComponent streamManager={streamManager} />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[2]} />
+            <UserVideoComponent streamManager={team2Members[0]} />
           </div>
         </Box>
         <MiddleBox>
@@ -44,7 +50,7 @@ const TheirTeamVid = ({ streamManager, subscribers, publisher, team2Members }) =
               <UserVideoComponent streamManager={streamManager} />
             ) : null}
             <div>
-              <UserVideoComponent streamManager={subscribers[3]} />
+              <UserVideoComponent streamManager={team2Members[1]} />
             </div>
           </Box>
         </MiddleBox>
@@ -53,7 +59,7 @@ const TheirTeamVid = ({ streamManager, subscribers, publisher, team2Members }) =
             <UserVideoComponent streamManager={streamManager} />
           ) : null}
           <div>
-            <UserVideoComponent streamManager={subscribers[4]} />
+            <UserVideoComponent streamManager={team2Members[2]} />
           </div>
         </Box>
       </Video>
