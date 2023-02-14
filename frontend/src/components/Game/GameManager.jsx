@@ -297,7 +297,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            mirror: false,
+            mirror: true,
           });
 
           mySession.publish(tempPublisher);
@@ -441,8 +441,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            insertMode: "APPEND",
-            mirror: false,
+            mirror: true,
           });
 
           mySession.publish(tempPublisher);
