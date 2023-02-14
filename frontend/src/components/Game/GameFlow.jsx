@@ -67,7 +67,9 @@ const GameFlow = ({
   setMiniGame5,
   isGameStarted,
   setIsGameStarted,
-  players
+  isSuccess,
+  setIsSuccess,
+  players,
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);

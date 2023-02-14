@@ -43,7 +43,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state.auth.user);
+  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -574,6 +574,8 @@ const GameManager = () => {
             setMiniGame3={setMiniGame3}
             setMiniGame4={setMiniGame4}
             setMiniGame5={setMiniGame5}
+            isSuccess={isSuccess}
+            setIsSuccess={setIsSuccess}
             players={players}
           />
         </div>
