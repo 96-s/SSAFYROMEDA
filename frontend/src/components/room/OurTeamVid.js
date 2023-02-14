@@ -5,76 +5,59 @@ const Box = styled.div`
   border: 1px solid black;
   height: 25vh;
   aspect-ratio: 4 / 3;
-`;
-
-
-
-const Page = styled.div`
   margin: auto;
 `;
 
+const Page = styled.div`
+  width:90%;
+`;
+
 const Video = styled.div`
-  margin: 3vh;
+  width: 100%;
+  margin: 3px;
 `;
 
 const MiddleBox = styled.div`
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
 `;
 
-const OurTeamVid = ({ 
-  mainStreamManager, subscribers, publisher, userNickname, userNo}) => {
+const OurTeamVid = ({
+  streamManager,
+  subscribers,
+  publisher,
+  team1Members,
+}) => {
+  console.log("team1 : ");
+  console.log(team1Members);
+
   return (
     <Page>
       <Video>
         <Box>
-          {mainStreamManager !== undefined ? (
-            <UserVideoComponent 
-              streamManager={mainStreamManager}
-              userNickname={userNickname}
-              userNo={userNo}
-            />
+          {streamManager !== undefined ? (
+            <UserVideoComponent streamManager={streamManager} />
           ) : null}
           <div>
-            <UserVideoComponent 
-              streamManager={publisher}
-              userNickname={userNickname}
-              userNo={userNo}
-            />
+            <UserVideoComponent streamManager={publisher} />
           </div>
         </Box>
         <MiddleBox>
           <Box>
-            {mainStreamManager !== undefined ? (
-              <UserVideoComponent
-                streamManager={mainStreamManager} 
-                userNickname={userNickname}
-                userNo={userNo}
-              />
+            {streamManager !== undefined ? (
+              <UserVideoComponent streamManager={streamManager} />
             ) : null}
             <div>
-              <UserVideoComponent 
-                streamManager={subscribers[0]}
-                userNickname={userNickname}
-                userNo={userNo}
-              />
+              <UserVideoComponent streamManager={subscribers[0]} />
             </div>
           </Box>
         </MiddleBox>
         <Box>
-          {mainStreamManager !== undefined ? (
-            <UserVideoComponent
-              streamManager={mainStreamManager}
-              userNickname={userNickname}
-              userNo={userNo}
-            />
+          {streamManager !== undefined ? (
+            <UserVideoComponent streamManager={streamManager} />
           ) : null}
           <div>
-            <UserVideoComponent
-              streamManager={subscribers[1]}
-              userNickname={userNickname}
-              userNo={userNo}
-            />
+            <UserVideoComponent streamManager={subscribers[1]} />
           </div>
         </Box>
       </Video>

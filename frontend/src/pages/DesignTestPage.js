@@ -67,19 +67,28 @@ const MyPageBalloon = styled.div`
   position: absolute;
 
   margin-left: 200px;
-  margin-top: 200px;
+  margin-top: 180px;
+
+  :hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
 
   animation: ballon 1s linear 0s infinite alternate;
 
   @keyframes ballon {
     0% {
-      margin-top: 170px;
+      margin-top: 160px;
     }
 
     100% {
-      margin-top: 200px;
+      margin-top: 180px;
     }
   }
+`;
+
+const MyPageFont = styled.div`
+  font-size: 20px;
 `;
 
 const BoxContainer = styled.div`
@@ -112,6 +121,12 @@ const ButtonBox = styled.div`
 
 const InputContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
+  height: 50px;
+`;
+
+const CodeInputContainer = styled.div`
+  width: 180px;
 `;
 
 const LogoutButton = styled.div`
@@ -124,6 +139,15 @@ const LogoutButton = styled.div`
 const LabelDiv = styled.h3`
   color: white;
 `;
+
+const HoverDiv = styled.div`
+  .MyButton:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+`;
+
+/////////////////////////////////////////////////////////////
 
 const DesignTestPage = ({
   joinRoom,
@@ -159,34 +183,43 @@ const DesignTestPage = ({
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
             <form className="form-group">
+            <LabelDiv>방 만들기</LabelDiv>
+              <HoverDiv>
               <MyButton
                 lang={"Korean"}
                 text={"ㅤ우주선 생성ㅤ"}
                 type={"is-warning"}
-                onClick={initRoom}
+                onClick={() => {
+                  initRoom();
+                  soundEffect();
+                }}
               />
+              </HoverDiv>
             </form>
+            <form className="form-group">
+              <LabelDiv>우주선 입장 코드</LabelDiv>
+              <InputContainer>
+                <CodeInputContainer>
+                  <input
+                    className="nes-input"
+                    type="text"
+                    id="sessionId"
+                    value={sessionId}
+                    onChange={handleChangeSessionId}
+                    required
+                  />
+                </CodeInputContainer>
 
-            <InputContainer>
-              <form className="form-group">
-                <LabelDiv>우주선 입장 코드:</LabelDiv>
-                <input
-                  className="nes-input"
-                  type="text"
-                  id="sessionId"
-                  value={sessionId}
-                  onChange={handleChangeSessionId}
-                  required
-                />
-
-                <MyButton
-                  lang={"Korean"}
-                  text={"입장"}
-                  type={"is-success"}
-                  onClick={joinRoom}
-                />
-              </form>
-            </InputContainer>
+                <HoverDiv>
+                  <MyButton
+                    lang={"Korean"}
+                    text={"입장"}
+                    type={"is-success"}
+                    onClick={joinRoom}
+                  />
+                </HoverDiv>
+              </InputContainer>
+            </form>
           </ButtonBox>
         </BoxContainer>
 
@@ -197,7 +230,7 @@ const DesignTestPage = ({
             soundEffect();
           }}
         >
-          내 정보
+          <MyPageFont>나의 정보</MyPageFont>
         </MyPageBalloon>
         <Modal
           className="nes-dialog is-rounded"

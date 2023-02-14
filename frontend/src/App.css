@@ -46,6 +46,11 @@ body {
 .fadeIn {
   animation: 0.3s fadeIn forwards;
   background-color: black;
+  height: 99999999px;
+  
+}
+::-webkit-scrollbar {
+  display: none;
 }
 
 .fadeOut {

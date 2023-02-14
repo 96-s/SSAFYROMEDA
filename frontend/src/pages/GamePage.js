@@ -41,6 +41,8 @@ const GamePage = ({
   deleteSubsciber,
   userNickname,
   userNo,
+  team1Members,
+  team2Members,
 }) => {
   
   const [ isGameStarted, SetIsGameStarted ] = useState(undefined);
@@ -58,6 +60,7 @@ const GamePage = ({
           publisher={publisher}
           userNickname={userNickname}
           userNo={userNo}
+          team1Members={team1Members}
         />
         { isGameStarted !== false ? (<Map/>)
           : (
@@ -77,6 +80,7 @@ const GamePage = ({
           publisher={publisher}
           userNickname={userNickname}
           userNo={userNo}
+          team2Members={team2Members}
         />
       </Container>
     </Page>

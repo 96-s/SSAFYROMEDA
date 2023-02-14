@@ -1,4 +1,4 @@
-import OpenviduUiTest from "components/OpenviduTest/OpenviduUiTest";
+import GameManager from "components/Game/GameManager";
 import { useLocation } from "react-router-dom";
 
 const UiTest = () => {
@@ -10,7 +10,7 @@ const UiTest = () => {
 
   return (
     <div>
-      <OpenviduUiTest
+      <GameManager
         // sessionNickname={sessionNickname}
         // sessionRoomId={sessionRoomId}
         // sessionCapacity={sessionCapacity}
