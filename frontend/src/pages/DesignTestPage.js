@@ -10,6 +10,7 @@ import Modal from "components/display/Modal";
 import Logout from "components/common/Logout";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
 
 const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
@@ -164,8 +165,13 @@ const DesignTestPage = ({
     setModalOpen(false);
   };
 
+  // 효과음
   const soundEffect = () => {
     playSound(buttonClick);
+  };
+
+  const lobbySoundEffect = () => {
+    playSound(lobbyBGM);
   };
 
   function playSound(soundName) {
@@ -183,17 +189,17 @@ const DesignTestPage = ({
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
             <form className="form-group">
-            <LabelDiv>방 만들기</LabelDiv>
+              <LabelDiv>방 만들기</LabelDiv>
               <HoverDiv>
-              <MyButton
-                lang={"Korean"}
-                text={"ㅤ우주선 생성ㅤ"}
-                type={"is-warning"}
-                onClick={() => {
-                  initRoom();
-                  soundEffect();
-                }}
-              />
+                <MyButton
+                  lang={"Korean"}
+                  text={"ㅤ우주선 생성ㅤ"}
+                  type={"is-warning"}
+                  onClick={() => {
+                    initRoom();
+                    soundEffect();
+                  }}
+                />
               </HoverDiv>
             </form>
             <form className="form-group">

@@ -8,6 +8,9 @@ import styled from "styled-components";
 import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
 
+import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import gameStartBGM from "resources/sounds/ssafyromeda_soundpack/10_minigameclear.wav";
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -89,6 +92,20 @@ const GameFlow = ({
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
+
+  // 효과음
+  function playSound(soundName) {
+    var audio = new Audio(soundName);
+    audio.play();
+  }
+
+  const buttonSoundEffect = () => {
+    playSound(buttonClick);
+  };
+
+  const gameStartSoundEffect = () => {
+    playSound(gameStartBGM);
+  };
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
   const gameFlowStart = (event) => {
@@ -491,7 +508,11 @@ const GameFlow = ({
                   lang={"Korean"}
                   text={"게임 시작"}
                   type={"is-success"}
-                  onClick={GameStart}
+                  onClick={() => {
+                    buttonSoundEffect();
+                    GameStart();
+                    gameStartSoundEffect();
+                  }}
                 />
               </GameStartButton>
             ) : (
