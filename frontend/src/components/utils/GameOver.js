@@ -20,8 +20,8 @@ const GameOver = ({
     return (
         <GameOverContainer>
             { myTeam === winner ?
-                <img src={victoryImg}></img>
-            : <img src={defeatImg}></img> }
+                <img src={victoryImg} alt={victoryImg}></img>
+            : <img src={defeatImg} alt={defeatImg}></img> }
         </GameOverContainer>
     );
 };
