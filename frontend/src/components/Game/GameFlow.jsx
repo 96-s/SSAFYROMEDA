@@ -80,11 +80,13 @@ const GameFlow = ({
   isSuccess,
   setIsSuccess,
   players,
+  startAnimationPlaying,
+  setStartAnimationPlaying,
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
   console.log("내 순서는" + myTurnNum);
-  const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
+
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
 
@@ -306,6 +308,7 @@ const GameFlow = ({
         t2Pos: t2Pos,
         nextThrowUser: nextThrowUser,
         isGameStarted: true,
+        startAnimationPlaying: true,
       }),
       type: "GAME_RESET",
     };
@@ -380,7 +383,6 @@ const GameFlow = ({
 
   // 변화한 위치 정보를 보내는 함수
   const sendPos = () => {
-
     const sendData = {
       session: mySessionId,
       to: [], // all user

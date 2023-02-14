@@ -79,6 +79,7 @@ const GameManager = () => {
   const [isDice, setIsDice] = useState(false);
   const [gameNo, setGameNo] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
   // 미니게임 여부
@@ -226,9 +227,13 @@ const GameManager = () => {
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
-      const { t1Pos, t2Pos, nextThrowUser, isGameStarted } = JSON.parse(
-        data.data
-      );
+      const {
+        t1Pos,
+        t2Pos,
+        nextThrowUser,
+        isGameStarted,
+        startAnimationPlaying,
+      } = JSON.parse(data.data);
       // console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
@@ -236,6 +241,7 @@ const GameManager = () => {
       setT2Pos(t2Pos);
       setNextThrowUser(nextThrowUser);
       setIsGameStarted(isGameStarted);
+      setStartAnimationPlaying(startAnimationPlaying);
       console.log(isGameStarted);
     });
 
@@ -347,13 +353,13 @@ const GameManager = () => {
 
       // 정은 - 들어올 때마다 플레이어에 넣는 작업
       let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
       );
 
       // 자기 자신 없으면 넣어야함
       if (tempPlayers.includes(userNickname) === false) {
         tempPlayers.push(userNickname);
-      };
+      }
 
       setPlayers(tempPlayers);
       console.log("players" + players);
@@ -395,6 +401,7 @@ const GameManager = () => {
       setT2Pos(0);
       setNextThrowUser(0);
       setIsGameStarted(true);
+      setStartAnimationPlaying(true);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -495,16 +502,16 @@ const GameManager = () => {
     if (index > -1) {
       targetSubscribers.splice(index, 1);
       setSubscribers(targetSubscribers);
-    };
+    }
 
     let tempPlayers = targetSubscribers.map(
-      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
     );
-    console.log('나간 후 리스트', tempPlayers);
+    console.log("나간 후 리스트", tempPlayers);
     if (tempPlayers.includes(userNickname) === false) {
       tempPlayers.push(userNickname);
     }
-    setPlayers(tempPlayers)
+    setPlayers(tempPlayers);
   };
 
   //현재 방에서 나가기
@@ -609,6 +616,8 @@ const GameManager = () => {
             team1Members={team1Members}
             team2Members={team2Members}
             isGameStarted={isGameStarted}
+            startAnimationPlaying={startAnimationPlaying}
+            setStartAnimationPlaying={setStartAnimationPlaying}
             setIsGameStarted={setIsGameStarted}
             nextMiniGameNum={nextMiniGameNum}
             setNextMiniGameNum={setNextMiniGameNum}
