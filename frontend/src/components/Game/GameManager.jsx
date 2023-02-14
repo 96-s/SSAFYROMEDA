@@ -85,8 +85,8 @@ const GameManager = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
-  const [isWinner, setIsWinner] = useState(null);
-  const [isLoser, setIsLoser] = useState(null);
+  const [winner, setWinner] = useState(null); // 팀 번호 들어감 1 or 2
+  const [loser, setLoser] = useState(null);
   // 미니게임 여부
   const [miniGame1, setMiniGame1] = useState(false);
   const [miniGame2, setMiniGame2] = useState(false);
@@ -291,15 +291,15 @@ const GameManager = () => {
         nextT1Pos,
         nextT2Pos,
         isGameOver,
-        isWinner,
-        isLoser,
+        winner,
+        loser,
       } = JSON.parse(data.data);
 
       setT1Pos(nextT1Pos)
       setT2Pos(nextT2Pos)
       setIsGameOver(isGameOver)
-      setIsWinner(isWinner)
-      setIsLoser(isLoser)
+      setWinner(winner)
+      setLoser(loser)
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -465,15 +465,15 @@ const GameManager = () => {
         nextT1Pos,
         nextT2Pos,
         isGameOver,
-        isWinner,
-        isLoser,
+        winner,
+        loser,
       } = JSON.parse(data.data);
 
       setT1Pos(nextT1Pos)
       setT2Pos(nextT2Pos)
       setIsGameOver(isGameOver)
-      setIsWinner(isWinner)
-      setIsLoser(isLoser)
+      setWinner(winner)
+      setLoser(loser)
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -675,10 +675,10 @@ const GameManager = () => {
             setTurnNum={setTurnNum}
             isGameOver={isGameOver}
             setIsGameOver={setIsGameOver}
-            isWinner={isWinner}
-            setIsWinner={setIsWinner}
-            isLoser={isLoser}
-            setIsLoser={setIsLoser}
+            winner={winner}
+            setWinner={setWinner}
+            loser={loser}
+            setLoser={setLoser}
           />
         </div>
       ) : null}

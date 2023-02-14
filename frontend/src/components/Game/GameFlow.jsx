@@ -88,10 +88,10 @@ const GameFlow = ({
   setTurnNum,
   isGameOver,
   setIsGameOver,
-  isWinner,
-  setIsWinner,
-  isLoser,
-  setIsLoser
+  winner,
+  setWinner,
+  loser,
+  setLoser
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
@@ -499,8 +499,8 @@ const GameFlow = ({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
         isGameOver: true,
-        isWinner,
-        isLoser,
+        winner,
+        loser,
       }),
       type: "GAME_OVER",
     };
@@ -518,11 +518,11 @@ const GameFlow = ({
   useEffect = () => {  
     if ((t1Pos >= 21) || (t2Pos >= 21)) {
       if (t1Pos >= 21) {
-        setIsWinner(1);
-        setIsLoser(2);
+        setWinner(1);
+        setLoser(2);
       } else {
-        setIsWinner(2);
-        setIsLoser(1);
+        setWinner(2);
+        setLoser(1);
       };
       setIsGameOver(true);
       sendGameOver();
@@ -546,7 +546,9 @@ const GameFlow = ({
           team1Members={team1Members}
         />
         { isGameOver ? 
-          <GameOver/> 
+          <GameOver
+            winner={winner}
+            loser={loser}/> 
           :  isGameStarted === false ? (
           <>
             {isHostPlayer !== false ? (
