@@ -307,6 +307,7 @@ const GameFlow = ({
 
   // 변화한 위치 정보를 보내는 함수
   const sendPos = () => {
+
     const sendData = {
       session: mySessionId,
       to: [], // all user
@@ -394,6 +395,7 @@ const GameFlow = ({
   const GameStart = () => {
     gameFlowStart();
   };
+
   console.log("나는 방장" + isHostPlayer);
   console.log("게임 시작함?" + isGameStarted);
 
@@ -422,7 +424,12 @@ const GameFlow = ({
             </GameStartButton>
           )
         ) : (
-          <Map />
+          <Map
+            setT1Pos={setT1Pos}
+            setT2Pos={setT2Pos}
+            t1Pos={t1Pos}
+            t2Pos={t2Pos}
+            sendPos={sendPos}/>
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}

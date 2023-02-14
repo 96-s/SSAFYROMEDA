@@ -13,6 +13,7 @@ import Quiz from "./quiz";
 import MapIMG from "resources/images/Map/MapIMG.gif";
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 const Page = styled.div`
   display: flex;
@@ -1307,13 +1308,16 @@ const Map = ({
   whatDiceNum,
   myUserNameValue,
   setWhatDiceNum,
+  setT1Pos,
+  setT2Pos,
+  t1Pos,
+  t2Pos,
+  sendPos
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
   const [chanceNum, setChanceNum] = useState(null);
   const [openChanceToggle, setOpenChanceToggle] = useState(false);
-  const [team1Pos, setTeam1Pos] = useState(0);
-  const [team2Pos, setTeam2Pos] = useState(0);
   // const [isMoving, setIsMoving] = useState(false);
   let isRoll = false;
   // var chanceNum = null;
@@ -1349,23 +1353,24 @@ const Map = ({
     console.log("주사위 값은 " + diceValue);
     // 주사위 1 나왔을 때
     if (isRoll === false && diceValue === 1) {
-      setTeam1Pos(team1Pos + diceValue);
+      setT1Pos(t1Pos + diceValue);
     }
     // 주사위 2 이상
     if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
       console.log("왜 안뜨노...");
-      // 순서대로 움직이는 거 고쳐야함!!!!
       var i = 0;
       while (i < diceValue) {
         i++;
         console.log("왜 안됨");
         setTimeout(() => {
-          setTeam1Pos((team1Pos) => team1Pos + 1);
+          setT1Pos((t1Pos) => t1Pos + 1);
         }, 2000 * i);
       }
     }
     setDiceValue(null);
+    sendPos();
   }, [diceValue]);
+
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1418,10 +1423,10 @@ const Map = ({
           ) : (
             ""
           )} */}
-        <Marker1 className={`pos${team1Pos}`}>
+        <Marker1 className={`pos${t1Pos}`}>
           <img src={Marker1IMG} alt="marker1" id="marker1"></img>
         </Marker1>
-        <Marker2 className={`pos${team2Pos}`}>
+        <Marker2 className={`pos${t2Pos}`}>
           <img src={Marker2IMG} alt="marker2"></img>
         </Marker2>
       </Board>
