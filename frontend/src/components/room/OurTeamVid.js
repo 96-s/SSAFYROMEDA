@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
+import { useState, useCallback, useEffect } from "react";
 
 const Box = styled.div`
   border: 1px solid black;
@@ -25,6 +26,11 @@ const MiddleBox = styled.div`
 const OurTeamVid = ({ 
   streamManager, subscribers, publisher, team1Members}) => {
   
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  useEffect(() => {forceUpdate()}, [publisher, subscribers.length]);
+
   console.log("team1 : ");
   console.log(team1Members);
 
@@ -39,7 +45,7 @@ const OurTeamVid = ({
           ) : null}
           <div>
             <UserVideoComponent 
-              streamManager={publisher}
+              streamManager={team1Members[0]}
             />
           </div>
         </Box>
@@ -52,7 +58,7 @@ const OurTeamVid = ({
             ) : null}
             <div>
               <UserVideoComponent 
-                streamManager={subscribers[0]}
+                streamManager={team1Members[1]}
               />
             </div>
           </Box>
@@ -65,7 +71,7 @@ const OurTeamVid = ({
           ) : null}
           <div>
             <UserVideoComponent
-              streamManager={subscribers[1]}
+              streamManager={team1Members[2]}
             />
           </div>
         </Box>

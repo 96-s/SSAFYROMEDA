@@ -205,9 +205,8 @@ const GameManager = () => {
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
-
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-
+      
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -560,6 +559,10 @@ const GameManager = () => {
     if (mySession) {
       mySession.disconnect();
     }
+
+    console.log("Destroyed");
+    console.log(team1Members);
+    console.log(team2Members);
 
     // 관련 변수 초기화
     setOv(null);
