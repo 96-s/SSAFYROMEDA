@@ -1304,7 +1304,6 @@ const Map = ({
   sessionId,
   players,
   posList,
-  turnNum,
   whatDiceNum,
   myUserNameValue,
   setWhatDiceNum,
@@ -1315,6 +1314,9 @@ const Map = ({
   sendPos,
   setNextThrowUser,
   nextThrowUser,
+  turnNum,
+  setTurnNum,
+  myTurnNum
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1371,6 +1373,7 @@ const Map = ({
     }
     setDiceValue(null);
     console.log("팀1자리"+t1Pos);
+    setTurnNum((turnNum+1) % 6)
     sendPos();
   }, [diceValue]);
 
@@ -1393,8 +1396,11 @@ const Map = ({
       <Board>
         {/* <Quiz/> */}
         <Modal>
-          <span onClick={openChance}>I</span>
+          {/* <span onClick={openChance}>I</span> */}
+          { (turnNum === myTurnNum ? 
           <span onClick={openDice}>I</span>
+          : null
+          )}
         </Modal>
         <ChanceModal
           open={openChanceToggle}

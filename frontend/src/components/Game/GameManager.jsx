@@ -63,6 +63,8 @@ const GameManager = () => {
   const [players, setPlayers] = useState([]);
   // 방장인지 아닌지
   const [isHostPlayer, setIsHostPlayer] = useState(false);
+  // 현재 순서
+  const [turnNum, setTurnNum] = useState(0);
   // 게임 내 고유 번호
   const [myGameNo, setMyGameNo] = useState(0);
   // 주사위 던지는 유저
@@ -253,7 +255,7 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
         data.data
       );
       console.log(
@@ -272,6 +274,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
+      setTurnNum(turnNum)
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -413,7 +416,7 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn } = JSON.parse(
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
         data.data
       );
       console.log(
@@ -432,6 +435,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
+      setTurnNum(turnNum)
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -639,6 +643,8 @@ const GameManager = () => {
             isSuccess={isSuccess}
             setIsSuccess={setIsSuccess}
             players={players}
+            turnNum={turnNum}
+            setTurnNum={setTurnNum}
           />
         </div>
       ) : null}
