@@ -86,10 +86,13 @@ const GameFlow = ({
   setStartAnimationPlaying,
   turnNum,
   setTurnNum,
+  isGameover,
+  setIsGameOver,
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
   console.log("내 순서는" + myTurnNum);
+  console.log("myGameNo은?" + myGameNo);
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
@@ -482,6 +485,36 @@ const GameFlow = ({
     // return response.data;
   };
 
+  // 게임 종료
+  const sendGameOver = () => {
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        nextT1Pos: t1Pos,
+        nextT2Pos: t2Pos,
+        setIsGameOver: true,
+      }),
+      type: "GAME_OVER",
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+    });
+  }
+
+  useEffect = () => {  
+    if ((t1Pos >= 21) || (t2Pos >= 21)) {
+      setIsGameOver(true);
+      sendGameOver();
+    }; 
+  }
+
   const GameStart = () => {
     gameFlowStart();
   };
@@ -537,6 +570,7 @@ const GameFlow = ({
                 myTurnNum={myTurnNum}
                 turnNum={turnNum}
                 setTurnNum={setTurnNum}
+                setIsGameOver={setIsGameOver}
               />
             )}
           </>

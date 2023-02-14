@@ -82,6 +82,7 @@ const GameManager = () => {
   const [gameNo, setGameNo] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
   // 미니게임 여부
@@ -283,6 +284,18 @@ const GameManager = () => {
       setNextMiniGameNum(nextGame);
     });
 
+    mySession.on("GAME_OVER", (data) => {
+      const {
+        nextT1Pos,
+        nextT2Pos,
+        setIsGameOver
+      } = JSON.parse(data.data);
+
+      setT1Pos(nextT1Pos)
+      setT2Pos(nextT2Pos)
+      setIsGameOver(isGameOver)
+    });
+
     /* ------------------------------------------------------------------------------------------------------------------------ */
     // 게임 로직 경계선
 
@@ -439,6 +452,18 @@ const GameManager = () => {
 
       // 미니 게임 세팅
       setNextMiniGameNum(nextGame);
+    });
+
+    mySession.on("GAME_OVER", (data) => {
+      const {
+        nextT1Pos,
+        nextT2Pos,
+        setIsGameOver
+      } = JSON.parse(data.data);
+
+      setT1Pos(nextT1Pos)
+      setT2Pos(nextT2Pos)
+      setIsGameOver(isGameOver)
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -638,6 +663,8 @@ const GameManager = () => {
             players={players}
             turnNum={turnNum}
             setTurnNum={setTurnNum}
+            isGameOver={isGameOver}
+            setIsGameOver={setIsGameOver}
           />
         </div>
       ) : null}

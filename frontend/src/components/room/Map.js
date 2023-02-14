@@ -1316,7 +1316,8 @@ const Map = ({
   nextThrowUser,
   turnNum,
   setTurnNum,
-  myTurnNum
+  myTurnNum,
+  setIsGameOver
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
