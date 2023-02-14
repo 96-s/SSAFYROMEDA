@@ -1368,6 +1368,7 @@ const Map = ({
       }
     }
     setDiceValue(null);
+    console.log(t1Pos);
     sendPos();
   }, [diceValue]);
 
