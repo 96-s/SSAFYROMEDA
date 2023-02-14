@@ -361,7 +361,7 @@ const GameManager = () => {
         tempPlayers.push(userNickname);
       }
 
-      setPlayers(tempPlayers.sort());
+      setPlayers(tempPlayers);
       console.log("players" + players);
 
       setSubscribers(tempSubscribers);
@@ -512,7 +512,7 @@ const GameManager = () => {
     if (tempPlayers.includes(userNickname) === false) {
       tempPlayers.push(userNickname);
     }
-    setPlayers(tempPlayers.sort());
+    setPlayers(tempPlayers);
   };
 
   //현재 방에서 나가기
