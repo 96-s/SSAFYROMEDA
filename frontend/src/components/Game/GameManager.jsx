@@ -43,7 +43,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -237,6 +237,7 @@ const GameManager = () => {
       setT2Pos(t2Pos);
       setNextThrowUser(nextThrowUser);
       setIsGameStarted(isGameStarted);
+      console.log(isGameStarted);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -265,7 +266,7 @@ const GameManager = () => {
       // 다음 주사위 유저 지정
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
-      setDiceTurn(false);
+      setDiceTurn(diceTurn);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {

@@ -290,30 +290,28 @@ const GameFlow = ({
   };
 
   // 변화한 위치 정보를 보내는 함수
-  const sendPos = async (subscribers) => {
-    const response = await axios.post(
-      "https://i8d205.p.ssafy.io/openvidu/api/signal",
-      {
-        session: mySessionId,
-        to: subscribers,
-        type: "POS_UPDATE",
-        data: {
-          nextT1Pos: t1Pos,
-          nextT2Pos: t2Pos,
-          nextThrowUser: (nextThrowUser + 1) % 3,
-          diceTurn: false,
-        },
+  const sendPos = () => {
+
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        nextT1Pos: t1Pos,
+        nextT2Pos: t2Pos,
+        nextThrowUser: (nextThrowUser + 1) % 3,
+        diceTurn: false,
+      }),
+      type: "POS_UPDATE",
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
+        'Content-type': 'application/json',
       },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        },
-      }
-    );
-    console.log("위치 전송함");
-    return response.data;
+      body: JSON.stringify(sendData),
+    });    
   };
 
   // 다음에 무슨 게임하는지 보내는 함수
@@ -343,6 +341,7 @@ const GameFlow = ({
   const GameStart = () => {
     gameFlowStart();
   };
+
   console.log("나는 방장" + isHostPlayer);
   console.log("게임 시작함?" + isGameStarted);
 
@@ -371,7 +370,12 @@ const GameFlow = ({
             </GameStartButton>
           )
         ) : (
-          <Map />
+          <Map
+            setT1Pos={setT1Pos}
+            setT2Pos={setT2Pos}
+            t1Pos={t1Pos}
+            t2Pos={t2Pos}
+            sendPos={sendPos}/>
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}
