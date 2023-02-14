@@ -1370,7 +1370,7 @@ const Map = ({
       }
     }
     setDiceValue(null);
-    console.log(t1Pos);
+    console.log("팀1자리"+t1Pos);
     sendPos();
   }, [diceValue]);
 
