@@ -69,7 +69,12 @@ const GameFlow = ({
   setIsGameStarted,
   isSuccess,
   setIsSuccess,
+  players,
 }) => {
+  const playerNum = players.length; // 몇명이서 하는지
+  const myTurnNum = players.indexOf(userNickname);
+  console.log("내 순서는" + myTurnNum);
+
   const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
@@ -485,7 +490,12 @@ const GameFlow = ({
             setT2Pos={setT2Pos}
             t1Pos={t1Pos}
             t2Pos={t2Pos}
-            sendPos={sendPos}/>
+            sendPos={sendPos}
+            nextThrowUser={nextThrowUser}
+            setNextThrowUser={setNextThrowUser}
+            playerNum={playerNum}
+            myTurnNum={myTurnNum}
+            />
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}

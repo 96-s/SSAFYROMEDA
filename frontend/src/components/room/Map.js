@@ -1312,7 +1312,9 @@ const Map = ({
   setT2Pos,
   t1Pos,
   t2Pos,
-  sendPos
+  sendPos,
+  setNextThrowUser,
+  nextThrowUser,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1368,7 +1370,7 @@ const Map = ({
       }
     }
     setDiceValue(null);
-    console.log(t1Pos);
+    console.log("팀1자리"+t1Pos);
     sendPos();
   }, [diceValue]);
 
