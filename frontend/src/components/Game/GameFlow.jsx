@@ -6,6 +6,7 @@ import Map from "components/room/Map";
 import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
 import MyButton from "components/common/MyButton";
+import GameStartAnimation from "components/utils/GameStartAnimation";
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +22,15 @@ const Page = styled.div`
 `;
 
 const GameStartButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  color: white;
+`;
+
+const AnimationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +78,7 @@ const GameFlow = ({
   isGameStarted,
   setIsGameStarted,
 }) => {
-  const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
 
@@ -94,15 +104,18 @@ const GameFlow = ({
   // 게임 시작 로직
   useEffect(() => {
     if (startAnimationPlaying) {
-      console.warn("게임 시작 애니메이션 실행!");
+      console.log("게임 시작 애니메이션 실행!");
       /* --------------게임 스타트 애니메이션 여기 삽입(setTimeOut(?)) (setStartAnimationPlaying(false); 처리)------------------ / ----help */
+      setTimeout(() => {
+        setStartAnimationPlaying(false);
+      }, 2000);
     }
   }, [startAnimationPlaying]);
 
   // 게임 시작 애니메이션 로직
   useEffect(() => {
     if (!startAnimationPlaying) {
-      console.warn("게임 시작 애니메이션 종료!");
+      console.log("게임 시작 애니메이션 종료!");
       checkDiceTurn();
     }
   }, [startAnimationPlaying]);
@@ -407,22 +420,32 @@ const GameFlow = ({
           team1Members={team1Members}
         />
         {isGameStarted === false ? (
-          isHostPlayer !== false ? (
-            <GameStartButton>
-              <MyButton
-                lang={"Korean"}
-                text={"게임 시작"}
-                type={"is-success"}
-                onClick={GameStart}
-              />
-            </GameStartButton>
-          ) : (
-            <GameStartButton>
-              <span>준비 중</span>
-            </GameStartButton>
-          )
+          <>
+            {isHostPlayer !== false ? (
+              <GameStartButton>
+                <MyButton
+                  lang={"Korean"}
+                  text={"게임 시작"}
+                  type={"is-success"}
+                  onClick={GameStart}
+                />
+              </GameStartButton>
+            ) : (
+              <GameStartButton>
+                <span>준비 중</span>
+              </GameStartButton>
+            )}
+          </>
         ) : (
-          <Map />
+          <>
+            {startAnimationPlaying === true ? (
+              <AnimationContainer>
+                <GameStartAnimation />
+              </AnimationContainer>
+            ) : (
+              <Map />
+            )}
+          </>
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}
