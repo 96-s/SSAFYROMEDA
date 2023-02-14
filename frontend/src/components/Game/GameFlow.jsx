@@ -41,6 +41,15 @@ const AnimationContainer = styled.div`
   color: white;
 `;
 
+const GameOverContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  color: white;
+`;
+
 const GameFlow = ({
   mainStreamManager,
   publisher,
@@ -546,9 +555,12 @@ const GameFlow = ({
           team1Members={team1Members}
         />
         { isGameOver ? 
-          <GameOver
-            winner={winner}
-            loser={loser}/> 
+          <GameOverContainer>
+            <GameOver
+              myTeam={myTeam}
+              winner={winner}
+              loser={loser}/> 
+          </GameOverContainer>
           :  isGameStarted === false ? (
           <>
             {isHostPlayer !== false ? (
