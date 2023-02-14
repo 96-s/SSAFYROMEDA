@@ -319,6 +319,7 @@ const GameManager = () => {
           console.log(team1Members);
           console.log(team2Members);
           setIsHostPlayer(true);
+          console.log(myGameNo);
         })
         .catch((error) => {
           console.log(

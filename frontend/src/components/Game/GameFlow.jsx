@@ -375,7 +375,10 @@ const GameFlow = ({
             setT2Pos={setT2Pos}
             t1Pos={t1Pos}
             t2Pos={t2Pos}
-            sendPos={sendPos}/>
+            sendPos={sendPos}
+            nextThrowUser={nextThrowUser}
+            setNextThrowUser={setNextThrowUser}
+            />
         )}
         <TheirTeamVid
           streamManager={mainStreamManager}
