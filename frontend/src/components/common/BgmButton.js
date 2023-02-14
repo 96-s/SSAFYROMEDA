@@ -1,35 +1,60 @@
 import { useState } from "react";
+import styled from "styled-components";
 
 import sdon from "resources/images/soundon_icon.png";
 import sdoff from "resources/images/soundoff_icon.png";
 import { useEffect } from "react";
 
-const BgmButton = ({ bgm }) => {
-  function playSound(soundName) {
-    var audio = new Audio(soundName);
-    audio.play();
+const BgmButtonImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+
+const BgmButton = ({ bgm, volume }) => {
+  var audio = {
+    id: "music-opening",
+    name: "MusicOpening",
+    file: new Audio(bgm),
+    isPlay: false,
+  };
+
+  function playSound() {
+    audio.isPlay = true;
+    console.log("isplay는?", audio.isPlay);
+
+    audio.file.play();
+    audio.file.loop = true;
+    audio.file.volume = volume;
   }
 
-  function pauseSound(soundName) {
-    var audio = new Audio(soundName);
-    audio.muted();
-    audio.currentTime = 0;
-  }
+  function pauseSound() {
+    audio.isPlay = false;
+    console.log("isplay는?", audio.isPlay);
 
-  const [isPlay, setIsplay] = useState(false);
+    audio.file.pause();
+    console.log("음악 멈춰!!");
+    audio.file.currentTime = 0;
+  }
 
   const soundButtonHandle = () => {
-    setIsplay(!isPlay);
-    isPlay ? pauseSound(bgm) : playSound(bgm);
+    audio.isPlay ? pauseSound() : playSound();
   };
 
   return (
     <div>
       <div onClick={soundButtonHandle}>
-        {isPlay ? (
-          <img src={sdon} alt="Aon" className="audioImg nes-pointer"></img>
+        {audio.isPlay ? (
+          <BgmButtonImg
+            src={sdoff}
+            alt="Aoff"
+            className="audioImg nes-pointer"
+          ></BgmButtonImg>
         ) : (
-          <img src={sdoff} alt="Aof" className="audioImg nes-pointer"></img>
+          <BgmButtonImg
+            src={sdon}
+            alt="Aon"
+            className="audioImg nes-pointer"
+          ></BgmButtonImg>
         )}
       </div>
     </div>

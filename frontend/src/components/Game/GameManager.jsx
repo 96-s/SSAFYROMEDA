@@ -2,6 +2,8 @@
 import GameFlow from "./GameFlow";
 import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/MyButton";
+import BgmButton from "../common/BgmButton";
+import BackButton from "resources/images/logout_icon.png";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -13,7 +15,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
-import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+import gameRoomBgm from "resources/sounds/ssafyromeda_soundpack/04_gamebgm.wav";
 
 const SessionHeaderDiv = styled.div`
   display: flex;
@@ -23,8 +25,15 @@ const SessionHeaderDiv = styled.div`
 
 const SessionIdDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   color: white;
+`;
+
+const BackButtonDiv = styled.img`
+  width: 60px;
+  height: 60px;
+
+  margin-right: 10px;
 `;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
@@ -256,9 +265,8 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
-        data.data
-      );
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } =
+        JSON.parse(data.data);
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
@@ -275,7 +283,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
-      setTurnNum(turnNum)
+      setTurnNum(turnNum);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -395,7 +403,6 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
-    
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -430,9 +437,8 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
-        data.data
-      );
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } =
+        JSON.parse(data.data);
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
@@ -449,7 +455,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
-      setTurnNum(turnNum)
+      setTurnNum(turnNum);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -570,10 +576,6 @@ const GameManager = () => {
     playSound(buttonClick);
   };
 
-  const lobbySoundEffect = () => {
-    playSound(lobbyBGM);
-  };
-
   function playSound(soundName) {
     var audio = new Audio(soundName);
     audio.play();
@@ -595,7 +597,8 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionIdDiv>
-                <h1 id="session-title">Room Code : {mySessionId}</h1>
+                <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                <h1 id="session-title">우주선 번호 : {mySessionId}</h1>
                 <span>ㅤ</span>
 
                 <CopyToClipboard text={mySessionId}>
@@ -608,15 +611,12 @@ const GameManager = () => {
                 </CopyToClipboard>
               </SessionIdDiv>
             </div>
-            <MyButton
-              lang={"Korean"}
-              text={"나가기"}
+            <BackButtonDiv
+              src={BackButton}
               onClick={() => {
                 leaveSession();
                 soundEffect();
-                lobbySoundEffect();
               }}
-              type={"is-warning"}
             />
           </SessionHeaderDiv>
           <GameFlow

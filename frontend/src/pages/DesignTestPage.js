@@ -131,7 +131,7 @@ const CodeInputContainer = styled.div`
   width: 180px;
 `;
 
-const LogoutButton = styled.div`
+const BgmButtonDiv = styled.div`
   position: absolute;
 
   margin-top: 10px;
@@ -179,9 +179,9 @@ const DesignTestPage = ({
   return (
     <div>
       <Background>
-        <LogoutButton>
-          <BgmButton bgm={lobbyBGM} />
-        </LogoutButton>
+        <BgmButtonDiv>
+          <BgmButton bgm={lobbyBGM} volume={0.5} />
+        </BgmButtonDiv>
         <BoxContainer>
           <StartText>게임 시작하기</StartText>
           <ButtonBox>
@@ -218,7 +218,10 @@ const DesignTestPage = ({
                     lang={"Korean"}
                     text={"입장"}
                     type={"is-success"}
-                    onClick={joinRoom}
+                    onClick={() => {
+                      joinRoom();
+                      soundEffect();
+                    }}
                   />
                 </HoverDiv>
               </InputContainer>
