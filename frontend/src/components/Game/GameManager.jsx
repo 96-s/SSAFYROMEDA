@@ -86,6 +86,7 @@ const GameManager = () => {
   const [miniGame3, setMiniGame3] = useState(false);
   const [miniGame4, setMiniGame4] = useState(false);
   const [miniGame5, setMiniGame5] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(null);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -224,12 +225,9 @@ const GameManager = () => {
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
-      const {
-        t1Pos,
-        t2Pos,
-        nextThrowUser,
-        isGameStarted,
-      } = JSON.parse(data.data)
+      const { t1Pos, t2Pos, nextThrowUser, isGameStarted } = JSON.parse(
+        data.data
+      );
       // console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
@@ -414,7 +412,6 @@ const GameManager = () => {
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
-      
       const { nextGame } = JSON.parse(data.data);
       console.log(`nextGame? : ${nextGame}`);
 
@@ -605,6 +602,8 @@ const GameManager = () => {
             setMiniGame3={setMiniGame3}
             setMiniGame4={setMiniGame4}
             setMiniGame5={setMiniGame5}
+            isSuccess={isSuccess}
+            setIsSuccess={setIsSuccess}
           />
         </div>
       ) : null}
