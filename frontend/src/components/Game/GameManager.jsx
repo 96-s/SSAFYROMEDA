@@ -2,6 +2,8 @@
 import GameFlow from "./GameFlow";
 import DesignTestPage from "pages/DesignTestPage";
 import MyButton from "components/common/MyButton";
+import BgmButton from "../common/BgmButton";
+import BackButton from "resources/images/logout_icon.png";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
@@ -13,7 +15,9 @@ import axios from "axios";
 import styled from "styled-components";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
-import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
+import gameRoomBgm from "resources/sounds/ssafyromeda_soundpack/04_gamebgm.wav";
+
+const BackgroundImgDiv = styled.div``;
 
 const SessionHeaderDiv = styled.div`
   display: flex;
@@ -23,8 +27,15 @@ const SessionHeaderDiv = styled.div`
 
 const SessionIdDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   color: white;
+`;
+
+const BackButtonDiv = styled.img`
+  width: 60px;
+  height: 60px;
+
+  margin-right: 10px;
 `;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
@@ -253,9 +264,8 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
-        data.data
-      );
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } =
+        JSON.parse(data.data);
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
@@ -272,7 +282,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
-      setTurnNum(turnNum)
+      setTurnNum(turnNum);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -376,7 +386,6 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
-    
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -411,9 +420,8 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } = JSON.parse(
-        data.data
-      );
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } =
+        JSON.parse(data.data);
       console.log(
         "팀1 다음 포지션 : " +
           nextT1Pos +
@@ -430,7 +438,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
       setDiceTurn(diceTurn);
-      setTurnNum(turnNum)
+      setTurnNum(turnNum);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -535,10 +543,6 @@ const GameManager = () => {
     playSound(buttonClick);
   };
 
-  const lobbySoundEffect = () => {
-    playSound(lobbyBGM);
-  };
-
   function playSound(soundName) {
     var audio = new Audio(soundName);
     audio.play();
@@ -557,88 +561,88 @@ const GameManager = () => {
 
       {session !== undefined ? (
         <div>
-          <SessionHeaderDiv>
-            <div>
-              <SessionIdDiv>
-                <h1 id="session-title">Room Code : {mySessionId}</h1>
-                <span>ㅤ</span>
+          <BackgroundImgDiv>
+            <SessionHeaderDiv>
+              <div>
+                <SessionIdDiv>
+                  <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                  <h1 id="session-title">우주선 번호 : {mySessionId}</h1>
+                  <span>ㅤ</span>
 
-                <CopyToClipboard text={mySessionId}>
-                  <MyButton
-                    lang={"Korean"}
-                    text={"복사하기"}
-                    onClick={soundEffect}
-                    type={"is-primary"}
-                  />
-                </CopyToClipboard>
-              </SessionIdDiv>
-            </div>
-            <MyButton
-              lang={"Korean"}
-              text={"나가기"}
-              onClick={() => {
-                leaveSession();
-                soundEffect();
-                lobbySoundEffect();
-              }}
-              type={"is-warning"}
+                  <CopyToClipboard text={mySessionId}>
+                    <MyButton
+                      lang={"Korean"}
+                      text={"복사하기"}
+                      onClick={soundEffect}
+                      type={"is-primary"}
+                    />
+                  </CopyToClipboard>
+                </SessionIdDiv>
+              </div>
+              <BackButtonDiv
+                src={BackButton}
+                onClick={() => {
+                  leaveSession();
+                  soundEffect();
+                }}
+              />
+            </SessionHeaderDiv>
+            <GameFlow
+              ov={ov}
+              session={session}
+              mySessionId={mySessionId}
+              streamManager={streamManager}
+              publisher={publisher}
+              subscribers={subscribers}
+              isMike={isMike}
+              isCamera={isCamera}
+              isSpeaker={isSpeaker}
+              // myUserName={myUserName}
+              currentVideoDevice={currentVideoDevice}
+              initRoom={initRoom}
+              joinRoom={joinRoom}
+              leaveSession={leaveSession}
+              userNickname={userNickname}
+              userNo={userNo}
+              isHostPlayer={isHostPlayer}
+              setT1Pos={setT1Pos}
+              t1Pos={t1Pos}
+              t2Pos={t2Pos}
+              setT2Pos={setT2Pos}
+              isDiceThrow={isDiceThrow}
+              setIsDiceThrow={setIsDiceThrow}
+              setGameTurn={setGameTurn}
+              gameTurn={gameTurn}
+              myTeam={myTeam}
+              team1Members={team1Members}
+              team2Members={team2Members}
+              isGameStarted={isGameStarted}
+              startAnimationPlaying={startAnimationPlaying}
+              setStartAnimationPlaying={setStartAnimationPlaying}
+              setIsGameStarted={setIsGameStarted}
+              nextMiniGameNum={nextMiniGameNum}
+              setNextMiniGameNum={setNextMiniGameNum}
+              miniGameSelectTurn={miniGameSelectTurn}
+              setMiniGameSelectTurn={setMiniGameSelectTurn}
+              nextThrowUser={nextThrowUser}
+              setNextThrowUser={setNextThrowUser}
+              miniGame1={miniGame1}
+              miniGame2={miniGame2}
+              miniGame3={miniGame3}
+              miniGame4={miniGame4}
+              miniGame5={miniGame5}
+              setMiniGame1={setMiniGame1}
+              setMiniGame2={setMiniGame2}
+              setMiniGame3={setMiniGame3}
+              setMiniGame4={setMiniGame4}
+              setMiniGame5={setMiniGame5}
+              isSuccess={isSuccess}
+              setIsSuccess={setIsSuccess}
+              players={players}
+              turnNum={turnNum}
+              setTurnNum={setTurnNum}
             />
-          </SessionHeaderDiv>
-          <GameFlow
-            ov={ov}
-            session={session}
-            mySessionId={mySessionId}
-            streamManager={streamManager}
-            publisher={publisher}
-            subscribers={subscribers}
-            isMike={isMike}
-            isCamera={isCamera}
-            isSpeaker={isSpeaker}
-            // myUserName={myUserName}
-            currentVideoDevice={currentVideoDevice}
-            initRoom={initRoom}
-            joinRoom={joinRoom}
-            leaveSession={leaveSession}
-            userNickname={userNickname}
-            userNo={userNo}
-            isHostPlayer={isHostPlayer}
-            setT1Pos={setT1Pos}
-            t1Pos={t1Pos}
-            t2Pos={t2Pos}
-            setT2Pos={setT2Pos}
-            isDiceThrow={isDiceThrow}
-            setIsDiceThrow={setIsDiceThrow}
-            setGameTurn={setGameTurn}
-            gameTurn={gameTurn}
-            myTeam={myTeam}
-            team1Members={team1Members}
-            team2Members={team2Members}
-            isGameStarted={isGameStarted}
-            startAnimationPlaying={startAnimationPlaying}
-            setStartAnimationPlaying={setStartAnimationPlaying}
-            setIsGameStarted={setIsGameStarted}
-            nextMiniGameNum={nextMiniGameNum}
-            setNextMiniGameNum={setNextMiniGameNum}
-            miniGameSelectTurn={miniGameSelectTurn}
-            setMiniGameSelectTurn={setMiniGameSelectTurn}
-            nextThrowUser={nextThrowUser}
-            setNextThrowUser={setNextThrowUser}
-            miniGame1={miniGame1}
-            miniGame2={miniGame2}
-            miniGame3={miniGame3}
-            miniGame4={miniGame4}
-            miniGame5={miniGame5}
-            setMiniGame1={setMiniGame1}
-            setMiniGame2={setMiniGame2}
-            setMiniGame3={setMiniGame3}
-            setMiniGame4={setMiniGame4}
-            setMiniGame5={setMiniGame5}
-            isSuccess={isSuccess}
-            setIsSuccess={setIsSuccess}
-            players={players}
-            turnNum={turnNum}
-            setTurnNum={setTurnNum}
-          />
+          </BackgroundImgDiv>
         </div>
       ) : null}
     </div>
