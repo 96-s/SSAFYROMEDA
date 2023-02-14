@@ -423,7 +423,7 @@ const GameManager = () => {
       // 다음 주사위 유저 지정
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
-      setDiceTurn(false);
+      setDiceTurn(diceTurn);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
