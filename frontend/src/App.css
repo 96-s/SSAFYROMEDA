@@ -1,11 +1,10 @@
 @font-face {
-  font-family: 'DungGeunMo';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  font-family: "DungGeunMo";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
-
-
 
 body {
   margin: 0px;
@@ -41,17 +40,15 @@ body {
 
 /* ============================================== */
 
-
 /* 페이지 transition 효과 */
 .fadeIn {
   animation: 0.3s fadeIn forwards;
   background-color: black;
-  height: 99999999px;
-  
+  /* height: 99999999px; */
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .fadeOut {
   animation: 0.3s fadeOut forwards;
