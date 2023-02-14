@@ -7,7 +7,7 @@ import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
 import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
-
+import GameOver from "components/utils/GameOver";
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 
 const Container = styled.div`
@@ -33,6 +33,15 @@ const GameStartButton = styled.div`
 `;
 
 const AnimationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 85vh;
+  color: white;
+`;
+
+const GameOverContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,8 +95,12 @@ const GameFlow = ({
   setStartAnimationPlaying,
   turnNum,
   setTurnNum,
-  isGameover,
+  isGameOver,
   setIsGameOver,
+  winner,
+  setWinner,
+  loser,
+  setLoser
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
@@ -485,6 +498,7 @@ const GameFlow = ({
     // return response.data;
   };
 
+
   // 게임 종료
   const sendGameOver = () => {
     const sendData = {
@@ -493,7 +507,9 @@ const GameFlow = ({
       data: JSON.stringify({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
-        setIsGameOver: true,
+        isGameOver: true,
+        winner,
+        loser,
       }),
       type: "GAME_OVER",
     };
@@ -508,8 +524,15 @@ const GameFlow = ({
     });
   }
 
-  useEffect = () => {  
-    if ((t1Pos >= 21) || (t2Pos >= 21)) {
+  if ((t1Pos >= 21) || (t2Pos >= 21)) {
+    useEffect = () => {  
+      if (t1Pos >= 21) {
+        setWinner(1);
+        setLoser(2);
+      } else {
+        setWinner(2);
+        setLoser(1);
+      };
       setIsGameOver(true);
       sendGameOver();
     }; 
@@ -531,7 +554,14 @@ const GameFlow = ({
           publisher={publisher}
           team1Members={team1Members}
         />
-        {isGameStarted === false ? (
+        { isGameOver ? 
+          <GameOverContainer>
+            <GameOver
+              myTeam={myTeam}
+              winner={winner}
+              loser={loser}/> 
+          </GameOverContainer>
+          :  isGameStarted === false ? (
           <>
             {isHostPlayer !== false ? (
               <GameStartButton>
@@ -574,7 +604,8 @@ const GameFlow = ({
               />
             )}
           </>
-        )}
+          )
+        }
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
