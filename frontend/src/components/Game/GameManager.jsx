@@ -85,6 +85,8 @@ const GameManager = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
+  const [isWinner, setIsWinner] = useState(null);
+  const [isLoser, setIsLoser] = useState(null);
   // 미니게임 여부
   const [miniGame1, setMiniGame1] = useState(false);
   const [miniGame2, setMiniGame2] = useState(false);
@@ -288,12 +290,16 @@ const GameManager = () => {
       const {
         nextT1Pos,
         nextT2Pos,
-        setIsGameOver
+        isGameOver,
+        isWinner,
+        isLoser,
       } = JSON.parse(data.data);
 
       setT1Pos(nextT1Pos)
       setT2Pos(nextT2Pos)
       setIsGameOver(isGameOver)
+      setIsWinner(isWinner)
+      setIsLoser(isLoser)
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -458,12 +464,16 @@ const GameManager = () => {
       const {
         nextT1Pos,
         nextT2Pos,
-        setIsGameOver
+        isGameOver,
+        isWinner,
+        isLoser,
       } = JSON.parse(data.data);
 
       setT1Pos(nextT1Pos)
       setT2Pos(nextT2Pos)
       setIsGameOver(isGameOver)
+      setIsWinner(isWinner)
+      setIsLoser(isLoser)
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -665,6 +675,10 @@ const GameManager = () => {
             setTurnNum={setTurnNum}
             isGameOver={isGameOver}
             setIsGameOver={setIsGameOver}
+            isWinner={isWinner}
+            setIsWinner={setIsWinner}
+            isLoser={isLoser}
+            setIsLoser={setIsLoser}
           />
         </div>
       ) : null}

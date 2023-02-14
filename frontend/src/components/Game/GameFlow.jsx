@@ -88,6 +88,10 @@ const GameFlow = ({
   setTurnNum,
   isGameOver,
   setIsGameOver,
+  isWinner,
+  setIsWinner,
+  isLoser,
+  setIsLoser
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
@@ -485,6 +489,7 @@ const GameFlow = ({
     // return response.data;
   };
 
+
   // 게임 종료
   const sendGameOver = () => {
     const sendData = {
@@ -493,7 +498,9 @@ const GameFlow = ({
       data: JSON.stringify({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
-        setIsGameOver: true,
+        isGameOver: true,
+        isWinner,
+        isLoser,
       }),
       type: "GAME_OVER",
     };
@@ -510,6 +517,13 @@ const GameFlow = ({
 
   useEffect = () => {  
     if ((t1Pos >= 21) || (t2Pos >= 21)) {
+      if (t1Pos >= 21) {
+        setIsWinner(1);
+        setIsLoser(2);
+      } else {
+        setIsWinner(2);
+        setIsLoser(1);
+      };
       setIsGameOver(true);
       sendGameOver();
     }; 
@@ -531,8 +545,9 @@ const GameFlow = ({
           publisher={publisher}
           team1Members={team1Members}
         />
-        { isGameOver ? <GameOver/> 
-          : isGameStarted === false ? (
+        { isGameOver ? 
+          <GameOver/> 
+          :  isGameStarted === false ? (
           <>
             {isHostPlayer !== false ? (
               <GameStartButton>
@@ -575,7 +590,8 @@ const GameFlow = ({
               />
             )}
           </>
-        )}}
+          )
+        }
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
