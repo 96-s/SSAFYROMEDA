@@ -80,6 +80,12 @@ const GameManager = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
+  // 미니게임 여부
+  const [miniGame1, setMiniGame1] = useState(false);
+  const [miniGame2, setMiniGame2] = useState(false);
+  const [miniGame3, setMiniGame3] = useState(false);
+  const [miniGame4, setMiniGame4] = useState(false);
+  const [miniGame5, setMiniGame5] = useState(false);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -217,14 +223,20 @@ const GameManager = () => {
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
     mySession.on("GAME_RESET", (data) => {
-      const { start } = JSON.parse(data.data);
-      console.log(`start? : ${start}`);
+      // const { start } = JSON.parse(data.data);
+      const {
+        t1Pos,
+        t2Pos,
+        nextThrowUser,
+        isGameStarted,
+      } = JSON.parse(data.data)
+      // console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
-      setT1Pos(0);
-      setT2Pos(0);
-      setNextThrowUser(0);
-      setIsGameStarted(true);
+      setT1Pos(t1Pos);
+      setT2Pos(t2Pos);
+      setNextThrowUser(nextThrowUser);
+      setIsGameStarted(isGameStarted);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -581,6 +593,16 @@ const GameManager = () => {
             setMiniGameSelectTurn={setMiniGameSelectTurn}
             nextThrowUser={nextThrowUser}
             setNextThrowUser={setNextThrowUser}
+            miniGame1={miniGame1}
+            miniGame2={miniGame2}
+            miniGame3={miniGame3}
+            miniGame4={miniGame4}
+            miniGame5={miniGame5}
+            setMiniGame1={setMiniGame1}
+            setMiniGame2={setMiniGame2}
+            setMiniGame3={setMiniGame3}
+            setMiniGame4={setMiniGame4}
+            setMiniGame5={setMiniGame5}
           />
         </div>
       ) : null}

@@ -76,7 +76,9 @@ const GameFlow = ({
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
       setIsGameStarted(true);
-      sendGameStartSignal(subscribers); // setStartAnimationPlaying(true); 쏘기
+      setTimeout(() => {
+        sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
+      }, 1000)
       posReset(); // 내 포지션도 리셋
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
@@ -220,27 +222,48 @@ const GameFlow = ({
   const failMiniGame = () => {};
 
   // 게임 시작 전, 후 상태 초기화를 위해
-  const sendGameStartSignal = async (subscribers) => {
+  const sendGameStartSignal = () => {
     console.log("게임 리셋!");
-    const response = await axios.post(
-      "https://i8d205.p.ssafy.io/openvidu/api/signal",
-      {
-        session: mySessionId,
-        to: subscribers,
-        type: "GAME_RESET",
-        data: {
-          start: true,
-        },
+
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        t1Pos: t1Pos,
+        t2Pos: t2Pos,
+        nextThrowUser: nextThrowUser,
+        isGameStarted: true,
+      }),
+      type: 'GAME_RESET',
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
+        'Content-type': 'application/json',
       },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        },
-      }
-    );
-    return response.data;
+      body: JSON.stringify(sendData),
+    });    
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "GAME_RESET",
+    //     data: JSON.stringify({
+    //       isGameStarted: isGameStarted,
+    //     }),
+    //   },
+    //   {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // return response.data;
   };
 
   const sendDiceTurnSignal = async (subscribers) => {
@@ -330,8 +353,7 @@ const GameFlow = ({
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
-          userNickname={userNickname}
-          userNo={userNo}
+          team1Members={team1Members}
         />
         {isGameStarted === false ? (
           isHostPlayer !== false ? (
@@ -355,8 +377,7 @@ const GameFlow = ({
           streamManager={mainStreamManager}
           subscribers={subscribers}
           publisher={publisher}
-          userNickname={userNickname}
-          userNo={userNo}
+          team2Members={team2Members}
         />
       </Container>
     </Page>

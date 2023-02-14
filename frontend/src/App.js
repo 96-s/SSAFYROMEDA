@@ -18,6 +18,8 @@ import DialogTest from "components/common/DialogTest";
 import UiTest from "pages/UiTest";
 import DesignTestPage from "pages/DesignTestPage";
 import GameManager from "components/Game/GameManager";
+import GameStartAnimation from "components/utils/GameStartAnimation";
+import MiniGame1 from "../src/components/Game/MiniGame1";
 
 // import { Provider } from "react-redux";
 
@@ -64,7 +66,10 @@ function App() {
           <Route path="/test3" element={<UiTest />} />
 
           <Route path="/designtest" element={<DesignTestPage />} />
+          <Route path="/gamestartani" element={<GameStartAnimation />} />
           <Route path="/test4" element={<GameManager />} />
+
+          <Route path="/minigame1" element={<MiniGame1 />} />
         </Routes>
       </div>
     </div>
