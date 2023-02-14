@@ -524,8 +524,8 @@ const GameFlow = ({
     });
   }
 
-  useEffect = () => {  
-    if ((t1Pos >= 21) || (t2Pos >= 21)) {
+  if ((t1Pos >= 21) || (t2Pos >= 21)) {
+    useEffect = () => {  
       if (t1Pos >= 21) {
         setWinner(1);
         setLoser(2);
