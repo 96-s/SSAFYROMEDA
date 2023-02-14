@@ -7,7 +7,7 @@ import TheirTeamVid from "components/room/TheirTeamVid";
 import styled from "styled-components";
 import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
-
+import GameOver from "components/utils/GameOver";
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 
 const Container = styled.div`
@@ -86,7 +86,7 @@ const GameFlow = ({
   setStartAnimationPlaying,
   turnNum,
   setTurnNum,
-  isGameover,
+  isGameOver,
   setIsGameOver,
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
@@ -531,7 +531,8 @@ const GameFlow = ({
           publisher={publisher}
           team1Members={team1Members}
         />
-        {isGameStarted === false ? (
+        { isGameOver ? <GameOver/> 
+          : isGameStarted === false ? (
           <>
             {isHostPlayer !== false ? (
               <GameStartButton>
@@ -574,7 +575,7 @@ const GameFlow = ({
               />
             )}
           </>
-        )}
+        )}}
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}
