@@ -5,21 +5,21 @@ const Box = styled.div`
   border: 1px solid black;
   height: 25vh;
   aspect-ratio: 4 / 3;
-`;
-
-
-
-const Page = styled.div`
   margin: auto;
 `;
 
+const Page = styled.div`
+  width:90%;
+`;
+
 const Video = styled.div`
-  margin: 3vh;
+  width: 100%;
+  margin: 3px;
 `;
 
 const MiddleBox = styled.div`
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
 `;
 
 const OurTeamVid = ({ 

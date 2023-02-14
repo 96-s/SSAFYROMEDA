@@ -28,6 +28,7 @@ const  UserVideoComponent =  ({streamManager}) => {
                             streamManager={streamManager}
                         />
                         <Nickname><p>{JSON.parse(streamManager.stream.connection.data).clientData}</p></Nickname>
+                        <br></br>
                     </div>
                 </StreamComponent>
             ) : null}
