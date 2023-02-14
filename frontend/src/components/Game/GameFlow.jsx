@@ -78,7 +78,7 @@ const GameFlow = ({
       setIsGameStarted(true);
       setTimeout(() => {
         sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
-      }, 1000)
+      }, 1000);
       posReset(); // 내 포지션도 리셋
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
@@ -234,17 +234,17 @@ const GameFlow = ({
         nextThrowUser: nextThrowUser,
         isGameStarted: true,
       }),
-      type: 'GAME_RESET',
+      type: "GAME_RESET",
     };
     // console.log(JSON.stringify(sendData));
-    fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
-      method: 'POST',
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
       headers: {
-        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
-        'Content-type': 'application/json',
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
       },
       body: JSON.stringify(sendData),
-    });    
+    });
     // const response = await axios.post(
     //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
     //   {
@@ -266,27 +266,43 @@ const GameFlow = ({
     // return response.data;
   };
 
-  const sendDiceTurnSignal = async (subscribers) => {
+  const sendDiceTurnSignal = () => {
     console.log("주사위 턴 시작!");
-    const response = await axios.post(
-      "https://i8d205.p.ssafy.io/openvidu/api/signal",
-      {
-        session: mySessionId,
-        to: subscribers,
-        type: "DICE_TURN",
-        data: {
-          diceTurn: true,
-        },
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        diceTurn: true,
+      }),
+      type: "DICE_TURN",
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
       },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        },
-      }
-    );
-    return response.data;
+      body: JSON.stringify(sendData),
+    });
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "DICE_TURN",
+    //     data: {
+    //       diceTurn: true,
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // return response.data;
   };
 
   // 변화한 위치 정보를 보내는 함수
@@ -304,38 +320,76 @@ const GameFlow = ({
       type: "POS_UPDATE",
     };
     // console.log(JSON.stringify(sendData));
-    fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
-      method: 'POST',
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
       headers: {
-        Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
-        'Content-type': 'application/json',
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
       },
       body: JSON.stringify(sendData),
-    });    
+    });
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "POS_UPDATE",
+    //     data: {
+    //       nextT1Pos: t1Pos,
+    //       nextT2Pos: t2Pos,
+    //       nextThrowUser: (nextThrowUser + 1) % 3,
+    //       diceTurn: false,
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // console.log("위치 전송함");
+    // return response.data;
   };
 
   // 다음에 무슨 게임하는지 보내는 함수
-  const sendNextMiniGame = async (subscribers) => {
-    const response = await axios.post(
-      "https://i8d205.p.ssafy.io/openvidu/api/signal",
-      {
-        session: mySessionId,
-        to: subscribers,
-        type: "NEXTGAME_UPDATE",
-        data: {
-          nextGame: nextMiniGameNum,
-        },
+  const sendNextMiniGame = () => {
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        nextGame: nextMiniGameNum,
+      }),
+      type: "NEXTGAME_UPDATE",
+    };
+    // console.log(JSON.stringify(sendData));
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
       },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        },
-      }
-    );
-    console.log("위치 전송함");
-    return response.data;
+      body: JSON.stringify(sendData),
+    });
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "NEXTGAME_UPDATE",
+    //     data: {
+    //       nextGame: nextMiniGameNum,
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // console.log("위치 전송함");
+    // return response.data;
   };
 
   const GameStart = () => {
