@@ -8,6 +8,7 @@ import styled from "styled-components";
 import MyButton from "components/common/MyButton";
 import Modal from "components/display/Modal";
 import Logout from "components/common/Logout";
+import BgmButton from "../components/common/BgmButton";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";
@@ -170,10 +171,6 @@ const DesignTestPage = ({
     playSound(buttonClick);
   };
 
-  const lobbySoundEffect = () => {
-    playSound(lobbyBGM);
-  };
-
   function playSound(soundName) {
     var audio = new Audio(soundName);
     audio.play();
@@ -183,7 +180,7 @@ const DesignTestPage = ({
     <div>
       <Background>
         <LogoutButton>
-          <Logout />
+          <BgmButton bgm={lobbyBGM} />
         </LogoutButton>
         <BoxContainer>
           <StartText>게임 시작하기</StartText>

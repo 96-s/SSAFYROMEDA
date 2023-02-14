@@ -9,7 +9,6 @@ import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
-import gameStartBGM from "resources/sounds/ssafyromeda_soundpack/10_minigameclear.wav";
 
 const Container = styled.div`
   display: flex;
@@ -86,7 +85,7 @@ const GameFlow = ({
   startAnimationPlaying,
   setStartAnimationPlaying,
   turnNum,
-  setTurnNum
+  setTurnNum,
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
@@ -103,10 +102,6 @@ const GameFlow = ({
 
   const buttonSoundEffect = () => {
     playSound(buttonClick);
-  };
-
-  const gameStartSoundEffect = () => {
-    playSound(gameStartBGM);
   };
 
   // 게임 시작 버튼을 통해 이벤트 받을 때 ----help
@@ -514,7 +509,6 @@ const GameFlow = ({
                   onClick={() => {
                     buttonSoundEffect();
                     GameStart();
-                    gameStartSoundEffect();
                   }}
                 />
               </GameStartButton>
