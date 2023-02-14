@@ -207,8 +207,6 @@ const GameManager = () => {
 
       console.log("initRoom() streamCreated");
       console.log("내 팀은?" + myTeam);
-      console.log(team1Members);
-      console.log(team2Members);
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업뎃
@@ -302,7 +300,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            mirror: true,
+            mirror: false,
           });
 
           mySession.publish(tempPublisher);
@@ -321,8 +319,6 @@ const GameManager = () => {
 
           console.log("initRoom() getTokenWithSid()");
           console.log(myTeam);
-          console.log(team1Members);
-          console.log(team2Members);
           setIsHostPlayer(true);
           console.log("내 게임순서" + myGameNo);
         })
@@ -377,8 +373,7 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
-      console.log(team1Members);
-      console.log(team2Members);
+    
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -461,7 +456,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            mirror: true,
+            mirror: false,
           });
 
           mySession.publish(tempPublisher);
@@ -479,8 +474,6 @@ const GameManager = () => {
 
           console.log("joinRoom() getToken()");
           console.log(myTeam);
-          console.log(team1Members);
-          console.log(team2Members);
           console.log(userNickname);
         })
         .catch((error) => {
