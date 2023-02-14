@@ -374,6 +374,7 @@ const GameManager = () => {
         team2Members.push(tempSubscriber);
         setMyTeam(2);
       }
+
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
       console.log(team1Members);
