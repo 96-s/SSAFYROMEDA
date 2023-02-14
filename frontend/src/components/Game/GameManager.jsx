@@ -577,6 +577,8 @@ const GameManager = () => {
             userNo={userNo}
             isHostPlayer={isHostPlayer}
             setT1Pos={setT1Pos}
+            t1Pos={t1Pos}
+            t2Pos={t2Pos}
             setT2Pos={setT2Pos}
             isDiceThrow={isDiceThrow}
             setIsDiceThrow={setIsDiceThrow}
