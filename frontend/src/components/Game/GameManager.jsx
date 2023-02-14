@@ -60,6 +60,7 @@ const GameManager = () => {
   // 게임 관련 변수
   const [t1Pos, setT1Pos] = useState(0);
   const [t2Pos, setT2Pos] = useState(0);
+  const [players, setPlayers] = useState([]);
   // 방장인지 아닌지
   const [isHostPlayer, setIsHostPlayer] = useState(false);
   // 게임 내 고유 번호
@@ -86,6 +87,7 @@ const GameManager = () => {
   const [miniGame3, setMiniGame3] = useState(false);
   const [miniGame4, setMiniGame4] = useState(false);
   const [miniGame5, setMiniGame5] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(null);
 
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
@@ -203,7 +205,7 @@ const GameManager = () => {
       // console.log(isHostPlayer);
 
       console.log("initRoom() streamCreated");
-      console.log(myTeam);
+      console.log("내 팀은?" + myTeam);
       console.log(team1Members);
       console.log(team2Members);
     });
@@ -224,12 +226,9 @@ const GameManager = () => {
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
-      const {
-        t1Pos,
-        t2Pos,
-        nextThrowUser,
-        isGameStarted,
-      } = JSON.parse(data.data)
+      const { t1Pos, t2Pos, nextThrowUser, isGameStarted } = JSON.parse(
+        data.data
+      );
       // console.log(`start? : ${start}`);
 
       // 각 게임 정보 초기화
@@ -237,6 +236,7 @@ const GameManager = () => {
       setT2Pos(t2Pos);
       setNextThrowUser(nextThrowUser);
       setIsGameStarted(isGameStarted);
+      console.log(isGameStarted);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -265,7 +265,7 @@ const GameManager = () => {
       // 다음 주사위 유저 지정
       setNextThrowUser(nextThrowUser);
       // 주사위 턴 종료
-      setDiceTurn(false);
+      setDiceTurn(diceTurn);
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
@@ -296,7 +296,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            mirror: false,
+            mirror: true,
           });
 
           mySession.publish(tempPublisher);
@@ -318,6 +318,7 @@ const GameManager = () => {
           console.log(team1Members);
           console.log(team2Members);
           setIsHostPlayer(true);
+          console.log("내 게임순서" + myGameNo);
         })
         .catch((error) => {
           console.log(
@@ -343,6 +344,19 @@ const GameManager = () => {
       var tempSubscriber = mySession.subscribe(event.stream, undefined);
       var tempSubscribers = subscribers;
       tempSubscribers.push(tempSubscriber);
+
+      // 정은 - 들어올 때마다 플레이어에 넣는 작업
+      let tempPlayers = tempSubscribers.map(
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      );
+
+      // 자기 자신 없으면 넣어야함
+      if (tempPlayers.includes(userNickname) === false) {
+        tempPlayers.push(userNickname);
+      };
+
+      setPlayers(tempPlayers);
+      console.log("players" + players);
 
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
@@ -413,7 +427,6 @@ const GameManager = () => {
     });
 
     mySession.on("NEXTGAME_UPDATE", (data) => {
-      
       const { nextGame } = JSON.parse(data.data);
       console.log(`nextGame? : ${nextGame}`);
 
@@ -440,8 +453,7 @@ const GameManager = () => {
             publishVideo: true,
             resolution: "240x180.4",
             frameRate: 50,
-            insertMode: "APPEND",
-            mirror: false,
+            mirror: true,
           });
 
           mySession.publish(tempPublisher);
@@ -483,7 +495,16 @@ const GameManager = () => {
     if (index > -1) {
       targetSubscribers.splice(index, 1);
       setSubscribers(targetSubscribers);
+    };
+
+    let tempPlayers = targetSubscribers.map(
+      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+    );
+    console.log('나간 후 리스트', tempPlayers);
+    if (tempPlayers.includes(userNickname) === false) {
+      tempPlayers.push(userNickname);
     }
+    setPlayers(tempPlayers)
   };
 
   //현재 방에서 나가기
@@ -577,6 +598,8 @@ const GameManager = () => {
             userNo={userNo}
             isHostPlayer={isHostPlayer}
             setT1Pos={setT1Pos}
+            t1Pos={t1Pos}
+            t2Pos={t2Pos}
             setT2Pos={setT2Pos}
             isDiceThrow={isDiceThrow}
             setIsDiceThrow={setIsDiceThrow}
@@ -603,6 +626,9 @@ const GameManager = () => {
             setMiniGame3={setMiniGame3}
             setMiniGame4={setMiniGame4}
             setMiniGame5={setMiniGame5}
+            isSuccess={isSuccess}
+            setIsSuccess={setIsSuccess}
+            players={players}
           />
         </div>
       ) : null}
