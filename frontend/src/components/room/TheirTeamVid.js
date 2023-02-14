@@ -23,6 +23,10 @@ const MiddleBox = styled.div`
 `;
 
 const TheirTeamVid = ({ streamManager, subscribers, publisher, team2Members }) => {
+
+  console.log("team2 : ");
+  console.log(team2Members);
+
   return (
     <Page>
       <Video>
