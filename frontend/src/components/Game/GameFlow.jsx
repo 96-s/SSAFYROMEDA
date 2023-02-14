@@ -82,6 +82,8 @@ const GameFlow = ({
   players,
   startAnimationPlaying,
   setStartAnimationPlaying,
+  turnNum,
+  setTurnNum
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
@@ -390,6 +392,7 @@ const GameFlow = ({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
         nextThrowUser: (nextThrowUser + 1) % 3,
+        turnNum: turnNum,
         diceTurn: false,
       }),
       type: "POS_UPDATE",
@@ -517,6 +520,8 @@ const GameFlow = ({
                 setNextThrowUser={setNextThrowUser}
                 playerNum={playerNum}
                 myTurnNum={myTurnNum}
+                turnNum={turnNum}
+                setTurnNum={setTurnNum}
               />
             )}
           </>
