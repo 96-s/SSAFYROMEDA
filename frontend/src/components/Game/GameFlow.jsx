@@ -67,6 +67,8 @@ const GameFlow = ({
   setMiniGame5,
   isGameStarted,
   setIsGameStarted,
+  isSuccess,
+  setIsSuccess,
 }) => {
   const [startAnimationPlaying, setStartAnimationPlaying] = useState(false);
   const [diceTurn, setDiceTurn] = useState(false);
@@ -155,7 +157,7 @@ const GameFlow = ({
   }, [diceResult]);
 
   useEffect(() => {
-    if (!(t1Pos === 0 && t2Pos === 0)) {
+    if (!(t1Pos === 0 && t2Pos === 0) && diceTurn) {
       // 내가 주사위를 던진 사람이라면 바뀐 포지션을 던진다.
       if (isDiceThrow) {
         sendPos(subscribers);
@@ -164,8 +166,11 @@ const GameFlow = ({
       // 위치가 바뀌면 다이스 턴을 종료한다.
       setDiceTurn(false);
     }
+    if (gameTurn) {
+    }
   }, [t1Pos, t2Pos]);
 
+  // 주사위 턴이 종료되었을 때
   useEffect(() => {
     if (!diceTurn) {
       // 주사위 턴이 종료된다면
@@ -174,11 +179,12 @@ const GameFlow = ({
     }
   }, [diceTurn]);
 
+  // 게임 턴이 시작한다.
   const endDiceTurn = () => {
     setGameTurn(true);
   };
 
-  //
+  // 게임 턴이 시작되고 내가 방장이라면
   useEffect(() => {
     if (gameTurn) {
       if (isHostPlayer) {
@@ -215,11 +221,61 @@ const GameFlow = ({
           setMiniGame5(true);
           break;
       }
+      setMiniGameSelectTurn(false);
     }
   }, [miniGameSelectTurn]);
 
-  const successMiniGame = () => {};
-  const failMiniGame = () => {};
+  // 미니게임 성공 시
+  useEffect(() => {
+    if (isSuccess !== null) {
+      if (isSuccess === true) {
+        // 성공하면 아무것도 하지 않는다.
+      }
+      setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
+    }
+  }, [isSuccess]);
+
+  // 미니게임 실패 시
+  useEffect(() => {
+    if (isSuccess !== null) {
+      if (isSuccess === false) {
+        // 자신이 팀 1일 때
+        if (myTeam === 1) {
+          if (t1Pos - 5 < 0)
+            setT1Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
+          else setT1Pos(t1Pos - 5); // 5칸 뒤로 후진
+        } // 자신이 팀 2일 때
+        else if (myTeam === 2) {
+          if (t2Pos - 5 < 0)
+            setT2Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
+          else setT2Pos(t2Pos - 5); // 5칸 뒤로 후진
+        }
+      }
+      setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
+      setGameTurn(false); // 게임 턴을 종료시킨다.
+    }
+  }, [isSuccess]);
+
+  // 게임 턴이 종료된다면
+  useEffect(() => {
+    if (!gameTurn) {
+      // 게임이 끝나지 않았다면
+      if (!checkEndGame()) {
+        checkDiceTurn();
+      }
+    }
+  }, [gameTurn]);
+
+  const checkEndGame = () => {
+    if (t1Pos >= 25) {
+      // 팀 1 우승!!! 컴포넌트
+      return true;
+    } else if (t2Pos >= 25) {
+      // 팀 2 우승!!! 컴포넌트
+      return true;
+    }
+    return false;
+  };
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
