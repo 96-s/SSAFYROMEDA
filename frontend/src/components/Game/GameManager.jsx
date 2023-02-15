@@ -411,6 +411,7 @@ const GameManager = () => {
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
       setPlayers(tempPlayers.sort());
+      console.log("players" + players);
       
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
@@ -424,7 +425,7 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
-      console.log("players" + players);
+      
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
