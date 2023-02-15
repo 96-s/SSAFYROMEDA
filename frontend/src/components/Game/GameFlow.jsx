@@ -600,6 +600,7 @@ const GameFlow = ({
                 turnNum={turnNum}
                 setTurnNum={setTurnNum}
                 setIsGameOver={setIsGameOver}
+                players={players}
               />
             )}
           </>
