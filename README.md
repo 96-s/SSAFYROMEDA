@@ -9,16 +9,19 @@
 7. [**실행 방법**](#실행-방법)
 <br />
 
-## ☺️소개
-### 화상으로 즐기는 보드게임, 🚀[SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
+## 소개
 <a href="http://i8d205.p.ssafy.io"><img src="image/main.png"/></a>
+### 🚀화상으로 즐기는 보드게임, [SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
+- 어릴때는 함께였던 친구들이 각자 취업 및 학업의 이유로 친구들과의 만남이 어려워졌습니다.
+- 화상 채팅을 활용한 보드게임을 통해 모임과 오락 모든 요구를 충족시키는 서비스를 제공합니다.
+- 단순히 얼굴을 보고 게임을 하는 것이 아니라 화상 채팅 기능을 활용한 미니게임을 제공하여 더욱더 몰입할 수 있게 합니다.
 <br />
 
-## 🗓️개발 기간
-### 2023.01.03 ~ 2023.02.17 (7주)
+## 개발 기간
+### 🗓️2023.01.03 ~ 2023.02.17 (7주)
 <br />
 
-## ⚙️기술 스택
+## 기술 스택
 ### 💻 Front-end
 <p align="left">
 <img src="https://img.shields.io/badge/javascript-2D333B?style=for-the-badge&logo=javascript&logoColor=007396">
@@ -50,54 +53,60 @@
 </p>
 <br />
 
-## 🎮주요 기능
+## 주요 기능
 <br />
 
-## 📋프로젝트 구성도
+## 프로젝트 구성도
 <img src="image/architecture.png">
+<br />
 
-## 🎲팀 소개
+## 팀 소개
+### 🎲96'S
 <table>
   <tr height="80px">
-  <td align="center" width="100px">
-      <a href="https://github.com/"><img src="image/mh.png"/></a>
-      <td align="center" width="100px">
+    <td align="center" width="150px">
+      <img src="image/mh.png"/>
+    </td>
+    <td align="center" width="150px">
+      <img src="image/je.png"/>
+    </td>
+    <td align="center" width="150px">
+      <img src="image/hs.png"/>
+    </td>
+    <td align="center" width="150px">
       <a href="https://github.com/"><img src="image/su.png"/></a>
-      <td align="center" width="100px">
-      <a href="https://github.com/"><img src="image/je.png"/></a>
-      <td align="center" width="100px">
-      <a href="https://github.com/cmlee0913"><img src="image/cm.png"/></a>
-      <td align="center" width="100px">
-      <a href="https://github.com/"><img src="image/hs.png"/></a>
-    <td align="center" width="100px">
+    </td>
+    <td align="center" width="150px">
       <a href="https://github.com/dpdms2148"><img src="image/ye.png"/></a>
+    </td>
+    <td align="center" width="150px">
+      <a href="https://github.com/cmlee0913"><img src="image/hs.png"/></a>
     </td>
   </tr>
   <tr>
-    <td align="center" width="100px">
-      <strong>강모현</strong></a><br>Leader
+    <td align="center" width="150px">
+      <strong>강모현</strong></a><br>Leader | AI
     </td>
-    <td align="center" width="100px">
-      <strong>김성욱</strong></a><br>Backend
+    <td align="center" width="150px">
+      <strong>박정은</strong></a><br>Frontend | Design
     </td>
-    <td align="center" width="100px">
-      <strong>박정은</strong></a><br>Frontend
+    <td align="center" width="150px">
+      <strong>이해솜</strong></a><br>Frontend | Design
     </td>
-    <td align="center" width="100px">
-      <a href="https://github.com/cmlee0913"><strong>이창민</strong></a><br>Backend
+    <td align="center" width="150px">
+      <strong>김성욱</strong></a><br>Backend | Frontend
     </td>
-    <td align="center" width="100px">
-      <strong>이해솜</strong></a><br>Frontend
+    <td align="center" width="150px">
+      <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend | Manage
     </td>
-    </td>
-    <td align="center" width="100px">
-      <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend
+    <td align="center" width="150px">
+      <a href="https://github.com/cmlee0913"><strong>이창민</strong></a><br>CI/CI | Frontend
     </td>
   </tr>
 </table>
 <br />
 
-## 📌실행 방법
+## 실행 방법
 ### client 실행
 
 1. **원격 저장소 복제**
