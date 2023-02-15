@@ -3,7 +3,7 @@ import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
 import { useState, useCallback, useEffect } from "react";
 
 const Box = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 25vh;
   aspect-ratio: 4 / 3;
   margin: auto;

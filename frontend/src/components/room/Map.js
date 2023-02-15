@@ -1418,14 +1418,13 @@ const Map = ({
 
   return (
     <Page>
+      {/* <FrontimageDiv></FrontimageDiv> */}
       <Board>
+        
         {/* <Quiz/> */}
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
-          { (turnNum === myTurnNum ? 
-          <span onClick={openDice}>I</span>
-          : null
-          )}
+          {turnNum === myTurnNum ? <span onClick={openDice}>I</span> : null}
         </Modal>
         <ChanceModal
           open={openChanceToggle}

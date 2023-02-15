@@ -18,7 +18,7 @@ import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import gameRoomBgm from "resources/sounds/ssafyromeda_soundpack/04_gamebgm.wav";
 
 const SessionHeaderDiv = styled.div`
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   color: white;
 `;
@@ -32,8 +32,21 @@ const SessionIdDiv = styled.div`
 const BackButtonDiv = styled.img`
   width: 60px;
   height: 60px;
+  /* margin-left:5px; */
+  /* margin-top: 3px; */
+  margin-right: 5px;
+`;
 
-  margin-right: 10px;
+const ButtonSecctionnDiv = styled.div`
+  display: flex;
+  margin-left: 60%;
+  float: right;
+`;
+const H1tag = styled.h1`
+  /* margin-right: 10px; */
+  .h1{
+    margin-right: 10px;
+  }
 `;
 
 const BgmButtonDiv = styled.div`
@@ -628,12 +641,7 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionIdDiv>
-                <BgmButtonDiv>
-                  <BgmButton bgm={gameRoomBgm} volume={0.2} />
-                </BgmButtonDiv>
-                <h1 id="session-title">우주선 번호 : {mySessionId}</h1>
-                <span>ㅤ</span>
-
+                <H1tag>우주선 번호 : {mySessionId}</H1tag>
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}
@@ -642,15 +650,18 @@ const GameManager = () => {
                     type={"is-primary"}
                   />
                 </CopyToClipboard>
+                <ButtonSecctionnDiv>
+                  <BackButtonDiv
+                    src={BackButton}
+                    onClick={() => {
+                      leaveSession();
+                      soundEffect();
+                    }}
+                  />
+                  <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                </ButtonSecctionnDiv>
               </SessionIdDiv>
             </div>
-            <BackButtonDiv
-              src={BackButton}
-              onClick={() => {
-                leaveSession();
-                soundEffect();
-              }}
-            />
           </SessionHeaderDiv>
           <GameFlow
             ov={ov}
