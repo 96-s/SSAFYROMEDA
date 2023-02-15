@@ -7,7 +7,7 @@ import BackButton from "resources/images/logout_icon.png";
 
 import { OpenVidu } from "openvidu-browser";
 import React, { useCallback } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -221,11 +221,26 @@ const GameManager = () => {
       var tempSubscribers = subscribers;
       tempSubscribers.push(tempSubscriber);
 
+      // 정은 - 들어올 때마다 플레이어에 넣는 작업
+      let tempPlayers = tempSubscribers.map(
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      );
+
+      // 자기 자신 없으면 넣어야함
+      if (tempPlayers.includes(userNickname) !== true) {
+        tempPlayers.push(userNickname);
+      };
+
+      console.log(tempPlayers);
+      setSubscribers(tempSubscribers);
+      setPlayers(tempPlayers.sort());
+
+      console.log("players" + players);
 
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-
+      
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -252,6 +267,14 @@ const GameManager = () => {
 
     // 게임 로직 경계선
     /* ------------------------------------------------------------------------------------------------------------------------ */
+
+    mySession.on("IPDATE_PLAYERS", (data) => {
+      const {
+        players,
+      } = JSON.parse(data.data);
+
+      setPlayers(players);
+    })
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
@@ -357,7 +380,6 @@ const GameManager = () => {
           console.log("방장 이름은 " + publisherName);
           console.log("players" + players);
 
-
           if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
             setMyTeam(1);
@@ -397,19 +419,19 @@ const GameManager = () => {
       tempSubscribers.push(tempSubscriber);
 
       // 정은 - 들어올 때마다 플레이어에 넣는 작업
-      let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
-      );
+      // let tempPlayers = tempSubscribers.map(
+      //   (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      // );
 
-      // 자기 자신 없으면 넣어야함
-      if (tempPlayers.includes(userNickname) !== true) {
-        tempPlayers.push(userNickname);
-      };
+      // // 자기 자신 없으면 넣어야함
+      // if (tempPlayers.includes(userNickname) !== true) {
+      //   tempPlayers.push(userNickname);
+      // };
 
-      console.log(tempPlayers);
-      setSubscribers(tempSubscribers);
-      setPlayers(tempPlayers.sort());
-      console.log("players" + players);
+      // console.log(tempPlayers);
+      // setSubscribers(tempSubscribers);
+      // setPlayers(tempPlayers.sort());
+      // console.log("players" + players);
       
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
@@ -603,6 +625,31 @@ const GameManager = () => {
     var audio = new Audio(soundName);
     audio.play();
   }
+
+  useEffect(() => {
+    if (players.length === 6) {
+      sendPlayers();
+    }
+  }, [players])
+
+  const sendPlayers = () => {
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        players
+      }),
+      type: "UPDATE_PLAYERS",
+    };
+
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+  })}
 
   return (
     <div className="container">
