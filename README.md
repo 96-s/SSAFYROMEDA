@@ -11,7 +11,7 @@
 
 ## ☺️소개
 ### 화상으로 즐기는 보드게임, 🚀[SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
-<a href="http://i8d205.p.ssafy.io"><img src="images/main.png"/></a>
+<a href="http://i8d205.p.ssafy.io"><img src="image/main.png"/></a>
 <br />
 
 ## 🗓️개발 기간
@@ -54,43 +54,43 @@
 <br />
 
 ## 📋프로젝트 구성도
-<img src="images/architecture.png">
+<img src="image/architecture.png">
 
 ## 🎲팀 소개
 <table>
-  <tr height="205px">
-  <td align="center" width="200px">
-      <a href="https://github.com/"><img src="public/images/mh.png"/></a>
-      <td align="center" width="200px">
-      <a href="https://github.com/"><img src="public/images/su.png"/></a>
-      <td align="center" width="200px">
-      <a href="https://github.com/"><img src="public/images/je.png"/></a>
-      <td align="center" width="200px">
-      <a href="https://github.com/"><img src="public/images/cm.png"/></a>
-      <td align="center" width="200px">
-      <a href="https://github.com/"><img src="public/images/hs.png"/></a>
-    <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148"><img src="public/images/ye.png"/></a>
+  <tr height="80px">
+  <td align="center" width="100px">
+      <a href="https://github.com/"><img src="image/mh.png"/></a>
+      <td align="center" width="100px">
+      <a href="https://github.com/"><img src="image/su.png"/></a>
+      <td align="center" width="100px">
+      <a href="https://github.com/"><img src="image/je.png"/></a>
+      <td align="center" width="100px">
+      <a href="https://github.com/cmlee0913"><img src="image/cm.png"/></a>
+      <td align="center" width="100px">
+      <a href="https://github.com/"><img src="image/hs.png"/></a>
+    <td align="center" width="100px">
+      <a href="https://github.com/dpdms2148"><img src="image/ye.png"/></a>
     </td>
   </tr>
   <tr>
-    <td align="center" width="200px">
+    <td align="center" width="100px">
       <strong>강모현</strong></a><br>Leader
     </td>
-    <td align="center" width="200px">
+    <td align="center" width="100px">
       <strong>김성욱</strong></a><br>Backend
     </td>
-    <td align="center" width="200px">
+    <td align="center" width="100px">
       <strong>박정은</strong></a><br>Frontend
     </td>
-    <td align="center" width="200px">
-      <strong>이창민</strong></a><br>Backend
+    <td align="center" width="100px">
+      <a href="https://github.com/cmlee0913"><strong>이창민</strong></a><br>Backend
     </td>
-    <td align="center" width="200px">
+    <td align="center" width="100px">
       <strong>이해솜</strong></a><br>Frontend
     </td>
     </td>
-    <td align="center" width="200px">
+    <td align="center" width="100px">
       <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend
     </td>
   </tr>
