@@ -69,7 +69,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -352,9 +352,10 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          console.log("방장 이름은" + tempPublisher);
-
-          players.push(JSON.parse(tempPublisher.stream.connection.data).clientData);
+          const publisherName = JSON.parse(tempPublisher.stream.connection.data).clientData
+          players.push(publisherName);
+          console.log("방장 이름은 " + publisherName);
+          console.log("players" + players);
 
 
           if (team1Members.length < 3) {
@@ -366,7 +367,7 @@ const GameManager = () => {
           }
 
           console.log("initRoom() getTokenWithSid()");
-          console.log(myTeam);
+          console.log("내 팀은 " + myTeam);
           setIsHostPlayer(true);
           // console.log("myGameNo?" + myGameNo);
         })
@@ -405,10 +406,11 @@ const GameManager = () => {
         tempPlayers.push(userNickname);
       };
 
-      console.log("players" + players);
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
       setPlayers(tempPlayers.sort());
+      console.log("players" + players);
+      
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
       if (team1Members.length < 3) {
@@ -421,6 +423,7 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
+      
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
