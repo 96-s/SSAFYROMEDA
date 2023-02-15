@@ -78,7 +78,7 @@ const DiceRoller = ({
             type: 'GAME_STATE_CHANGED',
         }
         }
-        fetch('https://i8d205.p.ssafy.io:4443/openvidu/api/signal', {
+        fetch('https://i8d205.p.ssafy.io/openvidu/api/signal', {
         method: 'POST',
         headers: {
             Authorization: 'Basic ' + btoa('OPENVIDUAPP:ssafyromeda'),
@@ -97,39 +97,6 @@ const DiceRoller = ({
         }
     }, [diceValue])
 
-
-    //     if (myPos + value > 20) {
-    //         nextPosList[myTurnNum] = 20;
-    //         sendData = {
-    //             session: sessionIdValue,
-    //             to: [],
-    //             data: JSON.stringify({
-    //                 nextIsGameDone: true,
-    //                 nextPosList: nextPosList, 
-    //             }),
-    //             type: 'GAME_STATE_DONE',
-    //         }
-    //     } else {
-    //         sendData = {
-    //             session: sessionIdValue,
-    //             to: [],
-    //             data: JSON.stringify({
-    //                 nextPosList: nextPosList,
-    //                 isRoll: !isRoll,
-    //                 nextMinigame: nextMinigame,
-    //                 nextWhatDiceNum: value,
-    //             }),
-    //             type: 'GAME_STATE_CHANGED',
-    //         }
-    //     }
-    //     fetch("https://i8d205.p.ssafy.io:4443/openvidu/api/signal", {
-    //       method: "POST",
-    //       headers: {
-    //         Authorization: "Basic " + btoa("OPENVIDUAPP:d205ssafy81"),
-    //         "Content-type": "application/json",
-    //       },
-    //       body: JSON.stringify(sendData),
-    //     });
 
     const faces = [Dice1, Dice2, Dice3, Dice1, Dice2, Dice3];
 

@@ -326,6 +326,20 @@ const GameFlow = ({
     return false;
   };
 
+  if ((t1Pos >= 21) || (t2Pos >= 21)) {
+    useEffect = () => {  
+      if (t1Pos >= 21) {
+        setWinner(1);
+        setLoser(2);
+      } else {
+        setWinner(2);
+        setLoser(1);
+      };
+      setIsGameOver(true);
+      sendGameOver();
+    }; 
+  };
+
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
     console.log("게임 리셋!");
@@ -339,6 +353,7 @@ const GameFlow = ({
         nextThrowUser: nextThrowUser,
         isGameStarted: true,
         startAnimationPlaying: true,
+        turnNum: 0,
       }),
       type: "GAME_RESET",
     };
@@ -524,19 +539,7 @@ const GameFlow = ({
     });
   }
 
-  if ((t1Pos >= 21) || (t2Pos >= 21)) {
-    useEffect = () => {  
-      if (t1Pos >= 21) {
-        setWinner(1);
-        setLoser(2);
-      } else {
-        setWinner(2);
-        setLoser(1);
-      };
-      setIsGameOver(true);
-      sendGameOver();
-    }; 
-  }
+
 
   const GameStart = () => {
     gameFlowStart();

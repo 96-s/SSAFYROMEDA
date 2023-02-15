@@ -1392,6 +1392,7 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
+  console.log("지금 순서는 누구?" + turnNum);
 
   return (
     <Page>
