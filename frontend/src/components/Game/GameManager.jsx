@@ -53,7 +53,7 @@ const BgmButtonDiv = styled.div`
   margin-left: 15px;
 `;
 
-const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
+const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms";
 const temp = localStorage.getItem("persist:root");
 let token = "";
 
@@ -168,8 +168,8 @@ const GameManager = () => {
     const mySessionId = response.data;
     setMySessionId(mySessionId);
 
-    const res = await axios.put(
-      APPLICATION_SERVER_URL + mySessionId,
+    const res = await axios.post(
+      APPLICATION_SERVER_URL + "/" + mySessionId,
       {
         userNo: userNo,
         userNickname: userNickname,
@@ -187,8 +187,8 @@ const GameManager = () => {
 
   //openvidudployment로 부터 token 가져오기
   const getToken = async (sessionId) => {
-    const response = await axios.put(
-      APPLICATION_SERVER_URL + mySessionId,
+    const response = await axios.post(
+      APPLICATION_SERVER_URL + "/" + mySessionId,
       {
         userNo: userNo,
         userNickname: userNickname,
