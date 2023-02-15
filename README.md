@@ -10,7 +10,8 @@
 <br />
 
 ## ☺️소개
-> 화상으로 즐기는 보드게임, 🚀[SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
+### 화상으로 즐기는 보드게임, 🚀[SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
+<a href="http://i8d205.p.ssafy.io"><img src="images/main.png"/></a>
 <br />
 
 ## 🗓️개발 기간
@@ -20,13 +21,14 @@
 ## ⚙️기술 스택
 ### 💻 Front-end
 <p align="left">
+<img src="https://img.shields.io/badge/javascript-2D333B?style=for-the-badge&logo=javascript&logoColor=007396">
 <img src="https://img.shields.io/badge/react-2D333B?style=for-the-badge&logo=react&logoColor=61DAFB">
 <img src="https://img.shields.io/badge/REDUX-2D333B?style=for-the-badge&logo=redux&logoColor=3578E5">
 </p>
 
 ### 💻 Back-end
 <p align="left">
-<img src="https://img.shields.io/badge/JAVA-2D333B?style=for-the-badge&logo=JAVA&logoColor=007396">
+<img src="https://img.shields.io/badge/java-2D333B?style=for-the-badge&logo=Java&logoColor=007396">
 <img src="https://img.shields.io/badge/Spring Boot-2D333B?style=for-the-badge&logo=Spring Boot&logoColor=6DB33F">
 <img src="https://img.shields.io/badge/Hibernate-2D333B?style=for-the-badge&logo=Hibernate&logoColor=59666C">
 </p>
@@ -34,7 +36,12 @@
 ### ⭐ Infra Structure
 <p align="center">
 <img src="https://img.shields.io/badge/Amazon AWS-2D333B?style=for-the-badge&logo=Amazon AWS&logoColor=white">
-<img src="https://img.shields.io/badge/Docker-2D333B?style=for-the-badge&logo=Docker&logoColor=white">
+<img src="https://img.shields.io/badge/Docker-2D333B?style=for-the-badge&logo=Docker&logoColor=blue">
+</p>
+
+### 🗂 Database
+<p align="left">
+<img src="https://img.shields.io/badge/MySQL-2D333B?style=for-the-badge&logo=MySQL&logoColor=4479A1">
 </p>
 
 ### 🌐 Network
@@ -47,24 +54,23 @@
 <br />
 
 ## 📋프로젝트 구성도
-![image](/uploads/4aa053f95d917bc4ffe8dfb9b05fb3ae/image.png)
-<br />
+<img src="images/architecture.png">
 
 ## 🎲팀 소개
 <table>
   <tr height="205px">
   <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/.svg"/></a>
+      <a href="https://github.com/"><img src="public/images/mh.png"/></a>
       <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/.svg"/></a>
+      <a href="https://github.com/"><img src="public/images/su.png"/></a>
       <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/.svg"/></a>
+      <a href="https://github.com/"><img src="public/images/je.png"/></a>
       <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/.svg"/></a>
+      <a href="https://github.com/"><img src="public/images/cm.png"/></a>
       <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/.svg"/></a>
+      <a href="https://github.com/"><img src="public/images/hs.png"/></a>
     <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><img src="public/images/Yeeun.svg"/></a>
+      <a href="https://github.com/dpdms2148"><img src="public/images/ye.png"/></a>
     </td>
   </tr>
   <tr>
@@ -85,7 +91,7 @@
     </td>
     </td>
     <td align="center" width="200px">
-      <a href="https://github.com/dpdms2148/"><strong>장예은</strong></a><br>Backend
+      <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend
     </td>
   </tr>
 </table>
