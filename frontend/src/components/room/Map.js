@@ -1362,7 +1362,6 @@ const Map = ({
 
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
-    if (diceValue !== null) {
       console.log("주사위 값은 " + diceValue);
       const arr = [0, 1, 2]
       // 주사위 1 나왔을 때
@@ -1408,7 +1407,6 @@ const Map = ({
         setTurnNum((turnNum - 2) % 6);
       }
       sendPos();
-    }
     }, [diceValue]);
 
   const closeDice = useEffect(() => {

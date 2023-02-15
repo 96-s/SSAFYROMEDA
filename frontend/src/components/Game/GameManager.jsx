@@ -240,6 +240,11 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
+      if (players.length === 6) {
+        sendPlayers();
+        console.log(players);
+      }
+
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -622,13 +627,6 @@ const GameManager = () => {
     var audio = new Audio(soundName);
     audio.play();
   }
-
-  useEffect(() => {
-    if (players.length === 6) {
-      sendPlayers();
-      console.log(players);
-    }
-  }, [players]);
 
   const sendPlayers = () => {
     const sendData = {
