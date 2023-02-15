@@ -121,7 +121,6 @@ const GameManager = () => {
   const [miniGame5, setMiniGame5] = useState(false);
   const [isSuccess, setIsSuccess] = useState(null);
 
-
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -223,13 +222,13 @@ const GameManager = () => {
 
       // 정은 - 들어올 때마다 플레이어에 넣는 작업
       let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
       );
 
       // 자기 자신 없으면 넣어야함
       if (tempPlayers.includes(userNickname) !== true) {
         tempPlayers.push(userNickname);
-      };
+      }
 
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
@@ -240,7 +239,7 @@ const GameManager = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      
+
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -248,7 +247,6 @@ const GameManager = () => {
         team2Members.push(tempSubscriber);
         setMyTeam(2);
       }
-
 
       console.log("initRoom() streamCreated");
       console.log("내 팀은?" + myTeam);
@@ -267,14 +265,6 @@ const GameManager = () => {
 
     // 게임 로직 경계선
     /* ------------------------------------------------------------------------------------------------------------------------ */
-
-    mySession.on("UPDATE_PLAYERS", (data) => {
-      const {
-        players,
-      } = JSON.parse(data.data);
-
-      setPlayers(players);
-    });
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
@@ -375,8 +365,10 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
-          const publisherName = JSON.parse(tempPublisher.stream.connection.data).clientData
-          players.push(publisherName);
+          const publisherName = JSON.parse(
+            tempPublisher.stream.connection.data
+          ).clientData;
+          // players.push(publisherName);
           console.log("방장 이름은 " + publisherName);
           console.log("players" + players);
 
@@ -432,7 +424,7 @@ const GameManager = () => {
       // setSubscribers(tempSubscribers);
       // setPlayers(tempPlayers.sort());
       // console.log("players" + players);
-      
+
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
       if (team1Members.length < 3) {
@@ -445,7 +437,6 @@ const GameManager = () => {
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
-      
     });
 
     // 사용자가 화상회의를 떠나면 Session 객체에서 소멸된 stream을 받아와 subscribers 상태값 업데이트
@@ -461,9 +452,7 @@ const GameManager = () => {
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
     mySession.on("UPDATE_PLAYERS", (data) => {
-      const {
-        players,
-      } = JSON.parse(data.data);
+      const { players } = JSON.parse(data.data);
 
       setPlayers(players);
     });
@@ -592,7 +581,7 @@ const GameManager = () => {
     }
 
     let tempPlayers = targetSubscribers.map(
-      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+      (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
     );
     console.log("나간 후 리스트", tempPlayers);
     if (tempPlayers.includes(userNickname) === false) {
@@ -637,15 +626,16 @@ const GameManager = () => {
   useEffect(() => {
     if (players.length === 6) {
       sendPlayers();
+      console.log(players);
     }
-  }, [players])
+  }, [players]);
 
   const sendPlayers = () => {
     const sendData = {
       session: mySessionId,
-      to: [], // all user
+      to: subscribers, // all user
       data: JSON.stringify({
-        players
+        players,
       }),
       type: "UPDATE_PLAYERS",
     };
@@ -657,7 +647,8 @@ const GameManager = () => {
         "Content-type": "application/json",
       },
       body: JSON.stringify(sendData),
-  })}
+    });
+  };
 
   return (
     <div className="container">
