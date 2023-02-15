@@ -9,6 +9,7 @@ import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
 import GameOver from "components/utils/GameOver";
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
+import Loading from "components/common/Loading";
 
 const Container = styled.div`
   display: flex;
@@ -338,7 +339,7 @@ const GameFlow = ({
       setIsGameOver(true);
       sendGameOver();
     };
-  };
+  }
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
@@ -574,7 +575,7 @@ const GameFlow = ({
               </GameStartButton>
             ) : (
               <GameStartButton>
-                <span>준비 중</span>
+                <Loading />
               </GameStartButton>
             )}
           </>
