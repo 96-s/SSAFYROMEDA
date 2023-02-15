@@ -68,7 +68,7 @@ public class RoomController {
     }
 
 
-    @PutMapping("/{roomCode}")
+    @PostMapping("/{roomCode}")
     public ResponseEntity<?> connectRoom(@PathVariable("roomCode") String roomCode, @RequestBody(required = false) RoomConnectRequest roomConnectRequest)
         throws OpenViduJavaClientException, OpenViduHttpException {
 
