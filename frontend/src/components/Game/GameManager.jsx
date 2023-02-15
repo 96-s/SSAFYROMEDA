@@ -633,7 +633,7 @@ const GameManager = () => {
   const sendPlayers = () => {
     const sendData = {
       session: mySessionId,
-      to: subscribers, // all user
+      to: [], // all user
       data: JSON.stringify({
         players,
       }),
