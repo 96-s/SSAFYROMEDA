@@ -123,6 +123,7 @@ const GameManager = () => {
   const [miniGame5, setMiniGame5] = useState(false);
   const [isSuccess, setIsSuccess] = useState(null);
 
+
   const componentDidMount = () => {
     window.addEventListener("beforeunload", onbeforeunload);
   };
@@ -222,6 +223,7 @@ const GameManager = () => {
       var tempSubscribers = subscribers;
       tempSubscribers.push(tempSubscriber);
 
+
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
@@ -234,14 +236,6 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
-      const tempNickNames = nickNames;
-      tempNickNames.push(userNickname);
-      setNickNames(tempNickNames);
-      console.log("Nicknames!!!!!!!");
-      console.log(nickNames);
-
-      // setIsHostPlayer(true);
-      // console.log(isHostPlayer);
 
       console.log("initRoom() streamCreated");
       console.log("내 팀은?" + myTeam);
@@ -360,6 +354,10 @@ const GameManager = () => {
           setCurrentVideoDevice(videoDevices[0]);
           setStreamManager(tempPublisher);
           setPublisher(tempPublisher);
+          console.log("방장 이름은" + tempPublisher);
+
+          players.push(JSON.parse(tempPublisher.stream.connection.data).clientData);
+
 
           if (team1Members.length < 3) {
             team1Members.push(tempPublisher);
@@ -368,12 +366,6 @@ const GameManager = () => {
             team2Members.push(tempPublisher);
             setMyTeam(2);
           }
-
-          const tempNickNames = nickNames;
-          tempNickNames.push(userNickname);
-          setNickNames(tempNickNames);
-          console.log("Nicknames!!!!!!!");
-          console.log(nickNames);
 
           console.log("initRoom() getTokenWithSid()");
           console.log(myTeam);
@@ -407,18 +399,18 @@ const GameManager = () => {
 
       // 정은 - 들어올 때마다 플레이어에 넣는 작업
       let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData
+        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
       );
 
       // 자기 자신 없으면 넣어야함
-      if (tempPlayers.includes(userNickname) === false) {
+      if (tempPlayers.includes(userNickname) !== true) {
         tempPlayers.push(userNickname);
-      }
+      };
 
-      setPlayers(tempPlayers.sort());
       console.log("players" + players);
-
+      console.log(tempPlayers);
       setSubscribers(tempSubscribers);
+      setPlayers(tempPlayers.sort());
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
       if (team1Members.length < 3) {
@@ -587,6 +579,7 @@ const GameManager = () => {
     if (tempPlayers.includes(userNickname) === false) {
       tempPlayers.push(userNickname);
     }
+    console.log(tempPlayers);
     setPlayers(tempPlayers.sort());
   };
 
