@@ -44,7 +44,7 @@ const ButtonSecctionnDiv = styled.div`
 `;
 const H1tag = styled.h1`
   /* margin-right: 10px; */
-  .h1{
+  .h1 {
     margin-right: 10px;
   }
 `;
@@ -687,6 +687,7 @@ const GameManager = () => {
                 <ButtonSecctionnDiv>
                   <BackButtonDiv
                     src={BackButton}
+                    className={"nes-pointer"}
                     onClick={() => {
                       leaveSession();
                       soundEffect();
