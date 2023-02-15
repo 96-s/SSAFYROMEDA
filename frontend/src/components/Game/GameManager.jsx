@@ -268,13 +268,13 @@ const GameManager = () => {
     // 게임 로직 경계선
     /* ------------------------------------------------------------------------------------------------------------------------ */
 
-    mySession.on("IPDATE_PLAYERS", (data) => {
+    mySession.on("UPDATE_PLAYERS", (data) => {
       const {
         players,
       } = JSON.parse(data.data);
 
       setPlayers(players);
-    })
+    });
 
     mySession.on("GAME_RESET", (data) => {
       // const { start } = JSON.parse(data.data);
@@ -459,6 +459,14 @@ const GameManager = () => {
 
     // 게임 로직 경계선
     /* ------------------------------------------------------------------------------------------------------------------------ */
+
+    mySession.on("UPDATE_PLAYERS", (data) => {
+      const {
+        players,
+      } = JSON.parse(data.data);
+
+      setPlayers(players);
+    });
 
     mySession.on("GAME_RESET", (data) => {
       const { start } = JSON.parse(data.data);
