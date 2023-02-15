@@ -21,6 +21,8 @@ import GameManager from "components/Game/GameManager";
 import GameStartAnimation from "components/utils/GameStartAnimation";
 import MiniGame1 from "../src/components/Game/MiniGame1";
 
+import GameOver from "components/utils/GameOver";
+
 // import { Provider } from "react-redux";
 
 // 스크롤바 없애기 누가 만들어주세요..
@@ -68,6 +70,7 @@ function App() {
           <Route path="/designtest" element={<DesignTestPage />} />
           <Route path="/gamestartani" element={<GameStartAnimation />} />
           <Route path="/test4" element={<GameManager />} />
+          <Route path="/wintest" element={<GameOver />} />
 
           <Route path="/minigame1" element={<MiniGame1 />} />
         </Routes>
