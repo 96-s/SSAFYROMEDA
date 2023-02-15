@@ -343,7 +343,7 @@ const Marker1 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
+  // 역방향
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -947,8 +947,8 @@ const Marker2 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
-  
+  // 역방향
+
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -1377,26 +1377,38 @@ const Map = ({
             setT1Pos((t1Pos) => t1Pos + 1);
           }, 2000 * i);
         }
-      } else {
-        console.log("왜 안뜨노...");
-        var k = 0;
-        while (k < diceValue) {
-          k++;
-          console.log("왜 안됨");
-          setTimeout(() => {
-            setT2Pos((t2Pos) => t2Pos + 1);
-          }, 2000 * k);
-        }
-
       }
+      // 주사위 2 이상
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+        if (myTurnNum in (0, 1, 2)) {
+          console.log("왜 안뜨노...");
+          var i = 0;
+          while (i < diceValue) {
+            i++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT1Pos((t1Pos) => t1Pos + 1);
+            }, 2000 * i);
+          }
+        } else {
+          console.log("왜 안뜨노...");
+          var k = 0;
+          while (k < diceValue) {
+            k++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT2Pos((t2Pos) => t2Pos + 1);
+            }, 2000 * k);
+          }
+        }
+      }
+      setDiceValue(null);
+      console.log("1팀자리" + t1Pos);
+      console.log("2팀자리" + t2Pos);
+      setTurnNum((turnNum + 1) % 2);
+      sendPos();
     }
-    setDiceValue(null);
-    console.log("1팀자리" + t1Pos);
-    console.log("2팀자리" + t2Pos);
-    setTurnNum((turnNum+1) % 2);
-    sendPos();
   }, [diceValue]);
-
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
