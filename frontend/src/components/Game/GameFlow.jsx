@@ -325,19 +325,19 @@ const GameFlow = ({
     return false;
   };
 
-  if ((t1Pos >= 21) || (t2Pos >= 21)) {
-    useEffect = () => {  
+  if (t1Pos >= 21 || t2Pos >= 21) {
+    useEffect = () => {
       if (t1Pos >= 21) {
         setWinner(1);
         setLoser(2);
       } else {
         setWinner(2);
         setLoser(1);
-      };
+      }
       setIsGameOver(true);
       sendGameOver();
-    }; 
-  };
+    };
+  }
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
@@ -537,8 +537,6 @@ const GameFlow = ({
     });
   };
 
-
-
   const GameStart = () => {
     gameFlowStart();
   };
@@ -600,6 +598,7 @@ const GameFlow = ({
                 turnNum={turnNum}
                 setTurnNum={setTurnNum}
                 setIsGameOver={setIsGameOver}
+                players={players}
               />
             )}
           </>
