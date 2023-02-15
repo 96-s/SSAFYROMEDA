@@ -67,35 +67,35 @@ const GameManager = () => {
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
 
   // 게임 관련 변수
-  const [t1Pos, setT1Pos] = useState(0);
-  const [t2Pos, setT2Pos] = useState(0);
+  const [t1Pos, setT1Pos] = useState(undefined);
+  const [t2Pos, setT2Pos] = useState(undefined);
   const [players, setPlayers] = useState([]);
   // 방장인지 아닌지
-  const [isHostPlayer, setIsHostPlayer] = useState(false);
+  const [isHostPlayer, setIsHostPlayer] = useState(undefined);
   // 현재 순서
-  const [turnNum, setTurnNum] = useState(0);
+  const [turnNum, setTurnNum] = useState(undefined);
   // 게임 내 고유 번호
-  const [myGameNo, setMyGameNo] = useState(0);
+  const [myGameNo, setMyGameNo] = useState(undefined);
   // 주사위 던지는 유저
-  const [nextThrowUser, setNextThrowUser] = useState(0);
+  const [nextThrowUser, setNextThrowUser] = useState(undefined);
   // 내가 주사위 던지는지 여부
-  const [isDiceThrow, setIsDiceThrow] = useState(false);
-  const [diceTurn, setDiceTurn] = useState(true);
+  const [isDiceThrow, setIsDiceThrow] = useState(undefined);
+  const [diceTurn, setDiceTurn] = useState(undefined);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
   const [team1Members, setTeam1Members] = useState([]);
   const [team2Members, setTeam2Members] = useState([]);
   // 이번 턴에 게임 진행하는 여부
-  const [gameTurn, setGameTurn] = useState(true);
-  const [isDice, setIsDice] = useState(false);
-  const [gameNo, setGameNo] = useState(0);
-  const [isGameStarted, setIsGameStarted] = useState(false);
-  const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [gameTurn, setGameTurn] = useState(undefined);
+  const [isDice, setIsDice] = useState(undefined);
+  const [gameNo, setGameNo] = useState(undefined);
+  const [isGameStarted, setIsGameStarted] = useState(undefined);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(undefined);
+  const [isGameOver, setIsGameOver] = useState(undefined);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
-  const [winner, setWinner] = useState(null); // 팀 번호 들어감 1 or 2
-  const [loser, setLoser] = useState(null);
+  const [winner, setWinner] = useState(undefined); // 팀 번호 들어감 1 or 2
+  const [loser, setLoser] = useState(undefined);
   // 미니게임 여부
   const [miniGame1, setMiniGame1] = useState(false);
   const [miniGame2, setMiniGame2] = useState(false);
@@ -206,7 +206,7 @@ const GameManager = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      
+
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -244,7 +244,7 @@ const GameManager = () => {
         nextThrowUser,
         isGameStarted,
         startAnimationPlaying,
-        turnNum
+        turnNum,
       } = JSON.parse(data.data);
       // console.log(`start? : ${start}`);
 
@@ -296,19 +296,15 @@ const GameManager = () => {
     });
 
     mySession.on("GAME_OVER", (data) => {
-      const {
-        nextT1Pos,
-        nextT2Pos,
-        isGameOver,
-        winner,
-        loser,
-      } = JSON.parse(data.data);
+      const { nextT1Pos, nextT2Pos, isGameOver, winner, loser } = JSON.parse(
+        data.data
+      );
 
-      setT1Pos(nextT1Pos)
-      setT2Pos(nextT2Pos)
-      setIsGameOver(isGameOver)
-      setWinner(winner)
-      setLoser(loser)
+      setT1Pos(nextT1Pos);
+      setT2Pos(nextT2Pos);
+      setIsGameOver(isGameOver);
+      setWinner(winner);
+      setLoser(loser);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -469,19 +465,15 @@ const GameManager = () => {
     });
 
     mySession.on("GAME_OVER", (data) => {
-      const {
-        nextT1Pos,
-        nextT2Pos,
-        isGameOver,
-        winner,
-        loser,
-      } = JSON.parse(data.data);
+      const { nextT1Pos, nextT2Pos, isGameOver, winner, loser } = JSON.parse(
+        data.data
+      );
 
-      setT1Pos(nextT1Pos)
-      setT2Pos(nextT2Pos)
-      setIsGameOver(isGameOver)
-      setWinner(winner)
-      setLoser(loser)
+      setT1Pos(nextT1Pos);
+      setT2Pos(nextT2Pos);
+      setIsGameOver(isGameOver);
+      setWinner(winner);
+      setLoser(loser);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
