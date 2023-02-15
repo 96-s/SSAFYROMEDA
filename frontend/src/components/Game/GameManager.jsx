@@ -36,6 +36,10 @@ const BackButtonDiv = styled.img`
   margin-right: 10px;
 `;
 
+const BgmButtonDiv = styled.div`
+  margin-left: 15px;
+`;
+
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
 const temp = localStorage.getItem("persist:root");
 let token = "";
@@ -217,7 +221,7 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
-      const tempNickNames=nickNames;
+      const tempNickNames = nickNames;
       tempNickNames.push(userNickname);
       setNickNames(tempNickNames);
       console.log("Nicknames!!!!!!!");
@@ -352,7 +356,7 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
-          const tempNickNames=nickNames;
+          const tempNickNames = nickNames;
           tempNickNames.push(userNickname);
           setNickNames(tempNickNames);
           console.log("Nicknames!!!!!!!");
@@ -412,7 +416,7 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
-      const tempNickNames=nickNames;
+      const tempNickNames = nickNames;
       tempNickNames.push(userNickname);
       setNickNames(tempNickNames);
       console.log("Nicknames!!!!!!!");
@@ -531,7 +535,7 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
-          const tempNickNames=nickNames;
+          const tempNickNames = nickNames;
           tempNickNames.push(userNickname);
           setNickNames(tempNickNames);
           console.log("Nicknames!!!!!!!");
@@ -624,7 +628,9 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionIdDiv>
-                <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                <BgmButtonDiv>
+                  <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                </BgmButtonDiv>
                 <h1 id="session-title">우주선 번호 : {mySessionId}</h1>
                 <span>ㅤ</span>
 
