@@ -104,7 +104,6 @@ const GameFlow = ({
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
-  console.log("myTurnNum은?" + myTurnNum);
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
@@ -127,6 +126,8 @@ const GameFlow = ({
         sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
       }, 1000);
       posReset(); // 내 포지션도 리셋
+      console.log("myTurnNum은? " + myTurnNum);
+      console.log("players배열? " + players);
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
   };
