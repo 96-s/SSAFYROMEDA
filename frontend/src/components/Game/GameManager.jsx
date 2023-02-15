@@ -52,7 +52,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state.auth.user);
+  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -73,7 +73,7 @@ const GameManager = () => {
   // 방장인지 아닌지
   const [isHostPlayer, setIsHostPlayer] = useState(undefined);
   // 현재 순서
-  const [turnNum, setTurnNum] = useState(undefined);
+  const [turnNum, setTurnNum] = useState(0);
   // 게임 내 고유 번호
   const [myGameNo, setMyGameNo] = useState(undefined);
   // 주사위 던지는 유저
