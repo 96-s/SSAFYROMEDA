@@ -126,8 +126,8 @@ const GameFlow = ({
         sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
       }, 1000);
       posReset(); // 내 포지션도 리셋
-      console.log("myTurnNum은? " + myTurnNum);
-      console.log("players배열? " + players);
+      console.log("myTurnNum은?" + myTurnNum);
+      console.log("players배열? + players");
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
   };
@@ -338,7 +338,7 @@ const GameFlow = ({
       setIsGameOver(true);
       sendGameOver();
     };
-  }
+  };
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
