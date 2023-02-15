@@ -102,7 +102,9 @@ const GameFlow = ({
   loser,
   setLoser,
 }) => {
-  console.log("myGameNo은?" + myGameNo);
+  const playerNum = players.length; // 몇명이서 하는지
+  const myTurnNum = players.indexOf(userNickname);
+  console.log("myTurnNum은?" + myTurnNum);
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
@@ -158,7 +160,7 @@ const GameFlow = ({
   // 자신의 주사위 턴인지 확인
   const checkDiceTurn = () => {
     // 초기값 0
-    if (myGameNo === nextThrowUser) {
+    if (myTurnNum === nextThrowUser) {
       setIsDiceThrow(true); // 다음에 주사위를 던짐
     }
   };
@@ -592,7 +594,7 @@ const GameFlow = ({
                 sendPos={sendPos}
                 nextThrowUser={nextThrowUser}
                 setNextThrowUser={setNextThrowUser}
-                myGameNo={myGameNo}
+                myTurnNum={myTurnNum}
                 // playerNum={playerNum}
                 // myTurnNum={myTurnNum}
                 turnNum={turnNum}

@@ -1359,7 +1359,7 @@ const Map = ({
     const arr = [0, 1, 2]
     // 주사위 1 나왔을 때
     if (isRoll === false && diceValue === 1) {
-      if (arr.includes(myGameNo)) {
+      if (arr.includes(myTurnNum)) {
         setT1Pos(t1Pos + diceValue);
       } else {
         setT2Pos(t2Pos + diceValue)
@@ -1367,7 +1367,7 @@ const Map = ({
     }
     // 주사위 2 이상
     if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-      if (arr.includes(myGameNo)) {
+      if (arr.includes(myTurnNum)) {
         console.log("왜 안뜨노...");
         var i = 0;
         while (i < diceValue) {
@@ -1430,7 +1430,7 @@ const Map = ({
         {/* <Quiz/> */}
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
-          { (turnNum === myGameNo ? 
+          { (turnNum === myTurnNum ? 
           <span onClick={openDice}>I</span>
           : null
           )}
