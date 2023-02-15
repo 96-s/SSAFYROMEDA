@@ -13,7 +13,7 @@ import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 20px;
   margin-top: 5px;
 `;

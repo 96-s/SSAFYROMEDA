@@ -18,7 +18,7 @@ import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import gameRoomBgm from "resources/sounds/ssafyromeda_soundpack/04_gamebgm.wav";
 
 const SessionHeaderDiv = styled.div`
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   color: white;
 `;
@@ -32,8 +32,21 @@ const SessionIdDiv = styled.div`
 const BackButtonDiv = styled.img`
   width: 60px;
   height: 60px;
+  /* margin-left:5px; */
+  /* margin-top: 3px; */
+  margin-right: 5px;
+`;
 
-  margin-right: 10px;
+const ButtonSecctionnDiv = styled.div`
+  display: flex;
+  margin-left: 60%;
+  float: right;
+`;
+const H1tag = styled.h1`
+  /* margin-right: 10px; */
+  .h1{
+    margin-right: 10px;
+  }
 `;
 
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
@@ -206,7 +219,7 @@ const GameManager = () => {
       // Update the state with the new subscribers
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
-      
+
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -294,19 +307,15 @@ const GameManager = () => {
     });
 
     mySession.on("GAME_OVER", (data) => {
-      const {
-        nextT1Pos,
-        nextT2Pos,
-        isGameOver,
-        winner,
-        loser,
-      } = JSON.parse(data.data);
+      const { nextT1Pos, nextT2Pos, isGameOver, winner, loser } = JSON.parse(
+        data.data
+      );
 
-      setT1Pos(nextT1Pos)
-      setT2Pos(nextT2Pos)
-      setIsGameOver(isGameOver)
-      setWinner(winner)
-      setLoser(loser)
+      setT1Pos(nextT1Pos);
+      setT2Pos(nextT2Pos);
+      setIsGameOver(isGameOver);
+      setWinner(winner);
+      setLoser(loser);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -466,19 +475,15 @@ const GameManager = () => {
     });
 
     mySession.on("GAME_OVER", (data) => {
-      const {
-        nextT1Pos,
-        nextT2Pos,
-        isGameOver,
-        winner,
-        loser,
-      } = JSON.parse(data.data);
+      const { nextT1Pos, nextT2Pos, isGameOver, winner, loser } = JSON.parse(
+        data.data
+      );
 
-      setT1Pos(nextT1Pos)
-      setT2Pos(nextT2Pos)
-      setIsGameOver(isGameOver)
-      setWinner(winner)
-      setLoser(loser)
+      setT1Pos(nextT1Pos);
+      setT2Pos(nextT2Pos);
+      setIsGameOver(isGameOver);
+      setWinner(winner);
+      setLoser(loser);
     });
 
     /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -600,10 +605,7 @@ const GameManager = () => {
           <SessionHeaderDiv>
             <div>
               <SessionIdDiv>
-                <BgmButton bgm={gameRoomBgm} volume={0.2} />
-                <h1 id="session-title">우주선 번호 : {mySessionId}</h1>
-                <span>ㅤ</span>
-
+                <H1tag>우주선 번호 : {mySessionId}</H1tag>
                 <CopyToClipboard text={mySessionId}>
                   <MyButton
                     lang={"Korean"}
@@ -612,15 +614,18 @@ const GameManager = () => {
                     type={"is-primary"}
                   />
                 </CopyToClipboard>
+                <ButtonSecctionnDiv>
+                  <BackButtonDiv
+                    src={BackButton}
+                    onClick={() => {
+                      leaveSession();
+                      soundEffect();
+                    }}
+                  />
+                  <BgmButton bgm={gameRoomBgm} volume={0.2} />
+                </ButtonSecctionnDiv>
               </SessionIdDiv>
             </div>
-            <BackButtonDiv
-              src={BackButton}
-              onClick={() => {
-                leaveSession();
-                soundEffect();
-              }}
-            />
           </SessionHeaderDiv>
           <GameFlow
             ov={ov}

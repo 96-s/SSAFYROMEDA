@@ -43,13 +43,14 @@ body {
 /* 페이지 transition 효과 */
 .fadeIn {
   animation: 0.3s fadeIn forwards;
-  background-color: black;
-  /* height: 99999999px; */
+  background: url("resources/images/gamebackgroundimg.png") no-repeat center;
+  background-size: cover;
   height: 100vh;
+  overflow: hidden;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .fadeOut {
   animation: 0.3s fadeOut forwards;

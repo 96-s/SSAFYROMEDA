@@ -14,6 +14,14 @@ import MapIMG from "resources/images/Map/MapIMG.gif";
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
 import { scryRenderedComponentsWithType } from "react-dom/test-utils";
+// import MapFrame from "resources/images/mapframe.png";
+
+// const FrontimageDiv = styled.div`
+//   background: url(${MapFrame}) ;
+//   position: absolute;
+//   width: 600px;
+//   height: 500px;
+// `;
 
 const Page = styled.div`
   display: flex;
@@ -344,7 +352,7 @@ const Marker1 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
+  // 역방향
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -948,8 +956,8 @@ const Marker2 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
-  
+  // 역방향
+
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -1317,7 +1325,7 @@ const Map = ({
   turnNum,
   setTurnNum,
   myTurnNum,
-  setIsGameOver
+  setIsGameOver,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1379,7 +1387,6 @@ const Map = ({
     }
   }, [diceValue]);
 
-
   const closeDice = useEffect(() => {
     // console.log(diceValue);
     if (isRoll === false && diceValue !== null) {
@@ -1392,17 +1399,15 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
-
   return (
     <Page>
+      {/* <FrontimageDiv></FrontimageDiv> */}
       <Board>
+        
         {/* <Quiz/> */}
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
-          { (turnNum === myTurnNum ? 
-          <span onClick={openDice}>I</span>
-          : null
-          )}
+          {turnNum === myTurnNum ? <span onClick={openDice}>I</span> : null}
         </Modal>
         <ChanceModal
           open={openChanceToggle}
