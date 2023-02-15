@@ -1,20 +1,18 @@
-
-
 .Profile {
-    color: white;
-    display: flex;
-    background-image: url('../resources/images/profile_bg.png');
-                      /* url("../resources/images/back.PNG"); */
-    background-color: black;
-    background-position-x: center;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    padding: 50px;
-    height: 486px;
+  color: white;
+  display: flex;
+  background-image: url("../resources/images/profile_bg.png");
+  /* url("../resources/images/back.PNG"); */
+  background-color: #c14a4a;
+  background-position-x: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding: 50px;
+  height: 486px;
 }
 
 .MyHistory {
-    display: flex;
-    /* height: 50vh; */
-    width: 50vw;
+  display: flex;
+  /* height: 50vh; */
+  width: 50vw;
 }

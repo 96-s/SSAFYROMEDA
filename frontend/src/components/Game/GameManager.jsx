@@ -49,6 +49,10 @@ const H1tag = styled.h1`
   }
 `;
 
+const BgmButtonDiv = styled.div`
+  margin-left: 15px;
+`;
+
 const APPLICATION_SERVER_URL = "https://i8d205.p.ssafy.io/api/rooms/";
 const temp = localStorage.getItem("persist:root");
 let token = "";
@@ -65,7 +69,7 @@ const GameManager = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   // 해솜 - state 불러오는게 에러나서 코드 수정했습니다
-  const { userNickname, userNo } = useSelector((state) => state?.auth?.user);
+  const { userNickname, userNo } = useSelector((state) => state.auth.user);
 
   //비디오 관련 변수
   const [ov, setOv] = useState(null);
@@ -80,35 +84,37 @@ const GameManager = () => {
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
 
   // 게임 관련 변수
-  const [t1Pos, setT1Pos] = useState(0);
-  const [t2Pos, setT2Pos] = useState(0);
+  const [t1Pos, setT1Pos] = useState(undefined);
+  const [t2Pos, setT2Pos] = useState(undefined);
   const [players, setPlayers] = useState([]);
   // 방장인지 아닌지
-  const [isHostPlayer, setIsHostPlayer] = useState(false);
+  const [isHostPlayer, setIsHostPlayer] = useState(undefined);
   // 현재 순서
-  const [turnNum, setTurnNum] = useState(0);
+  const [turnNum, setTurnNum] = useState(undefined);
   // 게임 내 고유 번호
-  const [myGameNo, setMyGameNo] = useState(0);
+  const [myGameNo, setMyGameNo] = useState(undefined);
   // 주사위 던지는 유저
   const [nextThrowUser, setNextThrowUser] = useState(0);
+  // 들어온 순서
+  const [nickNames, setNickNames] = useState([]);
   // 내가 주사위 던지는지 여부
-  const [isDiceThrow, setIsDiceThrow] = useState(false);
-  const [diceTurn, setDiceTurn] = useState(true);
+  const [isDiceThrow, setIsDiceThrow] = useState(undefined);
+  const [diceTurn, setDiceTurn] = useState(undefined);
   // 내 팀
   const [myTeam, setMyTeam] = useState(1);
   const [team1Members, setTeam1Members] = useState([]);
   const [team2Members, setTeam2Members] = useState([]);
   // 이번 턴에 게임 진행하는 여부
-  const [gameTurn, setGameTurn] = useState(true);
-  const [isDice, setIsDice] = useState(false);
-  const [gameNo, setGameNo] = useState(0);
-  const [isGameStarted, setIsGameStarted] = useState(false);
-  const [startAnimationPlaying, setStartAnimationPlaying] = useState(null);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [gameTurn, setGameTurn] = useState(undefined);
+  const [isDice, setIsDice] = useState(undefined);
+  const [gameNo, setGameNo] = useState(undefined);
+  const [isGameStarted, setIsGameStarted] = useState(undefined);
+  const [startAnimationPlaying, setStartAnimationPlaying] = useState(undefined);
+  const [isGameOver, setIsGameOver] = useState(undefined);
   const [nextMiniGameNum, setNextMiniGameNum] = useState(undefined);
   const [miniGameSelectTurn, setMiniGameSelectTurn] = useState(undefined);
-  const [winner, setWinner] = useState(null); // 팀 번호 들어감 1 or 2
-  const [loser, setLoser] = useState(null);
+  const [winner, setWinner] = useState(undefined); // 팀 번호 들어감 1 or 2
+  const [loser, setLoser] = useState(undefined);
   // 미니게임 여부
   const [miniGame1, setMiniGame1] = useState(false);
   const [miniGame2, setMiniGame2] = useState(false);
@@ -228,6 +234,12 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
+      const tempNickNames = nickNames;
+      tempNickNames.push(userNickname);
+      setNickNames(tempNickNames);
+      console.log("Nicknames!!!!!!!");
+      console.log(nickNames);
+
       // setIsHostPlayer(true);
       // console.log(isHostPlayer);
 
@@ -257,6 +269,7 @@ const GameManager = () => {
         nextThrowUser,
         isGameStarted,
         startAnimationPlaying,
+        turnNum,
       } = JSON.parse(data.data);
       // console.log(`start? : ${start}`);
 
@@ -266,6 +279,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       setIsGameStarted(isGameStarted);
       setStartAnimationPlaying(startAnimationPlaying);
+      setTurnNum(turnNum);
       console.log(isGameStarted);
     });
 
@@ -355,10 +369,16 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
+          const tempNickNames = nickNames;
+          tempNickNames.push(userNickname);
+          setNickNames(tempNickNames);
+          console.log("Nicknames!!!!!!!");
+          console.log(nickNames);
+
           console.log("initRoom() getTokenWithSid()");
           console.log(myTeam);
           setIsHostPlayer(true);
-          console.log("내 게임순서" + myGameNo);
+          // console.log("myGameNo?" + myGameNo);
         })
         .catch((error) => {
           console.log(
@@ -409,6 +429,12 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
+      const tempNickNames = nickNames;
+      tempNickNames.push(userNickname);
+      setNickNames(tempNickNames);
+      console.log("Nicknames!!!!!!!");
+      console.log(nickNames);
+
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
     });
@@ -435,6 +461,7 @@ const GameManager = () => {
       setNextThrowUser(0);
       setIsGameStarted(true);
       setStartAnimationPlaying(true);
+      setTurnNum(0);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -521,6 +548,12 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
+          const tempNickNames = nickNames;
+          tempNickNames.push(userNickname);
+          setNickNames(tempNickNames);
+          console.log("Nicknames!!!!!!!");
+          console.log(nickNames);
+
           console.log("joinRoom() getToken()");
           console.log(myTeam);
           console.log(userNickname);
@@ -560,6 +593,9 @@ const GameManager = () => {
   //현재 방에서 나가기
   const leaveSession = () => {
     const mySession = session;
+
+    console.log("leaveSession!!!");
+    console.log(nickNames);
 
     if (mySession) {
       mySession.disconnect();
@@ -687,6 +723,7 @@ const GameManager = () => {
             setWinner={setWinner}
             loser={loser}
             setLoser={setLoser}
+            myGameNo={myGameNo}
           />
         </div>
       ) : null}

@@ -134,7 +134,6 @@ const CodeInputContainer = styled.div`
 const BgmButtonDiv = styled.div`
   position: absolute;
 
-  margin-top: 10px;
   margin-left: 15px;
 `;
 

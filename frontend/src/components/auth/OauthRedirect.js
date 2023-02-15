@@ -3,6 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/AuthSlice";
 import { parseJwt } from "components/utils/ParseJwt";
+import styled from "styled-components";
+
+const BackGroundDiv = styled.div`
+  background-color: black
+  width: 100vw;
+  height: 100vh;
+  background-size: 100% 100%;
+
+  text-align: center;
+`;
 
 const OauthRedirect = () => {
   const dispatch = useDispatch();
@@ -37,7 +47,9 @@ const OauthRedirect = () => {
 
   return (
     <div>
-      <h3>잠시만 기다려 주세요...</h3>
+      <BackGroundDiv>
+        <h3>잠시만 기다려 주세요...</h3>
+      </BackGroundDiv>
     </div>
   );
 };
