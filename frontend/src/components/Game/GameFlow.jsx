@@ -15,7 +15,7 @@ const Container = styled.div`
   justify-content: center;
   border: 1px solid black;
   border-radius: 20px;
-  margin: 20px;
+  margin-top: 5px;
 `;
 
 const Page = styled.div`
