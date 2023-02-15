@@ -95,8 +95,6 @@ const GameManager = () => {
   const [myGameNo, setMyGameNo] = useState(undefined);
   // 주사위 던지는 유저
   const [nextThrowUser, setNextThrowUser] = useState(0);
-  // 들어온 순서
-  const [nickNames, setNickNames] = useState([]);
   // 내가 주사위 던지는지 여부
   const [isDiceThrow, setIsDiceThrow] = useState(undefined);
   const [diceTurn, setDiceTurn] = useState(undefined);
@@ -234,12 +232,6 @@ const GameManager = () => {
         setMyTeam(2);
       }
 
-      const tempNickNames = nickNames;
-      tempNickNames.push(userNickname);
-      setNickNames(tempNickNames);
-      console.log("Nicknames!!!!!!!");
-      console.log(nickNames);
-
       // setIsHostPlayer(true);
       // console.log(isHostPlayer);
 
@@ -369,12 +361,6 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
-          const tempNickNames = nickNames;
-          tempNickNames.push(userNickname);
-          setNickNames(tempNickNames);
-          console.log("Nicknames!!!!!!!");
-          console.log(nickNames);
-
           console.log("initRoom() getTokenWithSid()");
           console.log(myTeam);
           setIsHostPlayer(true);
@@ -428,12 +414,6 @@ const GameManager = () => {
         team2Members.push(tempSubscriber);
         setMyTeam(2);
       }
-
-      const tempNickNames = nickNames;
-      tempNickNames.push(userNickname);
-      setNickNames(tempNickNames);
-      console.log("Nicknames!!!!!!!");
-      console.log(nickNames);
 
       console.log("joinRoom() streamCreated");
       console.log(myTeam);
@@ -548,12 +528,6 @@ const GameManager = () => {
             setMyTeam(2);
           }
 
-          const tempNickNames = nickNames;
-          tempNickNames.push(userNickname);
-          setNickNames(tempNickNames);
-          console.log("Nicknames!!!!!!!");
-          console.log(nickNames);
-
           console.log("joinRoom() getToken()");
           console.log(myTeam);
           console.log(userNickname);
@@ -593,9 +567,6 @@ const GameManager = () => {
   //현재 방에서 나가기
   const leaveSession = () => {
     const mySession = session;
-
-    console.log("leaveSession!!!");
-    console.log(nickNames);
 
     if (mySession) {
       mySession.disconnect();
