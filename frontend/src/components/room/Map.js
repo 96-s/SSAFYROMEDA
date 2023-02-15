@@ -24,7 +24,7 @@ const Board = styled.div`
   position: relative;
   justify-content: center;
   margin: auto;
-  border: 1px solid black;
+  border: 1px solid white;
   aspect-ratio: 1 / 1;
   height: 85vh;
   background: url(${MapIMG}) no-repeat;
