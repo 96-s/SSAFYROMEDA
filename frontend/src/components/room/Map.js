@@ -1355,18 +1355,14 @@ const Map = ({
 
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
-    console.log("주사위 값은 " + diceValue);
-    // 주사위 1 나왔을 때
-    if (isRoll === false && diceValue === 1) {
-      if (myTurnNum in (0, 1, 2)) {
+    if (diceValue !== null) {
+      console.log("주사위 값은 " + diceValue);
+      // 주사위 1 나왔을 때
+      if (isRoll === false && diceValue === 1) {
         setT1Pos(t1Pos + diceValue);
-      } else {
-        setT2Pos(t2Pos + diceValue)
       }
-    }
-    // 주사위 2 이상
-    if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-      if (myTurnNum in (0, 1, 2)) {
+      // 주사위 2 이상
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
         console.log("왜 안뜨노...");
         var i = 0;
         while (i < diceValue) {
@@ -1376,24 +1372,11 @@ const Map = ({
             setT1Pos((t1Pos) => t1Pos + 1);
           }, 2000 * i);
         }
-      } else {
-        console.log("왜 안뜨노...");
-        var k = 0;
-        while (k < diceValue) {
-          k++;
-          console.log("왜 안됨");
-          setTimeout(() => {
-            setT2Pos((t2Pos) => t2Pos + 1);
-          }, 2000 * k);
-        }
-
       }
+      setDiceValue(null);
+      console.log("팀1자리" + t1Pos);
+      sendPos();
     }
-    setDiceValue(null);
-    console.log("1팀자리" + t1Pos);
-    console.log("2팀자리" + t2Pos);
-    setTurnNum((turnNum+1) % 2);
-    sendPos();
   }, [diceValue]);
 
 
