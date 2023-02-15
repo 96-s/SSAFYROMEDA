@@ -400,7 +400,7 @@ const GameManager = () => {
 
       // 정은 - 들어올 때마다 플레이어에 넣는 작업
       let tempPlayers = tempSubscribers.map(
-        (tempsub) => JSON.parse(tempsub.stream.connection.data).clientData,
+        (tempsub) => players.push(JSON.parse(tempsub.stream.connection.data).clientData),
       );
 
       // 자기 자신 없으면 넣어야함
@@ -410,7 +410,7 @@ const GameManager = () => {
 
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
-      setPlayers(tempPlayers.sort());
+      // setPlayers(tempPlayers.sort());
       console.log("players" + players);
       
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
