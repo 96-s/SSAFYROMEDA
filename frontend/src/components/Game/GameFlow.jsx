@@ -104,7 +104,6 @@ const GameFlow = ({
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
-  console.log("myTurnNum은?" + myTurnNum);
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
@@ -127,6 +126,8 @@ const GameFlow = ({
         sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
       }, 1000);
       posReset(); // 내 포지션도 리셋
+      console.log("myTurnNum은? " + myTurnNum);
+      console.log("players배열? " + players);
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
   };
@@ -325,19 +326,19 @@ const GameFlow = ({
     return false;
   };
 
-  if ((t1Pos >= 21) || (t2Pos >= 21)) {
-    useEffect = () => {  
+  if (t1Pos >= 21 || t2Pos >= 21) {
+    useEffect = () => {
       if (t1Pos >= 21) {
         setWinner(1);
         setLoser(2);
       } else {
         setWinner(2);
         setLoser(1);
-      };
+      }
       setIsGameOver(true);
       sendGameOver();
-    }; 
-  };
+    };
+  }
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
@@ -536,8 +537,6 @@ const GameFlow = ({
       body: JSON.stringify(sendData),
     });
   };
-
-
 
   const GameStart = () => {
     gameFlowStart();
