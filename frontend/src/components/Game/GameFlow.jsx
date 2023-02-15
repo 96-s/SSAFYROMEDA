@@ -104,6 +104,7 @@ const GameFlow = ({
 }) => {
   const playerNum = players.length; // 몇명이서 하는지
   const myTurnNum = players.indexOf(userNickname);
+  console.log("myTurnNum은? " + myTurnNum);
 
   const [diceTurn, setDiceTurn] = useState(false);
   const [diceResult, setDiceResult] = useState(0);
