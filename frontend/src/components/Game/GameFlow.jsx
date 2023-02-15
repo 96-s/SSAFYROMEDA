@@ -15,7 +15,7 @@ const Container = styled.div`
   justify-content: center;
   border: 1px solid black;
   border-radius: 20px;
-  margin: 20px;
+  margin-top: 5px;
 `;
 
 const Page = styled.div`
@@ -100,11 +100,8 @@ const GameFlow = ({
   winner,
   setWinner,
   loser,
-  setLoser
+  setLoser,
 }) => {
-  const playerNum = players.length; // 몇명이서 하는지
-  const myTurnNum = players.indexOf(userNickname);
-  console.log("내 순서는" + myTurnNum);
   console.log("myGameNo은?" + myGameNo);
 
   const [diceTurn, setDiceTurn] = useState(false);
@@ -141,7 +138,7 @@ const GameFlow = ({
 
   // 게임 시작 로직
   useEffect(() => {
-    if (startAnimationPlaying) {
+    if (startAnimationPlaying !== undefined && startAnimationPlaying) {
       console.log("게임 시작 애니메이션 실행!");
       /* --------------게임 스타트 애니메이션 여기 삽입(setTimeOut(?)) (setStartAnimationPlaying(false); 처리)------------------ / ----help */
       setTimeout(() => {
@@ -152,7 +149,7 @@ const GameFlow = ({
 
   // 게임 시작 애니메이션 로직
   useEffect(() => {
-    if (!startAnimationPlaying) {
+    if (startAnimationPlaying !== undefined && !startAnimationPlaying) {
       console.log("게임 시작 애니메이션 종료!");
       checkDiceTurn();
     }
@@ -168,7 +165,7 @@ const GameFlow = ({
 
   // 주사위 권한이 변경되면 주사위 턴으로 진입
   useEffect(() => {
-    if (isDiceThrow) {
+    if (isDiceThrow !== undefined && isDiceThrow) {
       sendDiceTurnSignal(subscribers); // 다른 사람들 전부 주사위 턴 돌입하라고 명령
       setDiceTurn(true); // 나도 주사위 턴으로 돌입
     }
@@ -176,7 +173,7 @@ const GameFlow = ({
 
   // 주사위 턴 전환 로직
   useEffect(() => {
-    if (diceTurn) {
+    if (diceTurn !== undefined && diceTurn) {
       // 만약 주사위 턴이 시작이라면
       console.warn("주사위 턴 시작!");
       startDiceTurn();
@@ -185,12 +182,12 @@ const GameFlow = ({
 
   // 주사위 턴 시작 트리거
   const startDiceTurn = () => {
-    if (isDiceThrow) {
+    if (isDiceThrow !== undefined && isDiceThrow) {
       console.log("당신이 던질 차례입니다.");
       setDiceResult(
         0
       ); /* ---주사위 수 로직 '0' 대신에 삽입(setTimeOut(?)) setDiceTurn(false);로 주사위 턴 종료 --- / ----help */
-    } else if (!isDiceThrow) {
+    } else if (isDiceThrow !== undefined && !isDiceThrow) {
       console.log("당신이 던질 차례가 아닙니다.");
       /* --------------대기 중... 애니메이션? 모달? 삽입------------------ / ----help */
     }
@@ -198,7 +195,7 @@ const GameFlow = ({
 
   // 주사위가 던져저서 숫자가 변하면 발동
   useEffect(() => {
-    if (diceResult > 0) {
+    if (diceResult !== undefined && diceResult > 0) {
       console.log(`주사위 숫자 : ${diceResult}`);
       if (myTeam === 1) setT1Pos(t1Pos + diceResult); // 자신이 팀 1일 때
       else if (myTeam === 2) setT2Pos(t2Pos + diceResult); // 자신이 팀 2일 때
@@ -206,7 +203,7 @@ const GameFlow = ({
   }, [diceResult]);
 
   useEffect(() => {
-    if (!(t1Pos === 0 && t2Pos === 0) && diceTurn) {
+    if (t1Pos !== undefined && !(t1Pos === 0 && t2Pos === 0) && diceTurn) {
       // 내가 주사위를 던진 사람이라면 바뀐 포지션을 던진다.
       if (isDiceThrow) {
         sendPos(subscribers);
@@ -221,7 +218,7 @@ const GameFlow = ({
 
   // 주사위 턴이 종료되었을 때
   useEffect(() => {
-    if (!diceTurn) {
+    if (diceTurn !== undefined && !diceTurn) {
       // 주사위 턴이 종료된다면
       endDiceTurn();
       console.warn("주사위 턴 종료!");
@@ -235,7 +232,7 @@ const GameFlow = ({
 
   // 게임 턴이 시작되고 내가 방장이라면
   useEffect(() => {
-    if (gameTurn) {
+    if (gameTurn !== undefined && gameTurn) {
       if (isHostPlayer) {
         setNextMiniGameNum(Math.floor(Math.random(1, 5) + 1));
       }
@@ -244,7 +241,7 @@ const GameFlow = ({
 
   // 다음 미니게임이 정해졌을 때
   useEffect(() => {
-    if (isHostPlayer && nextMiniGameNum > 0) {
+    if (nextMiniGameNum !== undefined && isHostPlayer && nextMiniGameNum > 0) {
       sendNextMiniGame(subscribers);
     }
     setMiniGameSelectTurn(true);
@@ -252,7 +249,7 @@ const GameFlow = ({
 
   // 미니 게임 턴이 되었을 때
   useEffect(() => {
-    if (miniGameSelectTurn) {
+    if (miniGameSelectTurn !== undefined && miniGameSelectTurn) {
       switch (nextMiniGameNum) {
         case 1:
           setMiniGame1(true);
@@ -276,7 +273,7 @@ const GameFlow = ({
 
   // 미니게임 성공 시
   useEffect(() => {
-    if (isSuccess !== null) {
+    if (isSuccess !== undefined && isSuccess !== null) {
       if (isSuccess === true) {
         // 성공하면 아무것도 하지 않는다.
       }
@@ -286,7 +283,7 @@ const GameFlow = ({
 
   // 미니게임 실패 시
   useEffect(() => {
-    if (isSuccess !== null) {
+    if (isSuccess !== undefined && isSuccess !== null) {
       if (isSuccess === false) {
         // 자신이 팀 1일 때
         if (myTeam === 1) {
@@ -307,7 +304,7 @@ const GameFlow = ({
 
   // 게임 턴이 종료된다면
   useEffect(() => {
-    if (!gameTurn) {
+    if (gameTurn !== undefined && !gameTurn) {
       // 게임이 끝나지 않았다면
       if (!checkEndGame()) {
         checkDiceTurn();
@@ -326,6 +323,20 @@ const GameFlow = ({
     return false;
   };
 
+  if ((t1Pos >= 21) || (t2Pos >= 21)) {
+    useEffect = () => {  
+      if (t1Pos >= 21) {
+        setWinner(1);
+        setLoser(2);
+      } else {
+        setWinner(2);
+        setLoser(1);
+      };
+      setIsGameOver(true);
+      sendGameOver();
+    }; 
+  };
+
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
     console.log("게임 리셋!");
@@ -339,6 +350,7 @@ const GameFlow = ({
         nextThrowUser: nextThrowUser,
         isGameStarted: true,
         startAnimationPlaying: true,
+        turnNum: 0,
       }),
       type: "GAME_RESET",
     };
@@ -498,7 +510,6 @@ const GameFlow = ({
     // return response.data;
   };
 
-
   // 게임 종료
   const sendGameOver = () => {
     const sendData = {
@@ -522,21 +533,9 @@ const GameFlow = ({
       },
       body: JSON.stringify(sendData),
     });
-  }
+  };
 
-  if ((t1Pos >= 21) || (t2Pos >= 21)) {
-    useEffect = () => {  
-      if (t1Pos >= 21) {
-        setWinner(1);
-        setLoser(2);
-      } else {
-        setWinner(2);
-        setLoser(1);
-      };
-      setIsGameOver(true);
-      sendGameOver();
-    }; 
-  }
+
 
   const GameStart = () => {
     gameFlowStart();
@@ -554,16 +553,13 @@ const GameFlow = ({
           publisher={publisher}
           team1Members={team1Members}
         />
-        { isGameOver ? 
+        {isGameOver ? (
           <GameOverContainer>
-            <GameOver
-              myTeam={myTeam}
-              winner={winner}
-              loser={loser}/> 
+            <GameOver myTeam={myTeam} winner={winner} loser={loser} />
           </GameOverContainer>
-          :  isGameStarted === false ? (
+        ) : isGameStarted !== true ? (
           <>
-            {isHostPlayer !== false ? (
+            {isHostPlayer === true ? (
               <GameStartButton>
                 <MyButton
                   lang={"Korean"}
@@ -596,16 +592,16 @@ const GameFlow = ({
                 sendPos={sendPos}
                 nextThrowUser={nextThrowUser}
                 setNextThrowUser={setNextThrowUser}
-                playerNum={playerNum}
-                myTurnNum={myTurnNum}
+                myGameNo={myGameNo}
+                // playerNum={playerNum}
+                // myTurnNum={myTurnNum}
                 turnNum={turnNum}
                 setTurnNum={setTurnNum}
                 setIsGameOver={setIsGameOver}
               />
             )}
           </>
-          )
-        }
+        )}
         <TheirTeamVid
           streamManager={mainStreamManager}
           subscribers={subscribers}

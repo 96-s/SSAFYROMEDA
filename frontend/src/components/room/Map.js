@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Timer from "components/common/Timer";
+// import Timer from "components/common/Timer";
 // import DiceRoller from 'components/utils/DiceRoller';
 import DiceModal from "./DiceModal";
 import ChanceModal from "./ChanceModal";
-import Quiz from "./quiz";
+// import Quiz from "./quiz";
 
 // import Dice1 from "resources/images/Map/dice1.png";
 // import Dice2 from "resources/images/Map/dice2.png";
@@ -13,7 +13,6 @@ import Quiz from "./quiz";
 import MapIMG from "resources/images/Map/MapIMG.gif";
 import Marker1IMG from "resources/images/Map/marker1.png";
 import Marker2IMG from "resources/images/Map/marker2.png";
-import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 const Page = styled.div`
   display: flex;
@@ -344,7 +343,7 @@ const Marker1 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
+  // 역방향
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -948,8 +947,8 @@ const Marker2 = styled.div`
     animation: moveToRight21 2s ease;
   }
 
-  // 역방향 
-  
+  // 역방향
+
   &.pos-0 {
     top: 0.8%;
     left: 4%;
@@ -1317,7 +1316,8 @@ const Map = ({
   turnNum,
   setTurnNum,
   myTurnNum,
-  setIsGameOver
+  setIsGameOver,
+  myGameNo
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1356,9 +1356,10 @@ const Map = ({
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
     console.log("주사위 값은 " + diceValue);
+    const arr = [0, 1, 2]
     // 주사위 1 나왔을 때
     if (isRoll === false && diceValue === 1) {
-      if (myTurnNum in (0, 1, 2)) {
+      if (arr.includes(myGameNo)) {
         setT1Pos(t1Pos + diceValue);
       } else {
         setT2Pos(t2Pos + diceValue)
@@ -1366,7 +1367,7 @@ const Map = ({
     }
     // 주사위 2 이상
     if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-      if (myTurnNum in (0, 1, 2)) {
+      if (arr.includes(myGameNo)) {
         console.log("왜 안뜨노...");
         var i = 0;
         while (i < diceValue) {
@@ -1376,26 +1377,38 @@ const Map = ({
             setT1Pos((t1Pos) => t1Pos + 1);
           }, 2000 * i);
         }
-      } else {
-        console.log("왜 안뜨노...");
-        var k = 0;
-        while (k < diceValue) {
-          k++;
-          console.log("왜 안됨");
-          setTimeout(() => {
-            setT2Pos((t2Pos) => t2Pos + 1);
-          }, 2000 * k);
-        }
-
       }
+      // 주사위 2 이상
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+        if (myTurnNum in (0, 1, 2)) {
+          console.log("왜 안뜨노...");
+          var i = 0;
+          while (i < diceValue) {
+            i++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT1Pos((t1Pos) => t1Pos + 1);
+            }, 2000 * i);
+          }
+        } else {
+          console.log("왜 안뜨노...");
+          var k = 0;
+          while (k < diceValue) {
+            k++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT2Pos((t2Pos) => t2Pos + 1);
+            }, 2000 * k);
+          }
+        }
+      }
+      setDiceValue(null);
+      console.log("1팀자리" + t1Pos);
+      console.log("2팀자리" + t2Pos);
+      setTurnNum((turnNum + 1) % 2);
+      sendPos();
     }
-    setDiceValue(null);
-    console.log("1팀자리" + t1Pos);
-    console.log("2팀자리" + t2Pos);
-    setTurnNum((turnNum+1) % 2);
-    sendPos();
   }, [diceValue]);
-
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1409,6 +1422,7 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
+  console.log("지금 순서는 누구?" + turnNum);
 
   return (
     <Page>
@@ -1416,7 +1430,7 @@ const Map = ({
         {/* <Quiz/> */}
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
-          { (turnNum === myTurnNum ? 
+          { (turnNum === myGameNo ? 
           <span onClick={openDice}>I</span>
           : null
           )}

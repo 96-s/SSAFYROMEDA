@@ -45,10 +45,11 @@ body {
   animation: 0.3s fadeIn forwards;
   background-color: black;
   /* height: 99999999px; */
+  height: 100vh;
 }
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-} */
+}
 
 .fadeOut {
   animation: 0.3s fadeOut forwards;
