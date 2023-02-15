@@ -685,6 +685,7 @@ const GameManager = () => {
             setWinner={setWinner}
             loser={loser}
             setLoser={setLoser}
+            myGameNo={myGameNo}
           />
         </div>
       ) : null}
