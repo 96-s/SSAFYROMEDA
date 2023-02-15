@@ -244,6 +244,7 @@ const GameManager = () => {
         nextThrowUser,
         isGameStarted,
         startAnimationPlaying,
+        turnNum
       } = JSON.parse(data.data);
       // console.log(`start? : ${start}`);
 
@@ -253,6 +254,7 @@ const GameManager = () => {
       setNextThrowUser(nextThrowUser);
       setIsGameStarted(isGameStarted);
       setStartAnimationPlaying(startAnimationPlaying);
+      setTurnNum(turnNum);
       console.log(isGameStarted);
     });
 
@@ -349,7 +351,7 @@ const GameManager = () => {
           console.log("initRoom() getTokenWithSid()");
           console.log(myTeam);
           setIsHostPlayer(true);
-          console.log("내 게임순서" + myGameNo);
+          console.log("myGameNo?" + myGameNo);
         })
         .catch((error) => {
           console.log(
@@ -426,6 +428,7 @@ const GameManager = () => {
       setNextThrowUser(0);
       setIsGameStarted(true);
       setStartAnimationPlaying(true);
+      setTurnNum(0);
     });
 
     mySession.on("DICE_TURN", (data) => {
@@ -682,6 +685,7 @@ const GameManager = () => {
             setWinner={setWinner}
             loser={loser}
             setLoser={setLoser}
+            myGameNo={myGameNo}
           />
         </div>
       ) : null}

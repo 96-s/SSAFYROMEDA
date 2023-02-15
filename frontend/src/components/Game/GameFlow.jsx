@@ -15,7 +15,7 @@ const Container = styled.div`
   justify-content: center;
   border: 1px solid black;
   border-radius: 20px;
-  margin: 20px;
+  margin-top: 5px;
 `;
 
 const Page = styled.div`
@@ -102,9 +102,6 @@ const GameFlow = ({
   loser,
   setLoser,
 }) => {
-  const playerNum = players.length; // 몇명이서 하는지
-  const myTurnNum = players.indexOf(userNickname);
-  console.log("내 순서는" + myTurnNum);
   console.log("myGameNo은?" + myGameNo);
 
   const [diceTurn, setDiceTurn] = useState(false);
@@ -326,6 +323,20 @@ const GameFlow = ({
     return false;
   };
 
+  if ((t1Pos >= 21) || (t2Pos >= 21)) {
+    useEffect = () => {  
+      if (t1Pos >= 21) {
+        setWinner(1);
+        setLoser(2);
+      } else {
+        setWinner(2);
+        setLoser(1);
+      };
+      setIsGameOver(true);
+      sendGameOver();
+    }; 
+  };
+
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
     console.log("게임 리셋!");
@@ -339,6 +350,7 @@ const GameFlow = ({
         nextThrowUser: nextThrowUser,
         isGameStarted: true,
         startAnimationPlaying: true,
+        turnNum: 0,
       }),
       type: "GAME_RESET",
     };
@@ -523,19 +535,7 @@ const GameFlow = ({
     });
   };
 
-  if (t1Pos >= 21 || t2Pos >= 21) {
-    useEffect = () => {
-      if (t1Pos >= 21) {
-        setWinner(1);
-        setLoser(2);
-      } else {
-        setWinner(2);
-        setLoser(1);
-      }
-      setIsGameOver(true);
-      sendGameOver();
-    };
-  }
+
 
   const GameStart = () => {
     gameFlowStart();
@@ -592,8 +592,9 @@ const GameFlow = ({
                 sendPos={sendPos}
                 nextThrowUser={nextThrowUser}
                 setNextThrowUser={setNextThrowUser}
-                playerNum={playerNum}
-                myTurnNum={myTurnNum}
+                myGameNo={myGameNo}
+                // playerNum={playerNum}
+                // myTurnNum={myTurnNum}
                 turnNum={turnNum}
                 setTurnNum={setTurnNum}
                 setIsGameOver={setIsGameOver}
