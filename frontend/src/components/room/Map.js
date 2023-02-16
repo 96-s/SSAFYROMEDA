@@ -1383,7 +1383,7 @@ const Map = ({
             console.log("왜 안됨");
             setTimeout(() => {
               setT1Pos((t1Pos) => t1Pos + 1);
-            }, 2000 * i);
+            }, 1000 * i);
           }
         } else {
           console.log("왜 안뜨노...");
@@ -1393,7 +1393,7 @@ const Map = ({
             console.log("왜 안됨");
             setTimeout(() => {
               setT2Pos((t2Pos) => t2Pos + 1);
-            }, 2000 * k);
+            }, 1000 * k);
           }
         }
       }
