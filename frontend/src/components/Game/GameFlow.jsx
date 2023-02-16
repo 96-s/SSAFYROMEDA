@@ -124,15 +124,23 @@ const GameFlow = ({
   const gameFlowStart = (event) => {
     if (isHostPlayer) {
       setIsGameStarted(true);
+      sendPlayers();
+      console.log(players);
+
       setTimeout(() => {
         sendGameStartSignal(); // setStartAnimationPlaying(true); 쏘기
       }, 1000);
       posReset(); // 내 포지션도 리셋
       console.log("myTurnNum은?" + myTurnNum);
-      console.log("players배열? + players");
     }
     setStartAnimationPlaying(true); // 게임 시작 에니메이션 트리거 ON
   };
+
+  useEffect(() => {
+    if (players !== undefined) {
+      console.error(`내가 찍은 ${players}`);
+    }
+  }, [players]);
 
   // 포지션 리셋
   const posReset = () => {
@@ -145,6 +153,7 @@ const GameFlow = ({
   useEffect(() => {
     if (startAnimationPlaying !== undefined && startAnimationPlaying) {
       console.log("게임 시작 애니메이션 실행!");
+      console.log(players);
       /* --------------게임 스타트 애니메이션 여기 삽입(setTimeOut(?)) (setStartAnimationPlaying(false); 처리)------------------ / ----help */
       setTimeout(() => {
         setStartAnimationPlaying(false);
@@ -341,6 +350,27 @@ const GameFlow = ({
       sendGameOver();
     };
   }
+
+  // 현재 참여 플레이어 뿌리기
+  const sendPlayers = () => {
+    const sendData = {
+      session: mySessionId,
+      to: [], // all user
+      data: JSON.stringify({
+        players,
+      }),
+      type: "UPDATE_PLAYERS",
+    };
+
+    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+    });
+  };
 
   // 게임 시작 전, 후 상태 초기화를 위해
   const sendGameStartSignal = () => {
