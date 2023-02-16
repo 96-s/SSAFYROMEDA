@@ -1346,13 +1346,15 @@ const Map = ({
   setDiceResult,
   diceLogicStart,
   setDiceLogicStart,
+  isRoll,
+  setIsRoll,
+  isMoving,
+  setIsMoving,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
   const [chanceNum, setChanceNum] = useState(null);
   const [openChanceToggle, setOpenChanceToggle] = useState(false);
-  const [isMoving, setIsMoving] = useState(undefined);
-  const [isRoll, setIsRoll] = useState(undefined);
   // var chanceNum = null;
 
   let tempMyTeam = [];
@@ -1400,58 +1402,57 @@ const Map = ({
 
   // 주사위 굴리는 과정이 끝이 났을 때
   useEffect(() => {
-    if (!isRoll) {
-      // 주사위 값이 비어있지 않고 굴리기가 끝이 났을 때만
-      if (diceResult !== null && isRoll === false) {
-        console.log("주사위 값은 " + diceResult);
-        const arr = [0, 1, 2];
-
-        // 주사위 1 나왔을 때
-        if (diceResult === 1) {
-          setIsMoving(true);
-          if (arr.includes(myTurnNum)) {
-            setT1Pos((t1Pos) => t1Pos + diceResult);
-          } else {
-            setT2Pos((t2Pos) => t2Pos + diceResult);
-          }
-          setIsMoving(false);
-        }
-        // 주사위 2 이상일 때
-        else if (diceResult === 2 || diceResult === 3) {
-          setIsMoving(true);
-          if (arr.includes(myTurnNum)) {
-            //console.log("왜 안뜨노...");
-            var i = 0;
-            while (i < diceResult) {
-              i++;
-              //console.log("왜 안됨");
-              setTimeout(() => {
-                setT1Pos((t1Pos) => t1Pos + 1);
-              }, 1000 * i);
-            }
-          } else {
-            // console.log("왜 안뜨노...");
-            var k = 0;
-            while (k < diceResult) {
-              k++;
-              //console.log("왜 안됨");
-              setTimeout(() => {
-                setT2Pos((t2Pos) => t2Pos + 1);
-              }, 1000 * k);
-            }
-          }
-          setIsMoving(false);
-        }
-        // 다 움직였으면 턴 넘버를 수정해준다.
-        if (arr.includes(turnNum)) {
-          setTurnNum((turnNum) => (turnNum + 3) % 6);
-        } else if (turnNum === 5) {
-          setTurnNum(0);
-        } else {
-          setTurnNum((turnNum) => (turnNum - 2) % 6);
-        }
-      }
-    }
+    // if (!isRoll) {
+    //   // 주사위 값이 비어있지 않고 굴리기가 끝이 났을 때만
+    //   if (diceResult !== null && isRoll === false) {
+    //     console.log("주사위 값은 " + diceResult);
+    //     const arr = [0, 1, 2];
+    //     // 주사위 1 나왔을 때
+    //     if (diceResult === 1) {
+    //       setIsMoving(true);
+    //       if (arr.includes(myTurnNum)) {
+    //         setT1Pos((t1Pos) => t1Pos + diceResult);
+    //       } else {
+    //         setT2Pos((t2Pos) => t2Pos + diceResult);
+    //       }
+    //       setIsMoving(false);
+    //     }
+    //     // 주사위 2 이상일 때
+    //     else if (diceResult === 2 || diceResult === 3) {
+    //       setIsMoving(true);
+    //       if (arr.includes(myTurnNum)) {
+    //         //console.log("왜 안뜨노...");
+    //         var i = 0;
+    //         while (i < diceResult) {
+    //           i++;
+    //           //console.log("왜 안됨");
+    //           setTimeout(() => {
+    //             setT1Pos((t1Pos) => t1Pos + 1);
+    //           }, 1000 * i);
+    //         }
+    //       } else {
+    //         // console.log("왜 안뜨노...");
+    //         var k = 0;
+    //         while (k < diceResult) {
+    //           k++;
+    //           //console.log("왜 안됨");
+    //           setTimeout(() => {
+    //             setT2Pos((t2Pos) => t2Pos + 1);
+    //           }, 1000 * k);
+    //         }
+    //       }
+    //       setIsMoving(false);
+    //     }
+    //     // 다 움직였으면 턴 넘버를 수정해준다.
+    //     if (arr.includes(turnNum)) {
+    //       setTurnNum((turnNum) => (turnNum + 3) % 6);
+    //     } else if (turnNum === 5) {
+    //       setTurnNum(0);
+    //     } else {
+    //       setTurnNum((turnNum) => (turnNum - 2) % 6);
+    //     }
+    //   }
+    // }
   }, [isRoll]);
 
   // 움직임이 끝이 났을 때
@@ -1475,15 +1476,15 @@ const Map = ({
   }, [isMoving]);
 
   // 1일 때 1번 2, 3 일때 2, 3번 돌아감
-  useEffect(() => {
-    if (!(t1Pos === 0 && t2Pos === 0)) {
-      const arr = [0, 1, 2];
-      console.log("1팀자리" + t1Pos);
-      console.log("2팀자리" + t2Pos);
-      sendPos();
-      setDiceValue(null);
-    }
-  }, [t1Pos, t2Pos]);
+  // useEffect(() => {
+  //   if (!(t1Pos === 0 && t2Pos === 0)) {
+  //     const arr = [0, 1, 2];
+  //     console.log("1팀자리" + t1Pos);
+  //     console.log("2팀자리" + t2Pos);
+  //     sendPos();
+  //     setDiceValue(null);
+  //   }
+  // }, [t1Pos, t2Pos]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);

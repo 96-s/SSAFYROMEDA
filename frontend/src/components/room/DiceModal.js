@@ -36,10 +36,6 @@ const DiceModal = (props) => {
     diceResult,
     setDiceResult,
   } = props;
-  // const playerNum = players.length;
-  const playerNum = 6;
-  // const myTurnNum = players.indexOf(myUserNameValue);
-  const myTurnNum = 1;
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -53,8 +49,6 @@ const DiceModal = (props) => {
                 isRoll={isRoll}
                 setIsRoll={setIsRoll}
                 posList={posList}
-                playerNum={playerNum}
-                myTurnNum={myTurnNum}
                 sessionId={sessionId}
                 setDiceValue={setDiceValue}
                 diceValue={diceValue}
