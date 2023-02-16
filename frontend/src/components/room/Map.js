@@ -1462,11 +1462,11 @@ const Map = ({
       }
       if (isMoving === false) {
         if (arr.includes(turnNum)) {
-          turnNum = (turnNum + 3) % 6;
+          setTurnNum((turnNum + 3) % 6);
         } else if (turnNum === 5) {
-          turnNum = 0;
+          setTurnNum(turnNum = 0);
         } else {
-          turnNum = (turnNum - 2) % 6;
+          setTurnNum((turnNum - 2) % 6);
         }
         sendPos();
         isMoving = undefined;
