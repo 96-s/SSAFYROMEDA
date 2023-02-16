@@ -36,6 +36,7 @@
 <img src="https://img.shields.io/badge/javascript-2D333B?style=for-the-badge&logo=javascript&logoColor=007396">
 <img src="https://img.shields.io/badge/react-2D333B?style=for-the-badge&logo=react&logoColor=61DAFB">
 <img src="https://img.shields.io/badge/REDUX-2D333B?style=for-the-badge&logo=redux&logoColor=3578E5">
+<img src="https://img.shields.io/badge/REDUX SAGA-2D333B?style=for-the-badge&logo=redux saga&logoColor=3578E5">
 </p>
 
 ### 💻 Back-end
@@ -67,7 +68,11 @@
 <br />
 
 ## 주요 기능
-
+<img src="image/readme_4_1.png">
+<img src="image/readme_4_2.png">
+<img src="image/readme_4_3.png">
+<img src="image/readme_4_4.png">
+<img src="image/readme_4_5.png">
 <br />
 
 ## 프로젝트 구성도
@@ -91,10 +96,10 @@
       <img src="image/hs.png"/>
     </td>
     <td align="center" width="150px">
-      <a href="https://github.com/"><img src="image/su.png"/></a>
+      <a href="https://github.com/dpdms2148"><img src="image/ye.png"/></a>
     </td>
     <td align="center" width="150px">
-      <a href="https://github.com/dpdms2148"><img src="image/ye.png"/></a>
+      <a href="https://github.com/"><img src="image/su.png"/></a>
     </td>
     <td align="center" width="150px">
       <a href="https://github.com/cmlee0913"><img src="image/hs.png"/></a>
@@ -111,10 +116,10 @@
       <strong>이해솜</strong></a><br>Frontend | Design
     </td>
     <td align="center" width="150px">
-      <strong>김성욱</strong></a><br>Backend | Frontend
+      <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend | Manage
     </td>
     <td align="center" width="150px">
-      <a href="https://github.com/dpdms2148"><strong>장예은</strong></a><br>Backend | Manage
+      <strong>김성욱</strong></a><br>Backend | Frontend
     </td>
     <td align="center" width="150px">
       <a href="https://github.com/cmlee0913"><strong>이창민</strong></a><br>CI/CI | Frontend
