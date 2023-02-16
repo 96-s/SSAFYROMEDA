@@ -232,7 +232,7 @@ const GameManager = () => {
 
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
-      setPlayers(tempPlayers.sort());
+      setPlayers(tempPlayers);
 
       console.log("players" + players);
 
