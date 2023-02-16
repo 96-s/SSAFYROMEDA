@@ -1,7 +1,7 @@
 import GameManager from "components/Game/GameManager";
 import { useLocation } from "react-router-dom";
 
-const UiTest = () => {
+const GamePage = () => {
   const location = useLocation();
   // const sessionNickname = location.state.sessionNickname;
   // const sessionRoomId = location.state.sessionRoomId;
@@ -20,4 +20,4 @@ const UiTest = () => {
   );
 };
 
-export default UiTest;
+export default GamePage;
