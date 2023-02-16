@@ -240,11 +240,6 @@ const GameManager = () => {
       setSubscribers(tempSubscribers);
       forceUpdate(); // 스트림 생성될때마다 강제 랜더링
 
-      if (players.length === 6) {
-        sendPlayers();
-        console.log(players);
-      }
-
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
         setMyTeam(1);
@@ -627,26 +622,6 @@ const GameManager = () => {
     var audio = new Audio(soundName);
     audio.play();
   }
-
-  const sendPlayers = () => {
-    const sendData = {
-      session: mySessionId,
-      to: [], // all user
-      data: JSON.stringify({
-        players,
-      }),
-      type: "UPDATE_PLAYERS",
-    };
-
-    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
-      method: "POST",
-      headers: {
-        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(sendData),
-    });
-  };
 
   return (
     <div className="container">
