@@ -1,6 +1,6 @@
 // import GamePage from "pages/GamePage";
 import GameFlow from "./GameFlow";
-import DesignTestPage from "pages/DesignTestPage";
+import DesignTestPage from "components/room/Lobby";
 import MyButton from "components/common/MyButton";
 import BgmButton from "../common/BgmButton";
 import BackButton from "resources/images/logout_icon.png";

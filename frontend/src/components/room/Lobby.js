@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-import backgroundImg from "../resources/images/lobby_background4.png";
-import alienImg from "../resources/images/alienImg.png";
-import astroImg from "../resources/images/astroImgOriginal.png";
+import backgroundImg from "resources/images/lobby_background4.png";
+import alienImg from "resources/images/alienImg.png";
+import astroImg from "resources/images/astroImgOriginal.png";
 import styled from "styled-components";
 
 import MyButton from "components/common/MyButton";
 import Modal from "components/display/Modal";
-import Logout from "components/common/Logout";
-import BgmButton from "../components/common/BgmButton";
+
+import BgmButton from "../common/BgmButton";
 
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import lobbyBGM from "resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav";

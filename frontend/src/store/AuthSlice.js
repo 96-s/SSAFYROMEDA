@@ -106,16 +106,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
-    // // GET user game info(프로필용)
-    // getUserProfileInfoStart(state) {
-    //   state.loading = true;
-    //   state.error = null;
-    // },
-    // // getUserProfile Success
-    // getUserProfileInfoSuccess(state, action) {
-    //   state.loading = false;
-    //   state.profileInfo = action.payload.userGameInfo;
-    // },
+
     // 게임 방 생성 요청
     createGameRoomStart(state) {
       state.loading = true;
@@ -129,11 +120,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    // 게임 방 입장 코드 입력 input 변경
-    // changeFieldGameRoom(state, action) {
-    //   const { value } = action.payload;
-    //   state.joinRoom.roomCode = value;
-    // },
+
     // 게임 방 입장 요청
     joinGameRoomStart(state) {
       state.loading = true;
