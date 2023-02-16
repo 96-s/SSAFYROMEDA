@@ -1347,9 +1347,9 @@ const Map = ({
   const [showDiceToggle, setShowDiceToggle] = useState(false);
   const [chanceNum, setChanceNum] = useState(null);
   const [openChanceToggle, setOpenChanceToggle] = useState(false);
-  // const [isMoving, setIsMoving] = useState(undefined);
+  const [isMoving, setIsMoving] = useState(undefined);
   let isRoll = false;
-  let isMoving = undefined;
+  // let isMoving = undefined;
   // var chanceNum = null;
 
   let tempMyTeam = [];
@@ -1428,17 +1428,20 @@ const Map = ({
 
       // 주사위 1 나왔을 때
       if (isRoll === false && diceValue === 1) {
-        isMoving = true;
+        // isMoving = true;
+        setIsMoving(true)
         if (arr.includes(myTurnNum)) {
           setT1Pos(t1Pos + diceValue);
         } else {
           setT2Pos(t2Pos + diceValue);
         }
-        isMoving = false
+        // isMoving = false
+        setIsMoving(false)
       }
       // 주사위 2 이상
       if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-        isMoving = true;
+        // isMoving = true;
+        setIsMoving(true)
         if (arr.includes(myTurnNum)) {
           console.log("왜 안뜨노...");
           var i = 0;
@@ -1458,18 +1461,19 @@ const Map = ({
             }
           }
         }
-        isMoving = false;
+        setIsMoving(false)
       }
       if (isMoving === false) {
         if (arr.includes(turnNum)) {
           setTurnNum((turnNum + 3) % 6);
         } else if (turnNum === 5) {
-          setTurnNum(turnNum = 0);
+          setTurnNum(0);
         } else {
           setTurnNum((turnNum - 2) % 6);
         }
         sendPos();
-        isMoving = undefined;
+        // isMoving = undefined;
+        setIsMoving(undefined);
       }
       
     }
