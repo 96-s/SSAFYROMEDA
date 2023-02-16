@@ -1435,9 +1435,9 @@ const Map = ({
       setIsMoving(false);
     }
     if (isMoving === false) {
-      if (t1Pos + diceValue >= 10 || t2Pos + diceValue >= 10) {
+      if (t1Pos + diceValue >= 5 || t2Pos + diceValue >= 5) {
         useEffect = () => {
-          if (t1Pos >= 21) {
+          if (t1Pos + diceValue >= 5) {
             setWinner(1);
             setLoser(2);
           } else {
