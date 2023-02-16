@@ -5,7 +5,7 @@
 ## 🔧 개발 환경
 - Google Chrome Browser
 - IntelliJ (2022.3.1)
-- Java 11 (openjdk 1.8)
+- Java 11
 - Spring Boot v2.7.7
 - Spring Security
 - Spring Data JPA
@@ -22,8 +22,6 @@
   - IDE 적용 방법
     - [eclipse 적용](https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml)
     - [intellij 적용](https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml)
-  - check style plugin 활용
-    - [check style config xml](config/checkstyle/google_checks.xml) ([reference](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml)에서 일부 수정하여 프로젝트에 적용) 
 
 
 ## :bulb: 주요 기능​
@@ -49,34 +47,34 @@
 - DB
 local에서는 mysql 또는 mariadb를 사용하면 되고, schema는 `ssafyromeda` 이름으로 생성
 
-- openvidu(?????)
-[run-environment-for-backend.sh](../script/run-environment-for-backend.sh)을 통해 openvidu docker container를 실행
+- openvidu docker container를 실행
 
-## 📈 프로젝트 구조 (패키지만만)
+## 📈 프로젝트 구조
 ```
-SsafyromedaApplication.java
-- api
-    - controller
-        - history
-        - room
-        - user
-    - domain
-        - history
-        - room
-        - user
-            - auth
-    - dto
-        - history
-        - room
-        - user
-    - service
-        - history
-        - room
-        - user
-- config
-- exception
-- handler
-- jwt
-- security
-    -oauth
+📦sfrmd
+ ┣ 📂api
+ ┃ ┣ 📂controller
+ ┃ ┃ ┣ 📂history
+ ┃ ┃ ┣ 📂room
+ ┃ ┃ ┗ 📂user
+ ┃ ┣ 📂domain
+ ┃ ┃ ┣ 📂history
+ ┃ ┃ ┣ 📂room
+ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┣ 📂auth
+ ┃ ┣ 📂dto
+ ┃ ┃ ┣ 📂history
+ ┃ ┃ ┣ 📂room
+ ┃ ┃ ┗ 📂user
+ ┃ ┗ 📂service
+ ┃ ┃ ┣ 📂history
+ ┃ ┃ ┣ 📂room
+ ┃ ┃ ┣ 📂user
+ ┣ 📂config
+ ┣ 📂execption
+ ┣ 📂handler
+ ┣ 📂jwt
+ ┣ 📂security
+ ┃ ┗ 📂oauth
+ ┗ 📜SsafyromedaApplication.java
 ```
