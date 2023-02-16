@@ -38,6 +38,16 @@ const MyTeamDiv = styled.div`
   color: gray;
 `;
 
+const MyTeamMarkerDiv = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const WhoDiceDiv = styled.div`
+  margin-top: -10px;
+  margin-left: 35px;
+`;
+
 const DiceIcon = styled.img`
   width: 40px;
   height: 40px;
@@ -1331,7 +1341,7 @@ const Map = ({
   myGameNo,
   setWinner,
   setLoser,
-  sendGameover
+  sendGameover,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1342,14 +1352,17 @@ const Map = ({
   // var chanceNum = null;
 
   let tempMyTeam = [];
+  let whatMyTeam = null;
   console.log("플레이어 배열 확인", players);
 
   // myTurnNum이 0, 1, 2이면 players 012 가져옴
 
   if (myTurnNum === 0 || myTurnNum === 1 || myTurnNum === 2) {
     tempMyTeam = players.slice(0, 3);
+    whatMyTeam = Marker1IMG;
   } else {
     tempMyTeam = players.slice(3);
+    whatMyTeam = Marker2IMG;
   }
 
   console.log("myTeam 확인점요..", tempMyTeam);
@@ -1383,72 +1396,72 @@ const Map = ({
 
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
-      console.log("주사위 값은 " + diceValue);
-      const arr = [0, 1, 2]
-      // 주사위 1 나왔을 때
-      if (isRoll === false && diceValue === 1) {
-        setIsMoving(true);
-        if (arr.includes(myTurnNum)) {
-          setT1Pos(t1Pos + diceValue);
-        } else {
-          setT2Pos(t2Pos + diceValue)
-        }
-        setIsMoving(false);
+    console.log("주사위 값은 " + diceValue);
+    const arr = [0, 1, 2]
+    // 주사위 1 나왔을 때
+    if (isRoll === false && diceValue === 1) {
+      setIsMoving(true);
+      if (arr.includes(myTurnNum)) {
+        setT1Pos(t1Pos + diceValue);
+      } else {
+        setT2Pos(t2Pos + diceValue)
       }
-        // 주사위 2 이상
-      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-        setIsMoving(true);
-        if (arr.includes(myTurnNum)) {
-          console.log("왜 안뜨노...");
-          var i = 0;
-          while (i < diceValue) {
-            i++;
-            console.log("왜 안됨");
-            setTimeout(() => {
-              setT1Pos((t1Pos) => t1Pos + 1);
-            }, 1000 * i);
-          }
-        } else {
-          console.log("왜 안뜨노...");
-          var k = 0;
-          while (k < diceValue) {
-            k++;
-            console.log("왜 안됨");
-            setTimeout(() => {
-              setT2Pos((t2Pos) => t2Pos + 1);
-            }, 1000 * k);
-          }
+      setIsMoving(false);
+    }
+      // 주사위 2 이상
+    if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+      setIsMoving(true);
+      if (arr.includes(myTurnNum)) {
+        console.log("왜 안뜨노...");
+        var i = 0;
+        while (i < diceValue) {
+          i++;
+          console.log("왜 안됨");
+          setTimeout(() => {
+            setT1Pos((t1Pos) => t1Pos + 1);
+          }, 1000 * i);
         }
-        setIsMoving(false);
+      } else {
+        console.log("왜 안뜨노...");
+        var k = 0;
+        while (k < diceValue) {
+          k++;
+          console.log("왜 안됨");
+          setTimeout(() => {
+            setT2Pos((t2Pos) => t2Pos + 1);
+          }, 1000 * k);
+        }
       }
-      if (isMoving === false) {
-        if (t1Pos + diceValue >= 10 || t2Pos + diceValue >= 10) {
-          useEffect = () => {
-            if (t1Pos >= 21) {
-              setWinner(1);
-              setLoser(2);
-            } else {
-              setWinner(2);
-              setLoser(1);
-            }
-            setIsGameOver(true);
-            // sendGameOver();
-          };
-        } else {
-          setDiceValue(null);
-          console.log("1팀자리" + t1Pos);
-          console.log("2팀자리" + t2Pos);
-          if (arr.includes(turnNum)) {
-            setTurnNum((turnNum + 3) % 6);
-          } else if (turnNum === 5) {
-            setTurnNum(0);
+      setIsMoving(false);
+    }
+    if (isMoving === false) {
+      if (t1Pos + diceValue >= 10 || t2Pos + diceValue >= 10) {
+        useEffect = () => {
+          if (t1Pos >= 21) {
+            setWinner(1);
+            setLoser(2);
           } else {
-            setTurnNum((turnNum - 2) % 6);
+            setWinner(2);
+            setLoser(1);
           }
-          sendPos();
+          setIsGameOver(true);
+          // sendGameOver();
+        };
+      } else {
+        setDiceValue(null);
+        console.log("1팀자리" + t1Pos);
+        console.log("2팀자리" + t2Pos);
+        if (arr.includes(turnNum)) {
+          setTurnNum((turnNum + 3) % 6);
+        } else if (turnNum === 5) {
+          setTurnNum(0);
+        } else {
+          setTurnNum((turnNum - 2) % 6);
         }
-      };
-    }, [diceValue]);
+        sendPos();
+      }
+    };
+  }, [diceValue]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1462,8 +1475,6 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
-  
-
   console.log("지금 순서는 누구?" + turnNum);
 
   return (
@@ -1471,7 +1482,10 @@ const Map = ({
       {/* <FrontimageDiv></FrontimageDiv> */}
       <Board>
         {/* <Quiz/> */}
-        <MyTeamDiv>{myTeam}</MyTeamDiv>
+        <MyTeamDiv>
+          <MyTeamMarkerDiv src={whatMyTeam} alt="marker"></MyTeamMarkerDiv>
+          {myTeam}
+        </MyTeamDiv>
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
           {turnNum === myTurnNum ? (
