@@ -25,12 +25,17 @@ const Board = styled.div`
   justify-content: center;
   margin: auto;
   border: 4px solid white;
-  border-style:dotted;
+  border-style: dotted;
   aspect-ratio: 1 / 1;
   height: 85vh;
   background: url(${MapIMG}) no-repeat;
   background-size: 100%;
   color: white;
+`;
+
+const MyTeamDiv = styled.div`
+  text-align: center;
+  color: gray;
 `;
 
 const DiceIcon = styled.img`
@@ -1333,7 +1338,19 @@ const Map = ({
   let isRoll = false;
   // var chanceNum = null;
 
+  let tempMyTeam = [];
   console.log("플레이어 배열 확인", players);
+
+  // myTurnNum이 0, 1, 2이면 players 012 가져옴
+
+  if (myTurnNum === 0 || myTurnNum === 1 || myTurnNum === 2) {
+    tempMyTeam = players.slice(0, 3);
+  } else {
+    tempMyTeam = players.slice(3);
+  }
+
+  console.log("myTeam 확인점요..", tempMyTeam);
+  const myTeam = `우리팀: ${tempMyTeam[0]}, ${tempMyTeam[1]}, ${tempMyTeam[2]}`;
 
   // 찬스 모달
   // 모달 버튼 누르면 랜덤 숫자 발생 => 찬스 번호 부여
@@ -1435,6 +1452,7 @@ const Map = ({
       {/* <FrontimageDiv></FrontimageDiv> */}
       <Board>
         {/* <Quiz/> */}
+        <MyTeamDiv>{myTeam}</MyTeamDiv>
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
           {turnNum === myTurnNum ? (
@@ -1444,7 +1462,9 @@ const Map = ({
               className={"nes-pointer"}
             />
           ) : (
-            <span>다른 사람이 주사위를 던지는 중입니다..</span>
+            <>
+              <div>다른 사람이 주사위를 던지는 중입니다..</div>
+            </>
           )}
         </Modal>
         <ChanceModal

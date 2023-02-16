@@ -8,6 +8,7 @@ import styled from "styled-components";
 import MyButton from "components/common/MyButton";
 import GameStartAnimation from "components/utils/GameStartAnimation";
 import GameOver from "components/utils/GameOver";
+import GameEnding from "components/common/GameEnding";
 import buttonClick from "resources/sounds/ssafyromeda_soundpack/06_button.wav";
 import Loading from "components/common/Loading";
 
@@ -588,7 +589,7 @@ const GameFlow = ({
         />
         {isGameOver ? (
           <GameOverContainer>
-            <GameOver myTeam={myTeam} winner={winner} loser={loser} />
+            <GameEnding />
           </GameOverContainer>
         ) : isGameStarted !== true ? (
           <>
