@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserVideoComponent from "components/OpenviduTest/UserVideoComponent";
+import UserVideoComponent from "components/Openvidu/UserVideoComponent";
 import { useState, useCallback, useEffect } from "react";
 
 const Box = styled.div`
