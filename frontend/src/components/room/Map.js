@@ -1342,6 +1342,7 @@ const Map = ({
   setWinner,
   setLoser,
   sendGameover,
+  mySessionId,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1408,8 +1409,20 @@ const Map = ({
   // console.log(diceValue);
 
   const arr = [0, 1, 2];
+  let nextTurn = 0
   // 주사위 굴릴 때마다 위치 이동
   const checkDiceValue = () => {
+    if (arr.includes(turnNum)) {
+      nextTurn = (turnNum + 3) % 6;
+    } else if (turnNum === 5) {
+      nextTurn = 0;
+    } else {
+      // setTurnNum((turnNum - 2) % 6);
+      nextTurn = (turnNum - 2) % 6
+    }
+    const nextUserName = players[nextTurn]
+    console.log("다음 순서는? " + nextUserName);
+    let isPosChange = true;
 
     console.log("주사위 값은 " + diceValue);
 
@@ -1461,28 +1474,40 @@ const Map = ({
             }
           }
         }
+        isPosChange = false;
         setIsMoving(false)
         setDiceValue(null);
       }
-      
-      
-    }
+      // sendPos();
+      const sendData = {
+        session: mySessionId,
+        to: [], // all user
+        data: JSON.stringify({
+          nextT1Pos: t1Pos,
+          nextT2Pos: t2Pos,
+          // nextThrowUser: (nextThrowUser + 1) % 3,
+          nextTurn: nextTurn,
+          // diceTurn: false,
+        }),
+        type: "POS_UPDATE",
+      };
+      // console.log(JSON.stringify(sendData));
+      fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+        method: "POST",
+        headers: {
+          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(sendData),
+      });
+        // isMoving = undefined;
+      setIsMoving(undefined);
+      }
   };
 
-  useEffect (() => {
-    if (isMoving === false && diceValue === null) {
-      if (arr.includes(turnNum)) {
-        setTurnNum((turnNum + 3) % 6);
-      } else if (turnNum === 5) {
-        setTurnNum(0);
-      } else {
-        setTurnNum((turnNum - 2) % 6);
-      }
-      sendPos();
-      // isMoving = undefined;
-      setIsMoving(undefined);
-    }
-  })
+  // useEffect (() => {
+    
+  // })
 
   console.log("지금 순서는 누구?" + turnNum);
 

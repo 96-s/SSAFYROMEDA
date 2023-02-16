@@ -608,6 +608,7 @@ const GameFlow = ({
                 // sendGameOver={sendGameOver}
                 setWinner={setWinner}
                 setLoser={setLoser}
+                mySessionId={mySessionId}
               />
             )}
           </>
