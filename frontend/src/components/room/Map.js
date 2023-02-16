@@ -1426,15 +1426,6 @@ const Map = ({
       setIsGameOver(true);
     } else {
 
-      if (arr.includes(turnNum)) {
-        turnNum = (turnNum + 3) % 6;
-      } else if (turnNum === 5) {
-        turnNum = 0;
-      } else {
-        turnNum = (turnNum - 2) % 6;
-      }
-      sendPos();
-
       // 주사위 1 나왔을 때
       if (isRoll === false && diceValue === 1) {
         isMoving = true;
@@ -1470,7 +1461,14 @@ const Map = ({
         isMoving = false;
       }
       if (isMoving === false) {
-        // 턴 바꾸기
+        if (arr.includes(turnNum)) {
+          turnNum = (turnNum + 3) % 6;
+        } else if (turnNum === 5) {
+          turnNum = 0;
+        } else {
+          turnNum = (turnNum - 2) % 6;
+        }
+        sendPos();
         isMoving = undefined;
       }
       
