@@ -455,9 +455,9 @@ const GameFlow = ({
       data: JSON.stringify({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
-        // nextThrowUser: (nextThrowUser + 1) % 3,
+        nextThrowUser: (nextThrowUser + 1) % 3,
         turnNum: turnNum,
-        // diceTurn: false,
+        diceTurn: false,
       }),
       type: "POS_UPDATE",
     };
@@ -470,6 +470,28 @@ const GameFlow = ({
       },
       body: JSON.stringify(sendData),
     });
+    // const response = await axios.post(
+    //   "https://i8d205.p.ssafy.io/openvidu/api/signal",
+    //   {
+    //     session: mySessionId,
+    //     to: subscribers,
+    //     type: "POS_UPDATE",
+    //     data: {
+    //       nextT1Pos: t1Pos,
+    //       nextT2Pos: t2Pos,
+    //       nextThrowUser: (nextThrowUser + 1) % 3,
+    //       diceTurn: false,
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+    //     },
+    //   }
+    // );
+    // console.log("위치 전송함");
+    // return response.data;
   };
 
   // 다음에 무슨 게임하는지 보내는 함수
@@ -515,29 +537,31 @@ const GameFlow = ({
   // 게임 종료
   useEffect (() => {
     if (isGameOver === true) {
-      const sendData = {
-        session: mySessionId,
-        to: [], // all user
-        data: JSON.stringify({
-          nextT1Pos: t1Pos,
-          nextT2Pos: t2Pos,
-          isGameOver: true,
-          winner: winner,
-          loser: loser,
-        }),
-        type: "GAME_OVER",
-      };
-      // console.log(JSON.stringify(sendData));
-      fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
-        method: "POST",
-        headers: {
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(sendData),
-      });
+      const sendGameOver = () => {
+        const sendData = {
+          session: mySessionId,
+          to: [], // all user
+          data: JSON.stringify({
+            nextT1Pos: t1Pos,
+            nextT2Pos: t2Pos,
+            isGameOver: true,
+            winner: winner,
+            loser: loser,
+          }),
+          type: "GAME_OVER",
+        };
+        // console.log(JSON.stringify(sendData));
+        fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+          method: "POST",
+          headers: {
+            Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(sendData),
+        });
+      }
     }
-  }, [isGameOver]);
+  });
 
   const GameStart = () => {
     gameFlowStart();
