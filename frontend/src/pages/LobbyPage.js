@@ -19,11 +19,11 @@ import React, {
 import { Link, useNavigate } from "react-router-dom";
 
 //Music
-import MusicContainer from "../store/audio";
+import MusicContainer from "components/common/audio";
 import Sound from "components/common/sound.js";
 
 // Components
-import { Context } from "store/audio";
+import { Context } from "components/common/audio";
 import Modal from "components/display/Modal";
 import MakeRoomModal from "components/display/MakeRoomModal";
 import EnterRoomModal from "components/display/EnterRoomModal";
