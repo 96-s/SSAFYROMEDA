@@ -25,12 +25,17 @@ const Board = styled.div`
   justify-content: center;
   margin: auto;
   border: 4px solid white;
-  border-style:dotted;
+  border-style: dotted;
   aspect-ratio: 1 / 1;
   height: 85vh;
   background: url(${MapIMG}) no-repeat;
   background-size: 100%;
   color: white;
+`;
+
+const MyTeamDiv = styled.div`
+  text-align: center;
+  color: gray;
 `;
 
 const DiceIcon = styled.img`
@@ -1333,7 +1338,19 @@ const Map = ({
   let isRoll = false;
   // var chanceNum = null;
 
+  let tempMyTeam = [];
   console.log("플레이어 배열 확인", players);
+
+  // myTurnNum이 0, 1, 2이면 players 012 가져옴
+
+  if (myTurnNum === 0 || myTurnNum === 1 || myTurnNum === 2) {
+    tempMyTeam = players.slice(0, 3);
+  } else {
+    tempMyTeam = players.slice(3);
+  }
+
+  console.log("myTeam 확인점요..", tempMyTeam);
+  const myTeam = `우리팀: ${tempMyTeam[0]}, ${tempMyTeam[1]}, ${tempMyTeam[2]}`;
 
   // 찬스 모달
   // 모달 버튼 누르면 랜덤 숫자 발생 => 찬스 번호 부여
@@ -1363,52 +1380,52 @@ const Map = ({
 
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
-      console.log("주사위 값은 " + diceValue);
-      const arr = [0, 1, 2]
-      // 주사위 1 나왔을 때
-      if (isRoll === false && diceValue === 1) {
-        if (arr.includes(myTurnNum)) {
-          setT1Pos(t1Pos + diceValue);
-        } else {
-          setT2Pos(t2Pos + diceValue)
-        }
-      }
-        // 주사위 2 이상
-      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-        if (arr.includes(myTurnNum)) {
-          console.log("왜 안뜨노...");
-          var i = 0;
-          while (i < diceValue) {
-            i++;
-            console.log("왜 안됨");
-            setTimeout(() => {
-              setT1Pos((t1Pos) => t1Pos + 1);
-            }, 1000 * i);
-          }
-        } else {
-          console.log("왜 안뜨노...");
-          var k = 0;
-          while (k < diceValue) {
-            k++;
-            console.log("왜 안됨");
-            setTimeout(() => {
-              setT2Pos((t2Pos) => t2Pos + 1);
-            }, 1000 * k);
-          }
-        }
-      }
-      setDiceValue(null);
-      console.log("1팀자리" + t1Pos);
-      console.log("2팀자리" + t2Pos);
-      if (arr.includes(turnNum)) {
-        setTurnNum((turnNum + 3) % 6);
-      } else if (turnNum === 5) {
-        setTurnNum(0);
+    console.log("주사위 값은 " + diceValue);
+    const arr = [0, 1, 2];
+    // 주사위 1 나왔을 때
+    if (isRoll === false && diceValue === 1) {
+      if (arr.includes(myTurnNum)) {
+        setT1Pos(t1Pos + diceValue);
       } else {
-        setTurnNum((turnNum - 2) % 6);
+        setT2Pos(t2Pos + diceValue);
       }
-      // sendPos();
-    }, [diceValue]);
+    }
+    // 주사위 2 이상
+    if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+      if (arr.includes(myTurnNum)) {
+        console.log("왜 안뜨노...");
+        var i = 0;
+        while (i < diceValue) {
+          i++;
+          console.log("왜 안됨");
+          setTimeout(() => {
+            setT1Pos((t1Pos) => t1Pos + 1);
+          }, 1000 * i);
+        }
+      } else {
+        console.log("왜 안뜨노...");
+        var k = 0;
+        while (k < diceValue) {
+          k++;
+          console.log("왜 안됨");
+          setTimeout(() => {
+            setT2Pos((t2Pos) => t2Pos + 1);
+          }, 1000 * k);
+        }
+      }
+    }
+    setDiceValue(null);
+    console.log("1팀자리" + t1Pos);
+    console.log("2팀자리" + t2Pos);
+    if (arr.includes(turnNum)) {
+      setTurnNum((turnNum + 3) % 6);
+    } else if (turnNum === 5) {
+      setTurnNum(0);
+    } else {
+      setTurnNum((turnNum - 2) % 6);
+    }
+    // sendPos();
+  }, [diceValue]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1429,6 +1446,7 @@ const Map = ({
       {/* <FrontimageDiv></FrontimageDiv> */}
       <Board>
         {/* <Quiz/> */}
+        <MyTeamDiv>{myTeam}</MyTeamDiv>
         <Modal>
           {/* <span onClick={openChance}>I</span> */}
           {turnNum === myTurnNum ? (
@@ -1438,7 +1456,9 @@ const Map = ({
               className={"nes-pointer"}
             />
           ) : (
-            <span>다른 사람이 주사위를 던지는 중입니다..</span>
+            <>
+              <div>다른 사람이 주사위를 던지는 중입니다..</div>
+            </>
           )}
         </Modal>
         <ChanceModal

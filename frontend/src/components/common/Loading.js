@@ -10,7 +10,7 @@ const LoadingDiv = styled.div`
   animation: motion 1s linear 0s infinite alternate;
   @keyframes motion {
     100% {
-      margin-top: -20px;
+      margin-bottom: 20px;
     }
   }
 `;
