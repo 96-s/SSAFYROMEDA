@@ -1341,7 +1341,7 @@ const Map = ({
   myGameNo,
   setWinner,
   setLoser,
-  sendGameover
+  sendGameover,
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1431,36 +1431,37 @@ const Map = ({
             setT2Pos((t2Pos) => t2Pos + 1);
           }, 1000 * k);
         }
-        setIsMoving(false);
       }
-      if (isMoving === false) {
-        if (t1Pos >= 21 || t2Pos >= 21) {
-          useEffect = () => {
-            if (t1Pos >= 21) {
-              setWinner(1);
-              setLoser(2);
-            } else {
-              setWinner(2);
-              setLoser(1);
-            }
-            setIsGameOver(true);
-            // sendGameOver();
-          };
-        } else {
-          setDiceValue(null);
-          console.log("1팀자리" + t1Pos);
-          console.log("2팀자리" + t2Pos);
-          if (arr.includes(turnNum)) {
-            setTurnNum((turnNum + 3) % 6);
-          } else if (turnNum === 5) {
-            setTurnNum(0);
+      setIsMoving(false);
+    }
+    if (isMoving === false) {
+      if (t1Pos >= 21 || t2Pos >= 21) {
+        useEffect = () => {
+          if (t1Pos >= 21) {
+            setWinner(1);
+            setLoser(2);
           } else {
-            setTurnNum((turnNum - 2) % 6);
+            setWinner(2);
+            setLoser(1);
           }
-          sendPos();
+          setIsGameOver(true);
+          // sendGameOver();
+        };
+      } else {
+        setDiceValue(null);
+        console.log("1팀자리" + t1Pos);
+        console.log("2팀자리" + t2Pos);
+        if (arr.includes(turnNum)) {
+          setTurnNum((turnNum + 3) % 6);
+        } else if (turnNum === 5) {
+          setTurnNum(0);
+        } else {
+          setTurnNum((turnNum - 2) % 6);
         }
-      };
-    }, [diceValue]);
+        sendPos();
+      }
+    }
+  }, [diceValue]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1473,8 +1474,6 @@ const Map = ({
     }
   }, [diceValue]);
   // console.log(diceValue);
-
-  
 
   console.log("지금 순서는 누구?" + turnNum);
 
