@@ -36,6 +36,7 @@
 <img src="https://img.shields.io/badge/javascript-2D333B?style=for-the-badge&logo=javascript&logoColor=007396">
 <img src="https://img.shields.io/badge/react-2D333B?style=for-the-badge&logo=react&logoColor=61DAFB">
 <img src="https://img.shields.io/badge/REDUX-2D333B?style=for-the-badge&logo=redux&logoColor=3578E5">
+<img src="https://img.shields.io/badge/REDUX SAGA-2D333B?style=for-the-badge&logo=redux saga&logoColor=3578E5">
 </p>
 
 ### 💻 Back-end
