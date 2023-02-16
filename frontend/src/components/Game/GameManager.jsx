@@ -295,9 +295,7 @@ const GameManager = () => {
     });
 
     mySession.on("POS_UPDATE", (data) => {
-      const { nextT1Pos, nextT2Pos, 
-        // nextThrowUser, diceTurn, 
-        turnNum } =
+      const { nextT1Pos, nextT2Pos, nextThrowUser, diceTurn, turnNum } =
         JSON.parse(data.data);
       console.log(
         "팀1 다음 포지션 : " +
@@ -305,16 +303,16 @@ const GameManager = () => {
           ", 팀2 다음 포지션 : " +
           nextT2Pos +
           ", 다음에 던지는 사람 : " +
-          turnNum
+          nextThrowUser
       );
 
       // 각 팀 포지션 업데이트
       setT1Pos(nextT1Pos);
       setT2Pos(nextT2Pos);
       // 다음 주사위 유저 지정
-      // setNextThrowUser(nextThrowUser);
-      // // 주사위 턴 종료
-      // setDiceTurn(diceTurn);
+      setNextThrowUser(nextThrowUser);
+      // 주사위 턴 종료
+      setDiceTurn(diceTurn);
       setTurnNum(turnNum);
     });
 
