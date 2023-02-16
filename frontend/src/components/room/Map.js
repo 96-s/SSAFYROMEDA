@@ -1339,6 +1339,9 @@ const Map = ({
   myTurnNum,
   setIsGameOver,
   myGameNo,
+  setWinner,
+  setLoser,
+  sendGameover
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1428,23 +1431,36 @@ const Map = ({
             setT2Pos((t2Pos) => t2Pos + 1);
           }, 1000 * k);
         }
+        setIsMoving(false);
       }
-      setIsMoving(false);
-    }
-    if (isMoving === false) {
-      setDiceValue(null);
-      console.log("1팀자리" + t1Pos);
-      console.log("2팀자리" + t2Pos);
-      if (arr.includes(turnNum)) {
-        setTurnNum((turnNum + 3) % 6);
-      } else if (turnNum === 5) {
-        setTurnNum(0);
-      } else {
-        setTurnNum((turnNum - 2) % 6);
-      }
-      sendPos();
-    }
-  }, [diceValue]);
+      if (isMoving === false) {
+        if (t1Pos >= 21 || t2Pos >= 21) {
+          useEffect = () => {
+            if (t1Pos >= 21) {
+              setWinner(1);
+              setLoser(2);
+            } else {
+              setWinner(2);
+              setLoser(1);
+            }
+            setIsGameOver(true);
+            // sendGameOver();
+          };
+        } else {
+          setDiceValue(null);
+          console.log("1팀자리" + t1Pos);
+          console.log("2팀자리" + t2Pos);
+          if (arr.includes(turnNum)) {
+            setTurnNum((turnNum + 3) % 6);
+          } else if (turnNum === 5) {
+            setTurnNum(0);
+          } else {
+            setTurnNum((turnNum - 2) % 6);
+          }
+          sendPos();
+        }
+      };
+    }, [diceValue]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
@@ -1457,6 +1473,8 @@ const Map = ({
     }
   }, [diceValue]);
   // console.log(diceValue);
+
+  
 
   console.log("지금 순서는 누구?" + turnNum);
 
@@ -1478,9 +1496,7 @@ const Map = ({
               className={"nes-pointer"}
             />
           ) : (
-            <>
-              <WhoDiceDiv>다른 사람이 주사위를 던지는 중입니다..</WhoDiceDiv>
-            </>
+            <span>{players[turnNum]}이 주사위를 던지는 중입니다..</span>
           )}
         </Modal>
         <ChanceModal
