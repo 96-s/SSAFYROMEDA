@@ -1397,18 +1397,18 @@ const Map = ({
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
     console.log("주사위 값은 " + diceValue);
-    const arr = [0, 1, 2];
+    const arr = [0, 1, 2]
     // 주사위 1 나왔을 때
     if (isRoll === false && diceValue === 1) {
       setIsMoving(true);
       if (arr.includes(myTurnNum)) {
         setT1Pos(t1Pos + diceValue);
       } else {
-        setT2Pos(t2Pos + diceValue);
+        setT2Pos(t2Pos + diceValue)
       }
       setIsMoving(false);
     }
-    // 주사위 2 이상
+      // 주사위 2 이상
     if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
       setIsMoving(true);
       if (arr.includes(myTurnNum)) {
@@ -1435,7 +1435,7 @@ const Map = ({
       setIsMoving(false);
     }
     if (isMoving === false) {
-      if (t1Pos >= 21 || t2Pos >= 21) {
+      if (t1Pos + diceValue >= 10 || t2Pos + diceValue >= 10) {
         useEffect = () => {
           if (t1Pos >= 21) {
             setWinner(1);
@@ -1460,7 +1460,7 @@ const Map = ({
         }
         sendPos();
       }
-    }
+    };
   }, [diceValue]);
 
   const closeDice = useEffect(() => {
