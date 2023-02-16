@@ -1479,29 +1479,32 @@ const Map = ({
         setDiceValue(null);
       }
       // sendPos();
-      const sendData = {
-        session: mySessionId,
-        to: [], // all user
-        data: JSON.stringify({
-          nextT1Pos: t1Pos,
-          nextT2Pos: t2Pos,
-          // nextThrowUser: (nextThrowUser + 1) % 3,
-          nextTurn: nextTurn,
-          // diceTurn: false,
-        }),
-        type: "POS_UPDATE",
-      };
-      // console.log(JSON.stringify(sendData));
-      fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
-        method: "POST",
-        headers: {
-          Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(sendData),
-      });
+      if (isMoving === false) {
+
+        const sendData = {
+          session: mySessionId,
+          to: [], // all user
+          data: JSON.stringify({
+            nextT1Pos: t1Pos,
+            nextT2Pos: t2Pos,
+            // nextThrowUser: (nextThrowUser + 1) % 3,
+            nextTurn: nextTurn,
+            // diceTurn: false,
+          }),
+          type: "POS_UPDATE",
+        };
+        // console.log(JSON.stringify(sendData));
+        fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+          method: "POST",
+          headers: {
+            Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(sendData),
+        });
+        setIsMoving(undefined);
+      }
         // isMoving = undefined;
-      setIsMoving(undefined);
       }
   };
 
