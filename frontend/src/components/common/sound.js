@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from "react";
 
-import { Context } from "../../store/audio";
+import { Context } from "./audio.js";
 import sdon from "resources/images/soundon_icon.png";
 import sdoff from "resources/images/soundoff_icon.png";
 

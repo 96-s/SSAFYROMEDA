@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import GamePage from "pages/GamePage";
 import ExplanationPage from "pages/ExplanationPage";
 import MainPage from "pages/MainPage";
-import LobbyPage from "pages/LobbyPage";
 import LoginPage from "pages/LoginPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
@@ -55,7 +54,6 @@ function App() {
         <Routes location={displayLocation}>
           <Route path="/" element={<MainPage />} />
           <Route path="/explanation" element={<ExplanationPage />} />
-          <Route path="/lobby" element={<LobbyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauthRedirect" element={<RedirectPage />} />
           <Route path="/signup" element={<SignUpPage />} />
