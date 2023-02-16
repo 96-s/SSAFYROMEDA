@@ -486,7 +486,7 @@ const GameManager = () => {
           ", 팀2 다음 포지션 : " +
           nextT2Pos +
           ", 다음에 던지는 사람 : " +
-          nextThrowUser
+          turnNum
       );
 
       // 각 팀 포지션 업데이트

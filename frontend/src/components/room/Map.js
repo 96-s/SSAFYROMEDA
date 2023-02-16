@@ -1324,6 +1324,9 @@ const Map = ({
   myTurnNum,
   setIsGameOver,
   myGameNo,
+  setWinner,
+  setLoser,
+  sendGameover
 }) => {
   const [diceValue, setDiceValue] = useState(null);
   const [showDiceToggle, setShowDiceToggle] = useState(false);
@@ -1402,17 +1405,31 @@ const Map = ({
         setIsMoving(false);
       }
       if (isMoving === false) {
-        setDiceValue(null);
-        console.log("1팀자리" + t1Pos);
-        console.log("2팀자리" + t2Pos);
-        if (arr.includes(turnNum)) {
-          setTurnNum((turnNum + 3) % 6);
-        } else if (turnNum === 5) {
-          setTurnNum(0);
+        if (t1Pos >= 21 || t2Pos >= 21) {
+          useEffect = () => {
+            if (t1Pos >= 21) {
+              setWinner(1);
+              setLoser(2);
+            } else {
+              setWinner(2);
+              setLoser(1);
+            }
+            setIsGameOver(true);
+            // sendGameOver();
+          };
         } else {
-          setTurnNum((turnNum - 2) % 6);
+          setDiceValue(null);
+          console.log("1팀자리" + t1Pos);
+          console.log("2팀자리" + t2Pos);
+          if (arr.includes(turnNum)) {
+            setTurnNum((turnNum + 3) % 6);
+          } else if (turnNum === 5) {
+            setTurnNum(0);
+          } else {
+            setTurnNum((turnNum - 2) % 6);
+          }
+          sendPos();
         }
-        sendPos();
       };
     }, [diceValue]);
 
@@ -1427,6 +1444,8 @@ const Map = ({
     }
   }, [diceValue]);
   // console.log(diceValue);
+
+  
 
   console.log("지금 순서는 누구?" + turnNum);
 
@@ -1444,7 +1463,7 @@ const Map = ({
               className={"nes-pointer"}
             />
           ) : (
-            <span>다른 사람이 주사위를 던지는 중입니다..</span>
+            <span>{players[turnNum]}이 주사위를 던지는 중입니다..</span>
           )}
         </Modal>
         <ChanceModal

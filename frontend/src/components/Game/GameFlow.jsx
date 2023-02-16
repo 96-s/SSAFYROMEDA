@@ -162,194 +162,182 @@ const GameFlow = ({
   }, [startAnimationPlaying]);
 
   // 게임 시작 애니메이션 로직
-  useEffect(() => {
-    if (startAnimationPlaying !== undefined && !startAnimationPlaying) {
-      console.log("게임 시작 애니메이션 종료!");
-      checkDiceTurn();
-    }
-  }, [startAnimationPlaying]);
+  // useEffect(() => {
+  //   if (startAnimationPlaying !== undefined && !startAnimationPlaying) {
+  //     console.log("게임 시작 애니메이션 종료!");
+  //     checkDiceTurn();
+  //   }
+  // }, [startAnimationPlaying]);
 
-  // 자신의 주사위 턴인지 확인
-  const checkDiceTurn = () => {
-    // 초기값 0
-    if (myTurnNum === nextThrowUser) {
-      setIsDiceThrow(true); // 다음에 주사위를 던짐
-    }
-  };
+  // // 자신의 주사위 턴인지 확인
+  // const checkDiceTurn = () => {
+  //   // 초기값 0
+  //   if (myTurnNum === nextThrowUser) {
+  //     setIsDiceThrow(true); // 다음에 주사위를 던짐
+  //   }
+  // };
 
-  // 주사위 권한이 변경되면 주사위 턴으로 진입
-  useEffect(() => {
-    if (isDiceThrow !== undefined && isDiceThrow) {
-      sendDiceTurnSignal(subscribers); // 다른 사람들 전부 주사위 턴 돌입하라고 명령
-      setDiceTurn(true); // 나도 주사위 턴으로 돌입
-    }
-  }, [isDiceThrow]);
+  // // 주사위 권한이 변경되면 주사위 턴으로 진입
+  // useEffect(() => {
+  //   if (isDiceThrow !== undefined && isDiceThrow) {
+  //     sendDiceTurnSignal(subscribers); // 다른 사람들 전부 주사위 턴 돌입하라고 명령
+  //     setDiceTurn(true); // 나도 주사위 턴으로 돌입
+  //   }
+  // }, [isDiceThrow]);
 
-  // 주사위 턴 전환 로직
-  useEffect(() => {
-    if (diceTurn !== undefined && diceTurn) {
-      // 만약 주사위 턴이 시작이라면
-      console.warn("주사위 턴 시작!");
-      startDiceTurn();
-    }
-  }, [diceTurn]);
+  // // 주사위 턴 전환 로직
+  // useEffect(() => {
+  //   if (diceTurn !== undefined && diceTurn) {
+  //     // 만약 주사위 턴이 시작이라면
+  //     console.warn("주사위 턴 시작!");
+  //     startDiceTurn();
+  //   }
+  // }, [diceTurn]);
 
-  // 주사위 턴 시작 트리거
-  const startDiceTurn = () => {
-    if (isDiceThrow !== undefined && isDiceThrow) {
-      console.log("당신이 던질 차례입니다.");
-      setDiceResult(
-        0
-      ); /* ---주사위 수 로직 '0' 대신에 삽입(setTimeOut(?)) setDiceTurn(false);로 주사위 턴 종료 --- / ----help */
-    } else if (isDiceThrow !== undefined && !isDiceThrow) {
-      console.log("당신이 던질 차례가 아닙니다.");
-      /* --------------대기 중... 애니메이션? 모달? 삽입------------------ / ----help */
-    }
-  };
+  // // 주사위 턴 시작 트리거
+  // const startDiceTurn = () => {
+  //   if (isDiceThrow !== undefined && isDiceThrow) {
+  //     console.log("당신이 던질 차례입니다.");
+  //     setDiceResult(
+  //       0
+  //     ); /* ---주사위 수 로직 '0' 대신에 삽입(setTimeOut(?)) setDiceTurn(false);로 주사위 턴 종료 --- / ----help */
+  //   } else if (isDiceThrow !== undefined && !isDiceThrow) {
+  //     console.log("당신이 던질 차례가 아닙니다.");
+  //     /* --------------대기 중... 애니메이션? 모달? 삽입------------------ / ----help */
+  //   }
+  // };
 
-  // 주사위가 던져저서 숫자가 변하면 발동
-  useEffect(() => {
-    if (diceResult !== undefined && diceResult > 0) {
-      console.log(`주사위 숫자 : ${diceResult}`);
-      if (myTeam === 1) setT1Pos(t1Pos + diceResult); // 자신이 팀 1일 때
-      else if (myTeam === 2) setT2Pos(t2Pos + diceResult); // 자신이 팀 2일 때
-    }
-  }, [diceResult]);
+  // // 주사위가 던져저서 숫자가 변하면 발동
+  // useEffect(() => {
+  //   if (diceResult !== undefined && diceResult > 0) {
+  //     console.log(`주사위 숫자 : ${diceResult}`);
+  //     if (myTeam === 1) setT1Pos(t1Pos + diceResult); // 자신이 팀 1일 때
+  //     else if (myTeam === 2) setT2Pos(t2Pos + diceResult); // 자신이 팀 2일 때
+  //   }
+  // }, [diceResult]);
 
-  useEffect(() => {
-    if (t1Pos !== undefined && !(t1Pos === 0 && t2Pos === 0) && diceTurn) {
-      // 내가 주사위를 던진 사람이라면 바뀐 포지션을 던진다.
-      if (isDiceThrow) {
-        sendPos(subscribers);
-        setDiceResult(0);
-      }
-      // 위치가 바뀌면 다이스 턴을 종료한다.
-      setDiceTurn(false);
-    }
-    if (gameTurn) {
-    }
-  }, [t1Pos, t2Pos]);
+  // useEffect(() => {
+  //   if (t1Pos !== undefined && !(t1Pos === 0 && t2Pos === 0) && diceTurn) {
+  //     // 내가 주사위를 던진 사람이라면 바뀐 포지션을 던진다.
+  //     if (isDiceThrow) {
+  //       sendPos(subscribers);
+  //       setDiceResult(0);
+  //     }
+  //     // 위치가 바뀌면 다이스 턴을 종료한다.
+  //     setDiceTurn(false);
+  //   }
+  //   if (gameTurn) {
+  //   }
+  // }, [t1Pos, t2Pos]);
 
-  // 주사위 턴이 종료되었을 때
-  useEffect(() => {
-    if (diceTurn !== undefined && !diceTurn) {
-      // 주사위 턴이 종료된다면
-      endDiceTurn();
-      console.warn("주사위 턴 종료!");
-    }
-  }, [diceTurn]);
+  // // 주사위 턴이 종료되었을 때
+  // useEffect(() => {
+  //   if (diceTurn !== undefined && !diceTurn) {
+  //     // 주사위 턴이 종료된다면
+  //     endDiceTurn();
+  //     console.warn("주사위 턴 종료!");
+  //   }
+  // }, [diceTurn]);
 
-  // 게임 턴이 시작한다.
-  const endDiceTurn = () => {
-    setGameTurn(true);
-  };
+  // // 게임 턴이 시작한다.
+  // const endDiceTurn = () => {
+  //   setGameTurn(true);
+  // };
 
-  // 게임 턴이 시작되고 내가 방장이라면
-  useEffect(() => {
-    if (gameTurn !== undefined && gameTurn) {
-      if (isHostPlayer) {
-        setNextMiniGameNum(Math.floor(Math.random(1, 5) + 1));
-      }
-    }
-  }, [gameTurn]);
+  // // 게임 턴이 시작되고 내가 방장이라면
+  // useEffect(() => {
+  //   if (gameTurn !== undefined && gameTurn) {
+  //     if (isHostPlayer) {
+  //       setNextMiniGameNum(Math.floor(Math.random(1, 5) + 1));
+  //     }
+  //   }
+  // }, [gameTurn]);
 
-  // 다음 미니게임이 정해졌을 때
-  useEffect(() => {
-    if (nextMiniGameNum !== undefined && isHostPlayer && nextMiniGameNum > 0) {
-      sendNextMiniGame(subscribers);
-    }
-    setMiniGameSelectTurn(true);
-  }, [nextMiniGameNum]);
+  // // 다음 미니게임이 정해졌을 때
+  // useEffect(() => {
+  //   if (nextMiniGameNum !== undefined && isHostPlayer && nextMiniGameNum > 0) {
+  //     sendNextMiniGame(subscribers);
+  //   }
+  //   setMiniGameSelectTurn(true);
+  // }, [nextMiniGameNum]);
 
-  // 미니 게임 턴이 되었을 때
-  useEffect(() => {
-    if (miniGameSelectTurn !== undefined && miniGameSelectTurn) {
-      switch (nextMiniGameNum) {
-        case 1:
-          setMiniGame1(true);
-          break;
-        case 2:
-          setMiniGame2(true);
-          break;
-        case 3:
-          setMiniGame3(true);
-          break;
-        case 4:
-          setMiniGame4(true);
-          break;
-        case 5:
-          setMiniGame5(true);
-          break;
-      }
-      setMiniGameSelectTurn(false);
-    }
-  }, [miniGameSelectTurn]);
+  // // 미니 게임 턴이 되었을 때
+  // useEffect(() => {
+  //   if (miniGameSelectTurn !== undefined && miniGameSelectTurn) {
+  //     switch (nextMiniGameNum) {
+  //       case 1:
+  //         setMiniGame1(true);
+  //         break;
+  //       case 2:
+  //         setMiniGame2(true);
+  //         break;
+  //       case 3:
+  //         setMiniGame3(true);
+  //         break;
+  //       case 4:
+  //         setMiniGame4(true);
+  //         break;
+  //       case 5:
+  //         setMiniGame5(true);
+  //         break;
+  //     }
+  //     setMiniGameSelectTurn(false);
+  //   }
+  // }, [miniGameSelectTurn]);
 
-  // 미니게임 성공 시
-  useEffect(() => {
-    if (isSuccess !== undefined && isSuccess !== null) {
-      if (isSuccess === true) {
-        // 성공하면 아무것도 하지 않는다.
-      }
-      setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
-    }
-  }, [isSuccess]);
+  // // 미니게임 성공 시
+  // useEffect(() => {
+  //   if (isSuccess !== undefined && isSuccess !== null) {
+  //     if (isSuccess === true) {
+  //       // 성공하면 아무것도 하지 않는다.
+  //     }
+  //     setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
+  //   }
+  // }, [isSuccess]);
 
-  // 미니게임 실패 시
-  useEffect(() => {
-    if (isSuccess !== undefined && isSuccess !== null) {
-      if (isSuccess === false) {
-        // 자신이 팀 1일 때
-        if (myTeam === 1) {
-          if (t1Pos - 5 < 0)
-            setT1Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
-          else setT1Pos(t1Pos - 5); // 5칸 뒤로 후진
-        } // 자신이 팀 2일 때
-        else if (myTeam === 2) {
-          if (t2Pos - 5 < 0)
-            setT2Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
-          else setT2Pos(t2Pos - 5); // 5칸 뒤로 후진
-        }
-      }
-      setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
-      setGameTurn(false); // 게임 턴을 종료시킨다.
-    }
-  }, [isSuccess]);
+  // // 미니게임 실패 시
+  // useEffect(() => {
+  //   if (isSuccess !== undefined && isSuccess !== null) {
+  //     if (isSuccess === false) {
+  //       // 자신이 팀 1일 때
+  //       if (myTeam === 1) {
+  //         if (t1Pos - 5 < 0)
+  //           setT1Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
+  //         else setT1Pos(t1Pos - 5); // 5칸 뒤로 후진
+  //       } // 자신이 팀 2일 때
+  //       else if (myTeam === 2) {
+  //         if (t2Pos - 5 < 0)
+  //           setT2Pos(0); // 위치가 0보다 작게 나오면 0으로 위치를 변경한다.
+  //         else setT2Pos(t2Pos - 5); // 5칸 뒤로 후진
+  //       }
+  //     }
+  //     setIsSuccess(null); // 위치를 모두 보내면 성공 여부를 초기화시킨다.
+  //     setGameTurn(false); // 게임 턴을 종료시킨다.
+  //   }
+  // }, [isSuccess]);
 
-  // 게임 턴이 종료된다면
-  useEffect(() => {
-    if (gameTurn !== undefined && !gameTurn) {
-      // 게임이 끝나지 않았다면
-      if (!checkEndGame()) {
-        checkDiceTurn();
-      }
-    }
-  }, [gameTurn]);
+  // // 게임 턴이 종료된다면
+  // useEffect(() => {
+  //   if (gameTurn !== undefined && !gameTurn) {
+  //     // 게임이 끝나지 않았다면
+  //     if (!checkEndGame()) {
+  //       checkDiceTurn();
+  //     }
+  //   }
+  // }, [gameTurn]);
 
-  const checkEndGame = () => {
-    if (t1Pos >= 25) {
-      // 팀 1 우승!!! 컴포넌트
-      return true;
-    } else if (t2Pos >= 25) {
-      // 팀 2 우승!!! 컴포넌트
-      return true;
-    }
-    return false;
-  };
+  // const checkEndGame = () => {
+  //   if (t1Pos >= 25) {
+  //     // 팀 1 우승!!! 컴포넌트
+  //     return true;
+  //   } else if (t2Pos >= 25) {
+  //     // 팀 2 우승!!! 컴포넌트
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
-  if (t1Pos >= 21 || t2Pos >= 21) {
-    useEffect = () => {
-      if (t1Pos >= 21) {
-        setWinner(1);
-        setLoser(2);
-      } else {
-        setWinner(2);
-        setLoser(1);
-      }
-      setIsGameOver(true);
-      sendGameOver();
-    };
-  }
+
 
   // 현재 참여 플레이어 뿌리기
   const sendPlayers = () => {
@@ -546,29 +534,33 @@ const GameFlow = ({
   };
 
   // 게임 종료
-  const sendGameOver = () => {
-    const sendData = {
-      session: mySessionId,
-      to: [], // all user
-      data: JSON.stringify({
-        nextT1Pos: t1Pos,
-        nextT2Pos: t2Pos,
-        isGameOver: true,
-        winner: winner,
-        loser: loser,
-      }),
-      type: "GAME_OVER",
-    };
-    // console.log(JSON.stringify(sendData));
-    fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
-      method: "POST",
-      headers: {
-        Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(sendData),
-    });
-  };
+  useEffect (() => {
+    if (isGameOver === true) {
+      const sendGameOver = () => {
+        const sendData = {
+          session: mySessionId,
+          to: [], // all user
+          data: JSON.stringify({
+            nextT1Pos: t1Pos,
+            nextT2Pos: t2Pos,
+            isGameOver: true,
+            winner: winner,
+            loser: loser,
+          }),
+          type: "GAME_OVER",
+        };
+        // console.log(JSON.stringify(sendData));
+        fetch("https://i8d205.p.ssafy.io/openvidu/api/signal", {
+          method: "POST",
+          headers: {
+            Authorization: "Basic " + btoa("OPENVIDUAPP:ssafyromeda"),
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(sendData),
+        });
+      }
+    }
+  });
 
   const GameStart = () => {
     gameFlowStart();
@@ -632,6 +624,9 @@ const GameFlow = ({
                 setTurnNum={setTurnNum}
                 setIsGameOver={setIsGameOver}
                 players={players}
+                // sendGameOver={sendGameOver}
+                setWinner={setWinner}
+                setLoser={setLoser}
               />
             )}
           </>
