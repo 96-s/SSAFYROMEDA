@@ -232,7 +232,7 @@ const GameManager = () => {
 
       console.log(tempPlayers);
       setSubscribers(tempSubscribers);
-      setPlayers(tempPlayers.sort());
+      setPlayers(tempPlayers);
 
       console.log("players" + players);
 
@@ -243,7 +243,7 @@ const GameManager = () => {
       if (players.length === 6) {
         sendPlayers();
         console.log(players);
-      }
+      };
 
       if (team1Members.length < 3) {
         team1Members.push(tempSubscriber);
