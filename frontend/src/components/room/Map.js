@@ -1407,9 +1407,9 @@ const Map = ({
   }, [diceValue]);
   // console.log(diceValue);
 
+  const arr = [0, 1, 2];
   // 주사위 굴릴 때마다 위치 이동
   const checkDiceValue = () => {
-    const arr = [0, 1, 2];
 
     console.log("주사위 값은 " + diceValue);
 
@@ -1462,22 +1462,27 @@ const Map = ({
           }
         }
         setIsMoving(false)
+        setDiceValue(null);
       }
-      if (isMoving === false) {
-        if (arr.includes(turnNum)) {
-          setTurnNum((turnNum + 3) % 6);
-        } else if (turnNum === 5) {
-          setTurnNum(0);
-        } else {
-          setTurnNum((turnNum - 2) % 6);
-        }
-        sendPos();
-        // isMoving = undefined;
-        setIsMoving(undefined);
-      }
+      
       
     }
   };
+
+  useEffect (() => {
+    if (isMoving === false && diceValue === null) {
+      if (arr.includes(turnNum)) {
+        setTurnNum((turnNum + 3) % 6);
+      } else if (turnNum === 5) {
+        setTurnNum(0);
+      } else {
+        setTurnNum((turnNum - 2) % 6);
+      }
+      sendPos();
+      // isMoving = undefined;
+      setIsMoving(undefined);
+    }
+  })
 
   console.log("지금 순서는 누구?" + turnNum);
 
