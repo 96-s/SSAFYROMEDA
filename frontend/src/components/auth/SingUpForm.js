@@ -116,7 +116,7 @@ const SignUpForm = () => {
       const { userNo } = form;
       console.log("닉네임 설정 성공");
       dispatch(authActions.getUserInfoStart(userNo));
-      navigate("/test4");
+      navigate("/game");
     }
   }, [isNickname, authError, dispatch, navigate]);
 
