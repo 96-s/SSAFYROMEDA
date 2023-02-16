@@ -21,6 +21,7 @@ const DiceModal = (props) => {
   const {
     open,
     close,
+    closeDice,
     // header,
     isRoll,
     sessionId,
@@ -54,6 +55,7 @@ const DiceModal = (props) => {
                 sessionId={sessionId}
                 setDiceValue={setDiceValue}
                 diceValue={diceValue}
+                closeDice={closeDice}
               ></DiceRoller>
             </Dice>
           </DiceContainer>
