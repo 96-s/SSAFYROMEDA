@@ -1409,7 +1409,7 @@ const Map = ({
   // console.log(diceValue);
 
   const arr = [0, 1, 2];
-  let nextTurn = 0
+  let nextTurn = 999
   // 주사위 굴릴 때마다 위치 이동
   const checkDiceValue = () => {
     if (arr.includes(turnNum)) {
