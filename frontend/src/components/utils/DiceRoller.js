@@ -96,9 +96,9 @@ const DiceRoller = ({
   // diceValue 값 들어오면 isRoll false로 변경
   useEffect(() => {
     if (diceValue !== null) {
-      console.log(diceValue);
+      console.log(`diceValue + ${diceValue}`);
       isRoll = false;
-      console.log(isRoll);
+      console.log(`isRoll + ${isRoll}`);
     }
   }, [diceValue]);
 
