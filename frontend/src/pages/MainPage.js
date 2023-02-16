@@ -13,7 +13,7 @@ import person from "resources/images/person.png";
 import notperson from "resources/images/notperson.png";
 
 //Sound
-import MusicContainer from "../store/audio";
+import MusicContainer from "../components/common/audio.js";
 import Sound from "components/common/sound.js";
 import ReactAudioPlayer from "react-audio-player";
 import MainPageSound from '../resources/sounds/ssafyromeda_soundpack/00_mainbgm.wav';

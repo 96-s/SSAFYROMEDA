@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import GamePage from "pages/GamePage";
 import ExplanationPage from "pages/ExplanationPage";
 import MainPage from "pages/MainPage";
-import LobbyPage from "pages/LobbyPage";
 import LoginPage from "pages/LoginPage";
 import ProfilePage from "pages/ProfilePage";
 import ResultPage from "pages/ResultPage";
@@ -15,7 +14,6 @@ import SignUpPage from "pages/SignUpPage";
 import RedirectPage from "pages/RedirectPage";
 import DialogTest from "components/common/DialogTest";
 
-import UiTest from "pages/UiTest";
 import DesignTestPage from "pages/DesignTestPage";
 import GameManager from "components/Game/GameManager";
 import GameStartAnimation from "components/utils/GameStartAnimation";
@@ -56,20 +54,17 @@ function App() {
         <Routes location={displayLocation}>
           <Route path="/" element={<MainPage />} />
           <Route path="/explanation" element={<ExplanationPage />} />
-          <Route path="/lobby" element={<LobbyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauthRedirect" element={<RedirectPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/game" element={<GamePage />} />
           <Route path="/result" element={<ResultPage />} />
+          <Route path="/game" element={<GamePage />} />
 
           <Route path="/dialogtest" element={<DialogTest />} />
-          <Route path="/test3" element={<UiTest />} />
 
           <Route path="/designtest" element={<DesignTestPage />} />
           <Route path="/gamestartani" element={<GameStartAnimation />} />
-          <Route path="/test4" element={<GameManager />} />
           <Route path="/wintest" element={<GameOver />} />
 
           <Route path="/minigame1" element={<MiniGame1 />} />

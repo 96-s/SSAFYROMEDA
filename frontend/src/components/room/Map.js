@@ -1334,7 +1334,7 @@ const Map = ({
   const [showDiceToggle, setShowDiceToggle] = useState(false);
   const [chanceNum, setChanceNum] = useState(null);
   const [openChanceToggle, setOpenChanceToggle] = useState(false);
-  // const [isMoving, setIsMoving] = useState(false);
+  const [isMoving, setIsMoving] = useState(undefined);
   let isRoll = false;
   // var chanceNum = null;
 
@@ -1380,52 +1380,58 @@ const Map = ({
 
   // 주사위 굴릴 때마다 위치 이동
   useEffect(() => {
-    console.log("주사위 값은 " + diceValue);
-    const arr = [0, 1, 2];
-    // 주사위 1 나왔을 때
-    if (isRoll === false && diceValue === 1) {
-      if (arr.includes(myTurnNum)) {
-        setT1Pos(t1Pos + diceValue);
-      } else {
-        setT2Pos(t2Pos + diceValue);
-      }
-    }
-    // 주사위 2 이상
-    if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
-      if (arr.includes(myTurnNum)) {
-        console.log("왜 안뜨노...");
-        var i = 0;
-        while (i < diceValue) {
-          i++;
-          console.log("왜 안됨");
-          setTimeout(() => {
-            setT1Pos((t1Pos) => t1Pos + 1);
-          }, 1000 * i);
+      console.log("주사위 값은 " + diceValue);
+      const arr = [0, 1, 2]
+      // 주사위 1 나왔을 때
+      if (isRoll === false && diceValue === 1) {
+        setIsMoving(true);
+        if (arr.includes(myTurnNum)) {
+          setT1Pos(t1Pos + diceValue);
+        } else {
+          setT2Pos(t2Pos + diceValue)
         }
-      } else {
-        console.log("왜 안뜨노...");
-        var k = 0;
-        while (k < diceValue) {
-          k++;
-          console.log("왜 안됨");
-          setTimeout(() => {
-            setT2Pos((t2Pos) => t2Pos + 1);
-          }, 1000 * k);
-        }
+        setIsMoving(false);
       }
-    }
-    setDiceValue(null);
-    console.log("1팀자리" + t1Pos);
-    console.log("2팀자리" + t2Pos);
-    if (arr.includes(turnNum)) {
-      setTurnNum((turnNum + 3) % 6);
-    } else if (turnNum === 5) {
-      setTurnNum(0);
-    } else {
-      setTurnNum((turnNum - 2) % 6);
-    }
-    // sendPos();
-  }, [diceValue]);
+        // 주사위 2 이상
+      if (isRoll === false && (diceValue === 2 || diceValue === 3)) {
+        setIsMoving(true);
+        if (arr.includes(myTurnNum)) {
+          console.log("왜 안뜨노...");
+          var i = 0;
+          while (i < diceValue) {
+            i++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT1Pos((t1Pos) => t1Pos + 1);
+            }, 1000 * i);
+          }
+        } else {
+          console.log("왜 안뜨노...");
+          var k = 0;
+          while (k < diceValue) {
+            k++;
+            console.log("왜 안됨");
+            setTimeout(() => {
+              setT2Pos((t2Pos) => t2Pos + 1);
+            }, 1000 * k);
+          }
+        }
+        setIsMoving(false);
+      }
+      if (isMoving === false) {
+        setDiceValue(null);
+        console.log("1팀자리" + t1Pos);
+        console.log("2팀자리" + t2Pos);
+        if (arr.includes(turnNum)) {
+          setTurnNum((turnNum + 3) % 6);
+        } else if (turnNum === 5) {
+          setTurnNum(0);
+        } else {
+          setTurnNum((turnNum - 2) % 6);
+        }
+        sendPos();
+      };
+    }, [diceValue]);
 
   const closeDice = useEffect(() => {
     // console.log(diceValue);
