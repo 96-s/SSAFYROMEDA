@@ -554,8 +554,8 @@ const GameFlow = ({
         nextT1Pos: t1Pos,
         nextT2Pos: t2Pos,
         isGameOver: true,
-        winner,
-        loser,
+        winner: winner,
+        loser: loser,
       }),
       type: "GAME_OVER",
     };
