@@ -581,7 +581,10 @@ const GameFlow = ({
         />
         {isGameOver ? (
           <GameOverContainer>
-            <GameEnding />
+            <GameOver 
+              myTeam={myTeam}
+              loser={loser}
+              winner={winner}/>
           </GameOverContainer>
         ) : isGameStarted !== true ? (
           <>
