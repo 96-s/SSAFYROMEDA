@@ -27,7 +27,6 @@ function* onCreateNicknameStartAsync({ payload }) {
   console.log("닉네임, 유저번호 확인", payload);
   try {
     const response = yield call(createNicknameApi, payload);
-    // 이 코드는 현재 동작하지 않음. 추후 에러쪽에서 수정필요
     if (response.status === 400) {
       console.log("닉네임 중복..");
       yield put(createNicknameError(response.data));

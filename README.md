@@ -7,22 +7,31 @@
 5. [**프로젝트 구성도**](#프로젝트-구성도)
 6. [**개발 팀 소개**](#-팀-소개)
 7. [**실행 방법**](#실행-방법)
-<br />
+   
+   <br />
 
 ## 소개
+
 <a href="http://i8d205.p.ssafy.io"><img src="image/main.png"/></a>
+
 ### 🚀화상으로 즐기는 보드게임, [SSAFYROMEDA](http://i8d205.p.ssafy.io)🚀
+
 - 어릴때는 함께였던 친구들이 각자 취업 및 학업의 이유로 친구들과의 만남이 어려워졌습니다.
 - 화상 채팅을 활용한 보드게임을 통해 모임과 오락 모든 요구를 충족시키는 서비스를 제공합니다.
 - 단순히 얼굴을 보고 게임을 하는 것이 아니라 화상 채팅 기능을 활용한 미니게임을 제공하여 더욱더 몰입할 수 있게 합니다.
-<br />
+  
+  <br />
 
 ## 개발 기간
+
 ### 🗓️2023.01.03 ~ 2023.02.17 (7주)
+
 <br />
 
 ## 기술 스택
+
 ### 💻 Front-end
+
 <p align="left">
 <img src="https://img.shields.io/badge/javascript-2D333B?style=for-the-badge&logo=javascript&logoColor=007396">
 <img src="https://img.shields.io/badge/react-2D333B?style=for-the-badge&logo=react&logoColor=61DAFB">
@@ -30,6 +39,7 @@
 </p>
 
 ### 💻 Back-end
+
 <p align="left">
 <img src="https://img.shields.io/badge/java-2D333B?style=for-the-badge&logo=Java&logoColor=007396">
 <img src="https://img.shields.io/badge/Spring Boot-2D333B?style=for-the-badge&logo=Spring Boot&logoColor=6DB33F">
@@ -37,31 +47,38 @@
 </p>
 
 ### ⭐ Infra Structure
+
 <p align="center">
 <img src="https://img.shields.io/badge/Amazon AWS-2D333B?style=for-the-badge&logo=Amazon AWS&logoColor=white">
 <img src="https://img.shields.io/badge/Docker-2D333B?style=for-the-badge&logo=Docker&logoColor=blue">
 </p>
 
 ### 🗂 Database
+
 <p align="left">
 <img src="https://img.shields.io/badge/MySQL-2D333B?style=for-the-badge&logo=MySQL&logoColor=4479A1">
 </p>
 
 ### 🌐 Network
+
 <p align="left">
 <img src="https://img.shields.io/badge/NGINX-2D333B?style=for-the-badge&logo=NGINX&logoColor=009639">
 </p>
 <br />
 
 ## 주요 기능
+
 <br />
 
 ## 프로젝트 구성도
+
 <img src="image/architecture.png">
 <br />
 
 ## 팀 소개
+
 ### 🎲96'S
+
 <table>
   <tr height="80px">
     <td align="center" width="150px">
@@ -107,6 +124,7 @@
 <br />
 
 ## 실행 방법
+
 ### client 실행
 
 1. **원격 저장소 복제**
