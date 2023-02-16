@@ -1407,7 +1407,7 @@ const Map = ({
       } else {
         setTurnNum((turnNum - 2) % 6);
       }
-      sendPos();
+      // sendPos();
     }, [diceValue]);
 
   const closeDice = useEffect(() => {
