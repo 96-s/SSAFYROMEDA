@@ -23,6 +23,7 @@ const DiceModal = (props) => {
     close,
     // header,
     isRoll,
+    setIsRoll,
     sessionId,
     players,
     posList,
@@ -32,11 +33,9 @@ const DiceModal = (props) => {
     setWhatDiceNum,
     setDiceValue,
     diceValue,
+    diceResult,
+    setDiceResult,
   } = props;
-  // const playerNum = players.length;
-  const playerNum = 6;
-  // const myTurnNum = players.indexOf(myUserNameValue);
-  const myTurnNum = 1;
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -48,12 +47,13 @@ const DiceModal = (props) => {
               <DiceRoller
                 players={players}
                 isRoll={isRoll}
+                setIsRoll={setIsRoll}
                 posList={posList}
-                playerNum={playerNum}
-                myTurnNum={myTurnNum}
                 sessionId={sessionId}
                 setDiceValue={setDiceValue}
                 diceValue={diceValue}
+                diceResult={diceResult}
+                setDiceResult={setDiceResult}
               ></DiceRoller>
             </Dice>
           </DiceContainer>

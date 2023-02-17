@@ -22,13 +22,14 @@ const DiceFont = styled.p`
 const DiceRoller = ({
   players,
   isRoll,
+  setIsRoll,
   posList,
-  playerNum,
   teamNum,
-  myTurnNum,
   sessionId,
   diceValue,
   setDiceValue,
+  diceResult,
+  setDiceResult,
 }) => {
   const onRollHandler = (value) => {
     // const teamPos = posList[teamNum];
@@ -36,7 +37,7 @@ const DiceRoller = ({
     if (value > 3) {
       value = value - 3;
     }
-    setDiceValue(value);
+    setDiceResult(value);
     // const tempPosNum = (teamPos + value) % 21
     // console.log(diceValue);
     // emit 데이터 준비
@@ -95,12 +96,12 @@ const DiceRoller = ({
 
   // diceValue 값 들어오면 isRoll false로 변경
   useEffect(() => {
-    if (diceValue !== null) {
-      console.log(diceValue);
-      isRoll = false;
-      console.log(isRoll);
+    if (diceResult !== null) {
+      console.log(`diceValue + ${diceResult}`);
+      setIsRoll(false);
+      console.log(`isRoll + ${isRoll}`);
     }
-  }, [diceValue]);
+  }, [diceResult]);
 
   const faces = [Dice1, Dice2, Dice3, Dice1, Dice2, Dice3];
 
