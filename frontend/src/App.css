@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "DungGeunMo";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+* {
+  font-family: "DungGeunMo";
+}
+
+.nes-radio:checked + span::before {
+  top: 27px;
+  left: -60px;
+  width: 0;
+  height: 0;
+  border-bottom: 20px solid transparent;
+  border-top: 20px solid transparent;
+  border-left: 20px solid rgb(255, 94, 0);
+  border-right: 20px solid transparent;
+  box-shadow: none !important;
+}
+/* 반응형
+  @media (max-width: 1024px){
+    body {background: #4a148c;}
+    h1::before {content: '3. ';}
+    h1::after {content: ' - 961 ~ 1024';}
   }
+  /* 화면 너비가 0 ~ 960px : 노트북 */
+/* @media (max-width: 960px){
+    body {background: #311b92;}
+    h1::before {content: '4. ';}
+    h1::after {content: ' - 577 ~ 768';}
+  } */
+
+/* ============================================== */
+
+/* 페이지 transition 효과 */
+.fadeIn {
+  animation: 0.3s fadeIn forwards;
+  background: url("resources/images/gamebackgroundimg.png") no-repeat center;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+}
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+.fadeOut {
+  animation: 0.3s fadeOut forwards;
+  background-color: black;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+/* @keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translate(-20px, -20px);
+    transform: scale(0);
+    transform-origin: top left;
   }
   to {
-    transform: rotate(360deg);
+      opacity: 1;
+      transform: translate(0px, 0px);
+      transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+    transform: scale(1);
+    transform-origin: bottom right;
+  }
+  to {
+      opacity: 0;
+      transform: translate(-20px, -20px);
+      transform: scale(0);
+  }
+} */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(-20px, 0);
+    opacity: 0;
   }
 }
