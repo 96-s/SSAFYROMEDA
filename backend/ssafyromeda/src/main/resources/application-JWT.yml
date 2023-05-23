@@ -1,6 +1,6 @@
 jwt:
   #base64로 인코딩된 암호 키, HS512를 사용할 것이기 때문에, 512비트(64바이트) 이상이 되어야 합니다.
-  secretKey: s08-webmobile1-sub2-S08P12D205-96s-SSAFYROMEDA-rndbrwm-ttkvlfhapek
+  secretKey: {jwt-secret-key}
 
   access:
     expiration: 3600000 # 1시간
