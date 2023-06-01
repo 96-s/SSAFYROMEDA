@@ -49,7 +49,7 @@
 
 ### ⭐ Infra Structure
 
-<p align="center">
+<p align="left">
 <img src="https://img.shields.io/badge/Amazon AWS-2D333B?style=for-the-badge&logo=Amazon AWS&logoColor=white">
 <img src="https://img.shields.io/badge/Docker-2D333B?style=for-the-badge&logo=Docker&logoColor=blue">
 </p>
